@@ -23,21 +23,25 @@
                         "polyfills": "src/polyfills.ts",
                         "tsConfig": "tsconfig.app.json",
                         "aot": false,
-                        "assets": ["src/favicon.png", "src/assets"],
-                        "styles": ["src/styles/styles.scss"],
+                        "assets": [
+                            "src/favicon.png", "src/assets"
+                        ],
+                        "styles": [
+                            "src/styles/styles.scss"
+                        ],
                         "stylePreprocessorOptions": {
-                            "includePaths": ["src", "./node_modules"]
+                            "includePaths": [
+                                "src", "./node_modules"
+                            ]
                         },
                         "scripts": []
                     },
                     "configurations": {
                         "production": {
-                            "fileReplacements": [
-                                {
-                                    "replace": "src/environments/environment.ts",
-                                    "with": "src/environments/environment.prod.ts"
-                                }
-                            ],
+                            "fileReplacements": [{
+                                "replace": "src/environments/environment.ts",
+                                "with": "src/environments/environment.prod.ts"
+                            }],
                             "optimization": true,
                             "outputHashing": "all",
                             "sourceMap": false,
@@ -46,8 +50,7 @@
                             "extractLicenses": true,
                             "vendorChunk": false,
                             "buildOptimizer": true,
-                            "budgets": [
-                                {
+                            "budgets": [{
                                     "type": "initial",
                                     "maximumWarning": "2mb",
                                     "maximumError": "5mb"
@@ -85,10 +88,16 @@
                         "polyfills": "src/polyfills.ts",
                         "tsConfig": "tsconfig.spec.json",
                         "karmaConfig": "karma.conf.js",
-                        "assets": ["src/favicon.png", "src/assets"],
-                        "styles": ["src/styles/styles.scss"],
+                        "assets": [
+                            "src/favicon.png", "src/assets"
+                        ],
+                        "styles": [
+                            "src/styles/styles.scss"
+                        ],
                         "stylePreprocessorOptions": {
-                            "includePaths": ["src", "./node_modules"]
+                            "includePaths": [
+                                "src", "./node_modules"
+                            ]
                         },
                         "scripts": []
                     }
@@ -101,7 +110,9 @@
                             "tsconfig.spec.json",
                             "e2e/tsconfig.json"
                         ],
-                        "exclude": ["**/node_modules/**"]
+                        "exclude": [
+                            "**/node_modules/**"
+                        ]
                     }
                 },
                 "e2e": {
@@ -119,5 +130,8 @@
             }
         }
     },
-    "defaultProject": "sb-admin-angular"
+    "defaultProject": "sb-admin-angular",
+    "cli": {
+        "analytics": "675461cb-0195-40ef-8cd2-745dafa93edc"
+    }
 }

@@ -8,8 +8,8 @@ import { CardViewDetailsComponent } from './card-view-details.component';
     template: `
         <sb-card-view-details
             [someInput]="someInput"
-            (someFunction)="someFunction($event)"
-        ></sb-card-view-details>
+            (someFunction)="someFunction($event)">
+        </sb-card-view-details>
     `,
 })
 class TestHostComponent {

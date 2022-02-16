@@ -6,13 +6,14 @@ export const sideNavSections: SideNavSection[] = [
         items: ['dashboard'],
     },
     {
-        text: 'INTERFACE',
+        text: 'POS',
         items: ['layouts', 'pages'],
     },
     {
         text: 'ADDONS',
         items: ['charts', 'tables'],
     },
+
 ];
 
 export const sideNavItems: SideNavItems = {
@@ -23,21 +24,12 @@ export const sideNavItems: SideNavItems = {
     },
     layouts: {
         icon: 'columns',
-        text: 'Layouts',
-        submenu: [
-            {
-                text: 'Static Navigation',
-                link: '/dashboard/static',
-            },
-            {
-                text: 'Light Sidenav',
-                link: '/dashboard/light',
-            },
-        ],
+        text: 'Users',
+        link: '/pos/users'
     },
     pages: {
         icon: 'book-open',
-        text: 'Pages',
+        text: 'Products',
         submenu: [
             {
                 text: 'Authentication',
@@ -85,4 +77,5 @@ export const sideNavItems: SideNavItems = {
         text: 'Tables',
         link: '/tables',
     },
+    
 };

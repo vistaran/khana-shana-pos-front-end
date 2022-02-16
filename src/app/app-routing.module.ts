@@ -8,6 +8,11 @@ const routes: Routes = [
         redirectTo: '/dashboard',
     },
     {
+        path: 'pos',
+        loadChildren: () =>
+            import('modules/pos/pos-routing.module').then(m => m.PosRoutingModule),
+    },
+    {
         path: 'charts',
         loadChildren: () =>
             import('modules/charts/charts-routing.module').then(m => m.ChartsRoutingModule),
