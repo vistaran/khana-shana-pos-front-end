@@ -1,3 +1,29 @@
 <sb-layout-dashboard>
-    Hello world!
+
+    <table class="table table-bordered table-striped">
+
+        <thead>
+            <th>UserId</th>
+            <th>User Name</th>
+            <th>Email</th>
+            <th>Outlet Name</th>
+            <th>Status</th>
+            <th>Created At</th>
+            <th>Actions</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of udata">
+                <td>{{data.userId}}</td>
+                <td>{{data.userName}}</td>
+                <td>{{data.email}}</td>
+                <td>{{data.outletName}}</td>
+                <td>{{data.status}}</td>
+                <td>{{data.createdAt}}</td>
+                <td>{{data.actions}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>
+        <button (click)="onClick()">Add User</button>
+    </p>
 </sb-layout-dashboard>

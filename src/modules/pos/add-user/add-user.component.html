@@ -1,0 +1,63 @@
+<sb-layout-dashboard>
+    <div class="container-fluid">
+        <h1>Add User</h1>
+        <form [formGroup]="addUserForm">
+
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" formControlName="userName" [class.is-invalid]="userName.invlaid && userName.touched" class="form-control">
+                <div *ngIf="userName.invlaid && userName.touched">
+                    <small *ngIf="userName.errors.required" class="text-danger">Username is required</small>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Firstname</label>
+                <input type="text" formControlName="firstName" [class.is-invalid]="firstName.invlaid && userName.touched" class="form-control">
+                <div *ngIf="firstName.invlaid && firstName.touched">
+                    <small *ngIf="firstName.errors.required" class="text-danger">First name is required</small>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Lastname</label>
+                <input type="text" formControlName="lastName" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="text" formControlName="email" class="form-control">
+            </div>
+
+            <h2>Password</h2>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="text" formControlName="password" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label>Confirm Password</label>
+                <input type="text" formControlName="confirmPassword" class="form-control">
+            </div>
+
+            <h2>Status & Outlet</h2>
+            <div class="form-group">
+                <label>Select Outlet</label><br>
+                <select name="outlet" formControlName="outlet" class="form-control">
+                <option value="default">--Select Outlet--</option>
+                <option *ngFor="let item of outlet">{{item}}</option>
+            </select>
+            </div>
+
+            <div class="form-group">
+                <label>Select Status</label><br>
+                <select name="status" formControlName="status" class="form-control">
+                    <option value="default">--Select Status--</option>
+                    <option *ngFor="let item of status">{{item}}</option>
+                </select>
+            </div>
+
+            <button [disabled]="!addUserForm.valid">Submit</button>
+        </form>
+    </div>
+</sb-layout-dashboard>
