@@ -1,13 +1,13 @@
 [
-    { "userId": "1", "userName": "Vandanaba", "email": "hello@gm.com", "outletName": "Webkul Outlet", "status": "active", "createdAt": "12/5", "actions": "Edit / Delete" },
+    { "userId": "1", "userName": "Vandanaba", "email": "hello@gm.com", "outletName": "Webkul Outlet", "status": "active", "createdAt": "12/5" },
 
-    { "userId": "2", "userName": "Smit", "email": "hello2@gm.com", "outletName": "Webkul Outlet", "status": "active", "createdAt": "20/5", "actions": "Edit / Delete" },
+    { "userId": "2", "userName": "Smit", "email": "hello2@gm.com", "outletName": "Webkul Outlet", "status": "active", "createdAt": "20/5" },
 
-    { "userId": "3", "userName": "Jeet ", "email": "hello3@gm.com", "outletName": "Webkul Outlet", "status": "active", "createdAt": "12/5", "actions": "Edit / Delete" },
+    { "userId": "3", "userName": "Jeet ", "email": "hello3@gm.com", "outletName": "Webkul Outlet", "status": "active", "createdAt": "12/5" },
 
-    { "userId": "4", "userName": "Rutu", "email": "hello4@gm.com", "outletName": "Webkul Outlet", "status": "inactive", "createdAt": "18/5", "actions": "Edit / Delete" },
+    { "userId": "4", "userName": "Rutu", "email": "hello4@gm.com", "outletName": "Webkul Outlet", "status": "inactive", "createdAt": "18/5" },
 
-    { "userId": "5", "userName": "Arth", "email": "hello5@gm.com", "outletName": "Webkul Outlet", "status": "active", "createdAt": "5/5", "actions": "Edit / Delete" },
+    { "userId": "5", "userName": "Arth", "email": "hello5@gm.com", "outletName": "Webkul Outlet", "status": "active", "createdAt": "5/5" },
 
-    { "userId": "6", "userName": "Hetarthi", "email": "hello6@gm.com", "outletName": "Webkul Outlet", "status": "inactive", "createdAt": "5/5", "actions": "Edit / Delete" }
+    { "userId": "6", "userName": "Hetarthi", "email": "hello6@gm.com", "outletName": "Webkul Outlet", "status": "inactive", "createdAt": "5/5" }
 ]

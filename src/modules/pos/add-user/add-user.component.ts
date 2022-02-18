@@ -19,8 +19,28 @@ export class AddUserComponent implements OnInit {
     return this.addUserForm.get('firstName');
   }
 
+  get lastName() {
+    return this.addUserForm.get('lastName');
+  }
+
   get email() {
     return this.addUserForm.get('email');
+  }
+
+  get password() {
+    return this.addUserForm.get('password');
+  }
+
+  get confirmPassword() {
+    return this.addUserForm.get('confirmPassword');
+  }
+
+  get outl() {
+    return this.addUserForm.get('outlet');
+  }
+
+  get stat() {
+    return this.addUserForm.get('status');
   }
 
   outlet = ['Webkul Outlet', 'abc Outlet', 'wow Outlet'];
@@ -31,7 +51,8 @@ export class AddUserComponent implements OnInit {
   ngOnInit(): void {
     this.addUserForm = this.fb.group( {
       userName: ['',[Validators.required]],
-      firtName: ['',[Validators.required]],
+      firstName: ['',[Validators.required]],
+      lastName: ['',[Validators.required]],
       email: [''],
       password: ['',[Validators.required]],
       confirmPassword: ['',[Validators.required]],

@@ -1,0 +1,13 @@
+[
+    { "outletId": "1", "outletName": "webkul Outlet", "inventorySource": "Default", "createdAt": "12/5", "status": "active", "actions": "Edit / Delete" },
+
+    { "outletId": "2", "outletName": "webkul Outlet", "inventorySource": "Default", "createdAt": "20/5", "status": "active" },
+
+    { "outletId": "3", "outletName": "webkul Outlet ", "inventorySource": "Default", "createdAt": "12/5", "status": "active" },
+
+    { "outletId": "4", "outletName": "webkul Outlet", "inventorySource": "Default", "createdAt": "18/5", "status": "inactive" },
+
+    { "outletId": "5", "outletName": "webkul Outlet", "inventorySource": "Default", "createdAt": "5/5", "status": "active" },
+
+    { "outletId": "6", "outletName": "webkul Outlet", "inventorySource": "Default", "createdAt": "5/5", "status": "inactive" }
+]

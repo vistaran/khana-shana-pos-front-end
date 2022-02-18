@@ -4,6 +4,5 @@ export interface UData {
     email: string,
     outletName: string,
     status: string,
-    createdAt: string,
-    actions: string
+    createdAt: Date,
 }

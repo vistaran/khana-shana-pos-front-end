@@ -8,17 +8,21 @@ import { AppCommonModule } from '@common/app-common.module';
 import { NavigationModule } from '@modules/navigation/navigation.module';
 import { AddUserComponent } from './add-user/add-user.component';
 import { RouterModule } from '@angular/router';
+import { OutletComponent } from './outlet/outlet.component';
+import { AddOutletComponent } from './add-outlet/add-outlet.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
-  declarations: [UsersListComponent, AddUserComponent],
+  declarations: [UsersListComponent, AddUserComponent, OutletComponent, AddOutletComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
     AppCommonModule,
     NavigationModule,
-    RouterModule
+    RouterModule,
+    NgbModule
   ]
 })
 export class PosModule { }
