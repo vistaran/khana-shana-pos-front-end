@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { UserDataService } from '../user-data.service';
-import { DataTablesModule } from 'angular-datatables';
-import { Subject } from 'rxjs'; 
+//import { Subject } from 'rxjs'; 
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 //import { relative } from 'path';
 import { AddUserComponent } from '../add-user/add-user.component';
@@ -16,8 +15,6 @@ import { OutletDataService } from '../outlet-data.service';
 })
 export class UsersListComponent implements OnInit {
   public udata: Object = [];
-  dtOptions: DataTables.Settings = {};
-  dtTrigger: Subject<any> = new Subject<any>();
 
   public odata: Object = [];
 

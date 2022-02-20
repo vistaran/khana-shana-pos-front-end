@@ -11,10 +11,12 @@ import { RouterModule } from '@angular/router';
 import { OutletComponent } from './outlet/outlet.component';
 import { AddOutletComponent } from './add-outlet/add-outlet.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { EditUserComponent } from './edit-user/edit-user.component';
+import { EditOutletComponent } from './edit-outlet/edit-outlet.component';
 
 
 @NgModule({
-  declarations: [UsersListComponent, AddUserComponent, OutletComponent, AddOutletComponent],
+  declarations: [UsersListComponent, AddUserComponent, OutletComponent, AddOutletComponent, EditUserComponent, EditOutletComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

@@ -1,7 +1,7 @@
 <sb-layout-dashboard>
     <div class="container-fluid">
-        <h1>Add Outlet</h1>
-        <form [formGroup]="addOutletForm">
+        <h1>Edit Outlet</h1>
+        <form [formGroup]="editOutletForm">
             <h2 class="pt-4 pb-2">General</h2>
             <div class="row">
                 <div class="col">
@@ -125,9 +125,10 @@
                 </div>
             </div>
 
-            <button [disabled]="!addOutletForm.valid" class="btn btn-primary mb-4 float-right">
+            <button [disabled]="!editOutletForm.valid" class="btn btn-primary mb-4 float-right">
                 Submit
             </button>
         </form>
     </div>
 </sb-layout-dashboard>
+

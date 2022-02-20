@@ -1,46 +1,46 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { PasswordValidator } from '../password.validator';
 
 @Component({
-    selector: 'sb-add-user',
-    templateUrl: './add-user.component.html',
-    styleUrls: ['./add-user.component.scss'],
+    selector: 'sb-edit-user',
+    templateUrl: './edit-user.component.html',
+    styleUrls: ['./edit-user.component.scss'],
 })
-export class AddUserComponent implements OnInit {
-    addUserForm!: FormGroup;
+export class EditUserComponent implements OnInit {
+    editUserForm!: FormGroup;
 
     get userName() {
-        return this.addUserForm.get('userName');
+        return this.editUserForm.get('userName');
     }
 
     get firstName() {
-        return this.addUserForm.get('firstName');
+        return this.editUserForm.get('firstName');
     }
 
     get lastName() {
-        return this.addUserForm.get('lastName');
+        return this.editUserForm.get('lastName');
     }
 
     get email() {
-        return this.addUserForm.get('email');
+        return this.editUserForm.get('email');
     }
 
     get password() {
-        return this.addUserForm.get('password');
+        return this.editUserForm.get('password');
     }
 
     get confirmPassword() {
-        return this.addUserForm.get('confirmPassword');
+        return this.editUserForm.get('confirmPassword');
     }
 
     get outl() {
-        return this.addUserForm.get('outlet');
+        return this.editUserForm.get('outlet');
     }
 
     get stat() {
-        return this.addUserForm.get('status');
+        return this.editUserForm.get('status');
     }
 
     outlet = ['Webkul Outlet', 'abc Outlet', 'wow Outlet'];
@@ -49,13 +49,12 @@ export class AddUserComponent implements OnInit {
     constructor(private fb: FormBuilder) {}
 
     ngOnInit(): void {
-        this.addUserForm = this.fb.group(
+        this.editUserForm = this.fb.group(
             {
                 userName: ['', [Validators.required]],
                 firstName: ['', [Validators.required]],
                 lastName: ['', [Validators.required]],
                 email: [''],
-                avatar: [''],
                 password: ['', [Validators.required]],
                 confirmPassword: ['', [Validators.required]],
                 outlet: ['', [Validators.required]],

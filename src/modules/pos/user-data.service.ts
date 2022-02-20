@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UData } from './userData';
-import { DataTablesModule } from 'angular-datatables';
+
 
 
 @Injectable({
@@ -10,10 +10,6 @@ import { DataTablesModule } from 'angular-datatables';
 })
 export class UserDataService {
   
-
-  dtOptions: DataTables.Settings = {};
-
-
   private url: string = '/assets/data/userData.json'
 
   constructor(private http: HttpClient) { }
