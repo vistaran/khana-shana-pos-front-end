@@ -1,0 +1,77 @@
+<sb-layout-dashboard>
+
+    <div class="card mt-4">
+        <h1 class="card-header">Edit Product</h1>
+        <form [formGroup]="editProductForm">
+
+            <div class="container-fluid">
+                <h2 class="card-header mt-4 pb-2">General</h2>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required mt-4">SKU</label>
+                            <input type="text" formControlName="sku" class="form-control" />
+                            <div *ngIf="sku?.touched && sku?.invalid" class="alert alert-danger">
+                                <div *ngIf="sku?.errors?.required">Product type is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required mt-4">Name</label><br />
+                            <input type="text" formControlName="name" class="form-control" />
+                            <div *ngIf="name?.touched && name?.invalid" class="alert alert-danger">
+                                <div *ngIf="name?.errors?.required">Name is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required mt-4">URL Key</label>
+                            <input type="text" rows="6" formControlName="urlKey" class="form-control" />
+                            <div *ngIf="urlKey?.touched && urlKey?.invalid" class="alert alert-danger">
+                                <div *ngIf="urlKey?.errors?.required">
+                                    URL Key is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required mt-4">Tax Category</label><br />
+                            <select name="status" formControlName="taxCategory" class="form-control">
+                                <option value="default"></option>
+                                <option *ngFor="let item of taxCategory">{{ item }}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                            <label class="custom-control-label" for="customSwitch1">Status</label>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+
+
+
+
+                <button [disabled]="!addProductForm.valid" class="btn btn-primary mb-4 float-right">
+                Save Product
+            </button>
+            </div>
+        </form>
+    </div>
+
+</sb-layout-dashboard>

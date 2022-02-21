@@ -1,13 +1,13 @@
 [
-    { "userId": "1", "avatar": "" , "userName": "Vandanaba", "email": "hello@gm.com", "outletName": "Webkul Outlet", "status": "active", "createdAt": "12/5" },
+    { "userId": "1", "avatar": "https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?t=st=1645442807~exp=1645443407~hmac=39a779ad0dc2aa45ff25aa88c72365d1221ca39fa2816267f0b9a7720e36a699&w=740", "userName": "Vandanaba", "email": "hello@gm.com", "outletName": "Webkul Outlet", "status": "active", "createdAt": "12/5" },
 
-    { "userId": "2", "avatar": "", "userName": "Smit", "email": "hello2@gm.com", "outletName": "Webkul Outlet", "status": "active", "createdAt": "20/5" },
+    { "userId": "2", "avatar": "https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?t=st=1645442807~exp=1645443407~hmac=39a779ad0dc2aa45ff25aa88c72365d1221ca39fa2816267f0b9a7720e36a699&w=740", "userName": "Smit", "email": "hello2@gm.com", "outletName": "Webkul Outlet", "status": "active", "createdAt": "20/5" },
 
-    { "userId": "3", "avatar": "", "userName": "Jeet ", "email": "hello3@gm.com", "outletName": "Webkul Outlet", "status": "active", "createdAt": "12/5" },
+    { "userId": "3", "avatar": "https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?t=st=1645442807~exp=1645443407~hmac=39a779ad0dc2aa45ff25aa88c72365d1221ca39fa2816267f0b9a7720e36a699&w=740", "userName": "Jeet ", "email": "hello3@gm.com", "outletName": "Webkul Outlet", "status": "active", "createdAt": "12/5" },
 
-    { "userId": "4", "avatar": "", "userName": "Rutu", "email": "hello4@gm.com", "outletName": "Webkul Outlet", "status": "inactive", "createdAt": "18/5" },
+    { "userId": "4", "avatar": "https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?t=st=1645442807~exp=1645443407~hmac=39a779ad0dc2aa45ff25aa88c72365d1221ca39fa2816267f0b9a7720e36a699&w=740", "userName": "Rutu", "email": "hello4@gm.com", "outletName": "Webkul Outlet", "status": "inactive", "createdAt": "18/5" },
 
-    { "userId": "5", "avatar": "", "userName": "Arth", "email": "hello5@gm.com", "outletName": "Webkul Outlet", "status": "active", "createdAt": "5/5" },
+    { "userId": "5", "avatar": "https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?t=st=1645442807~exp=1645443407~hmac=39a779ad0dc2aa45ff25aa88c72365d1221ca39fa2816267f0b9a7720e36a699&w=740", "userName": "Arth", "email": "hello5@gm.com", "outletName": "Webkul Outlet", "status": "active", "createdAt": "5/5" },
 
-    { "userId": "6", "avatar": "", "userName": "Hetarthi", "email": "hello6@gm.com", "outletName": "Webkul Outlet", "status": "inactive", "createdAt": "5/5" }
+    { "userId": "6", "avatar": "https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?t=st=1645442807~exp=1645443407~hmac=39a779ad0dc2aa45ff25aa88c72365d1221ca39fa2816267f0b9a7720e36a699&w=740", "userName": "Hetarthi", "email": "hello6@gm.com", "outletName": "Webkul Outlet", "status": "inactive", "createdAt": "5/5" }
 ]

@@ -8,6 +8,11 @@ const routes: Routes = [
         redirectTo: '/dashboard',
     },
     {
+        path: 'catalog',
+        loadChildren: () =>
+            import('modules/catalog/catalog-routing.module').then(m => m.CatalogRoutingModule),
+    },
+    {
         path: 'pos',
         loadChildren: () =>
             import('modules/pos/pos-routing.module').then(m => m.PosRoutingModule),

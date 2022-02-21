@@ -1,0 +1,55 @@
+<sb-layout-dashboard>
+
+    <div class="card mt-4">
+        <h1 class="card-header">Add Product</h1>
+        <form [formGroup]="addProductForm">
+
+            <div class="container-fluid">
+                <h2 class="card-header mt-4 pb-2">General</h2>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required mt-4">Product Type</label>
+                            <input type="text" formControlName="productType" class="form-control" />
+                            <div *ngIf="productType?.touched && productType?.invalid" class="alert alert-danger">
+                                <div *ngIf="productType?.errors?.required">Product type is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required mt-4">Attribute Family</label><br />
+                            <select name="status" formControlName="attributeFamily" class="form-control">
+                            <option value="default">--Select Attribute Family--</option>
+                            <option *ngFor="let item of attributeFamily">{{ item }}</option>
+                        </select>
+                            <div *ngIf="attributeFam?.touched && attributeFam?.invalid" class="alert alert-danger">
+                                <div *ngIf="attributeFam?.errors?.required">Attribute Family is required.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required mt-4">SKU</label>
+                            <input type="text" rows="6" formControlName="sku" class="form-control" />
+                            <div *ngIf="sku?.touched && sku?.invalid" class="alert alert-danger">
+                                <div *ngIf="sku?.errors?.required">
+                                    SKU is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button [disabled]="!addProductForm.valid" class="btn btn-primary mb-4 float-right">
+                Save Product
+            </button>
+            </div>
+        </form>
+    </div>
+
+</sb-layout-dashboard>

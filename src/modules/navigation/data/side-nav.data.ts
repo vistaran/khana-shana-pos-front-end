@@ -6,6 +6,10 @@ export const sideNavSections: SideNavSection[] = [
         items: ['dashboard'],
     },
     {
+        text: 'CATALOG',
+        items: ['products','categories'],
+    },
+    {
         text: 'POS',
         items: ['layouts', 'pages'],
     },
@@ -21,6 +25,16 @@ export const sideNavItems: SideNavItems = {
         icon: 'tachometer-alt',
         text: 'Dashboard',
         link: '/dashboard',
+    },
+    products: {
+        icon: '',
+        text: 'Products',
+        link: '/catalog/products',
+    },
+    categories: {
+        icon: '',
+        text: 'Categories',
+        link: '/catalog/categories'
     },
     layouts: {
         icon: 'columns',

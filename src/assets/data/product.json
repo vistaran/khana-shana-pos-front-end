@@ -1,0 +1,15 @@
+[
+    { "id": "1", "sku": "njki", "name": "Booking for event", "attributeFamily": "Default", "type": "booking", "status": "Active", "price": "$100", "quantity": "50" },
+
+    { "id": "2", "sku": "sfji", "name": "Table Booking", "attributeFamily": "Default", "type": "booking", "status": "Active", "price": "$120", "quantity": "100" },
+
+    { "id": "3", "sku": "sdtu", "name": "Cycle on rent", "attributeFamily": "Default", "type": "simple", "status": "Inactive", "price": "$150", "quantity": "14" },
+
+    { "id": "4", "sku": "dfdf", "name": "Wooden dining table", "attributeFamily": "Default", "type": "simple", "status": "Inactive", "price": "$100", "quantity": "50" },
+
+    { "id": "5", "sku": "dfrh", "name": "Denim Jacket", "attributeFamily": "Default", "type": "booking", "status": "Active", "price": "$200", "quantity": "45" },
+
+    { "id": "6", "sku": "ryhm", "name": "Booking for event", "attributeFamily": "Default", "type": "booking", "status": "Active", "price": "$455", "quantity": "60" },
+
+    { "id": "7", "sku": "sdet", "name": "Booking for event", "attributeFamily": "Default", "type": "booking", "status": "Active", "price": "$780", "quantity": "44" }
+]
