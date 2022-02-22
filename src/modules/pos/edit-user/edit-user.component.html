@@ -1,123 +1,114 @@
 <sb-layout-dashboard>
-    <h1 class="d-block">Edit User</h1>
-    <form [formGroup]="editUserForm">
-        <div class="container-fluid">
-            <h2 class="pt-4 pb-2">General</h2>
-            <div class="row">
-                <div class="col">
-                    <div class="form-group">
-                        <label class="required">Username</label>
-                        <input type="text" formControlName="userName" class="form-control" />
-                        <div
-                            *ngIf="userName?.touched && userName?.invalid"
-                            class="alert alert-danger"
-                        >
-                            <div *ngIf="userName?.errors?.required">Username is required.</div>
+    <div class="card">
+        <h1 class="card-header">Edit User</h1>
+        <form [formGroup]="editUserForm">
+            <div class="container-fluid">
+                <h2 class="card-header mt-4 pb-2">General</h2>
+                <div class="card-body row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Username</label>
+                            <input type="text" formControlName="userName" class="form-control" />
+                            <div *ngIf="userName?.touched && userName?.invalid" class="alert alert-danger">
+                                <div *ngIf="userName?.errors?.required">Username is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Firstname</label>
+                            <input type="text" formControlName="firstName" class="form-control" />
+                            <div *ngIf="firstName?.touched && firstName?.invalid" class="alert alert-danger">
+                                <div *ngIf="firstName?.errors?.required">First name is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Lastname</label>
+                            <input type="text" formControlName="lastName" class="form-control" />
+                            <div *ngIf="lastName?.touched && lastName?.invalid" class="alert alert-danger">
+                                <div *ngIf="lastName?.errors?.required">Last name is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="text" formControlName="email" class="form-control" />
                         </div>
                     </div>
                 </div>
 
-                <div class="col">
-                    <div class="form-group">
-                        <label class="required">Firstname</label>
-                        <input type="text" formControlName="firstName" class="form-control" />
-                        <div
-                            *ngIf="firstName?.touched && firstName?.invalid"
-                            class="alert alert-danger"
-                        >
-                            <div *ngIf="firstName?.errors?.required">First name is required.</div>
+                <h2 class="card-header pt-2 pb-2">Use Avatar</h2>
+                <div class="card-body row">
+                    <div class="col">
+                        <!-- <label for="img">Add Avatar</label> -->
+                        <input type="file" id="img" name="img" accept="image/*" />
+                        <button class="btn btn-primary mb-4" type="submit">Upload</button>
+                    </div>
+                </div>
+
+                <h2 class="card-header ">Password</h2>
+                <div class="card-body row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Password</label>
+                            <input type="text" formControlName="password" class="form-control" />
+                            <div *ngIf="password?.touched && password?.invalid" class="alert alert-danger">
+                                <div *ngIf="password?.errors?.required">Password is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Confirm Password</label>
+                            <input [class.is-invalid]="editUserForm?.errors?.mismatch" type="text" formControlName="confirmPassword" class="form-control" />
+                            <div *ngIf="editUserForm?.errors?.mismatch" class="alert alert-danger">
+                                Passwords do not match.
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="col">
-                    <div class="form-group">
-                        <label class="required">Lastname</label>
-                        <input type="text" formControlName="lastName" class="form-control" />
-                        <div
-                            *ngIf="lastName?.touched && lastName?.invalid"
-                            class="alert alert-danger"
-                        >
-                            <div *ngIf="lastName?.errors?.required">Last name is required.</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="text" formControlName="email" class="form-control" />
-                    </div>
-                </div>
-            </div>
-
-            <h2 class="pt-2 pb-2">Use Avatar</h2>
-            <div class="row">
-                <div class="col">
-                    <!-- <label for="img">Add Avatar</label> -->
-                    <input type="file" id="img" name="img" accept="image/*" />
-                    <button class="btn btn-primary mb-4" type="submit" >Upload</button>
-                </div>
-            </div>
-
-            <h2>Password</h2>
-            <div class="row">
-                <div class="col">
-                    <div class="form-group">
-                        <label class="required">Password</label>
-                        <input type="text" formControlName="password" class="form-control" />
-                        <div
-                            *ngIf="password?.touched && password?.invalid"
-                            class="alert alert-danger"
-                        >
-                            <div *ngIf="password?.errors?.required">Password is required.</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="form-group">
-                        <label class="required">Confirm Password</label>
-                        <input [class.is-invalid]="editUserForm?.errors?.mismatch" type="text" formControlName="confirmPassword" class="form-control" />
-                        <div *ngIf="editUserForm?.errors?.mismatch" class="alert alert-danger">
-                            Passwords do not match.
-                        </div>  
-                    </div>
-                </div>
-            </div>
-
-            <h2 class="pt-4 pb-2">Status & Outlet</h2>
-            <div class="row">
-                <div class="col">
-                    <div class="form-group">
-                        <label class="required">Select Outlet</label><br />
-                        <select name="outlet" formControlName="outlet" class="form-control">
+                <h2 class="card-header pt-4 pb-2">Status & Outlet</h2>
+                <div class="card-body row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Select Outlet</label><br />
+                            <select name="outlet" formControlName="outlet" class="form-control">
                             <option value="default">--Select Outlet--</option>
                             <option *ngFor="let item of outlet">{{ item }}</option>
                         </select>
-                        <div *ngIf="outl?.touched && outl?.invalid" class="alert alert-danger">
-                            <div *ngIf="outl?.errors?.required">Outlet is required.</div>
+                            <div *ngIf="outl?.touched && outl?.invalid" class="alert alert-danger">
+                                <div *ngIf="outl?.errors?.required">Outlet is required.</div>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col">
-                    <div class="form-group">
-                        <label class="required">Select Status</label><br />
-                        <select name="status" formControlName="status" class="form-control">
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Select Status</label><br />
+                            <select name="status" formControlName="status" class="form-control">
                             <option value="default">--Select Status--</option>
                             <option *ngFor="let item of status">{{ item }}</option>
                         </select>
-                        <div *ngIf="stat?.touched && stat?.invalid" class="alert alert-danger">
-                            <div *ngIf="stat?.errors?.required">Status is required.</div>
+                            <div *ngIf="stat?.touched && stat?.invalid" class="alert alert-danger">
+                                <div *ngIf="stat?.errors?.required">Status is required.</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <button [disabled]="!editUserForm.valid" class="btn btn-primary mb-4 float-right">
-            Submit
-        </button>
-    </form>
+
+                <button [disabled]="!editUserForm.valid" class="btn btn-primary mb-4 float-right">
+                    Submit
+                </button>
+            </div>
+        </form>
+    </div>
 </sb-layout-dashboard>

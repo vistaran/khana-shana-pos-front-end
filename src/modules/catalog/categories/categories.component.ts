@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { CategoriesService } from '../categories.service';
 
 @Component({
   selector: 'sb-categories',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CategoriesComponent implements OnInit {
 
-  constructor() { }
+  public cdata: Object = [];
+  
+  constructor(private categories: CategoriesService, private router: Router) { }
 
   ngOnInit(): void {
-  }
+    
+    this.categories.getCategoriesData()
+      .subscribe( data => this.cdata = data);
+    }
+
+    onClick() {
+      this.router.navigate(['/catalog/addcategory']);
+    }
+  
 
 }

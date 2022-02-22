@@ -1,134 +1,111 @@
 <sb-layout-dashboard>
-    <div class="container-fluid">
-        <h1>Edit Outlet</h1>
+    <div class="card">
+        <h1 class="card-header">Edit Outlet</h1>
         <form [formGroup]="editOutletForm">
-            <h2 class="pt-4 pb-2">General</h2>
-            <div class="row">
-                <div class="col">
-                    <div class="form-group">
-                        <label class="required">Outlet Name</label>
-                        <input type="text" formControlName="outletName" class="form-control" />
-                        <div
-                            *ngIf="outletName?.touched && outletName?.invalid"
-                            class="alert alert-danger"
-                        >
-                            <div *ngIf="outletName?.errors?.required">Outlet Name is required.</div>
+            <div class="container-fluid">
+                <h2 class="card-header mt-4 pb-2">General</h2>
+                <div class="card-body row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Outlet Name</label>
+                            <input type="text" formControlName="outletName" class="form-control" />
+                            <div *ngIf="outletName?.touched && outletName?.invalid" class="alert alert-danger">
+                                <div *ngIf="outletName?.errors?.required">Outlet Name is required.</div>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col">
-                    <div class="form-group">
-                        <label class="required">Select Status</label><br />
-                        <select name="status" formControlName="status" class="form-control">
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Select Status</label><br />
+                            <select name="status" formControlName="status" class="form-control">
                             <option value="default">--Select Status--</option>
                             <option *ngFor="let item of status">{{ item }}</option>
                         </select>
-                        <div *ngIf="stat?.touched && stat?.invalid" class="alert alert-danger">
-                            <div *ngIf="stat?.errors?.required">Status is required.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <h2 class="pt-4 pb-2">Outlet Address</h2>
-            <div class="row">
-                <div class="col">
-                    <div class="form-group">
-                        <label class="required">Outlet Address</label>
-                        <input
-                            type="text"
-                            rows="6"
-                            formControlName="outletAddress"
-                            class="form-control"
-                        />
-                        <div
-                            *ngIf="outletAddress?.touched && outletAddress?.invalid"
-                            class="alert alert-danger"
-                        >
-                            <div *ngIf="outletAddress?.errors?.required">
-                                Outlet Address is required.
+                            <div *ngIf="stat?.touched && stat?.invalid" class="alert alert-danger">
+                                <div *ngIf="stat?.errors?.required">Status is required.</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="col">
-                    <div class="form-group">
-                        <label class="required">Country</label>
-                        <input type="text" formControlName="country" class="form-control" />
-                        <div
-                            *ngIf="country?.touched && country?.invalid"
-                            class="alert alert-danger"
-                        >
-                            <div *ngIf="country?.errors?.required">Country is required.</div>
+                <h2 class="card-header pt-4 pb-2">Outlet Address</h2>
+                <div class="card-body row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Outlet Address</label>
+                            <input type="text" rows="6" formControlName="outletAddress" class="form-control" />
+                            <div *ngIf="outletAddress?.touched && outletAddress?.invalid" class="alert alert-danger">
+                                <div *ngIf="outletAddress?.errors?.required">
+                                    Outlet Address is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Country</label>
+                            <input type="text" formControlName="country" class="form-control" />
+                            <div *ngIf="country?.touched && country?.invalid" class="alert alert-danger">
+                                <div *ngIf="country?.errors?.required">Country is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">State</label>
+                            <input type="text" formControlName="state" class="form-control" />
+                            <div *ngIf="state?.touched && state?.invalid" class="alert alert-danger">
+                                <div *ngIf="state?.errors?.required">State is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">City</label>
+                            <input type="text" formControlName="city" class="form-control" />
+                            <div *ngIf="city?.touched && city?.invalid" class="alert alert-danger">
+                                <div *ngIf="city?.errors?.required">City is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Postcode</label>
+                            <input type="text" formControlName="postCode" class="form-control" />
+                            <div *ngIf="postCode?.touched && postCode?.invalid" class="alert alert-danger">
+                                <div *ngIf="postCode?.errors?.required">Postcode is required.</div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="col">
-                    <div class="form-group">
-                        <label class="required">State</label>
-                        <input type="text" formControlName="state" class="form-control" />
-                        <div *ngIf="state?.touched && state?.invalid" class="alert alert-danger">
-                            <div *ngIf="state?.errors?.required">State is required.</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="form-group">
-                        <label class="required">City</label>
-                        <input type="text" formControlName="city" class="form-control" />
-                        <div *ngIf="city?.touched && city?.invalid" class="alert alert-danger">
-                            <div *ngIf="city?.errors?.required">City is required.</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="form-group">
-                        <label class="required">Postcode</label>
-                        <input type="text" formControlName="postCode" class="form-control" />
-                        <div
-                            *ngIf="postCode?.touched && postCode?.invalid"
-                            class="alert alert-danger"
-                        >
-                            <div *ngIf="postCode?.errors?.required">Postcode is required.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <h2 class="pt-4 pb-2">Inventory Source</h2>
-            <div class="row">
-                <div class="col">
-                    <div class="form-group">
-                        <label class="required">Inventory Source</label><br />
-                        <select
-                            name="inventorySource"
-                            formControlName="inventorySource"
-                            class="form-control"
-                        >
+                <h2 class="card-header pt-4 pb-2">Inventory Source</h2>
+                <div class="card-body row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Inventory Source</label><br />
+                            <select name="inventorySource" formControlName="inventorySource" class="form-control">
                             <option value="default">--Select Inventory Source--</option>
                             <option *ngFor="let item of inventorySource">{{ item }}</option>
                         </select>
-                        <div
-                            *ngIf="inventory?.touched && inventory?.invalid"
-                            class="alert alert-danger"
-                        >
-                            <div *ngIf="inventory?.errors?.required">
-                                Inventory source is required.
+                            <div *ngIf="inventory?.touched && inventory?.invalid" class="alert alert-danger">
+                                <div *ngIf="inventory?.errors?.required">
+                                    Inventory source is required.
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <button [disabled]="!editOutletForm.valid" class="btn btn-primary mb-4 float-right">
+                <button [disabled]="!editOutletForm.valid" class="btn btn-primary mb-4 float-right">
                 Submit
             </button>
+            </div>
         </form>
     </div>
 </sb-layout-dashboard>
-

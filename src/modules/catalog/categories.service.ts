@@ -1,19 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { PData } from './prodList';
+import { Cdata } from './categories';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService {
+export class CategoriesService {
 
-  private url: string = '/assets/data/product.json';
-
+  private url: string = '/assets/data/categories.json';
+  
   constructor(private http: HttpClient) { }
 
-  getProductData(): Observable<PData[]> {
+  getCategoriesData(): Observable<Cdata[]> {
     
-    return this.http.get<PData[]>(this.url);
+    return this.http.get<Cdata[]>(this.url);
   }
+
 }

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SBRouteData } from '@modules/navigation/models';
+import { AddCategoryComponent } from './add-category/add-category.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { CatalogModule } from './catalog.module';
 import { CategoriesComponent } from './categories/categories.component';
@@ -43,6 +44,14 @@ const routes: Routes = [
     component: CategoriesComponent,
     data: {
         title: 'Categories',
+    } as SBRouteData,
+  },
+  {
+    path: 'addcategory',
+    canActivate: [],
+    component: AddCategoryComponent,
+    data: {
+        title: 'Add Category',
     } as SBRouteData,
   },
   

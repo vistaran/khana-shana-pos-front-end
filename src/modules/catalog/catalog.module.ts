@@ -13,11 +13,12 @@ import { ProductsComponent } from './products/products.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
+import { AddCategoryComponent } from './add-category/add-category.component';
 
 
 
 @NgModule({
-  declarations: [ProductsComponent, CategoriesComponent, AddProductComponent, EditProductComponent],
+  declarations: [ProductsComponent, CategoriesComponent, AddProductComponent, EditProductComponent, AddCategoryComponent],
   imports: [
     CommonModule,
     RouterModule,
