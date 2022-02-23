@@ -6,8 +6,12 @@ export const sideNavSections: SideNavSection[] = [
         items: ['dashboard'],
     },
     {
+        text: 'SALES',
+        items: ['orders','shipments','invoices','refunds'],
+    },
+    {
         text: 'CATALOG',
-        items: ['products','categories'],
+        items: ['products','categories','attributes','attributeFamily'],
     },
     {
         text: 'POS',
@@ -35,6 +39,36 @@ export const sideNavItems: SideNavItems = {
         icon: '',
         text: 'Categories',
         link: '/catalog/categories'
+    },
+    attributes: {
+        icon: '',
+        text: 'Attributes',
+        link: '/catalog/attributes'
+    },
+    attributeFamily: {
+        icon: '',
+        text: 'Attribute Family',
+        link: '/catalog/attributeFamily'
+    },
+    orders: {
+        icon: '',
+        text: 'Orders',
+        link: '/sales/orders'
+    },
+    shipments: {
+        icon: '',
+        text: 'Shipments',
+        link: '/sales/shipments'
+    },
+    invoices: {
+        icon: '',
+        text: 'Invoices',
+        link: '/sales/invoices'
+    },
+    refunds: {
+        icon: '',
+        text: 'Refunds',
+        link: '/sales/refunds'
     },
     layouts: {
         icon: 'columns',

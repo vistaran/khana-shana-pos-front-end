@@ -68,10 +68,11 @@
 
                 <div class="card-body row">
                     <div class="col">
-                        <label for="img">Image</label>
-                        <input type="file" id="img" name="img" accept="image/*" />
+                        <label for="img" class="">Image</label>
+                        <input type="file" id="img" name="img" accept="image/*" formControlName="image" class="form-control" />
                         <button class="btn btn-primary mb-4" type="submit">Upload</button>
                     </div>
+
 
                     <div class="col">
                         <div class="form-group">
@@ -82,10 +83,39 @@
                     </div>
                 </div>
 
+                <h2 class="card-header">Search Engine Optimization</h2>
+                <div class="card-body row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Meta Title</label>
+                            <input type="text" formControlName="metaTitle" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Slug</label>
+                            <input type="text" formControlName="slug" class="form-control" />
+                            <div *ngIf="slug?.touched && slug?.invalid" class="alert alert-danger">
+                                <div *ngIf="slug?.errors?.required">Slug is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Meta Description</label>
+                            <input type="text" formControlName="metaDescription" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+
+
                 <button [disabled]="!addCategoryForm.valid" class="btn btn-primary mb-4 float-right">
                     Submit
                 </button>
             </div>
+
         </form>
     </div>
 </sb-layout-dashboard>

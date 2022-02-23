@@ -8,6 +8,11 @@ const routes: Routes = [
         redirectTo: '/dashboard',
     },
     {
+        path: 'sales',
+        loadChildren: () =>
+            import('modules/sales/sales-routing.module').then(m => m.SalesRoutingModule),
+    },
+    {
         path: 'catalog',
         loadChildren: () =>
             import('modules/catalog/catalog-routing.module').then(m => m.CatalogRoutingModule),

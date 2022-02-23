@@ -26,15 +26,21 @@
                                 <tbody>
                                     <tr *ngFor="let data of udata">
                                         <td>{{ data.userId }}</td>
-                                        <td class="d-flex justify-content-center"><img class="w-25 h-25 rounded-circle img-fluid" src="{{data.avatar}}"></td>
+                                        <td class="d-flex justify-content-center"><img class="w-25 h-25 rounded-circle" src="{{data.avatar}}"></td>
                                         <td>{{ data.userName }}</td>
                                         <td>{{ data.email }}</td>
                                         <td>{{ data.outletName }}</td>
                                         <td>{{ data.status }}</td>
                                         <td>{{ data.createdAt }}</td>
                                         <td>
-                                            <i class="fa fa-pencil-square-o fa-lg pr-4 mx-auto" [routerLink]="['/pos/edituser']"></i>
-                                            <i class="fa fa-trash-o fa-lg mx-auto"></i>
+                                            <button class="btn btn-info pr-2"><i class="fa fa-pencil-square-o fa-lg" [routerLink]="['/pos/edituser']"></i></button>
+
+                                            <button id="remove" (click)="deleteRow(data)" class="btn btn-danger"><i class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="!udata.length">
+                                        <td colspan="8" class="text-center">
+                                            No records found.
                                         </td>
                                     </tr>
                                 </tbody>
@@ -65,12 +71,16 @@
                                         <td>{{ data.createdAt }}</td>
                                         <td>{{ data.status }}</td>
                                         <td>
-                                            <i class="fa fa-pencil-square-o fa-lg pr-4 mx-auto" [routerLink]="['/pos/editoutlet']"></i>
-                                            <i class="fa fa-trash-o fa-lg mx-auto"></i>
+                                            <button class="btn btn-info mr-2"><i class="fa fa-pencil-square-o fa-lg" [routerLink]="['/pos/editoutlet']"></i></button>
+
+                                            <button id="remove" (click)="deleteRow2(data)" class="btn btn-danger"><i class="fa fa-trash fa-lg mx-auto "></i></button>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
+                            <p>
+                                <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="items.length" [boundaryLinks]="true" [maxSize]="5"></ngb-pagination>
+                            </p>
                         </ng-template>
                     </li>
                 </ul>
@@ -78,4 +88,5 @@
             </div>
         </div>
     </div>
+
 </sb-layout-dashboard>

@@ -32,6 +32,10 @@ export class AddCategoryComponent implements OnInit {
     return this.addCategoryForm.get('description');
   }
 
+  get slug() {
+    return this.addCategoryForm.get('slug');
+  }
+
 
   constructor(private fb: FormBuilder) { }
 
@@ -43,7 +47,11 @@ export class AddCategoryComponent implements OnInit {
       displayMode: ['', [Validators.required]],
       description: ['', [Validators.required]],
       image: [''],
-      categoryLogo: ['']
+      categoryLogo: [''],
+      metaTitle: [''],
+      slug: ['', [Validators.required]],
+      metaDescription: [''],
+      metaKeywords: [''],
     });
   }
 

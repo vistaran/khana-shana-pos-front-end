@@ -28,8 +28,9 @@
                                         <td>{{ data.status }}</td>
                                         <td>{{ data.numberOfProducts }}</td>
                                         <td>
-                                            <i class="fa fa-pencil-square-o fa-lg pr-4 mx-auto" [routerLink]="['/catalog/editproduct']"></i>
-                                            <i class="fa fa-trash-o fa-lg mx-auto"></i>
+                                            <button class="btn btn-info"><i class="fa fa-pencil-square-o" [routerLink]="['/catalog/editcategory']"></i></button>
+
+                                            <button id="remove" (click)="deleteRow(data)" class="btn btn-danger"><i class="fa fa-trash-o fa-lg mx-auto"></i></button>
                                         </td>
                                     </tr>
                                 </tbody>

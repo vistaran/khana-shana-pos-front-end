@@ -1,0 +1,37 @@
+<sb-layout-dashboard>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <ul ngbNav #nav="ngbNav" class="nav-tabs mt-5">
+                    <li ngbNavItem>
+                        <ng-template ngbNavContent>
+                            <h2 class="mt-3 mb-5">Invoices</h2>
+
+                            <table class="table table-bordered table-striped">
+                                <thead class="head">
+                                    <th>ID</th>
+                                    <th>Order Id</th>
+                                    <th>Grand Total</th>
+                                    <th>Invoice Date</th>
+                                    <th>Actions</th>
+                                </thead>
+                                <tbody class="justify-content-end">
+                                    <tr *ngFor="let data of idata">
+                                        <td>{{ data.id }}</td>
+                                        <td>{{ data.orderId }}</td>
+                                        <td>{{ data.grandTotal }}</td>
+                                        <td>{{ data.invoiceDate }}</td>
+                                        <td>
+                                            <i class="fa fa-eye fa-lg pr-4 mx-auto" [routerLink]="['']"></i>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </ng-template>
+                    </li>
+                </ul>
+                <div [ngbNavOutlet]="nav"></div>
+            </div>
+        </div>
+    </div>
+</sb-layout-dashboard>

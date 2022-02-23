@@ -1,0 +1,52 @@
+<sb-layout-dashboard>
+
+    <div class="card mt-4">
+        <h1 class="card-header">Edit Family</h1>
+        <form [formGroup]="editFamilyForm">
+
+            <div class="container-fluid">
+                <h2 class="card-header mt-4 pb-2">General</h2>
+                <div class="card-body row">
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required mt-4">Name</label>
+                            <input type="text" formControlName="name" class="form-control" />
+                            <div *ngIf="name?.touched && name?.invalid" class="alert alert-danger">
+                                <div *ngIf="name?.errors?.required">Name is required.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="card-header mt-4 pb-2">Groups</h2>
+                <div class="card-body row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required mt-4">Group Name</label>
+                            <input type="text" formControlName="gName" class="form-control" />
+                            <div *ngIf="gName?.touched && gName?.invalid" class="alert alert-danger">
+                                <div *ngIf="gName?.errors?.required">Name is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required mt-4">Position</label>
+                            <input type="text" formControlName="position" class="form-control" />
+                            <div *ngIf="position?.touched && position?.invalid" class="alert alert-danger">
+                                <div *ngIf="position?.errors?.required">Position is required.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button [disabled]="!editFamilyForm.valid" class="btn btn-primary mb-4 float-right">
+                Save Family
+            </button>
+            </div>
+        </form>
+    </div>
+
+</sb-layout-dashboard>

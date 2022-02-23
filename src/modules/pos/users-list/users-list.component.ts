@@ -13,10 +13,18 @@ import { OutletDataService } from '../outlet-data.service';
   templateUrl: './users-list.component.html',
   styleUrls: ['./users-list.component.scss']
 })
-export class UsersListComponent implements OnInit {
-  public udata: Object = [];
 
-  public odata: Object = [];
+  
+
+export class UsersListComponent implements OnInit {
+
+  public udata: any = [];
+
+  public odata: any = [];
+
+  page = 1;
+  pageSize = 10;
+  items = {length: 512};
 
   constructor(private userData: UserDataService, private outletData: OutletDataService, private router: Router, private route:ActivatedRoute) { }
 
@@ -37,4 +45,15 @@ export class UsersListComponent implements OnInit {
   onClick2() {
     this.router.navigate(['/pos/addoutlet']);
   }
+
+  deleteRow(d: any){
+    const index = this.udata.indexOf(d);
+    this.udata.splice(index, 1);
+  }
+
+  deleteRow2(d: any){
+    const index = this.odata.indexOf(d);
+    this.odata.splice(index, 1);
+  }
+
 }

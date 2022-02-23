@@ -9,7 +9,7 @@ import { CategoriesService } from '../categories.service';
 })
 export class CategoriesComponent implements OnInit {
 
-  public cdata: Object = [];
+  public cdata: any = [];
   
   constructor(private categories: CategoriesService, private router: Router) { }
 
@@ -21,6 +21,11 @@ export class CategoriesComponent implements OnInit {
 
     onClick() {
       this.router.navigate(['/catalog/addcategory']);
+    }
+
+    deleteRow(d: any){
+      const index = this.cdata.indexOf(d);
+      this.cdata.splice(index, 1);
     }
   
 
