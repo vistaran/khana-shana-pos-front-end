@@ -6,12 +6,12 @@ export const sideNavSections: SideNavSection[] = [
         items: ['dashboard'],
     },
     {
-        text: 'SALES',
-        items: ['orders','shipments','invoices','refunds'],
+        text: '',
+        items: ['sales'],
     },
     {
-        text: 'CATALOG',
-        items: ['products','categories','attributes','attributeFamily'],
+        text: '',
+        items: ['catalog'],
     },
     {
         text: 'POS',
@@ -30,9 +30,9 @@ export const sideNavItems: SideNavItems = {
         text: 'Dashboard',
         link: '/dashboard',
     },
-    products: {
+    catalog: {
         icon: '',
-        text: 'Products',
+        text: 'Catalog',
         link: '/catalog/products',
     },
     categories: {
@@ -50,9 +50,9 @@ export const sideNavItems: SideNavItems = {
         text: 'Attribute Family',
         link: '/catalog/attributeFamily'
     },
-    orders: {
+    sales: {
         icon: '',
-        text: 'Orders',
+        text: 'Sales',
         link: '/sales/orders'
     },
     shipments: {

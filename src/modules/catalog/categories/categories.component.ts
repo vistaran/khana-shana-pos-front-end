@@ -10,6 +10,9 @@ import { CategoriesService } from '../categories.service';
 export class CategoriesComponent implements OnInit {
 
   public cdata: any = [];
+
+  page = 1;
+  pageSize = 5;
   
   constructor(private categories: CategoriesService, private router: Router) { }
 
@@ -26,6 +29,12 @@ export class CategoriesComponent implements OnInit {
     deleteRow(d: any){
       const index = this.cdata.indexOf(d);
       this.cdata.splice(index, 1);
+    }
+
+    refreshCategories() { 
+      this.cdata = this.cdata
+        .map((user: any, i: any) => ({id: i + 1, ...user}))
+        .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
     }
   
 

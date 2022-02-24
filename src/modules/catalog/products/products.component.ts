@@ -11,6 +11,9 @@ export class ProductsComponent implements OnInit {
 
   public pdata: any = [];
 
+  page = 1;
+  pageSize = 5;
+
   constructor(private productList: ProductService, private router: Router) { }
 
   ngOnInit(){
@@ -26,6 +29,12 @@ export class ProductsComponent implements OnInit {
     deleteRow(d: any){
       const index = this.pdata.indexOf(d);
       this.pdata.splice(index, 1);
+    }
+
+    refreshProducts() { 
+      this.pdata = this.pdata
+        .map((user: any, i: any) => ({id: i + 1, ...user}))
+        .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
     }
 
 }

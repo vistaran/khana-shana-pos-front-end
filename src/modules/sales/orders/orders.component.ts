@@ -8,7 +8,7 @@ import { OrdersService } from '../orders.service';
 })
 export class OrdersComponent implements OnInit {
 
-  odata: Object = [];
+  odata: any = [];
   
   constructor(private orderData: OrdersService) { }
 

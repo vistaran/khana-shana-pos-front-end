@@ -22,11 +22,14 @@ export class UsersListComponent implements OnInit {
 
   public odata: any = [];
 
-  page = 1;
-  pageSize = 10;
-  items = {length: 512};
 
-  constructor(private userData: UserDataService, private outletData: OutletDataService, private router: Router, private route:ActivatedRoute) { }
+  page = 1;
+  pageSize = 5;
+  //items = {length: 12};
+
+  constructor(private userData: UserDataService, private outletData: OutletDataService, private router: Router, private route:ActivatedRoute) {
+    this.refreshOutlet();
+   }
 
   ngOnInit(){
 
@@ -54,6 +57,18 @@ export class UsersListComponent implements OnInit {
   deleteRow2(d: any){
     const index = this.odata.indexOf(d);
     this.odata.splice(index, 1);
+  }
+
+  refreshUser() { 
+    this.udata = this.udata
+      .map((user: any, i: any) => ({id: i + 1, ...user}))
+      .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
+  }
+
+  refreshOutlet() { 
+    this.odata = this.odata
+      .map((outlet: any, i: any) => ({id: i + 1, ...outlet}))
+      .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
   }
 
 }

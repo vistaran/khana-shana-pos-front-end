@@ -8,7 +8,7 @@ import { RefundsService } from '../refunds.service';
 })
 export class RefundsComponent implements OnInit {
 
-  rdata: Object = [];
+  rdata: any = [];
   
   constructor(private refundData: RefundsService) { }
 

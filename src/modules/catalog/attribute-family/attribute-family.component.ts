@@ -10,6 +10,9 @@ import { AttributeFamilyService } from '../attribute-family.service';
 export class AttributeFamilyComponent implements OnInit {
 
   afData: any = [];
+
+  page = 1;
+  pageSize = 5;
   
   constructor(private attributeFamily: AttributeFamilyService, private router: Router) { }
 
@@ -25,5 +28,11 @@ export class AttributeFamilyComponent implements OnInit {
     deleteRow(d: any){
       const index = this.afData.indexOf(d);
       this.afData.splice(index, 1);
+    }
+
+    refreshAttributeFamily() { 
+      this.afData = this.afData
+        .map((user: any, i: any) => ({id: i + 1, ...user}))
+        .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
     }
   }

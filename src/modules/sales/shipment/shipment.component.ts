@@ -8,7 +8,7 @@ import { ShipmentService } from '../shipment.service';
 })
 export class ShipmentComponent implements OnInit {
 
-  sdata: Object = [];
+  sdata: any = [];
   
   constructor(private shipmentData: ShipmentService) { }
 
