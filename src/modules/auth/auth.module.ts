@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
+import { HttpClientModule } from '@angular/common/http';
+
 /* Modules */
 import { AppCommonModule } from '@common/app-common.module';
 import { NavigationModule } from '@modules/navigation/navigation.module';
@@ -28,6 +30,7 @@ import * as authServices from './services';
         FormsModule,
         AppCommonModule,
         NavigationModule,
+        HttpClientModule
     ],
     providers: [...authServices.services, ...authGuards.guards],
     declarations: [...authContainers.containers, ...authComponents.components],

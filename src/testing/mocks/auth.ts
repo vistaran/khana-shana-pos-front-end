@@ -3,7 +3,8 @@ export { User };
 
 export class MockUser implements User {
     id = 'TEST_ID';
-    firstName = 'TEST_FIRST_NAME';
-    lastName = 'TEST_LAST_NAME';
+    first_name = 'TEST_FIRST_NAME';
+    lastname = 'TEST_LAST_NAME';
+    username = 'TEST_USERNAME';
     email = 'TEST_EMAIL';
 }
