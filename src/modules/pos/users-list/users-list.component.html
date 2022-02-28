@@ -82,11 +82,11 @@
                                     <th>Actions</th>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let data of odata">
-                                        <td>{{ data.outletId }}</td>
-                                        <td>{{ data.outletName }}</td>
-                                        <td>{{ data.inventorySource }}</td>
-                                        <td>{{ data.createdAt }}</td>
+                                    <tr *ngFor="let data of ((odata))">
+                                        <td>{{ data.id }}</td>
+                                        <td>{{ data.Outlet_name }}</td>
+                                        <td>{{ data.inventory_source }}</td>
+                                        <td>{{ data.created_at }}</td>
                                         <td>{{ data.status }}</td>
                                         <td>
                                             <button class="btn btn-info mr-2"><i class="fa fa-pencil-square-o fa-lg" [routerLink]="['/pos/editoutlet']"></i></button>
@@ -108,7 +108,7 @@
                                 </div>
 
                                 <div class="col">
-                                    <select class="form-select btn btn-outline-primary" [(ngModel)]="pageSize" (ngModelChange)="refreshOutlet()">
+                                    <select class="form-select btn btn-outline-primary" [(ngModel)]="pageSize">
                                     <option [ngValue]="2">2 items per page</option>
                                     <option [ngValue]="4">4 items per page</option>
                                     <option [ngValue]="6">6 items per page</option>

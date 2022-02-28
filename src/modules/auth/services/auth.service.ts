@@ -3,17 +3,20 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
-import { catchError, retry } from 'rxjs/operators';
+//import { catchError, retry } from 'rxjs/operators';
 
 @Injectable()
 export class AuthService {
 
-    baseURL: string = "http://feaa-2405-201-201e-f0a3-d473-cee7-420f-5149.ngrok.io";
+    baseURL: string = "https://b275-2405-201-201e-f0a3-54ca-9e18-9c97-73c3.ngrok.io";
     constructor(private http: HttpClient) {}
 
-    login(credentials: {email: string, password: string}):Observable<any> {
-        return this.http.post(this.baseURL + 'auth/login', credentials)
-            
+    // login(credentials: {email: string, password: string}):Observable<any> {
+    //     return this.http.post(this.baseURL + 'auth/login', credentials)       
+    // }
+
+    login(data: any) {
+        return this.http.post(this.baseURL + '/api/auth/login', data);
     }
 
     getAuth$(): Observable<{}> {

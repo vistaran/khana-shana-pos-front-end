@@ -20,7 +20,7 @@ export class UsersListComponent implements OnInit {
 
   public udata: any = [];
 
-  public odata: any = [];
+  public odata: any;
 
 
   page = 1;
@@ -28,7 +28,7 @@ export class UsersListComponent implements OnInit {
   //items = {length: 12};
 
   constructor(private userData: UserDataService, private outletData: OutletDataService, private router: Router, private route:ActivatedRoute) {
-    this.refreshOutlet();
+    //this.refreshOutlet();
    }
 
   ngOnInit(){
@@ -37,7 +37,7 @@ export class UsersListComponent implements OnInit {
       .subscribe( data => this.udata = data);
 
     this.outletData.getOutletData()
-      .subscribe( data => this.odata = data);
+      .subscribe( (data) => this.odata = data);
       
     }
    
@@ -65,10 +65,10 @@ export class UsersListComponent implements OnInit {
       .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
   }
 
-  refreshOutlet() { 
-    this.odata = this.odata
-      .map((outlet: any, i: any) => ({id: i + 1, ...outlet}))
-      .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
-  }
+  // refreshOutlet() { 
+  //   this.odata = this.odata
+  //     .map((outlet: any, i: any) => ({id: i + 1, ...outlet}))
+  //     .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
+  // }
 
 }

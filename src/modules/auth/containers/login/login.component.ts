@@ -1,4 +1,4 @@
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { AuthService } from './../../services/auth.service';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
@@ -13,32 +13,47 @@ export class LoginComponent implements OnInit {
     loginForm!: FormGroup
     
     regData: any = [];
-    credentials = {
-        email: this.f.email.value,
-        password: this.f.password.value
-    }
     
-    constructor(public auth: AuthService) {}
+    
+    constructor(public auth: AuthService, private fb: FormBuilder) {}
 
-    get f() { return this.loginForm.controls; }
+    // get f() { 
+    //     return this.loginForm.controls; 
+    // }
+
+    // credentials = {
+    //     email: this.f.email.value,
+    //     password: this.f.password.value
+    // }
+
+
     
     ngOnInit() {
-
+        // this.loginForm = this.fb.group( {
+        //     email: [''],
+        //     password: [''],
+        //   });
     }
 
-    onSubmit() {
+    onSubmit(data: any) {
+        //console.log(data);
+        this.auth.login(data)
+            .subscribe( (result: any) => 
+            console.log(result)
+            )
         // prepare parameters
-        this.auth.getUser()
-      .subscribe( data => this.regData = data);
+        // this.auth.getUser()
+        // .subscribe( data => this.regData = data);
+        // console.log(this.loginForm.value);
 
-        this.auth.login(this.credentials).subscribe((response) => {
-            console.log(response);
+        // this.auth.login(this.credentials).subscribe((response) => {
+        //     console.log(response);
 
             // set token and user detail in local storage separtely
-            localStorage.setItem('token', 'access_token');
-            localStorage.setItem('user', '');
-        }, (err) => {
-            console.log(err);
-        })
+            // localStorage.setItem('token', 'access_token');
+            // localStorage.setItem('user', '');
+        // }, (err) => {
+        //     console.log(err);
+        // })
     }
 }

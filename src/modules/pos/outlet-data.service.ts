@@ -8,12 +8,13 @@ import { OData } from './outletData';
 })
 export class OutletDataService {
 
-  private url: string = '/assets/data/odata.json'
+  private url: string = 'https://b275-2405-201-201e-f0a3-54ca-9e18-9c97-73c3.ngrok.io/api/outlet/show'
 
   constructor(private http: HttpClient) { }
 
   getOutletData(): Observable<OData[]> {
     
     return this.http.get<OData[]>(this.url);
+    
   }
 }

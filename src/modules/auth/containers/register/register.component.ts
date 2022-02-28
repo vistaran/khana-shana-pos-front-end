@@ -30,9 +30,8 @@ export class RegisterComponent implements OnInit {
 
     // onClick() {
     //        this.regUser.addUser()
-    //        .subscribe(data => {
     //         console.log(data)
     //         this.refreshUser();
-    //       })      
-    // }  
+    //       }     
+  
 }
