@@ -11,8 +11,6 @@
                                 Add User
                                 </button>
 
-
-
                             <table class="table table-bordered table-striped">
                                 <thead class="head">
                                     <th>UserId</th>
@@ -82,7 +80,7 @@
                                     <th>Actions</th>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let data of ((odata))">
+                                    <tr *ngFor="let data of odata">
                                         <td>{{ data.id }}</td>
                                         <td>{{ data.Outlet_name }}</td>
                                         <td>{{ data.inventory_source }}</td>
@@ -94,18 +92,18 @@
                                             <button id="remove" (click)="deleteRow2(data)" class="btn btn-danger"><i class="fa fa-trash fa-lg mx-auto "></i></button>
                                         </td>
                                     </tr>
-                                    <tr *ngIf="!odata.length">
+                                    <!-- <tr *ngIf="!odata.length">
                                         <td colspan="6" class="text-center">
                                             No records found.
                                         </td>
-                                    </tr>
+                                    </tr> -->
                                 </tbody>
                             </table>
                             <div class="justify-content-between row">
 
-                                <div class="col">
+                                <!-- <div class="col">
                                     <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="odata.length" [boundaryLinks]="true" [maxSize]="5"></ngb-pagination>
-                                </div>
+                                </div> -->
 
                                 <div class="col">
                                     <select class="form-select btn btn-outline-primary" [(ngModel)]="pageSize">
