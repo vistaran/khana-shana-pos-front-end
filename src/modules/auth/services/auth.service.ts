@@ -7,7 +7,7 @@ import { Observable, of } from 'rxjs';
 
 @Injectable()
 export class AuthService {
-    baseURL = 'https://84a0-43-241-194-228.ngrok.io/';
+    baseURL = 'http://127.0.0.1:8000/';
     constructor(private http: HttpClient) {}
 
     // login(credentials: {email: string, password: string}):Observable<any> {

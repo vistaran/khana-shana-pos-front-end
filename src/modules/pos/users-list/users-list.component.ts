@@ -2,6 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 //import { Subject } from 'rxjs';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { data } from 'jquery';
 //import { relative } from 'path';
 import { AddUserComponent } from '../add-user/add-user.component';
 import { OutletDataService } from '../outlet-data.service';
@@ -14,6 +15,7 @@ import { UserDataService } from '../user-data.service';
     styleUrls: ['./users-list.component.scss'],
 })
 export class UsersListComponent implements OnInit {
+    
     // items = {length: 12};
 
     constructor(
@@ -22,26 +24,40 @@ export class UsersListComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute
     ) {
-        // this.refreshOutlet();
+        //this.refreshOutlet();
     }
     public udata: any = [];
-    public odata: OData[] = [];
-
+    public odata: any;
+    public odata_next: any;
+    public odata_last: any;
+    public outletList: any;
     
-    public length: number = 0;
+    public length: any  = 0;
     page = 1;
-    pageSize = 5;
+    // limit: any = 10;
+    // skip: any;
+
+    pageSize = 10;
 
     
     ngOnInit() {
         this.userData.getUserData().subscribe(data => (this.udata = data));
 
-        this.outletData.getOutletData().subscribe(result => {
-            (this.odata = result.outlets.data),
-            (this.length = result.outlets.to)
-            }); 
+        //this.outletData.getOutletData().subscribe(result => (this.odata = result)); 
+        this.getOutletData();
+
+    }
+
+    getOutletData() {
+           
+        this.outletData.getOutletData(this.page).subscribe(result => this.odata = result)
+    }
+
+    onPageChange(event : number) {
         
-        console.log(this.length);
+        this.page = event;
+        this.getOutletData();
+        console.log('Here >>>', this.page);
     }
 
     onClick() {
@@ -62,6 +78,7 @@ export class UsersListComponent implements OnInit {
         this.odata.splice(index, 1);
     }
 
+
     refreshUser() {
         this.udata = this.udata
             .map((user: any, i: any) => ({ id: i + 1, ...user }))
@@ -70,6 +87,8 @@ export class UsersListComponent implements OnInit {
                 (this.page - 1) * this.pageSize + this.pageSize
             );
     }
+
+    
 
     // refreshOutlet() {
     //   this.odata = this.odata

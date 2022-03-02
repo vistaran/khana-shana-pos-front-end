@@ -80,36 +80,43 @@
                                     <th>Actions</th>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let data of odata">
+                                    <tr *ngFor="let data of odata.outlets.data | slice: (page-1) * pageSize : page * pageSize">
                                         <td>{{ data.id }}</td>
                                         <td>{{ data.Outlet_name }}</td>
                                         <td>{{ data.inventory_source }}</td>
                                         <td>{{ data.created_at }}</td>
-                                        <td>{{ data.status }}</td>
+                                        <td>{{ data.Status }}</td>
                                         <td>
                                             <button class="btn btn-info mr-2"><i class="fa fa-pencil-square-o fa-lg" [routerLink]="['/pos/editoutlet']"></i></button>
 
                                             <button id="remove" (click)="deleteRow2(data)" class="btn btn-danger"><i class="fa fa-trash fa-lg mx-auto "></i></button>
                                         </td>
                                     </tr>
-                                    <!-- <tr *ngIf="!odata.length">
+                                    <tr *ngIf="!odata.outlets.data.length">
                                         <td colspan="6" class="text-center">
                                             No records found.
                                         </td>
-                                    </tr> -->
+                                    </tr>
                                 </tbody>
                             </table>
                             <div class="justify-content-between row">
 
-                                <!-- <div class="col">
-                                    <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="odata.length" [boundaryLinks]="true" [maxSize]="5"></ngb-pagination>
-                                </div> -->
+                                <div class="col">
+
+                                    <!-- <ngb-pagination [(page)]="page" [pageSize]="odata.outlets.per_page" [collectionSize]="odata.outlets.total" [boundaryLinks]="true" [maxSize]="odata.outlets.total">
+                                    </ngb-pagination> -->
+
+                                    <ngb-pagination (pageChange)="onPageChange($event)" [(page)]="page" [pageSize]="odata.outlets.per_page" [collectionSize]="odata.outlets.total" [boundaryLinks]="true" [maxSize]="odata.outlets.total">
+                                    </ngb-pagination>
+
+                                </div>
 
                                 <div class="col">
                                     <select class="form-select btn btn-outline-primary" [(ngModel)]="pageSize">
-                                    <option [ngValue]="2">2 items per page</option>
-                                    <option [ngValue]="4">4 items per page</option>
-                                    <option [ngValue]="6">6 items per page</option>
+                                        <option [ngValue]="2">2 items per page</option>
+                                        <option [ngValue]="4">4 items per page</option>
+                                        <option [ngValue]="5">5 items per page</option>    
+                                        <option [ngValue]="6">6 items per page</option>
                                   </select>
                                 </div>
                             </div>

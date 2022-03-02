@@ -8,11 +8,13 @@ import { OData } from './outletData';
     providedIn: 'root',
 })
 export class OutletDataService {
-    private url = 'https://7d58-43-241-194-80.ngrok.io/api/outlet/show?page=1';
-
+    private url = 'http://127.0.0.1:8000/api/outlet/show';
+    
     constructor(private http: HttpClient) {}
 
-    getOutletData(): Observable<OData[]> {
-        return this.http.get<OData[]>(this.url);
+    getOutletData(page: number): Observable<OData> {
+        return this.http.get<OData>(this.url + '?page=' + page)
     }
+
+    
 }
