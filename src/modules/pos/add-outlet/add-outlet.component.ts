@@ -1,5 +1,10 @@
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { data } from 'jquery';
+import { OutletDataService } from './../outlet-data.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { addOutlet } from '../outletData';
 
 @Component({
   selector: 'sb-add-outlet',
@@ -12,8 +17,9 @@ export class AddOutletComponent implements OnInit {
 
   inventorySource = ['default'];
   status = ['active', 'inactive'];
+  postUrl = 'http://127.0.0.1:8000/api/outlet/insert';
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private outletPost: OutletDataService) { }
 
   get outletName() {
     return this.addOutletForm.get('outletName');
@@ -49,15 +55,26 @@ export class AddOutletComponent implements OnInit {
   
   ngOnInit(): void {
     this.addOutletForm = this.fb.group( {
-      outletName: ['',[Validators.required]],
-      status: ['',[Validators.required]],
-      outletAddress: ['',[Validators.required]],
-      country: ['',[Validators.required]],
-      state: ['',[Validators.required]],
-      city: ['',[Validators.required]],
-      postCode: ['',[Validators.required]],
-      inventorySource:['',[Validators.required]],
+      Outlet_name: ['',[Validators.required]],
+      Status: ['',[Validators.required]],
+      Outlet_Address: ['',[Validators.required]],
+      Country: ['',[Validators.required]],
+      State: ['',[Validators.required]],
+      City: ['',[Validators.required]],
+      Postcode: ['',[Validators.required]],
+      inventory_source:['',[Validators.required]],
     });
+  }
+
+  onSubmit(data: any) {
+    this.outletPost
+            .postOutletData(JSON.stringify(data))
+            .subscribe((result: any) => console.log(result));
+    console.log("Form Submitted",(data));
+    // this.http.post('http://127.0.0.1:8000/api/outlet/insert', data)
+    //   .subscribe((result) => {
+    //     console.log(result)
+    //   });
   }
 
 }

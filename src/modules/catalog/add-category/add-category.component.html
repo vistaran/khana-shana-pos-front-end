@@ -1,7 +1,7 @@
 <sb-layout-dashboard>
     <div class="card mt-4">
         <h1 class="card-header">Add Category</h1>
-        <form [formGroup]="addCategoryForm">
+        <form [formGroup]="addCategoryForm" (ngSubmit)="onSubmit(addCategoryForm.value)">
             <div class="container-fluid">
                 <h2 class="card-header mt-4 pb-2">General</h2>
 
@@ -111,7 +111,7 @@
                 </div>
 
 
-                <button [disabled]="!addCategoryForm.valid" class="btn btn-primary mb-4 float-right">
+                <button [disabled]="!addCategoryForm.valid" type="submit" class="btn btn-primary mb-4 float-right">
                     Submit
                 </button>
             </div>

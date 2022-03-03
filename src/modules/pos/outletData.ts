@@ -1,15 +1,15 @@
 interface Data {
     id: number,
-            Outlet_name: string,
-            Outlet_Address: string,
-            Country: string,
-            State: string,
-            City: string,
-            Postcode: number,
-            Status: string,
-            created_at: Date,
-            updated_at: Date,
-            inventory_source: string
+    Outlet_name: string,
+    Outlet_Address: string,
+    Country: string,
+    State: string,
+    City: string,
+    Postcode: number,
+    Status: string,
+    created_at: Date,
+    updated_at: Date,
+    inventory_source: string
 }
 interface Outlets {
     current_page: number;
@@ -27,4 +27,15 @@ interface Outlets {
 }
 export interface OData {
     outlets: Outlets;
+}
+
+export interface addOutlet {
+    Outlet_name: string,
+    Outlet_Address: string,
+    Country: string,
+    State: string,
+    City: string,
+    Postcode: number,
+    Status: string,
+    inventory_source: string
 }

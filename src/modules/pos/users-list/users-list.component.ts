@@ -17,6 +17,19 @@ import { UserDataService } from '../user-data.service';
 export class UsersListComponent implements OnInit {
     
     // items = {length: 12};
+    public udata: any = [];
+    public odata: any;
+    public odata_del: any;
+    public length: number = 0;
+    public total: number = 0;
+    public id: number= 0;
+     
+
+    page = 1;
+    pageSize = 10;
+    itemsPerPage: any;
+    
+
 
     constructor(
         private userData: UserDataService,
@@ -25,20 +38,10 @@ export class UsersListComponent implements OnInit {
         private route: ActivatedRoute
     ) {
         //this.refreshOutlet();
+        this.getOutletData();
+        //this.deleteRow2(this.id);
     }
-    public udata: any = [];
-    public odata: any;
-    public odata_next: any;
-    public odata_last: any;
-    public outletList: any;
     
-    public length: any  = 0;
-    page = 1;
-    // limit: any = 10;
-    // skip: any;
-
-    pageSize = 10;
-
     
     ngOnInit() {
         this.userData.getUserData().subscribe(data => (this.udata = data));
@@ -50,14 +53,18 @@ export class UsersListComponent implements OnInit {
 
     getOutletData() {
            
-        this.outletData.getOutletData(this.page).subscribe(result => this.odata = result)
+        this.outletData.getOutletData(this.page).subscribe(result => {
+            this.odata = result.outlets.data
+            this.length = result.outlets.per_page;
+            this.total = result.outlets.total;
+            
+        })
     }
 
     onPageChange(event : number) {
-        
         this.page = event;
         this.getOutletData();
-        console.log('Here >>>', this.page);
+        console.log('Here >>>', this.page, this.odata);
     }
 
     onClick() {
@@ -73,11 +80,15 @@ export class UsersListComponent implements OnInit {
         this.udata.splice(index, 1);
     }
 
-    deleteRow2(d: any) {
-        const index = this.odata.indexOf(d);
-        this.odata.splice(index, 1);
-    }
+    deleteRow2(id: number) {
 
+        //const index = this.odata.indexOf(this.id);
+        this.odata.splice(id, 1);
+        this.outletData.deleteOutlet(id);
+        this.getOutletData();
+        console.log(this.odata);
+        
+    }
 
     refreshUser() {
         this.udata = this.udata
@@ -96,3 +107,5 @@ export class UsersListComponent implements OnInit {
     //     .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
     // }
 }
+
+

@@ -9,18 +9,39 @@ import { CategoriesService } from '../categories.service';
 })
 export class CategoriesComponent implements OnInit {
 
-  public cdata: any = [];
+  public cdata: any;
+  public cdata_prop: any;
+  public length: number = 0;
+  public total: number = 0;
 
   page = 1;
   pageSize = 5;
   
-  constructor(private categories: CategoriesService, private router: Router) { }
+  constructor(private categories: CategoriesService, private router: Router) {
+    this.getCategoriesData()
+   }
 
   ngOnInit(): void {
     
-    this.categories.getCategoriesData()
-      .subscribe( data => this.cdata = data);
+    this.getCategoriesData()
+      
     }
+
+    getCategoriesData() {
+      this.categories.getCategoriesData(this.page).subscribe( result => {
+        this.cdata = result.category.data;
+        this.length = result.category.per_page;
+        this.total = result.category.total;
+
+      });
+    }
+
+    onPageChange(event: any) {
+      this.page = event;
+        this.getCategoriesData();
+        console.log('Here >>>', this.page, this.cdata);
+    }
+    
 
     onClick() {
       this.router.navigate(['/catalog/addcategory']);

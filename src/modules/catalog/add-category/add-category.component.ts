@@ -1,3 +1,5 @@
+import { CategoriesService } from './../categories.service';
+import { data } from 'jquery';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -37,7 +39,7 @@ export class AddCategoryComponent implements OnInit {
   }
 
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private categoryPost: CategoriesService) { }
 
   ngOnInit(): void {
     this.addCategoryForm = this.fb.group({
@@ -53,6 +55,13 @@ export class AddCategoryComponent implements OnInit {
       metaDescription: [''],
       metaKeywords: [''],
     });
+  }
+
+  onSubmit(data: any) {
+    this.categoryPost
+            .postCategory(JSON.stringify(data))
+            .subscribe((result: any) => console.log(result));
+    console.log("Form Submitted",(data));
   }
 
 

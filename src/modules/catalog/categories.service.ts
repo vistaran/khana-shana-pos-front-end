@@ -8,13 +8,19 @@ import { Cdata } from './categories';
 })
 export class CategoriesService {
 
-  private url: string = '/assets/data/categories.json';
+  private url: string = 'http://127.0.0.1:8000/api/category/show';
+  private postUrl: string = 'http://127.0.0.1:8000/api/category/insert'
   
   constructor(private http: HttpClient) { }
 
-  getCategoriesData(): Observable<Cdata[]> {
+  getCategoriesData(page: number): Observable<Cdata> {
     
-    return this.http.get<Cdata[]>(this.url);
+    return this.http.get<Cdata>(this.url + '?page=' + page);
+
+  }
+
+  postCategory(data: any) {
+    return this.http.post(this.postUrl, data)
   }
 
 }
