@@ -26,9 +26,9 @@
                         <td>{{ data.status }}</td>
                         <td>{{ data.quantity }}</td>
                         <td>
-                            <button class="btn btn-info mr-2"><i class="fa fa-pencil-square-o" [routerLink]="['/catalog/editcategory']"></i></button>
+                            <button class="btn btn-info mr-2"><i class="fa fa-pencil-square-o" [routerLink]="['/catalog/editcategory/'+data.category_id]"></i></button>
 
-                            <button id="remove" (click)="deleteRow(data)" class="btn btn-danger"><i class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                            <button id="remove" (click)="deleteRow(data.category_id)" class="btn btn-danger"><i class="fa fa-trash-o fa-lg mx-auto"></i></button>
                         </td>
                     </tr>
                     <tr *ngIf="!length">

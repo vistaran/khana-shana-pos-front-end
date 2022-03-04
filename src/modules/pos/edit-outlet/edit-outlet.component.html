@@ -1,14 +1,14 @@
 <sb-layout-dashboard>
     <div class="card">
         <h1 class="card-header">Edit Outlet</h1>
-        <form [formGroup]="editOutletForm">
+        <form [formGroup]="editOutletForm" (ngSubmit)="updateData(editOutletForm.value)">
             <div class="container-fluid">
                 <h2 class="card-header mt-4 pb-2">General</h2>
                 <div class="card-body row">
                     <div class="col">
                         <div class="form-group">
                             <label class="required">Outlet Name</label>
-                            <input type="text" formControlName="outletName" class="form-control" />
+                            <input type="text" formControlName="name" class="form-control" />
                             <div *ngIf="outletName?.touched && outletName?.invalid" class="alert alert-danger">
                                 <div *ngIf="outletName?.errors?.required">Outlet Name is required.</div>
                             </div>
@@ -34,7 +34,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label class="required">Outlet Address</label>
-                            <input type="text" rows="6" formControlName="outletAddress" class="form-control" />
+                            <input type="text" rows="6" formControlName="address" class="form-control" />
                             <div *ngIf="outletAddress?.touched && outletAddress?.invalid" class="alert alert-danger">
                                 <div *ngIf="outletAddress?.errors?.required">
                                     Outlet Address is required.
@@ -76,7 +76,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label class="required">Postcode</label>
-                            <input type="text" formControlName="postCode" class="form-control" />
+                            <input type="text" formControlName="postcode" class="form-control" />
                             <div *ngIf="postCode?.touched && postCode?.invalid" class="alert alert-danger">
                                 <div *ngIf="postCode?.errors?.required">Postcode is required.</div>
                             </div>
@@ -84,7 +84,7 @@
                     </div>
                 </div>
 
-                <h2 class="card-header pt-4 pb-2">Inventory Source</h2>
+                <!-- <h2 class="card-header pt-4 pb-2">Inventory Source</h2>
                 <div class="card-body row">
                     <div class="col">
                         <div class="form-group">
@@ -100,10 +100,10 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
-                <button [disabled]="!editOutletForm.valid" class="btn btn-primary mb-4 float-right">
-                Submit
+                <button [disabled]="!editOutletForm.valid" type="submit" class="btn btn-primary mb-4 float-right">
+                Update
             </button>
             </div>
         </form>

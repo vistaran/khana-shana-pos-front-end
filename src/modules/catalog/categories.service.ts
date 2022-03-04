@@ -8,19 +8,25 @@ import { Cdata } from './categories';
 })
 export class CategoriesService {
 
-  private url: string = 'http://127.0.0.1:8000/api/category/show';
-  private postUrl: string = 'http://127.0.0.1:8000/api/category/insert'
+  private url: string = 'http://127.0.0.1:8000/api/category/';
+  
   
   constructor(private http: HttpClient) { }
 
-  getCategoriesData(page: number): Observable<Cdata> {
-    
-    return this.http.get<Cdata>(this.url + '?page=' + page);
-
+  getCategoriesData(page: number): Observable<Cdata> {  
+    return this.http.get<Cdata>(this.url + 'show?page=' + page);
   }
 
+  deleteCategory(id: number) {
+    return this.http.get(this.url + 'delete/' + id)
+}
+
   postCategory(data: any) {
-    return this.http.post(this.postUrl, data)
+    return this.http.post(this.url + 'insert', data)
+  }
+
+  editCategory(id: number, data: any) {
+    return this.http.put(this.url + 'edit/' + id, data)
   }
 
 }

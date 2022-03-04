@@ -4,7 +4,7 @@ import { data } from 'jquery';
 import { OutletDataService } from './../outlet-data.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { addOutlet } from '../outletData';
+//import { addOutlet } from '../outletData';
 
 @Component({
   selector: 'sb-add-outlet',
@@ -14,6 +14,7 @@ import { addOutlet } from '../outletData';
 export class AddOutletComponent implements OnInit {
 
   addOutletForm!: FormGroup;
+  //outlet = new addOutlet();
 
   inventorySource = ['default'];
   status = ['active', 'inactive'];
@@ -54,27 +55,25 @@ export class AddOutletComponent implements OnInit {
   } 
   
   ngOnInit(): void {
+
     this.addOutletForm = this.fb.group( {
-      Outlet_name: ['',[Validators.required]],
-      Status: ['',[Validators.required]],
-      Outlet_Address: ['',[Validators.required]],
-      Country: ['',[Validators.required]],
-      State: ['',[Validators.required]],
-      City: ['',[Validators.required]],
-      Postcode: ['',[Validators.required]],
+      name: ['',[Validators.required]],
+      address: ['',[Validators.required]],
+      country: ['',[Validators.required]],
+      state: ['',[Validators.required]],
+      city: ['',[Validators.required]],
+      status: ['',[Validators.required]],
+      postcode: ['',[Validators.required]],
       inventory_source:['',[Validators.required]],
     });
   }
 
   onSubmit(data: any) {
+
     this.outletPost
-            .postOutletData(JSON.stringify(data))
+            .postOutletData(data)
             .subscribe((result: any) => console.log(result));
     console.log("Form Submitted",(data));
-    // this.http.post('http://127.0.0.1:8000/api/outlet/insert', data)
-    //   .subscribe((result) => {
-    //     console.log(result)
-    //   });
   }
 
 }

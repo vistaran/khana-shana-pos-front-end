@@ -62,7 +62,7 @@ const routes: Routes = [
     } as SBRouteData,
   },
   {
-    path: 'editcategory',
+    path: 'editcategory/:id',
     canActivate: [],
     component: EditCategoryComponent,
     data: {

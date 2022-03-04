@@ -29,13 +29,4 @@ export interface OData {
     outlets: Outlets;
 }
 
-export interface addOutlet {
-    Outlet_name: string,
-    Outlet_Address: string,
-    Country: string,
-    State: string,
-    City: string,
-    Postcode: number,
-    Status: string,
-    inventory_source: string
-}
+

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CategoriesService } from '../categories.service';
 
 @Component({
@@ -16,6 +16,7 @@ export class CategoriesComponent implements OnInit {
 
   page = 1;
   pageSize = 5;
+  id: any;
   
   constructor(private categories: CategoriesService, private router: Router) {
     this.getCategoriesData()
@@ -40,6 +41,7 @@ export class CategoriesComponent implements OnInit {
       this.page = event;
         this.getCategoriesData();
         console.log('Here >>>', this.page, this.cdata);
+        
     }
     
 
@@ -47,16 +49,25 @@ export class CategoriesComponent implements OnInit {
       this.router.navigate(['/catalog/addcategory']);
     }
 
-    deleteRow(d: any){
-      const index = this.cdata.indexOf(d);
-      this.cdata.splice(index, 1);
-    }
+    deleteRow(id: number) {
+
+      //const index = this.odata.indexOf(this.id);
+      //this.odata.splice(id, 1);
+      this.categories.deleteCategory(id).subscribe(data => {
+          this.getCategoriesData();
+      });
+
+      console.log(this.cdata);
+      
+  }
 
     refreshCategories() { 
       this.cdata = this.cdata
         .map((user: any, i: any) => ({id: i + 1, ...user}))
         .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
     }
+
+    
   
 
 }

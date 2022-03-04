@@ -72,7 +72,7 @@ export class UsersListComponent implements OnInit {
     }
 
     onClick2() {
-        this.router.navigate(['/pos/addoutlet']);
+        this.router.navigate(['/pos/outlet']);
     }
 
     deleteRow(d: any) {
@@ -83,9 +83,11 @@ export class UsersListComponent implements OnInit {
     deleteRow2(id: number) {
 
         //const index = this.odata.indexOf(this.id);
-        this.odata.splice(id, 1);
-        this.outletData.deleteOutlet(id);
-        this.getOutletData();
+        //this.odata.splice(id, 1);
+        this.outletData.deleteOutlet(id).subscribe(data => {
+            this.getOutletData();
+        });
+
         console.log(this.odata);
         
     }

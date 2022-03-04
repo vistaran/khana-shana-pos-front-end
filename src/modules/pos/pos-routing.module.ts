@@ -59,7 +59,7 @@ const routes: Routes = [
         } as SBRouteData,
     },
     {
-        path: 'editoutlet',
+        path: 'edit/editoutlet/:id',
         canActivate: [],
         component: EditOutletComponent,
         data: {
