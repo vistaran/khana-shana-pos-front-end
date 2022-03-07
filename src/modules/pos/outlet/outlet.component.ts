@@ -22,7 +22,9 @@ export class OutletComponent implements OnInit {
   searchValue: any
   // outlets: Data = [ '', '', '','','', '', '','','', '','']
 
-  constructor(private outletData: OutletDataService, private router: Router, private route:ActivatedRoute) { }
+  constructor(private outletData: OutletDataService, private router: Router, private route:ActivatedRoute) {
+    // this.getOutletData();
+  }
 
   ngOnInit(): void {
     this.getOutletData();
@@ -54,11 +56,14 @@ export class OutletComponent implements OnInit {
     console.log(this.odata);
   }
 
-  search(data: any) {
+  search(event: any) {
+    this.outletData.searchOutlet(this.searchValue).subscribe(res => {
+      console.table(res.Outlets.data);
+      this.odata = res.Outlets.data;
+      this.getOutletData()
 
-    this.outletData.searchOutlet(data).subscribe(data => {
-      this.getOutletData();
     })
+    this.getOutletData();
   }
 
   onClick() {
