@@ -1,0 +1,171 @@
+<sb-layout-dashboard>
+    <div class="card mt-4">
+        <h1 class="card-header">Add Category</h1>
+        <form [formGroup]="addCategoryForm" (ngSubmit)="onSubmit(addCategoryForm.value)">
+            <div class="container-fluid">
+                <h2 class="card-header mt-4 pb-2">General</h2>
+
+                <div class="row card-body">
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Name</label>
+                            <input type="text" formControlName="name" class="form-control" />
+                            <div *ngIf="name?.touched && name?.invalid" class="alert alert-danger">
+                                <div *ngIf="name?.errors?.required">Name is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Visible In Menu</label>
+                            <select name="visible_in_menu" formControlName="visible_in_menu" class="form-control">
+                            <option value="default"></option>
+                            <option *ngFor="let item of visibleInMenu">{{ item }}</option>
+                        </select>
+                            <div *ngIf="visible?.touched && visible?.invalid" class="alert alert-danger">
+                                <div *ngIf="visible?.errors?.required">Visible in Menu is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Position</label>
+                            <input type="text" formControlName="position" class="form-control" />
+                            <div *ngIf="position?.touched && position?.invalid" class="alert alert-danger">
+                                <div *ngIf="position?.errors?.required">Position is required.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="card-header pt-4 pb-2">Description and Images</h2>
+                <div class="row card-body">
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Display Mode</label><br />
+                            <select name="display_mode" formControlName="display_mode" class="form-control">
+                            <option value="default">--Select Display Mode--</option>
+                            <option *ngFor="let item of displayMode">{{ item }}</option>
+                        </select>
+                            <div *ngIf="displayMod?.touched && displayMod?.invalid" class="alert alert-danger">
+                                <div *ngIf="displayMod?.errors?.required">Display Mode is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Description</label>
+                            <input type="text" formControlName="decription" class="form-control" />
+                            <div *ngIf="description?.touched && description?.invalid" class="alert alert-danger">
+                                <div *ngIf="description?.errors?.required">Description is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Attributes</label>
+                            <select name="attri" formControlName="attri" class="form-control">
+                                <option value="default">--Attributes--</option>
+                                <option *ngFor="let item of attribut">{{ item }}</option>
+                            </select>
+                        </div>
+                        <div *ngIf="attributes?.touched && attributes?.invalid" class="alert alert-danger">
+                            <div *ngIf="attributes?.errors?.required">Attributes is required.</div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="card-body row">
+                    <div class="col">
+                        <label for="img" class="">Image</label>
+                        <input type="file" id="img" name="image" accept="image/*" formControlName="image" class="form-control" />
+                        <button class="btn btn-primary mb-4" type="submit">Upload</button>
+                    </div>
+
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="img2">Category Logo</label>
+                            <input type="file" id="img2" name="category_logo" accept="image/*" formControlName="category_logo" class="form-control" />
+                            <button class="btn btn-primary" type="submit">Upload</button>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Parent Category</label><br />
+                            <select name="parent_category" formControlName="parent_category" class="form-control">
+                            <option value="default">--Select Parent Category--</option>
+                            <option *ngFor="let item of parentCategory">{{ item }}</option>
+                        </select>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Status</label><br />
+                            <select name="status" formControlName="status" class="form-control">
+                            <option value="default">--Status--</option>
+                            <option *ngFor="let item of status">{{ item }}</option>
+                        </select>
+                            <div *ngIf="stat?.touched && stat?.invalid" class="alert alert-danger">
+                                <div *ngIf="stat?.errors?.required">
+                                    Status is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <h2 class="card-header">Search Engine Optimization</h2>
+                <div class="card-body row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Meta Title</label>
+                            <input type="text" formControlName="meta_title" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Slug</label>
+                            <input type="text" formControlName="slug" class="form-control" />
+                            <div *ngIf="slug?.touched && slug?.invalid" class="alert alert-danger">
+                                <div *ngIf="slug?.errors?.required">Slug is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Meta Description</label>
+                            <input type="text" formControlName="meta_description" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Meta keyword</label>
+                            <input type="text" formControlName="meta_keyword" class="form-control" />
+                            <div *ngIf="meta_keyword?.touched && meta_keyword?.invalid" class="alert alert-danger">
+                                <div *ngIf="meta_keyword?.errors?.required">Meta Keyword is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <button [disabled]="!addCategoryForm.valid" type="submit" class="btn btn-primary mb-4 float-right">
+                    Submit
+                </button>
+            </div>
+
+        </form>
+    </div>
+</sb-layout-dashboard>

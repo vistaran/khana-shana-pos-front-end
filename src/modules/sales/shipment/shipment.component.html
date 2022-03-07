@@ -1,0 +1,46 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <!-- <ul ngbNav #nav="ngbNav" class="nav-tabs mt-5">
+                    <li ngbNavItem>
+                        <ng-template ngbNavContent> -->
+            <h2 class="mt-3 mb-5">Shipments</h2>
+
+            <table class="table table-bordered table-striped ">
+                <thead class="head">
+                    <th>ID</th>
+                    <th>Order Id</th>
+                    <th>Total Qty</th>
+                    <th>Inventory Source</th>
+                    <th>Order Date</th>
+                    <th>Shipment Date</th>
+                    <th>Shipping To</th>
+                    <th>Actions</th>
+                </thead>
+                <tbody class="justify-content-end">
+                    <tr *ngFor="let data of sdata">
+                        <td>{{ data.id }}</td>
+                        <td>{{ data.orderId }}</td>
+                        <td>{{ data.totalQty }}</td>
+                        <td>{{ data.inventorySource }}</td>
+                        <td>{{ data.orderDate }}</td>
+                        <td>{{ data.shipmentDate }}</td>
+                        <td>{{ data.shippingTo }}</td>
+                        <td>
+                            <i class="fa fa-eye fa-lg pr-4 mx-auto" [routerLink]="['']"></i>
+                        </td>
+                    </tr>
+                    <tr *ngIf="!sdata.length">
+                        <td colspan="8" class="text-center">
+                            No records found.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- </ng-template>
+                </li>
+                </ul>
+                <div [ngbNavOutlet]="nav"></div> -->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+[
+    { "id": "1", "name": "Yoga", "position": "3", "status": "Active", "numberOfProducts": "7" },
+
+    { "id": "2", "name": "Fitness World", "position": "2", "status": "Active", "numberOfProducts": "2" },
+
+    { "id": "3", "name": "Fitness World", "position": "99", "status": "Active", "numberOfProducts": "8" },
+
+    { "id": "4", "name": "Men's Collection", "position": "99", "status": "Active", "numberOfProducts": "10" },
+
+    { "id": "5", "name": "Pinidae", "position": "87", "status": "Active", "numberOfProducts": "84" },
+
+    { "id": "6", "name": "Upright Summer", "position": "55", "status": "Active", "numberOfProducts": "100" }
+]
