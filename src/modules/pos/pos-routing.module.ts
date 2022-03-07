@@ -51,7 +51,7 @@ const routes: Routes = [
         } as SBRouteData,
     },
     {
-        path: 'edituser',
+        path: 'edit/edituser/:id',
         canActivate: [],
         component: EditUserComponent,
         data: {

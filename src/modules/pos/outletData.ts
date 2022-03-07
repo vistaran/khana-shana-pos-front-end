@@ -1,4 +1,4 @@
-interface Data {
+export interface Data {
     id: number,
     Outlet_name: string,
     Outlet_Address: string,

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { PasswordValidator } from '../password.validator';
+import { UserDataService } from '../user-data.service';
 
 @Component({
     selector: 'sb-edit-user',
@@ -10,6 +12,7 @@ import { PasswordValidator } from '../password.validator';
 })
 export class EditUserComponent implements OnInit {
     editUserForm!: FormGroup;
+    id: any
 
     get userName() {
         return this.editUserForm.get('userName');
@@ -43,24 +46,54 @@ export class EditUserComponent implements OnInit {
         return this.editUserForm.get('status');
     }
 
+    get phone() {
+        return this.editUserForm.get('phoneNumber');
+    }
+
     outlet = ['Webkul Outlet', 'abc Outlet', 'wow Outlet'];
     status = ['active', 'inactive'];
 
-    constructor(private fb: FormBuilder) {}
+    constructor(private fb: FormBuilder,
+        private edit: UserDataService,
+        private route: ActivatedRoute,
+        private router: Router) {}
 
     ngOnInit(): void {
         this.editUserForm = this.fb.group(
             {
-                userName: ['', [Validators.required]],
-                firstName: ['', [Validators.required]],
-                lastName: ['', [Validators.required]],
+                username: ['', [Validators.required]],
+                first_name: ['', [Validators.required]],
+                lastname: ['', [Validators.required]],
                 email: [''],
+                phoneNumber: ['', [Validators.required]],
                 password: ['', [Validators.required]],
-                confirmPassword: ['', [Validators.required]],
-                outlet: ['', [Validators.required]],
+                confirm_password: ['', [Validators.required]],
+                user_avatar: ['', [Validators.required]],
+                // outlet: ['', [Validators.required]],
                 status: ['', [Validators.required]],
             },
             { validators: PasswordValidator }
         );
+
+        this.id = this.route.snapshot.params.id
+    }
+
+
+    // "first_name":"hrutu",
+    // "lastname":"chaudhari",
+    // "username":"hrutu.chaudhari",
+    // "email":"hrutu@gmail.com",
+    // "password":"hrutu",
+    // "confirm_password":"hrutu",
+    // "user_avatar":".jpeg",
+    // "status":"active"
+
+    updateData(data: any) {
+        this.edit.editUser(this.id, data).subscribe(data => {
+            console.log('Data updated successfully! ', data)
+        })
+        this.router.navigate(['/pos/users']);
+        console.log(this.id);
+
     }
 }

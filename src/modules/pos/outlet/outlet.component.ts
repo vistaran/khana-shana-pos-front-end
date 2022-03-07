@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { map } from 'rxjs/operators';
+
 import { OutletDataService } from '../outlet-data.service';
+import { Data } from '../outletData';
 
 @Component({
   selector: 'sb-outlet',
@@ -10,15 +13,14 @@ import { OutletDataService } from '../outlet-data.service';
 export class OutletComponent implements OnInit {
 
   public odata: any;
-  public odata_del: any;
-  public length: number = 0;
-  public total: number = 0;
-  public id: number= 0;
-     
-
+  public length = 0;
+  public total = 0;
+  public id= 0;
   page = 1;
   pageSize = 10;
-    temsPerPage: any;
+  itemsPerPage: any;
+  searchValue: any
+  // outlets: Data = [ '', '', '','','', '', '','','', '','']
 
   constructor(private outletData: OutletDataService, private router: Router, private route:ActivatedRoute) { }
 
@@ -27,12 +29,12 @@ export class OutletComponent implements OnInit {
   }
 
   getOutletData() {
-           
+
     this.outletData.getOutletData(this.page).subscribe(result => {
         this.odata = result.outlets.data
         this.length = result.outlets.per_page;
         this.total = result.outlets.total;
-        
+
     })
   }
 
@@ -44,14 +46,19 @@ export class OutletComponent implements OnInit {
 
   deleteRow2(id: number) {
 
-    //const index = this.odata.indexOf(this.id);
-    //this.odata.splice(id, 1);
+    // const index = this.odata.indexOf(this.id);
+    // this.odata.splice(id, 1);
     this.outletData.deleteOutlet(id).subscribe(data => {
         this.getOutletData();
     });
-
     console.log(this.odata);
-    
+  }
+
+  search(data: any) {
+
+    this.outletData.searchOutlet(data).subscribe(data => {
+      this.getOutletData();
+    })
   }
 
   onClick() {
@@ -60,8 +67,8 @@ export class OutletComponent implements OnInit {
 
   onClick2() {
     this.router.navigate(['/pos/addoutlet']);
-}
+  }
 }
 
-  
+
 
