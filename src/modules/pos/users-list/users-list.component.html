@@ -35,20 +35,20 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let data of udata">
-                                        <td>{{ data.userId }}</td>
-                                        <td class="justify-content-center"><img class="w-25 h-25 rounded-circle" src="{{data.avatar}}"></td>
-                                        <td>{{ data.userName }}</td>
+                                        <td>{{ data.user_id }}</td>
+                                        <td class="justify-content-center"><img class="w-25 h-25 rounded-circle" src="{{data.user_avatar}}"></td>
+                                        <td>{{ data.username }}</td>
                                         <td>{{ data.email }}</td>
-                                        <td>{{ data.outletName }}</td>
+                                        <td>{{ data.Outlet_name }}</td>
                                         <td>{{ data.status }}</td>
-                                        <td>{{ data.createdAt }}</td>
+                                        <td>{{ data.created_at }}</td>
                                         <td>
-                                            <button class="btn btn-info mr-2"><i class="fa fa-pencil-square-o fa-lg" [routerLink]="['/pos/edituser']"></i></button>
+                                            <button class="btn btn-info mr-2"><i class="fa fa-pencil-square-o fa-lg" [routerLink]="['/pos/edit/edituser/' + data.user_id]"></i></button>
 
-                                            <button id="remove" (click)="deleteRow(data)" class="btn btn-danger"><i class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                                            <button id="remove" (click)="deleteRow(data.user_id)" class="btn btn-danger"><i class="fa fa-trash-o fa-lg mx-auto"></i></button>
                                         </td>
                                     </tr>
-                                    <tr *ngIf="!udata.length">
+                                    <tr *ngIf="!length">
                                         <td colspan="8" class="text-center">
                                             No records found.
                                         </td>
@@ -57,15 +57,8 @@
                             </table>
                             <div class="justify-content-between row">
                                 <div class="col">
-                                    <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="udata.length" [boundaryLinks]="true" [maxSize]="5"></ngb-pagination>
-                                </div>
-
-                                <div class="col">
-                                    <select class="form-select btn btn-outline-primary" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshUser()">
-                                    <option [ngValue]="2">2 items per page</option>
-                                    <option [ngValue]="4">4 items per page</option>
-                                    <option [ngValue]="6">6 items per page</option>
-                                </select>
+                                    <ngb-pagination (pageChange)="onPageChange($event)" [(page)]="page" [pageSize]="length" [collectionSize]="total" [boundaryLinks]="true" [maxSize]="total">
+                                    </ngb-pagination>
                                 </div>
                             </div>
 

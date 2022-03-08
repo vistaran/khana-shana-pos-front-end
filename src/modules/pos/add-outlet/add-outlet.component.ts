@@ -1,10 +1,8 @@
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { data } from 'jquery';
-import { OutletDataService } from './../outlet-data.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-//import { addOutlet } from '../outletData';
+
+import { OutletDataService } from './../outlet-data.service';
+// import { addOutlet } from '../outletData';
 
 @Component({
   selector: 'sb-add-outlet',
@@ -14,16 +12,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class AddOutletComponent implements OnInit {
 
   addOutletForm!: FormGroup;
-  //outlet = new addOutlet();
+  // outlet = new addOutlet();
 
   inventorySource = ['default'];
   status = ['active', 'inactive'];
-  postUrl = 'http://127.0.0.1:8000/api/outlet/insert';
 
   constructor(private fb: FormBuilder, private outletPost: OutletDataService) { }
 
   get outletName() {
-    return this.addOutletForm.get('outletName');
+    return this.addOutletForm.get('name');
   }
 
   get stat() {
@@ -31,29 +28,29 @@ export class AddOutletComponent implements OnInit {
   }
 
   get outletAddress() {
-    return this.addOutletForm.get('outletAddress');
+    return this.addOutletForm.get('address');
   }
 
   get country() {
     return this.addOutletForm.get('country');
-  } 
+  }
 
   get state() {
     return this.addOutletForm.get('state');
-  } 
+  }
 
   get city() {
     return this.addOutletForm.get('city');
-  } 
+  }
 
   get postCode() {
-    return this.addOutletForm.get('postCode');
-  } 
+    return this.addOutletForm.get('postcode');
+  }
 
   get inventory() {
-    return this.addOutletForm.get('inventorySource');
-  } 
-  
+    return this.addOutletForm.get('inventory_source');
+  }
+
   ngOnInit(): void {
 
     this.addOutletForm = this.fb.group( {
@@ -68,12 +65,14 @@ export class AddOutletComponent implements OnInit {
     });
   }
 
+
+  // tslint:disable-next-line: no-shadowed-variable
   onSubmit(data: any) {
 
     this.outletPost
             .postOutletData(data)
             .subscribe((result: any) => console.log(result));
-    console.log("Form Submitted",(data));
+    console.log('Form Submitted',(data));
   }
 
 }

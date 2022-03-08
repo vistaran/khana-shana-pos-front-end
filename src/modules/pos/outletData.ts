@@ -1,5 +1,4 @@
 export interface Data {
-    filter(arg0: (Data: any) => any): Data;
     id: number,
     Outlet_name: string,
     Outlet_Address: string,
@@ -25,9 +24,13 @@ interface Outlets {
     prev_page_url: string;
     to: number;
     total: number;
-}
+}https://github.com/vistaran/khana-shana-pos-front-end
 export interface OData {
     outlets: Outlets;
+}
+
+export interface OutletSearch {
+    Outlets: Outlets
 }
 
 

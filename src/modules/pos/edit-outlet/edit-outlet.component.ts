@@ -1,8 +1,9 @@
-import { data } from 'jquery';
-import { ActivatedRoute, Router } from '@angular/router';
-import { OutletDataService } from './../outlet-data.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { data } from 'jquery';
+
+import { OutletDataService } from './../outlet-data.service';
 
 
 @Component({
@@ -13,13 +14,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class EditOutletComponent implements OnInit {
     editOutletForm!: FormGroup
     id:any
-    //outlet = new Outlet();
+    // outlet = new Outlet();
 
     inventorySource = ['default'];
     status = ['active', 'inactive'];
 
     get outletName() {
-        return this.editOutletForm.get('outletName');
+        return this.editOutletForm.get('name');
     }
 
     get stat() {
@@ -27,7 +28,7 @@ export class EditOutletComponent implements OnInit {
     }
 
     get outletAddress() {
-        return this.editOutletForm.get('outletAddress');
+        return this.editOutletForm.get('address');
     }
 
     get country() {
@@ -43,14 +44,17 @@ export class EditOutletComponent implements OnInit {
     }
 
     get postCode() {
-        return this.editOutletForm.get('postCode');
+        return this.editOutletForm.get('postcode');
     }
 
     get inventory() {
         return this.editOutletForm.get('inventorySource');
     }
 
-    constructor(private fb: FormBuilder, private edit: OutletDataService, private route: ActivatedRoute, private router: Router) {}
+    constructor(private fb: FormBuilder,
+        private edit: OutletDataService,
+         private route: ActivatedRoute,
+         private router: Router) {}
 
     ngOnInit(): void {
         this.editOutletForm = this.fb.group({
@@ -77,7 +81,7 @@ export class EditOutletComponent implements OnInit {
     }
     updateData(data: any) {
         this.edit.editOutlet(this.id, data).subscribe(data => {
-            console.log("Data updated successfully! ", data)
+            console.log('Data updated successfully! ', data)
         })
         this.router.navigate(['/pos/users']);
     }

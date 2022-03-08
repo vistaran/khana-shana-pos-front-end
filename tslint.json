@@ -91,7 +91,12 @@
                 "grouped-imports": true
             }
         ],
-        "prettier": true,
+        "prettier": [true,
+            "error",
+            {
+            "endOfLine": "auto"
+            }
+        ],
         "quotemark": [
             true,
             "single"
