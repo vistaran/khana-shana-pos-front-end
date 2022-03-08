@@ -2,14 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Cdata } from './categories';
+import { Cdata, SearchCategory } from './categories';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoriesService {
 
-  private url = 'http://127.0.0.1:8000/api/category/';
+  private url = 'https://00c8-43-241-193-33.ngrok.io/api/category/';
 
 
   constructor(private http: HttpClient) { }
@@ -20,7 +20,7 @@ export class CategoriesService {
 
   deleteCategory(id: number) {
     return this.http.get(this.url + 'delete/' + id)
-}
+  }
 
   postCategory(data: any) {
     return this.http.post(this.url + 'insert', data)
@@ -28,6 +28,10 @@ export class CategoriesService {
 
   editCategory(id: number, data: any) {
     return this.http.put(this.url + 'edit/' + id, data)
+  }
+
+  searchCategory(data: any): Observable<SearchCategory> {
+    return this.http.get<SearchCategory>(this.url + 'search?query=' + data)
   }
 
 }

@@ -2,9 +2,9 @@ interface Data {
     attributes: string,
     category_id: number,
     name: string,
-    visible_in_menu: string, 
-    position: number, 
-    display_mode :string,
+    visible_in_menu: string,
+    position: number,
+    display_mode: string,
     decription: string,
     image: string,
     category_logo: string,
@@ -13,7 +13,7 @@ interface Data {
     slug: string,
     meta_description: string,
     meta_keyword: string,
-    status: string, 
+    status: string,
     created_at: Date,
     updated_at: Date,
     product_id: number,
@@ -37,3 +37,8 @@ interface categories {
 export interface Cdata {
     category: categories
 }
+
+export interface SearchCategory {
+    Category: categories
+}
+

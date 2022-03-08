@@ -77,8 +77,8 @@
                     <div class="col">
                         <div class="form-group">
                             <label class="required">Confirm Password</label>
-                            <input [class.is-invalid]="confirm_password?.touched && confirm_password?.errors?.mismatch" type="password" formControlName="confirm_password" class="form-control" />
-                            <div *ngIf="confirm_password?.touched && confirm_password?.errors?.mismatch" class="alert alert-danger">
+                            <input [class.is-invalid]="addUserForm?.errors?.mismatch" type="password" formControlName="confirm_password" class="form-control" />
+                            <div *ngIf="addUserForm?.errors?.mismatch" class="alert alert-danger">
                                 Passwords do not match.
                             </div>
                         </div>

@@ -1,7 +1,7 @@
-import { ActivatedRoute, Router } from '@angular/router';
-import { CategoriesService } from './../categories.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CategoriesService } from './../categories.service';
 
 @Component({
   selector: 'sb-edit-category',
@@ -57,9 +57,9 @@ export class EditCategoryComponent implements OnInit {
   }
 
   constructor(
-    private fb: FormBuilder, 
-    private categories: CategoriesService, 
-    private route:ActivatedRoute, 
+    private fb: FormBuilder,
+    private categories: CategoriesService,
+    private route: ActivatedRoute,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -67,7 +67,7 @@ export class EditCategoryComponent implements OnInit {
     this.editCategoryForm = this.fb.group({
       attri: ['', [Validators.required]],
       category_logo: ['', [Validators.required]],
-      decription: ['', [Validators.required]], 
+      decription: ['', [Validators.required]],
       display_mode: ['', [Validators.required]],
       image: ['', [Validators.required]],
       meta_description: ['', [Validators.required]],
@@ -78,36 +78,22 @@ export class EditCategoryComponent implements OnInit {
       position: ['', [Validators.required]],
       slug: ['', [Validators.required]],
       status: ['', [Validators.required]],
-      visible_in_menu: ['', [Validators.required]], 
+      visible_in_menu: ['', [Validators.required]],
     });
-    // "attributes": "fhdryghtgngvn",
-    // "category_logo": "C:\\fakepath\\sample.jpg",
-    // "decription": "dsf",
-    // "display_mode": "Products and Descrition",
-    // "image": "C:\\fakepath\\sample.jpg",
-    // "meta_description": "gfh",
-    // "meta_keyword": "",
-    // "meta_title": "fgth",
-    // "name": "Vandanaba",
-    // "parent_category": "Yoga",
-    // "position": "4",
-    // "slug": "fhfgh",
-    // "status": "active",
-    // "visible_in_menu": "Yes"
 
     this.id = this.route.snapshot.params.id
   }
 
   updateData(data: any) {
     this.categories.editCategory(this.id, data).subscribe(data => {
-        console.log("Data updated successfully! ", data)
+      console.log('Data updated successfully! ', data)
     })
     this.router.navigate(['/catalog/products']);
-}
+  }
 
 
-upload() {
-  //
-}
+  upload() {
+    //
+  }
 
 }

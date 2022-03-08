@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { searchUser, UData } from './userData';
+import { SearchUser, UData } from './userData';
 
 
 
@@ -32,7 +32,7 @@ export class UserDataService {
     return this.http.post(this.url + 'insert', data);
   }
 
-  searchUser(data: any): Observable<searchUser> {
-    return this.http.get<searchUser>(this.url + 'search?query=' + data)
-}
+  searchUser(data: any): Observable<SearchUser> {
+    return this.http.get<SearchUser>(this.url + 'search?query=' + data)
+  }
 }

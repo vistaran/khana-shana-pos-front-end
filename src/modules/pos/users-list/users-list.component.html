@@ -7,9 +7,28 @@
                         <a ngbNavLink>Users</a>
                         <ng-template ngbNavContent>
                             <h2 class="mt-3 mb-4">POS User List</h2>
-                            <button (click)="onClick()" class="btn btn-primary mb-4 float-right">
-                                Add User
-                                </button>
+
+                            <div class="row d-flex justify-content-between">
+                                <div class="col-md-6 mb-4">
+
+                                    <div class="input-group w-50">
+                                        <input class="form-control amber-border" class="form-control" type="text"
+                                            aria-label="Search" (keydown.enter)="search($event)" placeholder="Search"
+                                            [(ngModel)]="searchValue">
+                                        <div class="input-group-append">
+                                            <button class="btn input-group-text amber lighten-3" id="basic-text1"><i
+                                                    class="fa fa-search" aria-hidden="true"
+                                                    (click)="search($event)"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <button (click)="onClick()" class="btn btn-primary mb-4 float-right">
+                                        Add User
+                                    </button>
+                                </div>
+                            </div>
+
 
                             <table class="table table-bordered table-striped">
                                 <thead class="head">
@@ -25,16 +44,20 @@
                                 <tbody>
                                     <tr *ngFor="let data of udata">
                                         <td>{{ data.user_id }}</td>
-                                        <td class="justify-content-center"><img class="w-25 h-25 rounded-circle" src="{{data.user_avatar}}"></td>
+                                        <td class="justify-content-center"><img class="w-25 h-25 rounded-circle"
+                                                src="{{data.user_avatar}}"></td>
                                         <td>{{ data.username }}</td>
                                         <td>{{ data.email }}</td>
                                         <td>{{ data.Outlet_name }}</td>
                                         <td>{{ data.status }}</td>
                                         <td>{{ data.created_at }}</td>
                                         <td>
-                                            <button class="btn btn-info mr-2"><i class="fa fa-pencil-square-o fa-lg" [routerLink]="['/pos/edit/edituser/' + data.user_id]"></i></button>
+                                            <button class="btn btn-info mr-2"><i class="fa fa-pencil-square-o fa-lg"
+                                                    [routerLink]="['/pos/edit/edituser/' + data.user_id]"></i></button>
 
-                                            <button id="remove" (click)="deleteRow(data.user_id)" class="btn btn-danger"><i class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                                            <button id="remove" (click)="deleteRow(data.user_id)"
+                                                class="btn btn-danger"><i
+                                                    class="fa fa-trash-o fa-lg mx-auto"></i></button>
                                         </td>
                                     </tr>
                                     <tr *ngIf="!length">
@@ -46,7 +69,9 @@
                             </table>
                             <div class="justify-content-between row">
                                 <div class="col">
-                                    <ngb-pagination (pageChange)="onPageChange($event)" [(page)]="page" [pageSize]="length" [collectionSize]="total" [boundaryLinks]="true" [maxSize]="total">
+                                    <ngb-pagination (pageChange)="onPageChange($event)" [(page)]="page"
+                                        [pageSize]="length" [collectionSize]="total" [boundaryLinks]="true"
+                                        [maxSize]="total">
                                     </ngb-pagination>
                                 </div>
                             </div>

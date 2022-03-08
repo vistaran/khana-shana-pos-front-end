@@ -22,9 +22,9 @@ export class OutletComponent implements OnInit {
   searchValue: any
   // outlets: Data = [ '', '', '','','', '', '','','', '','']
 
-  constructor(private outletData: OutletDataService, private router: Router, private route:ActivatedRoute) {
-    // this.getOutletData();
-  }
+  constructor(private outletData: OutletDataService,
+              private router: Router,
+              private route:ActivatedRoute) { }
 
   ngOnInit(): void {
     this.getOutletData();
@@ -48,8 +48,6 @@ export class OutletComponent implements OnInit {
 
   deleteRow2(id: number) {
 
-    // const index = this.odata.indexOf(this.id);
-    // this.odata.splice(id, 1);
     this.outletData.deleteOutlet(id).subscribe(data => {
         this.getOutletData();
     });
@@ -59,6 +57,9 @@ export class OutletComponent implements OnInit {
   search(event: any) {
     this.outletData.searchOutlet(this.searchValue).subscribe(res => {
       this.odata = res.Outlets.data
+      this.length = this.odata.length;
+      this.total = res.Outlets.total;
+      console.log(this.odata.length)
     })
   }
 

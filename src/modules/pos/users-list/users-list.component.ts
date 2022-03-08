@@ -21,6 +21,7 @@ export class UsersListComponent implements OnInit {
     page = 1;
     pageSize = 10;
     itemsPerPage: any;
+    searchValue: any
 
     constructor(
         private userData: UserDataService,
@@ -60,6 +61,15 @@ export class UsersListComponent implements OnInit {
             this.getUserData();
         });
         console.log(this.udata);
+      }
+
+      search(event: any) {
+        this.userData.searchUser(this.searchValue).subscribe(res => {
+          this.udata = res.Users.data
+          this.length = this.udata.length;
+          this.total = res.Users.total;
+          console.log(this.udata)
+        })
       }
 
 

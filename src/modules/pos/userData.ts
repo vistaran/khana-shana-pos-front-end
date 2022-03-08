@@ -8,6 +8,7 @@ interface Data {
     status: string,
     created_at: Date
 }
+
 interface Users {
     current_page: number
     data: Data[]
@@ -22,10 +23,12 @@ interface Users {
     to: number
     total: number
 }
+
 export interface UData {
     user: Users
 }
 
-export interface searchUser {
+export interface SearchUser {
     Users: Users
 }
+

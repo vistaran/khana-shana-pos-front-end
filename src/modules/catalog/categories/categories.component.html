@@ -5,9 +5,28 @@
                     <li ngbNavItem>
                         <ng-template ngbNavContent> -->
             <h2 class="mt-3 mb-4">Categories</h2>
-            <button (click)="onClick()" class="btn btn-primary mb-4 float-right">
-                                Add Category
-                            </button>
+
+            <div class="row d-flex justify-content-between">
+                <div class="col-md-6 mb-4">
+
+                    <div class="input-group w-50">
+                        <input class="form-control amber-border" class="form-control" type="text" aria-label="Search"
+                            (keydown.enter)="search($event)" placeholder="Search" [(ngModel)]="searchValue">
+                        <div class="input-group-append">
+                            <button class="btn input-group-text amber lighten-3" id="basic-text1"><i
+                                    class="fa fa-search" aria-hidden="true" (click)="search($event)"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <button (click)="onClick()" class="btn btn-primary mb-4 float-right">
+                        Add Category
+                    </button>
+                </div>
+            </div>
+
+
 
             <table class="table table-bordered table-striped">
                 <thead class="head">
@@ -26,9 +45,11 @@
                         <td>{{ data.status }}</td>
                         <td>{{ data.quantity }}</td>
                         <td>
-                            <button class="btn btn-info mr-2"><i class="fa fa-pencil-square-o" [routerLink]="['/catalog/editcategory/'+data.category_id]"></i></button>
+                            <button class="btn btn-info mr-2"><i class="fa fa-pencil-square-o"
+                                    [routerLink]="['/catalog/editcategory/'+data.category_id]"></i></button>
 
-                            <button id="remove" (click)="deleteRow(data.category_id)" class="btn btn-danger"><i class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                            <button id="remove" (click)="deleteRow(data.category_id)" class="btn btn-danger"><i
+                                    class="fa fa-trash-o fa-lg mx-auto"></i></button>
                         </td>
                     </tr>
                     <tr *ngIf="!length">
@@ -40,16 +61,9 @@
             </table>
             <div class="justify-content-between row">
                 <div class="col">
-                    <ngb-pagination (pageChange)="onPageChange($event)" [(page)]="page" [pageSize]="length" [collectionSize]="total" [boundaryLinks]="true" [maxSize]="total">
+                    <ngb-pagination (pageChange)="onPageChange($event)" [(page)]="page" [pageSize]="length"
+                        [collectionSize]="total" [boundaryLinks]="true" [maxSize]="total">
                     </ngb-pagination>
-                </div>
-
-                <div class="col">
-                    <select class="form-select btn btn-outline-primary" [(ngModel)]="pageSize" (ngModelChange)="refreshCategories()">
-                                        <option [ngValue]="2">2 items per page</option>
-                                        <option [ngValue]="4">4 items per page</option>
-                                        <option [ngValue]="6">6 items per page</option>
-                    </select>
                 </div>
             </div>
             <!-- </ng-template>

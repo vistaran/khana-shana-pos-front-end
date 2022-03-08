@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { AttributesService } from '../attributes.service';
 
 @Component({
@@ -10,32 +11,57 @@ import { AttributesService } from '../attributes.service';
 export class AttributesComponent implements OnInit {
 
   public adata: any = [];
+  public length = 0;
+  public total = 0;
 
   page = 1;
   pageSize = 5;
-  
+  searchValue: any
+
+
+
   constructor(private attributes: AttributesService, private router: Router) { }
 
   ngOnInit(): void {
 
-    this.attributes.getAttributesData()
-      .subscribe( data => this.adata = data);
-    }
+    this.getAttributesData()
 
-    onClick() {
-      this.router.navigate(['/catalog/addattribute']);
-    }
+  }
 
-    deleteRow(d: any){
-      const index = this.adata.indexOf(d);
-      this.adata.splice(index, 1);
-    }
+  getAttributesData() {
+    this.attributes.getAttributesData(this.page).subscribe(result => {
+      this.adata = result.Attributes.data;
+      this.length = result.Attributes.per_page;
+      this.total = result.Attributes.total;
+      console.log(this.adata, this.length, this.total, this.page);
 
-    refreshAttributes() { 
-      this.adata = this.adata
-        .map((user: any, i: any) => ({id: i + 1, ...user}))
-        .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
-    }
+    });
+  }
+
+  onClick() {
+    this.router.navigate(['/catalog/addattribute']);
+  }
+  deleteRow(id: number) {
+    this.attributes.deleteAttribute(id).subscribe(data => {
+      this.getAttributesData();
+    });
+    console.log(this.adata);
+  }
+
+  onPageChange(event: any) {
+    this.page = event;
+    this.getAttributesData();
+    console.log('Here >>>', this.page, this.adata);
+  }
+
+  search(event: any) {
+    this.attributes.searchAttribute(this.searchValue).subscribe(res => {
+      this.adata = res.Attributes.data;
+      this.length = this.adata.length;
+      this.total = res.Attributes.total;
+      console.log(this.adata)
+    })
+  }
 }
 
-  
+
