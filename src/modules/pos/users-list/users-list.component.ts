@@ -27,26 +27,13 @@ export class UsersListComponent implements OnInit {
         private outletData: OutletDataService,
         private router: Router,
         private route: ActivatedRoute
-    ) {
-        // this.refreshUser();
-        // this.getOutletData();
-        // this.deleteRow2(this.id);
-    }
+    ) { }
 
 
     ngOnInit() {
         this.getUserData();
     }
 
-    // getOutletData() {
-
-    //     this.outletData.getOutletData(this.page).subscribe(result => {
-    //         this.odata = result.outlets.data
-    //         this.length = result.outlets.per_page;
-    //         this.total = result.outlets.total;
-
-    //     })
-    // }
 
     getUserData() {
         this.userData.getUserData(this.page).subscribe(result => {
@@ -67,10 +54,6 @@ export class UsersListComponent implements OnInit {
         this.router.navigate(['/pos/adduser']);
     }
 
-    onClick2() {
-        this.router.navigate(['/pos/outlet']);
-    }
-
     deleteRow(id: number) {
 
         this.userData.deleteUser(id).subscribe(data => {
@@ -79,22 +62,7 @@ export class UsersListComponent implements OnInit {
         console.log(this.udata);
       }
 
-    // refreshUser() {
-    //     this.udata = this.udata
-    //         .map((user: any, i: any) => ({ id: i + 1, ...user }))
-    //         .slice(
-    //             (this.page - 1) * this.pageSize,
-    //             (this.page - 1) * this.pageSize + this.pageSize
-    //         );
-    // }
 
-
-
-    // refreshOutlet() {
-    //   this.odata = this.odata
-    //     .map((outlet: any, i: any) => ({id: i + 1, ...outlet}))
-    //     .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
-    // }
 }
 
 

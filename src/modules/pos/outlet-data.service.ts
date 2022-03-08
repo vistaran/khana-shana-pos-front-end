@@ -5,7 +5,7 @@ import { data } from 'jquery';
 import { Observable } from 'rxjs';
 
 import { addOutlet } from './outlet.model';
-import { OData} from './outletData';
+import { OData, OutletSearch} from './outletData';
 
 @Injectable({
     providedIn: 'root',
@@ -32,8 +32,8 @@ export class OutletDataService {
         return this.http.put(this.url + 'edit/' + id, data)
     }
 
-    searchOutlet(data: any) {
-        return this.http.get(this.url + 'search?query=' + data)
+    searchOutlet(data: any): Observable<OutletSearch> {
+        return this.http.get<OutletSearch>(this.url + 'search?query=' + data)
     }
 
 }

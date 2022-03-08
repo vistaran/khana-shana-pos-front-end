@@ -20,7 +20,7 @@ export class AddOutletComponent implements OnInit {
   constructor(private fb: FormBuilder, private outletPost: OutletDataService) { }
 
   get outletName() {
-    return this.addOutletForm.get('outletName');
+    return this.addOutletForm.get('name');
   }
 
   get stat() {
@@ -28,7 +28,7 @@ export class AddOutletComponent implements OnInit {
   }
 
   get outletAddress() {
-    return this.addOutletForm.get('outletAddress');
+    return this.addOutletForm.get('address');
   }
 
   get country() {
@@ -44,11 +44,11 @@ export class AddOutletComponent implements OnInit {
   }
 
   get postCode() {
-    return this.addOutletForm.get('postCode');
+    return this.addOutletForm.get('postcode');
   }
 
   get inventory() {
-    return this.addOutletForm.get('inventorySource');
+    return this.addOutletForm.get('inventory_source');
   }
 
   ngOnInit(): void {

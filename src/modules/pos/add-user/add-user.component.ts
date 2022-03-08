@@ -13,15 +13,15 @@ export class AddUserComponent implements OnInit {
     addUserForm!: FormGroup;
 
     get userName() {
-        return this.addUserForm.get('userName');
+        return this.addUserForm.get('username');
     }
 
     get firstName() {
-        return this.addUserForm.get('firstName');
+        return this.addUserForm.get('first_name');
     }
 
     get lastName() {
-        return this.addUserForm.get('lastName');
+        return this.addUserForm.get('lastname');
     }
 
     get email() {
@@ -32,8 +32,8 @@ export class AddUserComponent implements OnInit {
         return this.addUserForm.get('password');
     }
 
-    get confirmPassword() {
-        return this.addUserForm.get('confirmPassword');
+    get confirm_password() {
+        return this.addUserForm.get('confirm_password');
     }
 
     get outl() {
@@ -65,7 +65,7 @@ export class AddUserComponent implements OnInit {
                 user_avatar: [''],
                 password: ['', [Validators.required]],
                 confirm_password: ['', [Validators.required]],
-                // outlet: ['', [Validators.required]],
+                outlet: ['', [Validators.required]],
                 status: ['', [Validators.required]],
             },
             { validators: PasswordValidator }

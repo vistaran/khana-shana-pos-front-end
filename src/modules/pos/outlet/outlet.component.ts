@@ -58,12 +58,8 @@ export class OutletComponent implements OnInit {
 
   search(event: any) {
     this.outletData.searchOutlet(this.searchValue).subscribe(res => {
-      console.table(res.Outlets.data);
-      this.odata = res.Outlets.data;
-      this.getOutletData()
-
+      this.odata = res.Outlets.data
     })
-    this.getOutletData();
   }
 
   onClick() {

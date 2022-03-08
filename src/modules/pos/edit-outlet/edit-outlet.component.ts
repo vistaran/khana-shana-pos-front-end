@@ -20,7 +20,7 @@ export class EditOutletComponent implements OnInit {
     status = ['active', 'inactive'];
 
     get outletName() {
-        return this.editOutletForm.get('outletName');
+        return this.editOutletForm.get('name');
     }
 
     get stat() {
@@ -28,7 +28,7 @@ export class EditOutletComponent implements OnInit {
     }
 
     get outletAddress() {
-        return this.editOutletForm.get('outletAddress');
+        return this.editOutletForm.get('address');
     }
 
     get country() {
@@ -44,7 +44,7 @@ export class EditOutletComponent implements OnInit {
     }
 
     get postCode() {
-        return this.editOutletForm.get('postCode');
+        return this.editOutletForm.get('postcode');
     }
 
     get inventory() {

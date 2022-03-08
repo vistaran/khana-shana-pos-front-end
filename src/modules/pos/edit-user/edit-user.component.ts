@@ -69,7 +69,7 @@ export class EditUserComponent implements OnInit {
                 password: ['', [Validators.required]],
                 confirm_password: ['', [Validators.required]],
                 user_avatar: ['', [Validators.required]],
-                // outlet: ['', [Validators.required]],
+                outlet: ['', [Validators.required]],
                 status: ['', [Validators.required]],
             },
             { validators: PasswordValidator }

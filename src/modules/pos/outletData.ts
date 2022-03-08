@@ -29,4 +29,8 @@ export interface OData {
     outlets: Outlets;
 }
 
+export interface OutletSearch {
+    Outlets: Outlets
+}
+
 
