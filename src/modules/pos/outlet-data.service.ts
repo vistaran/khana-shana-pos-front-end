@@ -11,7 +11,7 @@ import { OData, OutletSearch} from './outletData';
     providedIn: 'root',
 })
 export class OutletDataService {
-    private url = 'http://127.0.0.1:8000/api/outlet/';
+    private url = 'https://ae20-43-241-193-33.ngrok.io/api/outlet/';
 
 
     constructor(private http: HttpClient) {}

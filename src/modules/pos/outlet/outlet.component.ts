@@ -69,20 +69,6 @@ export class OutletComponent implements OnInit {
   onClick2() {
     this.router.navigate(['/pos/addoutlet']);
   }
-<<<<<<< HEAD
-  getKey(event: any) {
-    return (event.target.value);
-  }
-  
-  search(event: any) {
-    this.outletData.search(this.searchValue).subscribe(data => {
-      console.log(this.searchValue);
-      console.table(data.outlets.data);
-    })
-  }
-
-=======
->>>>>>> c4f3c0612d3e0b9d6c65b8369a12e19d09d46bc5
 }
 
 

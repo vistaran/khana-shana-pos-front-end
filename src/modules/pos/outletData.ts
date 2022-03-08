@@ -24,7 +24,7 @@ interface Outlets {
     prev_page_url: string;
     to: number;
     total: number;
-}https://github.com/vistaran/khana-shana-pos-front-end
+}
 export interface OData {
     outlets: Outlets;
 }

@@ -11,7 +11,7 @@ import { searchUser, UData } from './userData';
 })
 export class UserDataService {
 
-  private url = 'http://127.0.0.1:8000/api/user/'
+  private url = 'https://ae20-43-241-193-33.ngrok.io/api/user/'
 
   constructor(private http: HttpClient) { }
 
