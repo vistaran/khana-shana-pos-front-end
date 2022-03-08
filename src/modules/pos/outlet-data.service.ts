@@ -10,7 +10,7 @@ import { addOutlet } from './outlet.model';
     providedIn: 'root',
 })
 export class OutletDataService {
-    private url = 'http://127.0.0.1:8000/api/outlet/';
+    private url = 'https://2ae7-43-241-193-145.ngrok.io/api/outlet/';
     
     
     constructor(private http: HttpClient) {}
@@ -29,6 +29,10 @@ export class OutletDataService {
 
     editOutlet(id: number, data: any) {
         return this.http.put(this.url + 'edit/' + id, data)
+    }
+
+    search(data: any) {
+        return this.http.get<OData>(this.url + 'search?query=' + data)
     }
 
 }

@@ -1,7 +1,19 @@
 <h2 class="mt-3 mb-4">POS Outlet List</h2>
-<button [routerLink]="['/pos/addoutlet']" class="btn btn-primary mb-4 float-right">
-    Add Outlet
-</button>
+<div class="d-flex justify-content-between mb-4">
+
+    <div class="input-group rounded w-25">
+        <input type="search" [(ngModel)]="searchValue" (keydown.enter)="search($event)"
+            class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+        <span class="input-group-text border-0" id="search-addon">
+            <i class="fas fa-search"></i>
+        </span>
+    </div>
+
+    <button [routerLink]="['/pos/addoutlet']" class="btn btn-primary float-right">
+        Add Outlet
+    </button>
+
+</div>
 
 
 <table class="table table-bordered table-striped">

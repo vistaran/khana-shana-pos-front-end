@@ -100,6 +100,7 @@ export class UsersListComponent implements OnInit {
                 (this.page - 1) * this.pageSize + this.pageSize
             );
     }
+   
 
     
 

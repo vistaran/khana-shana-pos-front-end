@@ -14,8 +14,7 @@ export class OutletComponent implements OnInit {
   public length: number = 0;
   public total: number = 0;
   public id: number= 0;
-     
-
+  public searchValue: string = '';
   page = 1;
   pageSize = 10;
     temsPerPage: any;
@@ -60,7 +59,18 @@ export class OutletComponent implements OnInit {
 
   onClick2() {
     this.router.navigate(['/pos/addoutlet']);
-}
+  }
+  getKey(event: any) {
+    return (event.target.value);
+  }
+  
+  search(event: any) {
+    this.outletData.search(this.searchValue).subscribe(data => {
+      console.log(this.searchValue);
+      console.table(data.outlets.data);
+    })
+  }
+
 }
 
   

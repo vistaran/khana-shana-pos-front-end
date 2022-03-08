@@ -75,7 +75,6 @@ export class EditOutletComponent implements OnInit {
     getData() {
 
     }
-
     updateData(data: any) {
         this.edit.editOutlet(this.id, data).subscribe(data => {
             console.log("Data updated successfully! ", data)

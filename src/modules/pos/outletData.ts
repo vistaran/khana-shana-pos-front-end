@@ -1,4 +1,5 @@
-interface Data {
+export interface Data {
+    filter(arg0: (Data: any) => any): Data;
     id: number,
     Outlet_name: string,
     Outlet_Address: string,
