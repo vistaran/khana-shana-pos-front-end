@@ -39,7 +39,7 @@ const routes: Routes = [
     } as SBRouteData,
   },
   {
-    path: 'editproduct',
+    path: 'editproduct/:id',
     canActivate: [],
     component: EditProductComponent,
     data: {
@@ -111,7 +111,7 @@ const routes: Routes = [
     } as SBRouteData,
   },
   {
-    path: 'editfamily',
+    path: 'editfamily/:id',
     canActivate: [],
     component: EditAttributeFamilyComponent,
     data: {

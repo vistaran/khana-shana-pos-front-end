@@ -19,9 +19,9 @@
                         <div class="form-group">
                             <label class="required">Select Status</label><br />
                             <select name="Status" formControlName="status" class="form-control">
-                            <option value="default">--Select Status--</option>
-                            <option *ngFor="let item of status">{{ item }}</option>
-                        </select>
+                                <option value="default">--Select Status--</option>
+                                <option *ngFor="let item of status">{{ item }}</option>
+                            </select>
                             <div *ngIf="stat?.touched && stat?.invalid" class="alert alert-danger">
                                 <div *ngIf="stat?.errors?.required">Status is required.</div>
                             </div>
@@ -90,9 +90,9 @@
                         <div class="form-group">
                             <label class="required">Inventory Source</label><br />
                             <select name="inventory_source" formControlName="inventory_source" class="form-control">
-                            <option value="default">--Select Inventory Source--</option>
-                            <option *ngFor="let item of inventorySource">{{ item }}</option>
-                        </select>
+                                <option value="default">--Select Inventory Source--</option>
+                                <option *ngFor="let item of inventorySource">{{ item }}</option>
+                            </select>
                             <div *ngIf="inventory?.touched && inventory?.invalid" class="alert alert-danger">
                                 <div *ngIf="inventory?.errors?.required">
                                     Inventory source is required.
@@ -102,9 +102,10 @@
                     </div>
                 </div>
 
-                <button [disabled]="!addOutletForm.valid" type="submit" class="btn btn-primary mb-4 float-right">
-                Submit
-            </button>
+                <button [disabled]="!addOutletForm.valid" type="submit" class="btn btn-primary mb-4 float-right"
+                    [routerLink]="['/pos/users']">
+                    Submit
+                </button>
             </div>
         </form>
     </div>

@@ -1,5 +1,6 @@
 <div class="font-weight-bold">
-    <a class="nav-link" [routerLink]="sideNavItem.link" (click)="expanded = !expanded" [ngClass]="{active: isActive, collapsed: !expanded}">
+    <a class="nav-link" [routerLink]="sideNavItem.link" (click)="expanded = !expanded"
+        [ngClass]="{active: isActive, collapsed: !expanded}">
         <div class="sb-nav-link-icon" *ngIf="sideNavItem.icon">
             <fa-icon [icon]='["fas", sideNavItem.icon]'></fa-icon>
         </div>
@@ -9,6 +10,7 @@
         </div>
     </a>
     <nav class="sb-sidenav-menu-nested nav" *ngIf="sideNavItem.submenu &amp;&amp; expanded">
-        <sb-side-nav-item class="submenu" *ngFor="let submenuItem of sideNavItem.submenu" [sideNavItem]="submenuItem"></sb-side-nav-item>
+        <sb-side-nav-item class="submenu" *ngFor="let submenuItem of sideNavItem.submenu" [sideNavItem]="submenuItem">
+        </sb-side-nav-item>
     </nav>
 </div>

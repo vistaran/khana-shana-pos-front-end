@@ -13,7 +13,7 @@ import { OutletDataService } from './../outlet-data.service';
 })
 export class EditOutletComponent implements OnInit {
     editOutletForm!: FormGroup
-    id:any
+    id: any
     // outlet = new Outlet();
 
     inventorySource = ['default'];
@@ -53,8 +53,8 @@ export class EditOutletComponent implements OnInit {
 
     constructor(private fb: FormBuilder,
         private edit: OutletDataService,
-         private route: ActivatedRoute,
-         private router: Router) {}
+        private route: ActivatedRoute,
+        private router: Router) { }
 
     ngOnInit(): void {
         this.editOutletForm = this.fb.group({
@@ -67,6 +67,11 @@ export class EditOutletComponent implements OnInit {
             status: ['', [Validators.required]]
         });
         this.id = this.route.snapshot.params.id
+
+        // this.edit.editOutletForm(this.id).subscribe((data: any) => {
+        //     this.editOutletForm.patchValue(data.Show_Data)
+        //     console.log(data)
+        // })
     }
     // "name": " rutu",
     // "address": "390/2,sector-5/A",

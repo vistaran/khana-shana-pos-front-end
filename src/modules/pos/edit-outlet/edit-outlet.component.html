@@ -19,9 +19,9 @@
                         <div class="form-group">
                             <label class="required">Select Status</label><br />
                             <select name="status" formControlName="status" class="form-control">
-                            <option value="default">--Select Status--</option>
-                            <option *ngFor="let item of status">{{ item }}</option>
-                        </select>
+                                <option value="default">--Select Status--</option>
+                                <option *ngFor="let item of status">{{ item }}</option>
+                            </select>
                             <div *ngIf="stat?.touched && stat?.invalid" class="alert alert-danger">
                                 <div *ngIf="stat?.errors?.required">Status is required.</div>
                             </div>
@@ -102,9 +102,10 @@
                     </div>
                 </div> -->
 
-                <button [disabled]="!editOutletForm.valid" type="submit" class="btn btn-primary mb-4 float-right">
-                Update
-            </button>
+                <button [disabled]="!editOutletForm.valid" type="submit" class="btn btn-primary mb-4 float-right"
+                    [routerLink]="['/pos/users']">
+                    Update
+                </button>
             </div>
         </form>
     </div>

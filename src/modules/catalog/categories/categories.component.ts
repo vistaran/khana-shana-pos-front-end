@@ -30,9 +30,9 @@ export class CategoriesComponent implements OnInit {
 
   getCategoriesData() {
     this.categories.getCategoriesData(this.page).subscribe(result => {
-      this.cdata = result.category.data;
-      this.length = result.category.per_page;
-      this.total = result.category.total;
+      this.cdata = result.Category.data;
+      this.length = result.Category.per_page;
+      this.total = result.Category.total;
 
     });
   }

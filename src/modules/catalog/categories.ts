@@ -1,6 +1,6 @@
 interface Data {
     attributes: string,
-    category_id: number,
+    id: number,
     name: string,
     visible_in_menu: string,
     position: number,
@@ -17,7 +17,7 @@ interface Data {
     created_at: Date,
     updated_at: Date,
     product_id: number,
-    quantity: number
+    number_of_products: number
 }
 
 interface categories {
@@ -35,10 +35,12 @@ interface categories {
     total: number;
 }
 export interface Cdata {
-    category: categories
+    Category: categories
 }
 
 export interface SearchCategory {
     Category: categories
 }
+
+
 

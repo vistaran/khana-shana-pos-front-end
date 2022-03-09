@@ -31,27 +31,27 @@ export const sideNavItems: SideNavItems = {
         link: '/dashboard',
     },
     catalog: {
-        icon: '',
+        icon: 'tachometer-alt',
         text: 'Catalog',
         link: '/catalog/products',
     },
-    categories: {
-        icon: '',
-        text: 'Categories',
-        link: '/catalog/categories'
-    },
-    attributes: {
-        icon: '',
-        text: 'Attributes',
-        link: '/catalog/attributes'
-    },
-    attributeFamily: {
-        icon: '',
-        text: 'Attribute Family',
-        link: '/catalog/attributeFamily'
-    },
+    // categories: {
+    //     icon: '',
+    //     text: 'Categories',
+    //     link: '/catalog/categories'
+    // },
+    // attributes: {
+    //     icon: '',
+    //     text: 'Attributes',
+    //     link: '/catalog/attributes'
+    // },
+    // attributeFamily: {
+    //     icon: '',
+    //     text: 'Attribute Family',
+    //     link: '/catalog/attributeFamily'
+    // },
     sales: {
-        icon: '',
+        icon: 'tachometer-alt',
         text: 'Sales',
         link: '/sales/orders'
     },
@@ -125,5 +125,5 @@ export const sideNavItems: SideNavItems = {
         text: 'Tables',
         link: '/tables',
     },
-    
+
 };

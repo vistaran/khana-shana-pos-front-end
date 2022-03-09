@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+
+import { ProductService } from '../product.service';
 
 @Component({
   selector: 'sb-edit-product',
@@ -9,6 +12,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class EditProductComponent implements OnInit {
 
   editProductForm!: FormGroup;
+  id: any
 
   taxCategory = [];
   color = ['Red', 'Blue', 'Green', 'Yellow'];
@@ -16,7 +20,10 @@ export class EditProductComponent implements OnInit {
   brand = ['Nike', 'Adidas', 'Reebok', 'Nivea'];
   type = ['booking', 'simple'];
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,
+    private products: ProductService,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   get sku() {
     return this.editProductForm.get('sku');
@@ -47,11 +54,11 @@ export class EditProductComponent implements OnInit {
   }
 
   get typ() {
-    return this.editProductForm.get('type');
+    return this.editProductForm.get('product_type');
   }
 
   get qty() {
-    return this.editProductForm.get('qty');
+    return this.editProductForm.get('quantity');
   }
 
   get price() {
@@ -60,22 +67,22 @@ export class EditProductComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.editProductForm = this.fb.group ({
+    this.editProductForm = this.fb.group({
       sku: ['', [Validators.required]],
       name: ['', [Validators.required]],
-      urlKey: ['', [Validators.required]],
-      taxCategory: [],
-      new: [],
-      featured: [],
-      visibleIndividually: ['', [Validators.required]],
+      // urlKey: ['', [Validators.required]],
+      // taxCategory: [],
+      // new: [],
+      // featured: [],
+      // visibleIndividually: ['', [Validators.required]],
       status: ['', [Validators.required]],
-      color: [],
-      size: [],
-      brand: [],
-      shortDescription: ['', [Validators.required]],
-      description: ['', [Validators.required]],
-      type: ['', [Validators.required]],
-      qty: ['', [Validators.required]],
+      // color: [],
+      // size: [],
+      // brand: [],
+      // shortDescription: ['', [Validators.required]],
+      // description: ['', [Validators.required]],
+      product_type: ['', [Validators.required]],
+      quantity: ['', [Validators.required]],
       price: ['', [Validators.required]],
 
       // metaTitle: [],
@@ -86,10 +93,21 @@ export class EditProductComponent implements OnInit {
       // specialPrice: [],
       // specialPriceFrom: [],
       // specialPriceTo: []
-      
-    });
 
-    
+    });
+    this.id = this.route.snapshot.params.id
+
+    // this.products.editProductForm(this.id).subscribe((data: any) => {
+    //   this.editProductForm.patchValue(data.Show_Data)
+    //   console.log(data)
+    // })
+  }
+
+  updateData(data: any) {
+    this.products.editProducts(this.id, data).subscribe(data => {
+      console.log('Data updated successfully! ', data)
+    })
+    this.router.navigate(['/catalog/products']);
   }
 
 }

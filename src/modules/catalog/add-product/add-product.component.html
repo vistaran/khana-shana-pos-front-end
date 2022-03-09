@@ -2,7 +2,7 @@
 
     <div class="card mt-4">
         <h1 class="card-header">Add Product</h1>
-        <form [formGroup]="addProductForm">
+        <form [formGroup]="addProductForm" (ngSubmit)="onSubmit(addProductForm.value)">
 
             <div class="container-fluid">
                 <h2 class="card-header mt-4 pb-2">General</h2>
@@ -10,7 +10,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label class="required mt-4">Product Type</label>
-                            <input type="text" formControlName="productType" class="form-control" />
+                            <input type="text" formControlName="product_type" class="form-control" />
                             <div *ngIf="productType?.touched && productType?.invalid" class="alert alert-danger">
                                 <div *ngIf="productType?.errors?.required">Product type is required.</div>
                             </div>
@@ -20,10 +20,10 @@
                     <div class="col">
                         <div class="form-group">
                             <label class="required mt-4">Attribute Family</label><br />
-                            <select name="status" formControlName="attributeFamily" class="form-control">
-                            <option value="default">--Select Attribute Family--</option>
-                            <option *ngFor="let item of attributeFamily">{{ item }}</option>
-                        </select>
+                            <select name="status" formControlName="name" class="form-control">
+                                <option value="default">--Select Attribute Family--</option>
+                                <option *ngFor="let item of attributeFamily">{{ item }}</option>
+                            </select>
                             <div *ngIf="attributeFam?.touched && attributeFam?.invalid" class="alert alert-danger">
                                 <div *ngIf="attributeFam?.errors?.required">Attribute Family is required.</div>
                             </div>
@@ -45,9 +45,50 @@
                         </div>
                     </div>
                 </div>
-                <button [disabled]="!addProductForm.valid" class="btn btn-primary mb-4 float-right">
-                Save Product
-            </button>
+
+                <h2 class="card-header">Booking Information</h2>
+                <div class="row card-body">
+                    <div class="col">
+                        <div class="form-group">
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="customSwitch4"
+                                    formControlName="status">
+                                <label class="custom-control-label" for="customSwitch4">Status</label>
+                                <div *ngIf="status?.touched && status?.invalid" class="alert alert-danger">
+                                    <div *ngIf="status?.errors?.required">
+                                        Status is required.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Qty</label>
+                            <input type="text" formControlName="quantity" class="form-control" />
+                            <div *ngIf="qty?.touched && qty?.invalid" class="alert alert-danger">
+                                <div *ngIf="qty?.errors?.required">Quantity is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Price</label>
+                            <input type="text" formControlName="price" class="form-control" />
+                            <div *ngIf="price?.touched && price?.invalid" class="alert alert-danger">
+                                <div *ngIf="price?.errors?.required">Price is required.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- status price quantity -->
+                <button [disabled]="!addProductForm.valid" class="btn btn-primary mb-4 float-right"
+                    [routerLink]="['/catalog/products']">
+                    Save Product
+                </button>
             </div>
         </form>
     </div>

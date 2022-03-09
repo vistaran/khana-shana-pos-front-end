@@ -32,3 +32,23 @@ export interface SearchUser {
     Users: Users
 }
 
+export interface FetchUser {
+    Show_Data: Data2[]
+}
+
+interface Data2 {
+    id: number,
+    first_name: string,
+    lastname: string,
+    username: string,
+    email: string,
+    email_verified_at: string,
+    confirm_password: string,
+    outlet_name: string,
+    outlet_status: string,
+    phone_no: number
+    user_avatar: string,
+    status: string,
+    created_at: string,
+    updated_at: string
+}

@@ -35,4 +35,8 @@ export class UserDataService {
   searchUser(data: any): Observable<SearchUser> {
     return this.http.get<SearchUser>(this.url + 'search?query=' + data)
   }
+
+  editUserForm<FetchUser>(id: number) {
+    return this.http.get<FetchUser>(this.url + 'show/' + id)
+  }
 }

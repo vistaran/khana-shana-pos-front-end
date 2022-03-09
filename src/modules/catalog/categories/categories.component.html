@@ -28,7 +28,7 @@
 
 
 
-            <table class="table table-bordered table-striped">
+            <table class="table table-bordered table-striped shadow">
                 <thead class="head">
                     <th>ID</th>
                     <th>Name</th>
@@ -39,11 +39,11 @@
                 </thead>
                 <tbody class="justify-content-end">
                     <tr *ngFor="let data of cdata">
-                        <td>{{ data.category_id }}</td>
+                        <td>{{ data.id }}</td>
                         <td>{{ data.name }}</td>
                         <td>{{ data.position }}</td>
                         <td>{{ data.status }}</td>
-                        <td>{{ data.quantity }}</td>
+                        <td>{{ data.number_of_products - 1 }}</td>
                         <td>
                             <button class="btn btn-info mr-2"><i class="fa fa-pencil-square-o"
                                     [routerLink]="['/catalog/editcategory/'+data.category_id]"></i></button>

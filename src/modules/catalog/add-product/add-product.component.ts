@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+
+import { ProductService } from '../product.service';
 
 @Component({
   selector: 'sb-add-product',
@@ -7,10 +9,6 @@ import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } 
   styleUrls: ['./add-product.component.scss']
 })
 export class AddProductComponent implements OnInit {
-
-  addProductForm!: FormGroup;
-
-  attributeFamily = ['Default'];
 
   get productType() {
     return this.addProductForm.get('productType');
@@ -24,14 +22,41 @@ export class AddProductComponent implements OnInit {
     return this.addProductForm.get('sku');
   }
 
-  constructor(private fb: FormBuilder) { }
+  get status() {
+    return this.addProductForm.get('status');
+  }
+
+  get qty() {
+    return this.addProductForm.get('quantity');
+  }
+
+  get price() {
+    return this.addProductForm.get('price');
+  }
+
+  constructor(private fb: FormBuilder,
+    private products: ProductService) { }
+
+  addProductForm!: FormGroup;
+
+  attributeFamily = ['Default'];
 
   ngOnInit(): void {
-    this.addProductForm = this.fb.group( {
-      productType: ['',[Validators.required]],
-      attributeFamily: ['',[Validators.required]],
-      sku: ['',[Validators.required]],
+    this.addProductForm = this.fb.group({
+      product_type: ['', [Validators.required]],
+      name: ['', [Validators.required]],
+      sku: ['', [Validators.required]],
+      status: ['', [Validators.required]],
+      price: ['', [Validators.required]],
+      quantity: ['', [Validators.required]],
     });
+  }
+
+  onSubmit(data: any) {
+    this.products
+      .postProducts(data)
+      .subscribe((result: any) => console.log(result));
+    console.log('Form Submitted', (data));
   }
 
 }

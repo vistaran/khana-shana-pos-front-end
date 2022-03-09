@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import { CategoriesService } from './../categories.service';
 
 @Component({
@@ -82,6 +83,11 @@ export class EditCategoryComponent implements OnInit {
     });
 
     this.id = this.route.snapshot.params.id
+
+    // this.categories.editCategoryForm(this.id).subscribe((data: any) => {
+    //   this.editCategoryForm.patchValue(data.Show_Data)
+    //   console.log(data)
+    // })
   }
 
   updateData(data: any) {

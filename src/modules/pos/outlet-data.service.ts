@@ -1,11 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { data } from 'jquery';
 import { Observable } from 'rxjs';
 
 import { addOutlet } from './outlet.model';
-import { OData, OutletSearch} from './outletData';
+import { OData, OutletSearch } from './outletData';
 
 @Injectable({
     providedIn: 'root',
@@ -14,7 +12,7 @@ export class OutletDataService {
     private url = 'http://127.0.0.1:8000/api/outlet/';
 
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
     getOutletData(page: number): Observable<OData> {
         return this.http.get<OData>(this.url + 'show?page=' + page)
@@ -36,4 +34,7 @@ export class OutletDataService {
         return this.http.get<OutletSearch>(this.url + 'search?query=' + data)
     }
 
+    editOutletForm(id: number) {
+        return this.http.get(this.url + 'show/' + id)
+    }
 }

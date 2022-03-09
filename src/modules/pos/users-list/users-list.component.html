@@ -30,7 +30,7 @@
                             </div>
 
 
-                            <table class="table table-bordered table-striped">
+                            <table class="table table-bordered table-striped w-auto shadow">
                                 <thead class="head">
                                     <th>UserId</th>
                                     <th>Avatar</th>
@@ -44,7 +44,7 @@
                                 <tbody>
                                     <tr *ngFor="let data of udata">
                                         <td>{{ data.user_id }}</td>
-                                        <td class="justify-content-center"><img class="w-25 h-25 rounded-circle"
+                                        <td class="justify-content-center"><img class=" rounded-circle"
                                                 src="{{data.user_avatar}}"></td>
                                         <td>{{ data.username }}</td>
                                         <td>{{ data.email }}</td>
@@ -52,7 +52,7 @@
                                         <td>{{ data.status }}</td>
                                         <td>{{ data.created_at }}</td>
                                         <td>
-                                            <button class="btn btn-info mr-2"><i class="fa fa-pencil-square-o fa-lg"
+                                            <button class="btn btn-info "><i class="fa fa-pencil-square-o fa-lg"
                                                     [routerLink]="['/pos/edit/edituser/' + data.user_id]"></i></button>
 
                                             <button id="remove" (click)="deleteRow(data.user_id)"

@@ -9,7 +9,7 @@ import { Adata } from './attributes';
 })
 export class AttributesService {
 
-  private url = 'https://00c8-43-241-193-33.ngrok.io/api/attribute/';
+  private url = 'http://127.0.0.1:8000/api/attribute/';
 
   constructor(private http: HttpClient) { }
 

@@ -13,17 +13,18 @@ import { UserDataService } from '../user-data.service';
 export class EditUserComponent implements OnInit {
     editUserForm!: FormGroup;
     id: any
+    data: any
 
     get userName() {
-        return this.editUserForm.get('userName');
+        return this.editUserForm.get('username');
     }
 
     get firstName() {
-        return this.editUserForm.get('firstName');
+        return this.editUserForm.get('first_name');
     }
 
     get lastName() {
-        return this.editUserForm.get('lastName');
+        return this.editUserForm.get('lastname');
     }
 
     get email() {
@@ -35,7 +36,7 @@ export class EditUserComponent implements OnInit {
     }
 
     get confirmPassword() {
-        return this.editUserForm.get('confirmPassword');
+        return this.editUserForm.get('confirm_password');
     }
 
     get outl() {
@@ -47,7 +48,7 @@ export class EditUserComponent implements OnInit {
     }
 
     get phone() {
-        return this.editUserForm.get('phoneNumber');
+        return this.editUserForm.get('phone_no');
     }
 
     outlet = ['Webkul Outlet', 'abc Outlet', 'wow Outlet'];
@@ -56,7 +57,7 @@ export class EditUserComponent implements OnInit {
     constructor(private fb: FormBuilder,
         private edit: UserDataService,
         private route: ActivatedRoute,
-        private router: Router) {}
+        private router: Router) { }
 
     ngOnInit(): void {
         this.editUserForm = this.fb.group(
@@ -65,7 +66,7 @@ export class EditUserComponent implements OnInit {
                 first_name: ['', [Validators.required]],
                 lastname: ['', [Validators.required]],
                 email: [''],
-                phoneNumber: ['', [Validators.required]],
+                phone_no: ['', [Validators.required]],
                 password: ['', [Validators.required]],
                 confirm_password: ['', [Validators.required]],
                 user_avatar: ['', [Validators.required]],
@@ -76,17 +77,12 @@ export class EditUserComponent implements OnInit {
         );
 
         this.id = this.route.snapshot.params.id
+
+        this.edit.editUserForm(this.id).subscribe((data: any) => {
+            this.editUserForm.patchValue(data.Show_Data)
+            console.log(data)
+        })
     }
-
-
-    // "first_name":"hrutu",
-    // "lastname":"chaudhari",
-    // "username":"hrutu.chaudhari",
-    // "email":"hrutu@gmail.com",
-    // "password":"hrutu",
-    // "confirm_password":"hrutu",
-    // "user_avatar":".jpeg",
-    // "status":"active"
 
     updateData(data: any) {
         this.edit.editUser(this.id, data).subscribe(data => {

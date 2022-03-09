@@ -20,9 +20,9 @@
                         <div class="form-group">
                             <label class="required">Visible In Menu</label>
                             <select name="visible_in_menu" formControlName="visible_in_menu" class="form-control">
-                            <option value="default"></option>
-                            <option *ngFor="let item of visibleInMenu">{{ item }}</option>
-                        </select>
+                                <option value="default"></option>
+                                <option *ngFor="let item of visibleInMenu">{{ item }}</option>
+                            </select>
                             <div *ngIf="visible?.touched && visible?.invalid" class="alert alert-danger">
                                 <div *ngIf="visible?.errors?.required">Visible in Menu is required.</div>
                             </div>
@@ -46,9 +46,9 @@
                         <div class="form-group">
                             <label class="required">Display Mode</label><br />
                             <select name="displayMode" formControlName="display_mode" class="form-control">
-                            <option value="default">--Select Display Mode--</option>
-                            <option *ngFor="let item of displayMode">{{ item }}</option>
-                        </select>
+                                <option value="default">--Select Display Mode--</option>
+                                <option *ngFor="let item of displayMode">{{ item }}</option>
+                            </select>
                             <div *ngIf="displayMod?.touched && displayMod?.invalid" class="alert alert-danger">
                                 <div *ngIf="displayMod?.errors?.required">Display Mode is required.</div>
                             </div>
@@ -83,7 +83,8 @@
                 <div class="card-body row">
                     <div class="col">
                         <label for="img" class="">Image</label>
-                        <input type="file" id="img" name="image" accept="image/*" formControlName="image" class="form-control" />
+                        <input type="file" id="img" name="image" accept="image/*" formControlName="image"
+                            class="form-control" />
 
                     </div>
 
@@ -91,7 +92,8 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="img2">Category Logo</label>
-                            <input type="file" id="img2" name="category_logo" accept="image/*" formControlName="category_logo" class="form-control" />
+                            <input type="file" id="img2" name="category_logo" accept="image/*"
+                                formControlName="category_logo" class="form-control" />
 
                         </div>
                     </div>
@@ -100,9 +102,9 @@
                         <div class="form-group">
                             <label class="required">Parent Category</label><br />
                             <select name="parent_category" formControlName="parent_category" class="form-control">
-                            <option value="default">--Select Parent Category--</option>
-                            <option *ngFor="let item of parentCategory">{{ item }}</option>
-                        </select>
+                                <option value="default">--Select Parent Category--</option>
+                                <option *ngFor="let item of parentCategory">{{ item }}</option>
+                            </select>
                         </div>
                     </div>
 
@@ -113,9 +115,9 @@
                         <div class="form-group">
                             <label class="required">Status</label><br />
                             <select name="status" formControlName="status" class="form-control">
-                            <option value="default">--Status--</option>
-                            <option *ngFor="let item of status">{{ item }}</option>
-                        </select>
+                                <option value="default">--Status--</option>
+                                <option *ngFor="let item of status">{{ item }}</option>
+                            </select>
                             <div *ngIf="stat?.touched && stat?.invalid" class="alert alert-danger">
                                 <div *ngIf="stat?.errors?.required">
                                     Status is required.</div>
@@ -163,7 +165,8 @@
                 </div>
 
 
-                <button [disabled]="!editCategoryForm.valid" type="submit" class="btn btn-primary mb-4 float-right">
+                <button [disabled]="!editCategoryForm.valid" type="submit" class="btn btn-primary mb-4 float-right"
+                    [routerLink]="['/catalog/products']">
                     Submit
                 </button>
             </div>

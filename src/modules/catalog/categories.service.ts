@@ -9,7 +9,7 @@ import { Cdata, SearchCategory } from './categories';
 })
 export class CategoriesService {
 
-  private url = 'https://00c8-43-241-193-33.ngrok.io/api/category/';
+  private url = 'http://127.0.0.1:8000/api/category/';
 
 
   constructor(private http: HttpClient) { }

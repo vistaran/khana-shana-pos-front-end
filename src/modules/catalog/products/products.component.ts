@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { ProductService } from '../product.service';
 
 @Component({
@@ -10,31 +11,55 @@ import { ProductService } from '../product.service';
 export class ProductsComponent implements OnInit {
 
   public pdata: any = [];
+  public length = 0;
+  public total = 0;
+
 
   page = 1;
   pageSize = 5;
+  searchValue: any
+
 
   constructor(private productList: ProductService, private router: Router) { }
 
-  ngOnInit(){
+  ngOnInit() {
 
-    this.productList.getProductData()
-      .subscribe( data => this.pdata = data);
-    }
+    this.getProductData()
+  }
 
-    onClick() {
-      this.router.navigate(['/catalog/addproduct']);
-    }
+  getProductData() {
+    this.productList.getProducts(this.page).subscribe(result => {
+      this.pdata = result.Products.data;
+      this.length = result.Products.per_page;
+      this.total = result.Products.total;
 
-    deleteRow(d: any){
-      const index = this.pdata.indexOf(d);
-      this.pdata.splice(index, 1);
-    }
+    });
+  }
 
-    refreshProducts() { 
-      this.pdata = this.pdata
-        .map((user: any, i: any) => ({id: i + 1, ...user}))
-        .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
-    }
+  onClick() {
+    this.router.navigate(['/catalog/addproduct']);
+  }
+
+  onPageChange(event: any) {
+    this.page = event;
+    this.getProductData();
+    console.log('Here >>>', this.page, this.pdata);
+  }
+
+  deleteRow(id: number) {
+    this.productList.deleteProducts(id).subscribe(data => {
+      this.getProductData();
+    });
+    console.log(this.pdata);
+  }
+
+  search(event: any) {
+    this.productList.searchProducts(this.searchValue).subscribe(res => {
+      this.pdata = res.Products.data
+      this.length = this.pdata.length;
+      this.total = res.Products.total;
+      console.log(this.pdata)
+    })
+  }
 
 }
