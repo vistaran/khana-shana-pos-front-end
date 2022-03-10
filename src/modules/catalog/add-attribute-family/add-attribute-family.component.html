@@ -2,7 +2,7 @@
 
     <div class="card mt-4">
         <h1 class="card-header">Add Family</h1>
-        <form [formGroup]="addFamilyForm" (ngSubmit)="onSubmit(addFamilyForm.value)">
+        <form [formGroup]="addFamilyForm">
 
             <div class="container-fluid">
                 <h2 class="card-header mt-4 pb-2">General</h2>
@@ -52,7 +52,7 @@
                 </div> -->
 
                 <button [disabled]="!addFamilyForm.valid" type="submit" class="btn btn-primary mb-4 float-right"
-                    [routerLink]="['/catalog/products']">
+                    (click)="onSubmit(addFamilyForm.value)" [routerLink]="['/catalog/products']">
                     Save Family
                 </button>
             </div>

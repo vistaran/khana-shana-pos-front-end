@@ -2,7 +2,7 @@
 
     <div class="card mt-4">
         <h1 class="card-header">Add Product</h1>
-        <form [formGroup]="addProductForm" (ngSubmit)="onSubmit(addProductForm.value)">
+        <form [formGroup]="addProductForm">
 
             <div class="container-fluid">
                 <h2 class="card-header mt-4 pb-2">General</h2>
@@ -19,13 +19,10 @@
 
                     <div class="col">
                         <div class="form-group">
-                            <label class="required mt-4">Attribute Family</label><br />
-                            <select name="status" formControlName="name" class="form-control">
-                                <option value="default">--Select Attribute Family--</option>
-                                <option *ngFor="let item of attributeFamily">{{ item }}</option>
-                            </select>
-                            <div *ngIf="attributeFam?.touched && attributeFam?.invalid" class="alert alert-danger">
-                                <div *ngIf="attributeFam?.errors?.required">Attribute Family is required.</div>
+                            <label class="required mt-4">Name</label><br />
+                            <input type="text" rows="6" formControlName="name" class="form-control" />
+                            <div *ngIf="name?.touched && name?.invalid" class="alert alert-danger">
+                                <div *ngIf="name?.errors?.required">Attribute Family is required.</div>
                             </div>
                         </div>
                     </div>
@@ -84,9 +81,22 @@
                     </div>
                 </div>
 
+                <div class="col">
+                    <div class="form-group">
+                        <label class="required">Attribute Family Name</label>
+                        <select name="status" formControlName="attribute_family_name" class="form-control">
+                            <option value="default">--Select Attribute Family--</option>
+                            <option *ngFor="let item of attributeFamily">{{ item }}</option>
+                        </select>
+                        <div *ngIf="family_name?.touched && family_name?.invalid" class="alert alert-danger">
+                            <div *ngIf="family_name?.errors?.required">Price is required.</div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- status price quantity -->
                 <button [disabled]="!addProductForm.valid" class="btn btn-primary mb-4 float-right"
-                    [routerLink]="['/catalog/products']">
+                    (click)="onSubmit(addProductForm.value)" [routerLink]="['/catalog/products']">
                     Save Product
                 </button>
             </div>

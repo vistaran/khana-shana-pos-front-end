@@ -20,7 +20,9 @@ export class ProductsComponent implements OnInit {
   searchValue: any
 
 
-  constructor(private productList: ProductService, private router: Router) { }
+  constructor(private productList: ProductService, private router: Router) {
+    console.log('Loaded.');
+  }
 
   ngOnInit() {
 

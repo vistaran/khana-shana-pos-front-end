@@ -53,7 +53,7 @@
                 </div> -->
 
                 <button [disabled]="!editFamilyForm.valid" type="submit" class="btn btn-primary mb-4 float-right"
-                    [routerLink]="['/catalog/products']">
+                    (click)="updateData(editFamilyForm.value)" [routerLink]="['/catalog/products']">
                     Save Family
                 </button>
             </div>

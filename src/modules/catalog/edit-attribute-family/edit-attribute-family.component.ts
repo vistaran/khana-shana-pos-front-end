@@ -15,7 +15,7 @@ export class EditAttributeFamilyComponent implements OnInit {
   id: any
 
   get name() {
-    return this.editFamilyForm.get('name');
+    return this.editFamilyForm.get('attribute_family_name');
   }
 
   get code() {

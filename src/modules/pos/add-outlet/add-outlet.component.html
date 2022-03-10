@@ -1,7 +1,7 @@
 <sb-layout-dashboard>
     <div class="card">
         <h1 class="card-header">Add Outlet</h1>
-        <form [formGroup]="addOutletForm" (ngSubmit)="onSubmit(addOutletForm.value)">
+        <form [formGroup]="addOutletForm">
             <div class="container-fluid">
                 <h2 class="card-header mt-4 pb-2">General</h2>
                 <div class="row card-body">
@@ -103,7 +103,7 @@
                 </div>
 
                 <button [disabled]="!addOutletForm.valid" type="submit" class="btn btn-primary mb-4 float-right"
-                    [routerLink]="['/pos/users']">
+                    (click)="onSubmit(addOutletForm.value)" [routerLink]="['/pos/users']">
                     Submit
                 </button>
             </div>

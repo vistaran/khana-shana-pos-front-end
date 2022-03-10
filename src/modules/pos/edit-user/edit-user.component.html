@@ -1,7 +1,7 @@
 <sb-layout-dashboard>
     <div class="card">
         <h1 class="card-header">Edit User</h1>
-        <form [formGroup]="editUserForm" (ngSubmit)="updateData(editUserForm.value)">
+        <form [formGroup]="editUserForm">
             <div class="container-fluid">
                 <h2 class="card-header mt-4 pb-2">General</h2>
                 <div class="card-body row">
@@ -91,7 +91,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label class="required">Select Outlet</label><br />
-                            <select name="outlet" formControlName="outlet" class="form-control">
+                            <select name="outlet" formControlName="outlet_name" class="form-control">
                                 <option value="default">--Select Outlet--</option>
                                 <option *ngFor="let item of outlet">{{ item }}</option>
                             </select>
@@ -113,11 +113,23 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Select Outlet Status</label><br />
+                            <select name="status" formControlName="outlet_status" class="form-control">
+                                <option value="default">--Select Outlet Status--</option>
+                                <option *ngFor="let item of status">{{ item }}</option>
+                            </select>
+                            <div *ngIf="outstat?.touched && outstat?.invalid" class="alert alert-danger">
+                                <div *ngIf="outstat?.errors?.required">Status is required.</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-
-                <button [disabled]="!editUserForm.valid" type="submit" class="btn btn-primary mb-4 float-right"
-                    [routerLink]="['/pos/users']">
+                <button [disabled]="!editUserForm.valid" type="submit" (click)="updateData(editUserForm.value)"
+                    class="btn btn-primary mb-4 float-right" [routerLink]="['/pos/users']">
                     Submit
                 </button>
             </div>

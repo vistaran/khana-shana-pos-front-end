@@ -46,9 +46,9 @@
                         <td>{{ data.number_of_products - 1 }}</td>
                         <td>
                             <button class="btn btn-info mr-2"><i class="fa fa-pencil-square-o"
-                                    [routerLink]="['/catalog/editcategory/'+data.category_id]"></i></button>
+                                    [routerLink]="['/catalog/editcategory/'+data.id]"></i></button>
 
-                            <button id="remove" (click)="deleteRow(data.category_id)" class="btn btn-danger"><i
+                            <button id="remove" (click)="deleteRow(data.id)" class="btn btn-danger"><i
                                     class="fa fa-trash-o fa-lg mx-auto"></i></button>
                         </td>
                     </tr>

@@ -1,7 +1,7 @@
 <sb-layout-dashboard>
     <div class="card mt-4">
         <h1 class="card-header">Add Category</h1>
-        <form [formGroup]="addCategoryForm" (ngSubmit)="onSubmit(addCategoryForm.value)">
+        <form [formGroup]="addCategoryForm">
             <div class="container-fluid">
                 <h2 class="card-header mt-4 pb-2">General</h2>
 
@@ -85,7 +85,6 @@
                         <label for="img" class="">Image</label>
                         <input type="file" id="img" name="image" accept="image/*" formControlName="image"
                             class="form-control" />
-                        <button class="btn btn-primary mb-4" type="submit">Upload</button>
                     </div>
 
 
@@ -94,7 +93,6 @@
                             <label for="img2">Category Logo</label>
                             <input type="file" id="img2" name="category_logo" accept="image/*"
                                 formControlName="category_logo" class="form-control" />
-                            <button class="btn btn-primary" type="submit">Upload</button>
                         </div>
                     </div>
 
@@ -164,7 +162,7 @@
 
 
                 <button [disabled]="!addCategoryForm.valid" type="submit" class="btn btn-primary mb-4 float-right"
-                    [routerLink]="['/catalog/products']">
+                    (click)="onSubmit(addCategoryForm.value)" [routerLink]="['/catalog/products']">
                     Submit
                 </button>
             </div>

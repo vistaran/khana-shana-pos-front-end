@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { HttpParams } from '@angular/common/http';
+import { data } from 'jquery';
 
 import { addOutlet } from './outlet.model';
 import { OData, OutletSearch } from './outletData';

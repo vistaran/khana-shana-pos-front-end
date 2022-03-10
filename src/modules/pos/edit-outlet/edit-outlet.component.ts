@@ -14,7 +14,6 @@ import { OutletDataService } from './../outlet-data.service';
 export class EditOutletComponent implements OnInit {
     editOutletForm!: FormGroup
     id: any
-    // outlet = new Outlet();
 
     inventorySource = ['default'];
     status = ['active', 'inactive'];
@@ -48,7 +47,7 @@ export class EditOutletComponent implements OnInit {
     }
 
     get inventory() {
-        return this.editOutletForm.get('inventorySource');
+        return this.editOutletForm.get('inventory_source');
     }
 
     constructor(private fb: FormBuilder,
@@ -64,6 +63,7 @@ export class EditOutletComponent implements OnInit {
             state: ['', [Validators.required]],
             city: ['', [Validators.required]],
             postcode: ['', [Validators.required]],
+            inventory_source: ['', [Validators.required]],
             status: ['', [Validators.required]]
         });
         this.id = this.route.snapshot.params.id

@@ -1,10 +1,10 @@
 interface Data {
-    user_id: number,
+    id: number,
     user_avatar: File,
     username: string,
     email: string,
     phoneNumber: number,
-    Outlet_name: string,
+    outlet_name: string,
     status: string,
     created_at: Date
 }
@@ -37,14 +37,14 @@ export interface FetchUser {
 }
 
 interface Data2 {
-    id: number,
+    user_id: number,
     first_name: string,
     lastname: string,
     username: string,
     email: string,
     email_verified_at: string,
     confirm_password: string,
-    outlet_name: string,
+    Outlet_name: string,
     outlet_status: string,
     phone_no: number
     user_avatar: string,

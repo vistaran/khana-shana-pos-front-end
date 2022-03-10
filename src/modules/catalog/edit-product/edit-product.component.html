@@ -2,7 +2,7 @@
 
     <div class="card mt-4 shadow">
         <h1 class="card-header">Edit Product</h1>
-        <form [formGroup]="editProductForm" (ngSubmit)="updateData(editProductForm.value)">
+        <form [formGroup]="editProductForm">
 
             <div class="container-fluid">
                 <h2 class="card-header mt-4 pb-2">General</h2>
@@ -192,7 +192,7 @@
                 </div>
 
                 <button [disabled]="!editProductForm.valid" type="submit" class="btn btn-primary mb-4 float-right"
-                    [routerLink]="['/catalog/products']">
+                    (click)="updateData(editProductForm.value)" [routerLink]="['/catalog/products']">
                     Save Product
                 </button>
             </div>

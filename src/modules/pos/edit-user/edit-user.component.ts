@@ -40,7 +40,7 @@ export class EditUserComponent implements OnInit {
     }
 
     get outl() {
-        return this.editUserForm.get('outlet');
+        return this.editUserForm.get('outlet_name');
     }
 
     get stat() {
@@ -51,7 +51,11 @@ export class EditUserComponent implements OnInit {
         return this.editUserForm.get('phone_no');
     }
 
-    outlet = ['Webkul Outlet', 'abc Outlet', 'wow Outlet'];
+    get outstat() {
+        return this.editUserForm.get('outlet_status');
+    }
+
+    outlet = ['Webkul Outlet', 'abc Outlet', 'wow Outlet', 'Yasmin Mueller'];
     status = ['active', 'inactive'];
 
     constructor(private fb: FormBuilder,
@@ -62,26 +66,38 @@ export class EditUserComponent implements OnInit {
     ngOnInit(): void {
         this.editUserForm = this.fb.group(
             {
-                username: ['', [Validators.required]],
                 first_name: ['', [Validators.required]],
                 lastname: ['', [Validators.required]],
+                username: ['', [Validators.required]],
                 email: [''],
-                phone_no: ['', [Validators.required]],
                 password: ['', [Validators.required]],
                 confirm_password: ['', [Validators.required]],
+                outlet_name: ['', [Validators.required]],
+                outlet_status: ['', [Validators.required]],
+                phone_no: ['', [Validators.required]],
                 user_avatar: ['', [Validators.required]],
-                outlet: ['', [Validators.required]],
                 status: ['', [Validators.required]],
             },
             { validators: PasswordValidator }
         );
 
+        // first_name' => $request->first_name,
+        //             'lastname' => $request->lastname,
+        //             'username' => $request->username,
+        //             'email' => $request->email,
+        //             'password' => bcrypt($request->password),
+        //             'confirm_password' => bcrypt($request->confirm_password),
+        //             'outlet_name' => $request->outlet_name,
+        //             'outlet_status' => $request->outlet_status,
+        //             'phone_no' => $request->phone_no,
+        //             'user_avatar' => $request->user_avatar,
+        //             'status' => $request->status,
         this.id = this.route.snapshot.params.id
 
-        this.edit.editUserForm(this.id).subscribe((data: any) => {
-            this.editUserForm.patchValue(data.Show_Data)
-            console.log(data)
-        })
+        // this.edit.editUserForm(this.id).subscribe((data: any) => {
+        //     this.editUserForm.patchValue(data.Show_Data)
+        //     console.log(data)
+        // })
     }
 
     updateData(data: any) {
@@ -90,6 +106,5 @@ export class EditUserComponent implements OnInit {
         })
         this.router.navigate(['/pos/users']);
         console.log(this.id);
-
     }
 }

@@ -1,7 +1,7 @@
 <sb-layout-dashboard>
     <div class="card mt-4 shadow">
         <h1 class="card-header">Add Attribute</h1>
-        <form [formGroup]="addAttributeForm" (ngSubmit)="onSubmit(addAttributeForm.value)">
+        <form [formGroup]="addAttributeForm">
             <div class="container-fluid">
                 <h2 class="card-header mt-4 pb-2">General</h2>
 
@@ -171,7 +171,7 @@
                 </div>
 
                 <button [disabled]="!addAttributeForm.valid" type="submit" class="btn btn-primary mb-4 float-right"
-                    [routerLink]="['/catalog/products']">
+                    (click)="onSubmit(addAttributeForm.value)" [routerLink]="['/catalog/products']">
                     Submit
                 </button>
             </div>

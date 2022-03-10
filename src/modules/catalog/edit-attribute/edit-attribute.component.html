@@ -1,7 +1,7 @@
 <sb-layout-dashboard>
     <div class="card mt-4">
         <h1 class="card-header">Edit Attribute</h1>
-        <form [formGroup]="editAttributeForm" (ngSubmit)="updateData(editAttributeForm.value)">
+        <form [formGroup]="editAttributeForm">
             <div class="container-fluid">
                 <h2 class="card-header mt-4 pb-2">General</h2>
 
@@ -183,7 +183,7 @@
                 </div>
 
                 <button [disabled]="!editAttributeForm.valid" class="btn btn-primary mb-4 float-right"
-                    [routerLink]="['/catalog/products']">
+                    (click)="updateData(editAttributeForm.value)" [routerLink]="['/catalog/products']">
                     Submit
                 </button>
             </div>

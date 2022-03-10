@@ -14,8 +14,8 @@ export class AddProductComponent implements OnInit {
     return this.addProductForm.get('productType');
   }
 
-  get attributeFam() {
-    return this.addProductForm.get('attributeFamily');
+  get name() {
+    return this.addProductForm.get('name');
   }
 
   get sku() {
@@ -34,12 +34,16 @@ export class AddProductComponent implements OnInit {
     return this.addProductForm.get('price');
   }
 
+  get family_name() {
+    return this.addProductForm.get('attribute_family_name');
+  }
+
   constructor(private fb: FormBuilder,
     private products: ProductService) { }
 
   addProductForm!: FormGroup;
 
-  attributeFamily = ['Default'];
+  attributeFamily = ['default'];
 
   ngOnInit(): void {
     this.addProductForm = this.fb.group({
@@ -49,6 +53,7 @@ export class AddProductComponent implements OnInit {
       status: ['', [Validators.required]],
       price: ['', [Validators.required]],
       quantity: ['', [Validators.required]],
+      attribute_family_name: ['', [Validators.required]]
     });
   }
 

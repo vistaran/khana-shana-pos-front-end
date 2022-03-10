@@ -37,7 +37,7 @@ export class AddUserComponent implements OnInit {
     }
 
     get outl() {
-        return this.addUserForm.get('outlet');
+        return this.addUserForm.get('outlet_name');
     }
 
     get stat() {
@@ -45,14 +45,18 @@ export class AddUserComponent implements OnInit {
     }
 
     get phone() {
-        return this.addUserForm.get('phoneNumber');
+        return this.addUserForm.get('phone_no');
     }
 
-    outlet = ['Webkul Outlet', 'abc Outlet', 'wow Outlet'];
+    get outstat() {
+        return this.addUserForm.get('outlet_status');
+    }
+
+    outlet = ['Webkul Outlet', 'abc Outlet', 'wow Outlet', 'Mallory Wisoky', 'Antwon Berge Jr.'];
     status = ['active', 'inactive'];
 
     constructor(private fb: FormBuilder,
-                private user: UserDataService) {}
+        private user: UserDataService) { }
 
     ngOnInit(): void {
         this.addUserForm = this.fb.group(
@@ -61,12 +65,13 @@ export class AddUserComponent implements OnInit {
                 first_name: ['', [Validators.required]],
                 lastname: ['', [Validators.required]],
                 email: [''],
-                phoneNumber: ['',[Validators.required]],
+                phone_no: ['', [Validators.required]],
                 user_avatar: [''],
                 password: ['', [Validators.required]],
                 confirm_password: ['', [Validators.required]],
-                outlet: ['', [Validators.required]],
+                outlet_name: ['', [Validators.required]],
                 status: ['', [Validators.required]],
+                outlet_status: ['', [Validators.required]]
             },
             { validators: PasswordValidator }
         );
@@ -84,8 +89,8 @@ export class AddUserComponent implements OnInit {
     onSubmit(data: any) {
 
         this.user
-                .postOutletData(data)
-                .subscribe((result: any) => console.log(result));
-        console.log('Form Submitted',(data));
-      }
+            .postOutletData(data)
+            .subscribe((result: any) => console.log(result));
+        console.log('Form Submitted', (data));
+    }
 }
