@@ -17,11 +17,12 @@ export class UsersListComponent implements OnInit {
     public udata: any = [];
     public length = 0;
     public total = 0;
-    public id= 0;
+    public id = 0;
     page = 1;
     pageSize = 10;
     itemsPerPage: any;
     searchValue: any
+    showloader: any
 
     constructor(
         private userData: UserDataService,
@@ -37,19 +38,20 @@ export class UsersListComponent implements OnInit {
 
 
     getUserData() {
+        this.showloader = true
         this.userData.getUserData(this.page).subscribe(result => {
             this.udata = result.user.data
             this.length = result.user.per_page;
             this.total = result.user.total;
-
+            this.showloader = false
         })
     }
 
-    onPageChange(event : number) {
+    onPageChange(event: number) {
         this.page = event;
         this.getUserData();
         console.log('Here >>>', this.page, this.udata);
-      }
+    }
 
     onClick() {
         this.router.navigate(['/pos/adduser']);
@@ -61,16 +63,18 @@ export class UsersListComponent implements OnInit {
             this.getUserData();
         });
         console.log(this.udata);
-      }
+    }
 
-      search(event: any) {
+    search(event: any) {
+        this.showloader = true
         this.userData.searchUser(this.searchValue).subscribe(res => {
-          this.udata = res.Users.data
-          this.length = this.udata.length;
-          this.total = res.Users.total;
-          console.log(this.udata)
+            this.udata = res.Users.data
+            this.length = this.udata.length;
+            this.total = res.Users.total;
+            this.showloader = false
+            console.log(this.udata)
         })
-      }
+    }
 
 
 }

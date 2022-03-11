@@ -17,6 +17,7 @@ export class AttributeFamilyComponent implements OnInit {
   page = 1;
   pageSize = 5;
   searchValue: any
+  showloader: any
 
   constructor(private attributeFamily: AttributeFamilyService, private router: Router) { }
 
@@ -25,10 +26,12 @@ export class AttributeFamilyComponent implements OnInit {
   }
 
   getFamily() {
+    this.showloader = true
     this.attributeFamily.getFamily(this.page).subscribe(result => {
       this.afData = result.Attributes.data;
       this.length = result.Attributes.per_page;
       this.total = result.Attributes.total;
+      this.showloader = false
     });
   }
 
@@ -49,10 +52,12 @@ export class AttributeFamilyComponent implements OnInit {
     console.log('Deleted!');
   }
   search(event: any) {
+    this.showloader = true
     this.attributeFamily.searchFamily(this.searchValue).subscribe(res => {
       this.afData = res.Attributes.data
       this.length = this.afData.length;
       this.total = res.Attributes.total;
+      this.showloader = false
       console.log(this.afData)
     })
   }

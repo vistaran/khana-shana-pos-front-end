@@ -18,6 +18,7 @@ export class ProductsComponent implements OnInit {
   page = 1;
   pageSize = 5;
   searchValue: any
+  showloader: any
 
 
   constructor(private productList: ProductService, private router: Router) {
@@ -30,11 +31,13 @@ export class ProductsComponent implements OnInit {
   }
 
   getProductData() {
+    this.showloader = true
     this.productList.getProducts(this.page).subscribe(result => {
       this.pdata = result.Products.data;
       this.length = result.Products.per_page;
       this.total = result.Products.total;
-
+      this.showloader = false
+      console.log(this.showloader)
     });
   }
 
@@ -56,10 +59,12 @@ export class ProductsComponent implements OnInit {
   }
 
   search(event: any) {
+    this.showloader = true
     this.productList.searchProducts(this.searchValue).subscribe(res => {
       this.pdata = res.Products.data
       this.length = this.pdata.length;
       this.total = res.Products.total;
+      this.showloader = false
       console.log(this.pdata)
     })
   }

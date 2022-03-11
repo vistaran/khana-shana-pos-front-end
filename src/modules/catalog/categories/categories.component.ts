@@ -17,6 +17,7 @@ export class CategoriesComponent implements OnInit {
   page = 1;
   pageSize = 5;
   searchValue: any
+  showloader: any
 
   constructor(private categories: CategoriesService, private router: Router) {
     // this.getCategoriesData()
@@ -29,11 +30,12 @@ export class CategoriesComponent implements OnInit {
   }
 
   getCategoriesData() {
+    this.showloader = true
     this.categories.getCategoriesData(this.page).subscribe(result => {
       this.cdata = result.Category.data;
       this.length = result.Category.per_page;
       this.total = result.Category.total;
-
+      this.showloader = false
     });
   }
 
@@ -56,10 +58,12 @@ export class CategoriesComponent implements OnInit {
   }
 
   search(event: any) {
+    this.showloader = true
     this.categories.searchCategory(this.searchValue).subscribe(res => {
       this.cdata = res.Category.data
       this.length = this.cdata.length;
       this.total = res.Category.total;
+      this.showloader = false
       console.log(this.cdata)
     })
   }

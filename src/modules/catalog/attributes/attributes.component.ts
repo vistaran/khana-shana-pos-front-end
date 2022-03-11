@@ -17,8 +17,7 @@ export class AttributesComponent implements OnInit {
   page = 1;
   pageSize = 5;
   searchValue: any
-
-
+  showloader: any
 
   constructor(private attributes: AttributesService, private router: Router) { }
 
@@ -29,18 +28,20 @@ export class AttributesComponent implements OnInit {
   }
 
   getAttributesData() {
+    this.showloader = true
     this.attributes.getAttributesData(this.page).subscribe(result => {
       this.adata = result.Attributes.data;
       this.length = result.Attributes.per_page;
       this.total = result.Attributes.total;
+      this.showloader = false
       console.log(this.adata, this.length, this.total, this.page);
-
     });
   }
 
   onClick() {
     this.router.navigate(['/catalog/addattribute']);
   }
+
   deleteRow(id: number) {
     this.attributes.deleteAttribute(id).subscribe(data => {
       this.getAttributesData();
@@ -55,10 +56,12 @@ export class AttributesComponent implements OnInit {
   }
 
   search(event: any) {
+    this.showloader = true
     this.attributes.searchAttribute(this.searchValue).subscribe(res => {
       this.adata = res.Attributes.data;
       this.length = this.adata.length;
       this.total = res.Attributes.total;
+      this.showloader = false
       console.log(this.adata)
     })
   }

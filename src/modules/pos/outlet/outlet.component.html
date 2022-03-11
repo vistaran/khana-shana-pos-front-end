@@ -44,19 +44,23 @@
                         class="fa fa-trash fa-lg mx-auto "></i></button>
             </td>
         </tr>
-        <tr *ngIf="!length">
+        <tr *ngIf="!length && !showloader">
             <td colspan="6" class="text-center">
                 No records found.
             </td>
         </tr>
     </tbody>
 </table>
+
+<div *ngIf="showloader" class="d-flex justify-content-center pt-5">
+    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+        <!-- <img src="src\image\Infinity-1s-200px.svg"> -->
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
 <div class="justify-content-between row">
 
     <div class="col">
-
-        <!-- <ngb-pagination [(page)]="page" [pageSize]="odata.outlets.per_page" [collectionSize]="odata.outlets.total" [boundaryLinks]="true" [maxSize]="odata.outlets.total">
-                                    </ngb-pagination> -->
 
         <ngb-pagination (pageChange)="onPageChange($event)" [(page)]="page" [pageSize]="length" [collectionSize]="total"
             [boundaryLinks]="true" [maxSize]="total">
