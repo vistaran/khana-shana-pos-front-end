@@ -25,6 +25,16 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Name</label>
+                            <input type="text" formControlName="name" class="form-control" />
+                            <div *ngIf="name?.touched && name?.invalid" class="alert alert-danger">
+                                <div *ngIf="name?.errors?.required">Name is required.</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <h2 class="card-header mt-4 pb-2">Label</h2>

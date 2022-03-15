@@ -45,7 +45,7 @@
                                 <tbody>
 
                                     <tr *ngFor="let data of udata">
-                                        <td>{{ data.id }}</td>
+                                        <td>{{ data.user_id }}</td>
                                         <td class="justify-content-center"><img class=" rounded-circle"
                                                 src="{{data.user_avatar}}"></td>
                                         <td>{{ data.username }}</td>
@@ -55,9 +55,10 @@
                                         <td>{{ data.created_at | date: 'dd/MM/yyyy'}}</td>
                                         <td>
                                             <button class="btn btn-info mr-2"><i class="fa fa-pencil-square-o fa-lg"
-                                                    [routerLink]="['/pos/edit/edituser/' + data.id]"></i></button>
+                                                    [routerLink]="['/pos/edit/edituser/' + data.user_id]"></i></button>
 
-                                            <button id="remove" (click)="deleteRow(data.id)" class="btn btn-danger"><i
+                                            <button id="remove" (click)="deleteRow(data.user_id)"
+                                                class="btn btn-danger"><i
                                                     class="fa fa-trash-o fa-lg mx-auto"></i></button>
                                         </td>
                                     </tr>

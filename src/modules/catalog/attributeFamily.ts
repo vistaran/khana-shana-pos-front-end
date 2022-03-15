@@ -1,8 +1,8 @@
 export interface AFData {
     Attributes: Attribute
-    id: number,
-    code: string,
-    name: string
+    // id: number,
+    // code: string,
+    // name: string
 }
 
 interface Attribute {
@@ -28,3 +28,30 @@ interface Data {
     updated_at: Date
 }
 
+// Group
+export interface EditFamily {
+    Groups: Group
+}
+
+interface Group {
+    current_page: number,
+    data: EditData[],
+    first_page_url: string,
+    from: number,
+    last_page: number,
+    last_page_url: string,
+    next_page_url: string,
+    path: string,
+    per_page: number,
+    prev_page_url: string,
+    to: number,
+    total: number
+}
+
+interface EditData {
+    id: number,
+    group_name: string,
+    group_based: string,
+    created_at: Date,
+    updated_at: Date
+}

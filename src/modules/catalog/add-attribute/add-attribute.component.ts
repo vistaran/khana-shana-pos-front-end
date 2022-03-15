@@ -20,6 +20,10 @@ export class AddAttributeComponent implements OnInit {
     return this.addAttributeForm.get('attribute_code');
   }
 
+  get name() {
+    return this.addAttributeForm.get('name');
+  }
+
   get attributeTyp() {
     return this.addAttributeForm.get('type')
   }
@@ -34,6 +38,7 @@ export class AddAttributeComponent implements OnInit {
 
     this.addAttributeForm = this.fb.group({
       attribute_code: ['', [Validators.required]],
+      name: ['', [Validators.required]],
       type: ['', [Validators.required]],
       admin: ['', [Validators.required]],
       english: [''],

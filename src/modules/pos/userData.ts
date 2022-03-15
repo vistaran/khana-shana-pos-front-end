@@ -1,5 +1,5 @@
 interface Data {
-    id: number,
+    user_id: number,
     user_avatar: File,
     username: string,
     email: string,

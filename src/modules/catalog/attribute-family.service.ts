@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { AFData } from './attributeFamily';
+import { AFData, EditFamily } from './attributeFamily';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +10,7 @@ import { AFData } from './attributeFamily';
 export class AttributeFamilyService {
 
   private url = 'http://127.0.0.1:8000/api/attribute_family/';
+  private grUrl = 'http://127.0.0.1:8000/api/group/';
 
   constructor(private http: HttpClient) { }
 
@@ -31,5 +32,17 @@ export class AttributeFamilyService {
 
   searchFamily(data: any): Observable<AFData> {
     return this.http.get<AFData>(this.url + 'search?query=' + data)
+  }
+
+  getGroup(): Observable<EditFamily> {
+    return this.http.get<EditFamily>(this.grUrl + 'show');
+  }
+
+  addGroup(data: any) {
+    return this.http.post(this.grUrl + 'insert/3', data)
+  }
+
+  deleteGroup(id: number) {
+    return this.http.get(this.grUrl + 'delete/' + id)
   }
 }

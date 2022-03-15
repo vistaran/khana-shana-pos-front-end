@@ -1,9 +1,9 @@
 export interface Adata {
-    Attributes: attributes
+    Attributes: Attributes
 
 }
 
-interface attributes {
+interface Attributes {
     current_page: number,
     data: Data[],
     first_page_url: string,
@@ -20,11 +20,11 @@ interface attributes {
 
 interface Data {
     id: number,
+    group_id: number,
+    attribute_based: string,
     attribute_code: string,
+    name: string,
     type: string,
-    admin: string,
-    english: string,
-    portuguse: string,
     validation_required: string,
     validation_unique: string,
     input_validation: string,
@@ -36,7 +36,14 @@ interface Data {
     create_in_product_flat_table: string,
     attribute_comparable: string,
     created_at: Date,
-    updated_at: Date
+    updated_at: Date,
+
+    admin: string,
+    english: string,
+    portuguse: string,
+
+
+
 }
 
 

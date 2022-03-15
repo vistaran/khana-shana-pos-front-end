@@ -23,6 +23,10 @@ export class EditAttributeComponent implements OnInit {
     return this.editAttributeForm.get('attributeCode');
   }
 
+  get name() {
+    return this.editAttributeForm.get('name');
+  }
+
   get attributeTyp() {
     return this.editAttributeForm.get('attributeType')
   }
@@ -41,6 +45,7 @@ export class EditAttributeComponent implements OnInit {
     this.editAttributeForm = this.fb.group({
       attribute_code: ['', [Validators.required]],
       type: ['', [Validators.required]],
+      name: ['', [Validators.required]],
       admin: ['', [Validators.required]],
       english: [''],
       // arabic: [''],
@@ -57,6 +62,22 @@ export class EditAttributeComponent implements OnInit {
       create_in_product_flat_table: [''],
       attribute_comparable: ['']
     })
+    // "attribute_code":"brand2",
+    // "type":"textarea",
+    // "name": "Arth",
+    // "admin":"djh",
+    // "english":"dkjfb",
+    // "portuguse":"skjhdj",
+    // "validation_required":"no",
+    // "validation_unique":"no",
+    // "input_validation":"decimal",
+    // "value_per_local":"yes",
+    // "value_per_channel":"yes",
+    // "use_in_layered":"yes",
+    // "use_to_create_configuration_product":"yes",
+    // "visible_on_productview_page_front_end":"yes",
+    // "create_in_product_flat_table":"yes",
+    // "attribute_comparable":"yes"
 
     this.id = this.route.snapshot.params.id
   }
