@@ -33,14 +33,6 @@
                     Group
                 </h2>
 
-                <!-- <button (click)="onClick()" class="btn btn-primary mb-4 float-right">
-                    Add Group
-
-                    <div class="popup">Click me!
-                        <span class="popuptext" id="myPopup">Popup text...</span>
-                      </div>    
-                </button> -->
-
                 <ng-template #content let-modal>
                     <div class="modal-header">
                         <h4 class="modal-title">Add Group</h4>
@@ -77,55 +69,67 @@
                 <div class="card-body">
 
                     <div *ngFor="let group of gData">
-                        <!-- <div ngbDropdown class="dropdown"> -->
-                        <h3 class="card-header mt-4 pb-2">
-                            <button class="btn btn-default" type="button">
-                            </button>
-                            {{ group.group_name }}
-                            <button id="remove" *ngIf="group.group_based == 'User'" class="btn btn-light float-right"
-                                (click)="deleteGroup(group.id)">
-                                <i class="fa fa-trash-o fa-lg mx-auto"></i>
-                            </button>
-                        </h3>
+                        <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+                            <ngb-panel type="light">
+                                <ng-template ngbPanelTitle>
+                                    <div class="d-flex justify-content-between">
+                                        <div class="">
+                                            <h5 class="text-dark">
+                                                <i class="fa fa-chevron-down fa-sm"></i>
+                                                {{ group.group_name }}
+                                            </h5>
+                                        </div>
+                                        <div class="">
+                                            <button id=" remove" *ngIf="group.group_based == 'User'"
+                                                class="btn btn-light float-right" (click)=" deleteGroup(group.id)">
+                                                <i class="fa fa-trash-o fa-lg float-right"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </ng-template>
 
-                        <div class="card-body">
+                                <ng-template ngbPanelContent>
+                                    <div class="card-body">
+                                        <table class="table table-striped text-center shadow">
+                                            <thead class="head table-fit">
+                                                <th>Code</th>
+                                                <th>Name</th>
+                                                <th>Type</th>
+                                                <th> </th>
+                                            </thead>
 
-                            <table class="table table-striped text-center shadow">
+                                            <tbody *ngFor="let data of aData">
+                                                <tr *ngIf="group.id == data.group_id">
 
-                                <thead class="head table-fit">
-                                    <th>Code</th>
-                                    <th>Name</th>
-                                    <th>Type</th>
-                                    <th> </th>
-                                </thead>
+                                                    <td>{{ data.attribute_code }}</td>
+                                                    <td>{{data.name}}</td>
+                                                    <td>{{ data.type }}</td>
+                                                    <td>
+                                                        <button *ngIf="data.attribute_based == 'User'" id="remove"
+                                                            (click)="deleteRow(data.id)" class="btn btn-light"><i
+                                                                class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                                                    </td>
+                                                </tr>
+                                                <tr *ngIf="!length && !showloader">
+                                                    <td colspan="4" class="text-center">
+                                                        No records found.
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
 
-                                <tbody *ngFor="let data of aData">
-                                    <tr *ngIf="group.id == data.group_id">
-
-                                        <td>{{ data.attribute_code }}</td>
-                                        <td>{{data.name}}</td>
-                                        <td>{{ data.type }}</td>
-                                        <td>
-                                            <button *ngIf="data.attribute_based == 'User'" id="remove"
-                                                (click)="deleteRow(data.id)" class="btn btn-secondary"><i
-                                                    class="fa fa-trash-o fa-lg mx-auto"></i></button>
-                                        </td>
-
-                                    </tr>
-                                    <tr *ngIf="!aData.length && !showloader">
-                                        <td colspan="4" class="text-center">
-                                            No records found.
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                                        <button class="btn btn-primary mt-4 me-2">Add
+                                            Attribute</button>
+                                    </div>
+                                </ng-template>
+                            </ngb-panel>
+                        </ngb-accordion>
                     </div>
                 </div>
 
+
                 <div *ngIf="showloader" class="d-flex justify-content-center pt-5">
                     <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                        <!-- <img src="src\image\Infinity-1s-200px.svg"> -->
                         <span class="sr-only">Loading...</span>
                     </div>
                 </div>
@@ -160,5 +164,4 @@
             </div>
         </form>
     </div>
-
 </sb-layout-dashboard>
