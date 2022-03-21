@@ -54,9 +54,9 @@ export class AttributeFamilyComponent implements OnInit {
   search(event: any) {
     this.showloader = true
     this.attributeFamily.searchFamily(this.searchValue).subscribe(res => {
-      this.afData = res.Attributes.data
+      this.afData = res.Attributes_Family.data
       this.length = this.afData.length;
-      this.total = res.Attributes.total;
+      this.total = res.Attributes_Family.total;
       this.showloader = false
       console.log(this.afData)
     })

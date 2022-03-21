@@ -28,9 +28,13 @@ interface Data {
     updated_at: Date
 }
 
+export interface AttributeFamilySearch {
+    Attributes_Family: Attribute
+}
+
 // Group
 export interface EditFamily {
-    Groups: Group
+    groups: Group
 }
 
 interface Group {
@@ -54,4 +58,18 @@ interface EditData {
     group_based: string,
     created_at: Date,
     updated_at: Date
+}
+
+export interface FamilyAttribute {
+    attribute_group_show: InsData
+}
+
+interface InsData {
+    attribute_id: number,
+    group_id: number,
+    attribute_family_id: number,
+    attribute_based: string,
+    attribute_code: string,
+    name: string,
+    type: string
 }

@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { data } from 'jquery';
 import { Observable } from 'rxjs';
 
-import { AFData, EditFamily } from './attributeFamily';
+import { AFData, AttributeFamilySearch, EditFamily, FamilyAttribute } from './attributeFamily';
 
 @Injectable({
   providedIn: 'root'
@@ -30,8 +31,8 @@ export class AttributeFamilyService {
     return this.http.put(this.url + 'edit/' + id, data)
   }
 
-  searchFamily(data: any): Observable<AFData> {
-    return this.http.get<AFData>(this.url + 'search?query=' + data)
+  searchFamily(data: any): Observable<AttributeFamilySearch> {
+    return this.http.get<AttributeFamilySearch>(this.url + 'search?query=' + data)
   }
 
   getGroup(): Observable<EditFamily> {
@@ -44,5 +45,13 @@ export class AttributeFamilyService {
 
   deleteGroup(id: number) {
     return this.http.get(this.grUrl + 'delete/' + id)
+  }
+
+  addAttribute(data: any, attr_id: number) {
+    return this.http.post(this.grUrl + 'insertAttribute/' + attr_id, data)
+  }
+
+  showAttribute(): Observable<FamilyAttribute> {
+    return this.http.get<FamilyAttribute>(this.grUrl + 'attribute_group_show');
   }
 }

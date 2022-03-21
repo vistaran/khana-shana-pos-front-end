@@ -68,7 +68,8 @@
 
                 <div class="card-body">
 
-                    <div *ngFor="let group of gData">
+                    <div *ngFor="let group of groupData">
+                        <!-- <div *ngFor="let attributeData of attributeGroupData"> -->
                         <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
                             <ngb-panel type="light">
                                 <ng-template ngbPanelTitle>
@@ -98,9 +99,8 @@
                                                 <th> </th>
                                             </thead>
 
-                                            <tbody *ngFor="let data of aData">
+                                            <tbody *ngFor="let data of attributeGroupData">
                                                 <tr *ngIf="group.id == data.group_id">
-
                                                     <td>{{ data.attribute_code }}</td>
                                                     <td>{{data.name}}</td>
                                                     <td>{{ data.type }}</td>
@@ -118,12 +118,56 @@
                                             </tbody>
                                         </table>
 
-                                        <button class="btn btn-primary mt-4 me-2">Add
+                                        <button class="btn btn-primary mt-4 me-2"
+                                            (click)="openVerticallyCentered(content)">Add
                                             Attribute</button>
+
+                                        <ng-template #content let-modal>
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Add Attribute</h4>
+                                                <button type="button" class="btn-close btn-default" aria-label="Close"
+                                                    (click)="modal.dismiss('Cross click')">X
+                                                </button>
+                                            </div>
+
+                                            <div class="modal-body">
+                                                <form [formGroup]="addAttribute">
+
+                                                    <div class="col">
+                                                        <div class="form-group">
+                                                            <label class="required">Select Attribute</label>
+                                                            <select name="attribute" formControlName="attribute"
+                                                                class="form-control"
+                                                                (ngModelChange)="onSelectName($event)">
+                                                                <option value="default">--Select Attribute--
+                                                                </option>
+
+                                                                <ng-container *ngFor="let list of attributeDataList">
+                                                                    <option *ngIf="list.attribute_based == 'User'"
+                                                                        [ngValue]=" list.id">
+                                                                        {{list.id}}-{{list.name
+                                                                        }}
+                                                                    </option>
+                                                                </ng-container>
+
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="submit" [disabled]="!addAttribute.valid"
+                                                    class="btn btn-primary" (click)=" AddAttribute2(group.id)"
+                                                    (click)="modal.close('Close click')">Add
+                                                    Attribute</button>
+                                            </div>
+                                        </ng-template>
                                     </div>
                                 </ng-template>
                             </ngb-panel>
                         </ngb-accordion>
+                        <!-- </div> -->
                     </div>
                 </div>
 

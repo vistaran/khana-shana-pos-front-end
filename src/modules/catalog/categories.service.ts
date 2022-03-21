@@ -34,4 +34,8 @@ export class CategoriesService {
     return this.http.get<SearchCategory>(this.url + 'search?query=' + data)
   }
 
+  getEditCategoryData(id: number) {
+    return this.http.get(this.url + 'show/' + id)
+  }
+
 }

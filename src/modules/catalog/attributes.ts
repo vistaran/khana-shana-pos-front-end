@@ -20,7 +20,6 @@ interface Attributes {
 
 interface Data {
     id: number,
-    group_id: number,
     attribute_based: string,
     attribute_code: string,
     name: string,
@@ -36,14 +35,7 @@ interface Data {
     create_in_product_flat_table: string,
     attribute_comparable: string,
     created_at: Date,
-    updated_at: Date,
-
-    admin: string,
-    english: string,
-    portuguse: string,
-
-
-
+    updated_at: Date
 }
 
 

@@ -75,7 +75,7 @@ export class EditCategoryComponent implements OnInit {
       meta_keyword: [''],
       meta_title: [''],
       name: ['', [Validators.required]],
-      parent_category: ['', [Validators.required]],
+      // parent_category: ['', [Validators.required]],
       position: ['', [Validators.required]],
       slug: ['', [Validators.required]],
       status: ['', [Validators.required]],
@@ -84,10 +84,10 @@ export class EditCategoryComponent implements OnInit {
 
     this.id = this.route.snapshot.params.id
 
-    // this.categories.editCategoryForm(this.id).subscribe((data: any) => {
-    //   this.editCategoryForm.patchValue(data.Show_Data)
-    //   console.log(data)
-    // })
+    this.categories.getEditCategoryData(this.id).subscribe((data: any) => {
+      this.editCategoryForm.patchValue(data.Show_Data)
+      console.log(data)
+    })
   }
 
   updateData(data: any) {

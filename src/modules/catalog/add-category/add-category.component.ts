@@ -1,7 +1,8 @@
-import { CategoriesService } from './../categories.service';
-import { data } from 'jquery';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { data } from 'jquery';
+
+import { CategoriesService } from './../categories.service';
 
 @Component({
   selector: 'sb-add-category',
@@ -11,10 +12,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class AddCategoryComponent implements OnInit {
 
   addCategoryForm!: FormGroup;
-  visibleInMenu = ['Yes','No'];
+  visibleInMenu = ['Yes', 'No'];
   displayMode = ['Products and Description'];
   parentCategory = ['Yoga', 'Badminton'];
-  status = ['active','inactive'];
+  status = ['active', 'inactive'];
   attribut = ['price', 'brand']
 
 
@@ -67,7 +68,7 @@ export class AddCategoryComponent implements OnInit {
       attri: ['', [Validators.required]],
       image: [''],
       category_logo: [''],
-      parent_category: [''],
+      // parent_category: [''],
       meta_title: [''],
       slug: ['', [Validators.required]],
       meta_description: [''],
@@ -75,26 +76,13 @@ export class AddCategoryComponent implements OnInit {
       status: ['', [Validators.required]]
     });
   }
-  // "name":"rutu",
-  //   "visible_in_menu": "yes",
-  //   "position" : "5",
-  //   "display_mode":"products only" ,
-  //   "decription" : "jhsbxjhzbhjbchasxbcj",
-  //   "image":"https://lorempixel.com/400/400/?91725",
-  //   "category_logo" :"https://lorempixel.com/400/400/?91725" ,
-  //   "parent_category":"yoga",
-    
-  //   "meta_title":"skjac",
-  //   "slug":"yoga",
-  //   "meta_description":"asjb",
-  //   "meta_keyword":"sjabkx" ,
-  //   "status":"active"
+
 
   onSubmit(data: any) {
     this.categoryPost
-            .postCategory(data)
-            .subscribe((result: any) => console.log(result));
-    console.log("Form Submitted",(data));
+      .postCategory(data)
+      .subscribe((result: any) => console.log(result));
+    console.log('Form Submitted', (data));
   }
 
 

@@ -15,11 +15,14 @@ export class EditAttributeFamilyComponent implements OnInit {
 
   editFamilyForm!: FormGroup;
   addGroup!: FormGroup
-  public aData: any = [];
-  public gData: any = []
+  addAttribute!: FormGroup
+  public attributeGroupData: any = [];
+  public attributeDataList: any = [];
+  public groupData: any = []
   public length = 0;
   public total = 0;
-  id: any
+  attributeId: any
+  familyId: any
   showloader: any
   page = 1;
   groupId: any
@@ -45,6 +48,14 @@ export class EditAttributeFamilyComponent implements OnInit {
     return this.editFamilyForm.get('group_name');
   }
 
+  get attr_group() {
+    return this.addAttribute.get('group_name');
+  }
+
+  get family_name() {
+    return this.addAttribute.get('attribute_family_name')
+  }
+
   constructor(private fb: FormBuilder,
     private attribute: AttributesService,
     private family: AttributeFamilyService,
@@ -56,42 +67,61 @@ export class EditAttributeFamilyComponent implements OnInit {
     this.editFamilyForm = this.fb.group({
       attribute_family_code: ['', [Validators.required]],
       attribute_family_name: ['', [Validators.required]],
-      // gName: ['', [Validators.required]],
-      // position: ['', [Validators.required]]
     });
 
     this.addGroup = this.fb.group({
       group_name: ['', [Validators.required]]
     })
-    this.getAttributesData()
-    this.getGroup()
 
-    this.id = this.route.snapshot.params.id
+    this.addAttribute = this.fb.group({
+      attribute: ['', [Validators.required]]
+    })
+    this.getAttributesGroupData()
+    this.getGroup()
+    this.getAttributesData()
+
+    this.familyId = this.route.snapshot.params.id
+    console.log(this.familyId);
+
+  }
+
+  getAttributesGroupData() {
+    this.showloader = true
+    this.family.showAttribute().subscribe(result => {
+      this.attributeGroupData = result.attribute_group_show;
+      this.length = this.attributeGroupData.length
+      console.log(this.attributeGroupData, this.length)
+      this.showloader = false
+    });
   }
 
   getAttributesData() {
     this.showloader = true
     this.attribute.getAttributesData(this.page).subscribe(result => {
-      this.aData = result.Attributes.data;
-      console.log(this.aData.group_id)
+      this.attributeDataList = result.Attributes.data;
       this.length = result.Attributes.per_page;
       this.total = result.Attributes.total;
-      // this.attrId = result.Attributes.data.group_id
       this.showloader = false
+      console.log(this.attributeDataList.id);
     });
+  }
 
-
+  AddAttribute(data: any, id: number) {
+    console.log(id)
+    this.family.addAttribute(data, id).subscribe(data => {
+      console.log('Data added', data);
+    })
   }
 
   getGroup() {
     this.family.getGroup().subscribe(result => {
-      this.gData = result.Groups.data
-      // this.groupId = result.Groups.data.id
+      this.groupData = result.groups.data
+      console.log(this.groupData)
     })
   }
 
   updateData(data: any) {
-    this.family.editFamily(this.id, data).subscribe(data => {
+    this.family.editFamily(this.familyId, data).subscribe(data => {
       console.log('Data updated successfully! ', data)
     })
     this.router.navigate(['/catalog/products']);
@@ -105,7 +135,7 @@ export class EditAttributeFamilyComponent implements OnInit {
 
   deleteRow(id: number) {
     this.attribute.deleteAttribute(id).subscribe(data => {
-      this.getAttributesData();
+      this.getAttributesGroupData();
     });
     console.log('Deleted!');
   }
@@ -125,4 +155,24 @@ export class EditAttributeFamilyComponent implements OnInit {
     this.modalService.open(content, { centered: true });
   }
 
+
+
+  onSelectName(id: any) {
+    this.attributeId = id
+    console.log(this.attributeId)
+  }
+
+  AddAttribute2(groupid: number) {
+    // console.log('Attribute family id: ', this.familyId);
+    // console.log('Atttribute id: ', this.attributeId);
+    // console.log('Group id: ', group_id);
+
+    let group_id = groupid, attribute_family_id = this.familyId
+    const data = { group_id, attribute_family_id }
+    this.family.addAttribute(data, this.attributeId).subscribe(result => {
+      console.log(result);
+
+    })
+
+  }
 }
