@@ -12,13 +12,13 @@ import { OutletDataService } from './../outlet-data.service';
 export class AddOutletComponent implements OnInit {
 
   addOutletForm!: FormGroup;
-  // outlet = new addOutlet();
 
   inventorySource = ['default'];
   status = ['active', 'inactive'];
 
-  constructor(private fb: FormBuilder, private outletPost: OutletDataService) { }
+  constructor(private fb: FormBuilder, private outletService: OutletDataService) { }
 
+  // For Validations
   get outletName() {
     return this.addOutletForm.get('name');
   }
@@ -53,26 +53,25 @@ export class AddOutletComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.addOutletForm = this.fb.group( {
-      name: ['',[Validators.required]],
-      address: ['',[Validators.required]],
-      country: ['',[Validators.required]],
-      state: ['',[Validators.required]],
-      city: ['',[Validators.required]],
-      status: ['',[Validators.required]],
-      postcode: ['',[Validators.required]],
-      inventory_source:['',[Validators.required]],
+    this.addOutletForm = this.fb.group({
+      name: ['', [Validators.required]],
+      address: ['', [Validators.required]],
+      country: ['', [Validators.required]],
+      state: ['', [Validators.required]],
+      city: ['', [Validators.required]],
+      status: ['', [Validators.required]],
+      postcode: ['', [Validators.required]],
+      inventory_source: ['', [Validators.required]],
     });
   }
 
 
-  // tslint:disable-next-line: no-shadowed-variable
+  // For submitting add outlet form data
   onSubmit(data: any) {
-
-    this.outletPost
-            .postOutletData(data)
-            .subscribe((result: any) => console.log(result));
-    console.log('Form Submitted',(data));
+    this.outletService
+      .postOutletData(data)
+      .subscribe((result: any) => console.log(result));
+    console.log('Form Submitted', (data));
   }
 
 }

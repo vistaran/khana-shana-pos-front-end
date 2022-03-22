@@ -10,7 +10,7 @@ import { ProductService } from '../product.service';
 })
 export class ProductsComponent implements OnInit {
 
-  public pdata: any = [];
+  public productData: any = [];
   public length = 0;
   public total = 0;
 
@@ -21,7 +21,7 @@ export class ProductsComponent implements OnInit {
   showloader: any
 
 
-  constructor(private productList: ProductService, private router: Router) {
+  constructor(private productService: ProductService, private router: Router) {
     console.log('Loaded.');
   }
 
@@ -30,10 +30,11 @@ export class ProductsComponent implements OnInit {
     this.getProductData()
   }
 
+  // To get products data for table listing
   getProductData() {
     this.showloader = true
-    this.productList.getProducts(this.page).subscribe(result => {
-      this.pdata = result.Products.data;
+    this.productService.getProducts(this.page).subscribe(result => {
+      this.productData = result.Products.data;
       this.length = result.Products.per_page;
       this.total = result.Products.total;
       this.showloader = false
@@ -41,31 +42,35 @@ export class ProductsComponent implements OnInit {
     });
   }
 
+  // For navigating to add product form on click
   onClick() {
     this.router.navigate(['/catalog/addproduct']);
   }
 
+  // For updating data on page change
   onPageChange(event: any) {
     this.page = event;
     this.getProductData();
-    console.log('Here >>>', this.page, this.pdata);
+    console.log('Here >>>', this.page, this.productData);
   }
 
+  // For deleting product
   deleteRow(id: number) {
-    this.productList.deleteProducts(id).subscribe(data => {
+    this.productService.deleteProducts(id).subscribe(data => {
       this.getProductData();
     });
-    console.log(this.pdata);
+    console.log(this.productData);
   }
 
+  // For searching products from table data
   search(event: any) {
     this.showloader = true
-    this.productList.searchProducts(this.searchValue).subscribe(res => {
-      this.pdata = res.Products.data
-      this.length = this.pdata.length;
+    this.productService.searchProducts(this.searchValue).subscribe(res => {
+      this.productData = res.Products.data
+      this.length = this.productData.length;
       this.total = res.Products.total;
       this.showloader = false
-      console.log(this.pdata)
+      console.log(this.productData)
     })
   }
 

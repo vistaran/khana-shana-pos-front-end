@@ -11,7 +11,7 @@
 
                     <div class="input-group w-50">
                         <input class="form-control amber-border" class="form-control" type="text" aria-label="Search"
-                            (keydown.enter)="search($event)" placeholder="Search" [(ngModel)]="searchValue">
+                            (keyup)="search($event)" placeholder="Search" [(ngModel)]="searchValue">
                         <div class="input-group-append ">
                             <button class="btn input-group-text amber lighten-3 " id="basic-text1"><i
                                     class="fa fa-search" aria-hidden="true" (click)="search($event)"></i></button>
@@ -34,7 +34,7 @@
                     <th>Actions</th>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let data of afData">
+                    <tr *ngFor="let data of attributeFamilyData">
                         <td>{{ data.id }}</td>
                         <td>{{data.attribute_family_code}}</td>
                         <td>{{ data.attribute_family_name }}</td>
@@ -46,7 +46,7 @@
                                     class="fa fa-trash-o fa-lg mx-auto"></i></button>
                         </td>
                     </tr>
-                    <tr *ngIf="!afData.length && !showloader">
+                    <tr *ngIf="!attributeFamilyData.length && !showloader">
                         <td colspan="4" class="text-center">
                             No records found.
                         </td>

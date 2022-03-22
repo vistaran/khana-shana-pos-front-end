@@ -136,7 +136,7 @@
                                                     <div class="col">
                                                         <div class="form-group">
                                                             <label class="required">Select Attribute</label>
-                                                            <select name="attribute" formControlName="attribute"
+                                                            <select name="attribute" formControlName="attributeName"
                                                                 class="form-control"
                                                                 (ngModelChange)="onSelectName($event)">
                                                                 <option value="default">--Select Attribute--
@@ -157,8 +157,8 @@
                                             </div>
 
                                             <div class="modal-footer">
-                                                <button type="submit" [disabled]="!addAttribute.valid"
-                                                    class="btn btn-primary" (click)=" AddAttribute2(group.id)"
+                                                <button type="submit" [disabled]="!addAttributeForm.valid"
+                                                    class="btn btn-primary" (click)=" addAttribute(group.id)"
                                                     (click)="modal.close('Close click')">Add
                                                     Attribute</button>
                                             </div>
@@ -177,29 +177,6 @@
                         <span class="sr-only">Loading...</span>
                     </div>
                 </div>
-
-                <!-- <h2 class="card-header mt-4 pb-2">Groups</h2>
-                <div class="card-body row">
-                    <div class="col">
-                        <div class="form-group">
-                            <label class="required mt-4">Group Name</label>
-                            <input type="text" formControlName="gName" class="form-control" />
-                            <div *ngIf="gName?.touched && gName?.invalid" class="alert alert-danger">
-                                <div *ngIf="gName?.errors?.required">Name is required.</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="form-group">
-                            <label class="required mt-4">Position</label>
-                            <input type="text" formControlName="position" class="form-control" />
-                            <div *ngIf="position?.touched && position?.invalid" class="alert alert-danger">
-                                <div *ngIf="position?.errors?.required">Position is required.</div>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
 
                 <button [disabled]="!editFamilyForm.valid" type="submit" class="btn btn-primary mb-4 float-right"
                     (click)="updateData(editFamilyForm.value)" [routerLink]="['/catalog/products']">

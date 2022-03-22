@@ -12,15 +12,15 @@ import { CategoriesService } from './../categories.service';
 export class EditCategoryComponent implements OnInit {
 
   editCategoryForm!: FormGroup;
+
   id: any;
   status = ['active', 'inactive'];
   attribut = ['price', 'brand']
-
-
   visibleInMenu = ['Yes', 'No'];
   displayMode = ['Products and Descrition'];
   parentCategory = ['Yoga', 'Badminton'];
 
+  // For validations
   get name() {
     return this.editCategoryForm.get('name');
   }
@@ -59,7 +59,7 @@ export class EditCategoryComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private categories: CategoriesService,
+    private categoryService: CategoriesService,
     private route: ActivatedRoute,
     private router: Router) { }
 
@@ -84,14 +84,15 @@ export class EditCategoryComponent implements OnInit {
 
     this.id = this.route.snapshot.params.id
 
-    this.categories.getEditCategoryData(this.id).subscribe((data: any) => {
+    this.categoryService.getEditCategoryData(this.id).subscribe((data: any) => {
       this.editCategoryForm.patchValue(data.Show_Data)
       console.log(data)
     })
   }
 
+  // For submitting edit category form data
   updateData(data: any) {
-    this.categories.editCategory(this.id, data).subscribe(data => {
+    this.categoryService.editCategory(this.id, data).subscribe(data => {
       console.log('Data updated successfully! ', data)
     })
     this.router.navigate(['/catalog/products']);

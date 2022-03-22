@@ -96,15 +96,7 @@
                         </div>
                     </div>
 
-                    <!-- <div class="col">
-                        <div class="form-group">
-                            <label class="required">Parent Category</label><br />
-                            <select name="parent_category" formControlName="parent_category" class="form-control">
-                                <option value="default">--Select Parent Category--</option>
-                                <option *ngFor="let item of parentCategory">{{ item }}</option>
-                            </select>
-                        </div>
-                    </div> -->
+
 
                     <div class="col">
                         <div class="form-group">
@@ -121,6 +113,40 @@
                     </div>
 
                 </div>
+
+                <h2 class="card-header">Parent Category</h2>
+                <div class="card-body row">
+                    <ng-container *ngFor="let data of parentCategroryData">
+                        <div class="col">
+                            <div class="form-group">
+                                <!-- <label class="required">Parent Category</label> -->
+                                <!-- <input type="checkbox" formControlName="parent_category" name="parent_category">
+                                <label>{{data.name}}</label> -->
+
+                                <ul class="list-unstyled">
+                                    <li *ngIf="data.parent_category_id == null" ng-repeat="item in parentCategroryData">
+                                        <input type="checkbox" ng-model="item.checked" value="1"
+                                            ng-click="click_item(item)" />
+                                        {{data.name}}
+                                        <ul class="">
+                                            <li>
+                                                <input type="checkbox" ng-model="subitem.checked" value="1"
+                                                    ng-click="click_item(subitem)" /> {{data.name}}
+                                                <ul>
+                                                    <li>
+                                                        <input type="checkbox" ng-model="subsubitem.checked" value="1"
+                                                            ng-click="click_item(subsubitem)" /> {{data.name}}
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+
 
                 <h2 class="card-header">Search Engine Optimization</h2>
                 <div class="card-body row">

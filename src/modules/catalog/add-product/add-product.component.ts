@@ -10,6 +10,7 @@ import { ProductService } from '../product.service';
 })
 export class AddProductComponent implements OnInit {
 
+  // For validations
   get productType() {
     return this.addProductForm.get('productType');
   }
@@ -57,6 +58,7 @@ export class AddProductComponent implements OnInit {
     });
   }
 
+  // For submitting add product form data
   onSubmit(data: any) {
     this.products
       .postProducts(data)

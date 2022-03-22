@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { data } from 'jquery';
 
 import { CategoriesService } from './../categories.service';
 
@@ -12,13 +11,15 @@ import { CategoriesService } from './../categories.service';
 export class AddCategoryComponent implements OnInit {
 
   addCategoryForm!: FormGroup;
+  parentCategroryData: any;
   visibleInMenu = ['Yes', 'No'];
   displayMode = ['Products and Description'];
   parentCategory = ['Yoga', 'Badminton'];
   status = ['active', 'inactive'];
-  attribut = ['price', 'brand']
+  attribut = ['price', 'brand'];
+  page = 1;
 
-
+  // For validations
   get name() {
     return this.addCategoryForm.get('name');
   }
@@ -56,7 +57,7 @@ export class AddCategoryComponent implements OnInit {
   }
 
 
-  constructor(private fb: FormBuilder, private categoryPost: CategoriesService) { }
+  constructor(private fb: FormBuilder, private categoryService: CategoriesService) { }
 
   ngOnInit(): void {
     this.addCategoryForm = this.fb.group({
@@ -68,22 +69,30 @@ export class AddCategoryComponent implements OnInit {
       attri: ['', [Validators.required]],
       image: [''],
       category_logo: [''],
-      // parent_category: [''],
+      parent_category: [''],
       meta_title: [''],
       slug: ['', [Validators.required]],
       meta_description: [''],
       meta_keyword: ['', [Validators.required]],
       status: ['', [Validators.required]]
     });
+    this.getParentCategrory()
   }
 
-
+  // For submitting Add category form data
   onSubmit(data: any) {
-    this.categoryPost
+    this.categoryService
       .postCategory(data)
       .subscribe((result: any) => console.log(result));
     console.log('Form Submitted', (data));
   }
 
+  // For parent category listing
+  getParentCategrory() {
+    this.categoryService.getCategoriesData(this.page).subscribe(data => {
+      this.parentCategroryData = data.category.data
+      console.log(this.parentCategroryData)
+    })
+  }
 
 }

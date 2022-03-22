@@ -12,6 +12,7 @@ export class AddAttributeFamilyComponent implements OnInit {
 
   addFamilyForm!: FormGroup;
 
+  // For Validations
   get familyCode() {
     return this.addFamilyForm.get('attribute_family_code');
   }
@@ -35,11 +36,10 @@ export class AddAttributeFamilyComponent implements OnInit {
     this.addFamilyForm = this.fb.group({
       attribute_family_code: ['', [Validators.required]],
       attribute_family_name: ['', [Validators.required]],
-      // gName: ['', [Validators.required]],
-      // position: ['', [Validators.required]]
     });
   }
 
+  // For submitting add attribute form data
   onSubmit(data: any) {
     this.family
       .postFamily(data)

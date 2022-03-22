@@ -18,6 +18,7 @@ export class EditOutletComponent implements OnInit {
     inventorySource = ['default'];
     status = ['active', 'inactive'];
 
+    // For Validations
     get outletName() {
         return this.editOutletForm.get('name');
     }
@@ -51,7 +52,7 @@ export class EditOutletComponent implements OnInit {
     }
 
     constructor(private fb: FormBuilder,
-        private edit: OutletDataService,
+        private outletService: OutletDataService,
         private route: ActivatedRoute,
         private router: Router) { }
 
@@ -73,20 +74,10 @@ export class EditOutletComponent implements OnInit {
         //     console.log(data)
         // })
     }
-    // "name": " rutu",
-    // "address": "390/2,sector-5/A",
-    // "country": "India",
-    // "state": "Gujarat",
-    // "city": "Gandhinagar",
-    // "postcode": 382006,
-    // "status": "active"
 
-    getData() {
-
-    }
-
+    // For submitting edit outlet form data
     updateData(data: any) {
-        this.edit.editOutlet(this.id, data).subscribe(data => {
+        this.outletService.editOutlet(this.id, data).subscribe(data => {
             console.log('Data updated successfully! ', data)
         })
         this.router.navigate(['/pos/users']);

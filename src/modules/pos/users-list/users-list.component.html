@@ -13,7 +13,7 @@
 
                                     <div class="input-group w-50">
                                         <input class="form-control amber-border" class="form-control" type="text"
-                                            aria-label="Search" (keydown.enter)="search($event)" placeholder="Search"
+                                            aria-label="Search" (keyup)="search($event)" placeholder="Search"
                                             [(ngModel)]="searchValue">
                                         <div class="input-group-append">
                                             <button class="btn input-group-text amber lighten-3" id="basic-text1"><i
@@ -44,7 +44,7 @@
                                 </thead>
                                 <tbody>
 
-                                    <tr *ngFor="let data of udata">
+                                    <tr *ngFor="let data of userData">
                                         <td>{{ data.user_id }}</td>
                                         <td class="justify-content-center"><img class=" rounded-circle"
                                                 src="{{data.user_avatar}}"></td>

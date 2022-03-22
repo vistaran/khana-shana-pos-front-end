@@ -14,8 +14,9 @@ export class AddAttributeComponent implements OnInit {
 
   attributeType = ['Text', 'Select'];
   validation = ['Yes', 'No'];
-  inputValid = ['Yes', 'No'];
+  inputValidation = ['Yes', 'No'];
 
+  // For validations
   get attributeCode() {
     return this.addAttributeForm.get('attribute_code');
   }
@@ -56,6 +57,7 @@ export class AddAttributeComponent implements OnInit {
     })
   }
 
+  // For submiting add attribute form data
   onSubmit(data: any) {
     this.attributeService
       .postAttribute(data)

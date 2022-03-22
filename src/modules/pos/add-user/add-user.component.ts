@@ -12,6 +12,7 @@ import { UserDataService } from '../user-data.service';
 export class AddUserComponent implements OnInit {
     addUserForm!: FormGroup;
 
+    // For Validations
     get userName() {
         return this.addUserForm.get('username');
     }
@@ -56,7 +57,7 @@ export class AddUserComponent implements OnInit {
     status = ['active', 'inactive'];
 
     constructor(private fb: FormBuilder,
-        private user: UserDataService) { }
+        private userService: UserDataService) { }
 
     ngOnInit(): void {
         this.addUserForm = this.fb.group(
@@ -77,19 +78,10 @@ export class AddUserComponent implements OnInit {
         );
     }
 
-    // "first_name":"arth",
-    // "lastname":"raval",
-    // "username":"arth.raval",
-    // "email":"arth@gmail.com",
-    // "password":"arth",
-    // "confirm_password":"arth",
-    // "user_avatar":".jpg",
-    // "status":"active"
-
+    // For submitting add user form data
     onSubmit(data: any) {
-
-        this.user
-            .postOutletData(data)
+        this.userService
+            .postUserData(data)
             .subscribe((result: any) => console.log(result));
         console.log('Form Submitted', (data));
     }

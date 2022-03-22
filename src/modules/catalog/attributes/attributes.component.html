@@ -1,9 +1,6 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <!-- <ul ngbNav #nav="ngbNav" class="nav-tabs mt-5">
-                    <li ngbNavItem> -->
-            <!-- <ng-template ngbNavContent> -->
             <h2 class="mt-3 mb-4">Attribute List</h2>
 
             <div class="row d-flex justify-content-between">
@@ -11,7 +8,7 @@
 
                     <div class="input-group w-50">
                         <input class="form-control amber-border" class="form-control" type="text" aria-label="Search"
-                            (keydown.enter)="search($event)" placeholder="Search" [(ngModel)]="searchValue">
+                            (keyup)="search($event)" placeholder="Search" [(ngModel)]="searchValue">
                         <div class="input-group-append">
                             <button class="btn input-group-text amber lighten-3" id="basic-text1"><i
                                     class="fa fa-search" aria-hidden="true" (click)="search($event)"></i></button>
@@ -38,7 +35,7 @@
                     <th>Actions</th>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let data of adata">
+                    <tr *ngFor="let data of attributesData">
                         <td>{{ data.id }}</td>
                         <td>{{data.attribute_code}}</td>
                         <td>{{ data.type }}</td>

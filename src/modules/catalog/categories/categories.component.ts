@@ -10,7 +10,7 @@ import { CategoriesService } from '../categories.service';
 })
 export class CategoriesComponent implements OnInit {
 
-  public cdata: any;
+  public categoryData: any;
   public length = 0;
   public total = 0;
 
@@ -19,9 +19,7 @@ export class CategoriesComponent implements OnInit {
   searchValue: any
   showloader: any
 
-  constructor(private categories: CategoriesService, private router: Router) {
-    // this.getCategoriesData()
-  }
+  constructor(private categories: CategoriesService, private router: Router) { }
 
   ngOnInit(): void {
 
@@ -29,42 +27,48 @@ export class CategoriesComponent implements OnInit {
 
   }
 
+  // For getting categories data for table listing
   getCategoriesData() {
     this.showloader = true
     this.categories.getCategoriesData(this.page).subscribe(result => {
-      this.cdata = result.Category.data;
-      this.length = result.Category.per_page;
-      this.total = result.Category.total;
+      this.categoryData = result.category.data;
+      this.length = result.category.per_page;
+      this.total = result.category.total;
       this.showloader = false
+      console.log(this.categoryData);
+
     });
   }
 
+  // For updating data on page change
   onPageChange(event: any) {
     this.page = event;
     this.getCategoriesData();
-    console.log('Here >>>', this.page, this.cdata);
+    console.log('Here >>>', this.page, this.categoryData);
   }
 
-
+  // For navigating to add category form on click
   onClick() {
     this.router.navigate(['/catalog/addcategory']);
   }
 
+  // For deleting category data
   deleteRow(id: number) {
     this.categories.deleteCategory(id).subscribe(data => {
       this.getCategoriesData();
     });
-    console.log(this.cdata);
+    console.log(this.categoryData);
   }
 
+  // For searching category data from table
   search(event: any) {
     this.showloader = true
     this.categories.searchCategory(this.searchValue).subscribe(res => {
-      this.cdata = res.Category.data
-      this.length = this.cdata.length;
-      this.total = res.Category.total;
+      this.categoryData = res.category.data
+      this.length = this.categoryData.length;
+      this.total = res.category.total;
       this.showloader = false
-      console.log(this.cdata)
+      console.log(this.categoryData)
     })
   }
 }

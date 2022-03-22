@@ -1,5 +1,5 @@
 interface Data {
-    attributes: string,
+
     id: number,
     name: string,
     visible_in_menu: string,
@@ -8,7 +8,8 @@ interface Data {
     decription: string,
     image: string,
     category_logo: string,
-    parent_category: string,
+    attributes: string,
+    parent_category_id: string,
     meta_title: string,
     slug: string,
     meta_description: string,
@@ -16,7 +17,6 @@ interface Data {
     status: string,
     created_at: Date,
     updated_at: Date,
-    product_id: number,
     number_of_products: number
 }
 
@@ -35,11 +35,11 @@ interface categories {
     total: number;
 }
 export interface Cdata {
-    Category: categories
+    category: categories
 }
 
 export interface SearchCategory {
-    Category: categories
+    category: categories
 }
 
 

@@ -21,10 +21,11 @@ export class EditProductComponent implements OnInit {
   type = ['booking', 'simple'];
 
   constructor(private fb: FormBuilder,
-    private products: ProductService,
+    private productService: ProductService,
     private route: ActivatedRoute,
     private router: Router) { }
 
+  // For validations
   get sku() {
     return this.editProductForm.get('sku');
   }
@@ -103,11 +104,11 @@ export class EditProductComponent implements OnInit {
     // })
   }
 
+  // For submitting edit product form data
   updateData(data: any) {
-    this.products.editProducts(this.id, data).subscribe(data => {
+    this.productService.editProducts(this.id, data).subscribe(data => {
       console.log('Data updated successfully! ', data)
     })
     this.router.navigate(['/catalog/products']);
   }
-
 }

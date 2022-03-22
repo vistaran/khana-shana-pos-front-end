@@ -10,7 +10,7 @@ import { AttributesService } from '../attributes.service';
 })
 export class AttributesComponent implements OnInit {
 
-  public adata: any = [];
+  public attributesData: any = [];
   public length = 0;
   public total = 0;
 
@@ -19,7 +19,7 @@ export class AttributesComponent implements OnInit {
   searchValue: any
   showloader: any
 
-  constructor(private attributes: AttributesService, private router: Router) { }
+  constructor(private attributeService: AttributesService, private router: Router) { }
 
   ngOnInit(): void {
 
@@ -27,42 +27,47 @@ export class AttributesComponent implements OnInit {
 
   }
 
+  // For getting attributes data for table listing
   getAttributesData() {
     this.showloader = true
-    this.attributes.getAttributesData(this.page).subscribe(result => {
-      this.adata = result.Attributes.data;
+    this.attributeService.getAttributesData(this.page).subscribe(result => {
+      this.attributesData = result.Attributes.data;
       this.length = result.Attributes.per_page;
       this.total = result.Attributes.total;
       this.showloader = false
-      console.log(this.adata, this.length, this.total, this.page);
+      console.log(this.attributesData, this.length, this.total, this.page);
     });
   }
 
+  // For navigating to add attribute form on click
   onClick() {
     this.router.navigate(['/catalog/addattribute']);
   }
 
+  // For deleting attribute data
   deleteRow(id: number) {
-    this.attributes.deleteAttribute(id).subscribe(data => {
+    this.attributeService.deleteAttribute(id).subscribe(data => {
       this.getAttributesData();
     });
-    console.log(this.adata);
+    console.log(this.attributesData);
   }
 
+  // For updating data on page change
   onPageChange(event: any) {
     this.page = event;
     this.getAttributesData();
-    console.log('Here >>>', this.page, this.adata);
+    console.log('Here >>>', this.page, this.attributesData);
   }
 
+  // For searching attributes data from table
   search(event: any) {
     this.showloader = true
-    this.attributes.searchAttribute(this.searchValue).subscribe(res => {
-      this.adata = res.Attributes.data;
-      this.length = this.adata.length;
+    this.attributeService.searchAttribute(this.searchValue).subscribe(res => {
+      this.attributesData = res.Attributes.data;
+      this.length = this.attributesData.length;
       this.total = res.Attributes.total;
       this.showloader = false
-      console.log(this.adata)
+      console.log(this.attributesData)
     })
   }
 }

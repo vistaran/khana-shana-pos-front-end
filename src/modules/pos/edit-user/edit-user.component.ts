@@ -59,7 +59,7 @@ export class EditUserComponent implements OnInit {
     status = ['active', 'inactive'];
 
     constructor(private fb: FormBuilder,
-        private edit: UserDataService,
+        private userService: UserDataService,
         private route: ActivatedRoute,
         private router: Router) { }
 
@@ -81,17 +81,6 @@ export class EditUserComponent implements OnInit {
             { validators: PasswordValidator }
         );
 
-        // first_name' => $request->first_name,
-        //             'lastname' => $request->lastname,
-        //             'username' => $request->username,
-        //             'email' => $request->email,
-        //             'password' => bcrypt($request->password),
-        //             'confirm_password' => bcrypt($request->confirm_password),
-        //             'outlet_name' => $request->outlet_name,
-        //             'outlet_status' => $request->outlet_status,
-        //             'phone_no' => $request->phone_no,
-        //             'user_avatar' => $request->user_avatar,
-        //             'status' => $request->status,
         this.id = this.route.snapshot.params.id
 
         // this.edit.editUserForm(this.id).subscribe((data: any) => {
@@ -100,8 +89,9 @@ export class EditUserComponent implements OnInit {
         // })
     }
 
+    // For submitting edit user form data
     updateData(data: any) {
-        this.edit.editUser(this.id, data).subscribe(data => {
+        this.userService.editUser(this.id, data).subscribe(data => {
             console.log('Data updated successfully! ', data)
         })
         this.router.navigate(['/pos/users']);

@@ -19,6 +19,7 @@ export class EditAttributeComponent implements OnInit {
   inputValid = ['Yes', 'No'];
   id: any
 
+  // For validations
   get attributeCode() {
     return this.editAttributeForm.get('attributeCode');
   }
@@ -36,7 +37,7 @@ export class EditAttributeComponent implements OnInit {
   }
 
   constructor(private fb: FormBuilder,
-    private attributes: AttributesService,
+    private attributeService: AttributesService,
     private route: ActivatedRoute,
     private router: Router) { }
 
@@ -62,28 +63,12 @@ export class EditAttributeComponent implements OnInit {
       create_in_product_flat_table: [''],
       attribute_comparable: ['']
     })
-    // "attribute_code":"brand2",
-    // "type":"textarea",
-    // "name": "Arth",
-    // "admin":"djh",
-    // "english":"dkjfb",
-    // "portuguse":"skjhdj",
-    // "validation_required":"no",
-    // "validation_unique":"no",
-    // "input_validation":"decimal",
-    // "value_per_local":"yes",
-    // "value_per_channel":"yes",
-    // "use_in_layered":"yes",
-    // "use_to_create_configuration_product":"yes",
-    // "visible_on_productview_page_front_end":"yes",
-    // "create_in_product_flat_table":"yes",
-    // "attribute_comparable":"yes"
-
     this.id = this.route.snapshot.params.id
   }
 
+  // For submitting edit attribute form data
   updateData(data: any) {
-    this.attributes.editAttribute(this.id, data).subscribe(data => {
+    this.attributeService.editAttribute(this.id, data).subscribe(data => {
       console.log('Data updated successfully! ', data)
     })
     this.router.navigate(['/catalog/products']);

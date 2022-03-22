@@ -13,8 +13,7 @@
 
                                     <div class="input-group w-50">
                                         <input class="form-control amber-border" class="form-control" type="text"
-                                            aria-label="Search" (keydown.enter)="search($event)" placeholder="Search"
-                                            [(ngModel)]="searchValue">
+                                            aria-label="Search" (keyup)="search($event)" placeholder="Search">
                                         <div class="input-group-append">
                                             <button class="btn input-group-text amber lighten-3" id="basic-text1"><i
                                                     class="fa fa-search" aria-hidden="true"
@@ -45,7 +44,7 @@
                                     <th>Actions</th>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let data of pdata">
+                                    <tr *ngFor="let data of productData">
                                         <td>{{ data.id }}</td>
                                         <td>{{ data.sku }}</td>
                                         <td>{{ data.name }}</td>
@@ -65,7 +64,7 @@
 
 
 
-                                    <tr *ngIf="!pdata.length && !showloader">
+                                    <tr *ngIf="!productData.length && !showloader">
                                         <td colspan="9" class="text-center">
                                             No records found.
                                         </td>

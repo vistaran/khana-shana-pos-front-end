@@ -23,7 +23,7 @@ export class OutletComponent implements OnInit {
   showloader: any
   // outlets: Data = [ '', '', '','','', '', '','','', '','']
 
-  constructor(private outletData: OutletDataService,
+  constructor(private outletService: OutletDataService,
     private router: Router,
     private route: ActivatedRoute) { }
 
@@ -31,9 +31,10 @@ export class OutletComponent implements OnInit {
     this.getOutletData();
   }
 
+  // To get outlet data for table listing
   getOutletData() {
     this.showloader = true
-    this.outletData.getOutletData(this.page).subscribe(result => {
+    this.outletService.getOutletData(this.page).subscribe(result => {
       this.odata = result.outlets.data
       this.length = result.outlets.per_page;
       this.total = result.outlets.total;
@@ -41,23 +42,26 @@ export class OutletComponent implements OnInit {
     })
   }
 
+  // For updating data on page change
   onPageChange(event: number) {
     this.page = event;
     this.getOutletData();
     console.log('Here >>>', this.page, this.odata);
   }
 
-  deleteRow2(id: number) {
+  // For deleting outlet
+  deleteRow(id: number) {
 
-    this.outletData.deleteOutlet(id).subscribe(data => {
+    this.outletService.deleteOutlet(id).subscribe(data => {
       this.getOutletData();
     });
     console.log(this.odata);
   }
 
+  // For searching outlets table data
   search(event: any) {
     this.showloader = true
-    this.outletData.searchOutlet(this.searchValue).subscribe(res => {
+    this.outletService.searchOutlet(this.searchValue).subscribe(res => {
       this.odata = res.Outlets.data
       this.length = this.odata.length;
       this.total = res.Outlets.total;
@@ -66,13 +70,6 @@ export class OutletComponent implements OnInit {
     })
   }
 
-  onClick() {
-    this.router.navigate(['/pos/edit/editoutlet']);
-  }
-
-  onClick2() {
-    this.router.navigate(['/pos/addoutlet']);
-  }
 }
 
 

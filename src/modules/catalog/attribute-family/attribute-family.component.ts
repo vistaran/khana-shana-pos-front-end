@@ -10,7 +10,7 @@ import { AttributeFamilyService } from '../attribute-family.service';
 })
 export class AttributeFamilyComponent implements OnInit {
 
-  afData: any = [];
+  attributeFamilyData: any = [];
   public length = 0;
   public total = 0;
 
@@ -19,46 +19,52 @@ export class AttributeFamilyComponent implements OnInit {
   searchValue: any
   showloader: any
 
-  constructor(private attributeFamily: AttributeFamilyService, private router: Router) { }
+  constructor(private attributeFamilyService: AttributeFamilyService, private router: Router) { }
 
   ngOnInit(): void {
     this.getFamily()
   }
 
+  // To get attribute family data for table listing
   getFamily() {
     this.showloader = true
-    this.attributeFamily.getFamily(this.page).subscribe(result => {
-      this.afData = result.Attributes.data;
+    this.attributeFamilyService.getFamily(this.page).subscribe(result => {
+      this.attributeFamilyData = result.Attributes.data;
       this.length = result.Attributes.per_page;
       this.total = result.Attributes.total;
       this.showloader = false
     });
   }
 
+  // To update data on page change
   onPageChange(event: any) {
     this.page = event;
     this.getFamily();
-    console.log('Here >>>', this.page, this.afData);
+    console.log('Here >>>', this.page, this.attributeFamilyData);
   }
 
+  // For navigating to add attribute family form on click
   onClick() {
     this.router.navigate(['/catalog/addAttributeFamily']);
   }
 
+  // For deleting attribute family
   deleteRow(id: number) {
-    this.attributeFamily.deleteFamily(id).subscribe(data => {
+    this.attributeFamilyService.deleteFamily(id).subscribe(data => {
       this.getFamily();
     });
     console.log('Deleted!');
   }
+
+  // For searching data from table
   search(event: any) {
     this.showloader = true
-    this.attributeFamily.searchFamily(this.searchValue).subscribe(res => {
-      this.afData = res.Attributes_Family.data
-      this.length = this.afData.length;
+    this.attributeFamilyService.searchFamily(this.searchValue).subscribe(res => {
+      this.attributeFamilyData = res.Attributes_Family.data
+      this.length = this.attributeFamilyData.length;
       this.total = res.Attributes_Family.total;
       this.showloader = false
-      console.log(this.afData)
+      console.log(this.attributeFamilyData)
     })
   }
 }

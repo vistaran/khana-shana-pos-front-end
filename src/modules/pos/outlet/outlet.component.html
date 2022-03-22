@@ -5,7 +5,7 @@
 
         <div class="input-group w-50">
             <input class="form-control amber-border" class="form-control" type="text" aria-label="Search"
-                (keydown.enter)="search($event)" placeholder="Search" [(ngModel)]="searchValue">
+                (keyup)="search($event)" placeholder="Search" [(ngModel)]="searchValue">
             <div class="input-group-append">
                 <button class="btn input-group-text amber lighten-3" id="basic-text1"><i class="fa fa-search"
                         aria-hidden="true" (click)="search($event)"></i></button>
@@ -40,7 +40,7 @@
                 <button class="btn btn-info mr-2"><i class="fa fa-pencil-square-o fa-lg"
                         [routerLink]="['/pos/edit/editoutlet/' + data.id]"></i></button>
 
-                <button id="remove" (click)="deleteRow2(data.id)" class="btn btn-danger"><i
+                <button id="remove" (click)="deleteRow(data.id)" class="btn btn-danger"><i
                         class="fa fa-trash fa-lg mx-auto "></i></button>
             </td>
         </tr>
