@@ -19,6 +19,10 @@ export class EditCategoryComponent implements OnInit {
   visibleInMenu = ['Yes', 'No'];
   displayMode = ['Products and Descrition'];
   parentCategory = ['Yoga', 'Badminton'];
+  parentCategroryData: any
+  parentCategoryId: any
+  page = 1
+  isCollapsed = false;
 
   // For validations
   get name() {
@@ -85,8 +89,17 @@ export class EditCategoryComponent implements OnInit {
     this.id = this.route.snapshot.params.id
 
     this.categoryService.getEditCategoryData(this.id).subscribe((data: any) => {
-      this.editCategoryForm.patchValue(data.Show_Data)
+      this.editCategoryForm.patchValue(data.show_data)
       console.log(data)
+    })
+    this.getParentCategrory()
+  }
+
+  // For parent category listing
+  getParentCategrory() {
+    this.categoryService.getCategoriesData(this.page).subscribe(data => {
+      this.parentCategroryData = data.category.data
+      console.log(this.parentCategroryData)
     })
   }
 
@@ -101,6 +114,12 @@ export class EditCategoryComponent implements OnInit {
 
   upload() {
     //
+  }
+
+  // To get parent categories id 
+  onItemChange(value: any) {
+    console.log(" Value is : ", value);
+    this.parentCategoryId = value
   }
 
 }

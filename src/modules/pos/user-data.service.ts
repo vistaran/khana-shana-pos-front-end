@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { SearchUser, UData } from './userData';
+import { SearchUser, UserData } from './userData';
 
 
 
@@ -16,9 +16,9 @@ export class UserDataService {
   constructor(private http: HttpClient) { }
 
   // For getting user data
-  getUserData(page: number): Observable<UData> {
+  getUserData(page: number): Observable<UserData> {
 
-    return this.http.get<UData>(this.url + 'show?page=' + page);
+    return this.http.get<UserData>(this.url + 'show?page=' + page);
   }
 
   // For deleting user data

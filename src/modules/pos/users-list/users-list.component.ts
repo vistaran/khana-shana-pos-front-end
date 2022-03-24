@@ -71,9 +71,9 @@ export class UsersListComponent implements OnInit {
     search(event: any) {
         this.showloader = true
         this.userService.searchUser(this.searchValue).subscribe(res => {
-            this.userData = res.Users.data
+            this.userData = res.users.data
             this.length = this.userData.length;
-            this.total = res.Users.total;
+            this.total = res.users.total;
             this.showloader = false
             console.log(this.userData)
         })

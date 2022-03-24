@@ -25,12 +25,9 @@ interface Outlets {
     to: number;
     total: number;
 }
-export interface OData {
+export interface OutletData {
     outlets: Outlets;
 }
 
-export interface OutletSearch {
-    Outlets: Outlets
-}
 
 

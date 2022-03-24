@@ -31,9 +31,9 @@ export class AttributesComponent implements OnInit {
   getAttributesData() {
     this.showloader = true
     this.attributeService.getAttributesData(this.page).subscribe(result => {
-      this.attributesData = result.Attributes.data;
-      this.length = result.Attributes.per_page;
-      this.total = result.Attributes.total;
+      this.attributesData = result.attributes.data;
+      this.length = result.attributes.per_page;
+      this.total = result.attributes.total;
       this.showloader = false
       console.log(this.attributesData, this.length, this.total, this.page);
     });
@@ -63,9 +63,9 @@ export class AttributesComponent implements OnInit {
   search(event: any) {
     this.showloader = true
     this.attributeService.searchAttribute(this.searchValue).subscribe(res => {
-      this.attributesData = res.Attributes.data;
+      this.attributesData = res.attributes.data;
       this.length = this.attributesData.length;
-      this.total = res.Attributes.total;
+      this.total = res.attributes.total;
       this.showloader = false
       console.log(this.attributesData)
     })

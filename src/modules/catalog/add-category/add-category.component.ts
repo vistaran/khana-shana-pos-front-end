@@ -18,6 +18,8 @@ export class AddCategoryComponent implements OnInit {
   status = ['active', 'inactive'];
   attribut = ['price', 'brand'];
   page = 1;
+  isCollapsed = false;
+  parentCategoryId: any
 
   // For validations
   get name() {
@@ -93,6 +95,17 @@ export class AddCategoryComponent implements OnInit {
       this.parentCategroryData = data.category.data
       console.log(this.parentCategroryData)
     })
+  }
+
+  // onSelectName(id: any) {
+  //   //this.parentCategoryId = id
+  //   console.log(this.parentCategoryId)
+  // }
+
+  // To get parent categories id 
+  onItemChange(value: any) {
+    console.log(" Value is : ", value);
+    this.parentCategoryId = value
   }
 
 }

@@ -29,9 +29,9 @@ export class AttributeFamilyComponent implements OnInit {
   getFamily() {
     this.showloader = true
     this.attributeFamilyService.getFamily(this.page).subscribe(result => {
-      this.attributeFamilyData = result.Attributes.data;
-      this.length = result.Attributes.per_page;
-      this.total = result.Attributes.total;
+      this.attributeFamilyData = result.attributefamily.data;
+      this.length = result.attributefamily.per_page;
+      this.total = result.attributefamily.total;
       this.showloader = false
     });
   }
@@ -60,9 +60,9 @@ export class AttributeFamilyComponent implements OnInit {
   search(event: any) {
     this.showloader = true
     this.attributeFamilyService.searchFamily(this.searchValue).subscribe(res => {
-      this.attributeFamilyData = res.Attributes_Family.data
+      this.attributeFamilyData = res.attributes_family.data
       this.length = this.attributeFamilyData.length;
-      this.total = res.Attributes_Family.total;
+      this.total = res.attributes_family.total;
       this.showloader = false
       console.log(this.attributeFamilyData)
     })

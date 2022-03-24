@@ -1,5 +1,5 @@
 export interface PData {
-    Products: Product
+    products: Product
 }
 
 interface Product {

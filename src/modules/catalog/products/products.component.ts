@@ -34,9 +34,9 @@ export class ProductsComponent implements OnInit {
   getProductData() {
     this.showloader = true
     this.productService.getProducts(this.page).subscribe(result => {
-      this.productData = result.Products.data;
-      this.length = result.Products.per_page;
-      this.total = result.Products.total;
+      this.productData = result.products.data;
+      this.length = result.products.per_page;
+      this.total = result.products.total;
       this.showloader = false
       console.log(this.showloader)
     });
@@ -66,9 +66,9 @@ export class ProductsComponent implements OnInit {
   search(event: any) {
     this.showloader = true
     this.productService.searchProducts(this.searchValue).subscribe(res => {
-      this.productData = res.Products.data
+      this.productData = res.products.data
       this.length = this.productData.length;
-      this.total = res.Products.total;
+      this.total = res.products.total;
       this.showloader = false
       console.log(this.productData)
     })

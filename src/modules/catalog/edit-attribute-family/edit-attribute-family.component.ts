@@ -100,9 +100,9 @@ export class EditAttributeFamilyComponent implements OnInit {
   getAttributesData() {
     this.showloader = true
     this.attribute.getAttributesData(this.page).subscribe(result => {
-      this.attributeDataList = result.Attributes.data;
-      this.length = result.Attributes.per_page;
-      this.total = result.Attributes.total;
+      this.attributeDataList = result.attributes.data;
+      this.length = result.attributes.per_page;
+      this.total = result.attributes.total;
       this.showloader = false
       console.log(this.attributeDataList.id);
     });

@@ -24,16 +24,16 @@ interface Users {
     total: number
 }
 
-export interface UData {
+export interface UserData {
     user: Users
 }
 
 export interface SearchUser {
-    Users: Users
+    users: Users
 }
 
 export interface FetchUser {
-    Show_Data: Data2[]
+    show_data: Data2[]
 }
 
 interface Data2 {

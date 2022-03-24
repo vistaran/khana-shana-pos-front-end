@@ -1,5 +1,5 @@
 export interface AFData {
-    Attributes: Attribute
+    attributefamily: Attribute
     // id: number,
     // code: string,
     // name: string
@@ -29,7 +29,7 @@ interface Data {
 }
 
 export interface AttributeFamilySearch {
-    Attributes_Family: Attribute
+    attributes_family: Attribute
 }
 
 // Group
