@@ -4,10 +4,11 @@ interface Data {
     username: string,
     email: string,
     phoneNumber: number,
-    Outlet_name: string,
+    outlet_name: string,
     status: string,
     created_at: Date
 }
+
 interface Users {
     current_page: number
     data: Data[]
@@ -22,10 +23,32 @@ interface Users {
     to: number
     total: number
 }
-export interface UData {
+
+export interface UserData {
     user: Users
 }
 
-export interface searchUser {
-    Users: Users
+export interface SearchUser {
+    users: Users
+}
+
+export interface FetchUser {
+    show_data: Data2[]
+}
+
+interface Data2 {
+    user_id: number,
+    first_name: string,
+    lastname: string,
+    username: string,
+    email: string,
+    email_verified_at: string,
+    confirm_password: string,
+    Outlet_name: string,
+    outlet_status: string,
+    phone_no: number
+    user_avatar: string,
+    status: string,
+    created_at: string,
+    updated_at: string
 }

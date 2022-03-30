@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { SBRouteData } from '@modules/navigation/models';
+
 import { AddAttributeFamilyComponent } from './add-attribute-family/add-attribute-family.component';
 import { AddAttributeComponent } from './add-attribute/add-attribute.component';
 import { AddCategoryComponent } from './add-category/add-category.component';
@@ -26,7 +27,7 @@ const routes: Routes = [
     canActivate: [],
     component: ProductsComponent,
     data: {
-        title: 'Products',
+      title: 'Products',
     } as SBRouteData,
   },
   {
@@ -34,15 +35,15 @@ const routes: Routes = [
     canActivate: [],
     component: AddProductComponent,
     data: {
-        title: 'Add Product',
+      title: 'Add Product',
     } as SBRouteData,
   },
   {
-    path: 'editproduct',
+    path: 'editproduct/:id',
     canActivate: [],
     component: EditProductComponent,
     data: {
-        title: 'Add Product',
+      title: 'Add Product',
     } as SBRouteData,
   },
   {
@@ -50,7 +51,7 @@ const routes: Routes = [
     canActivate: [],
     component: CategoriesComponent,
     data: {
-        title: 'Categories',
+      title: 'Categories',
     } as SBRouteData,
   },
   {
@@ -58,7 +59,7 @@ const routes: Routes = [
     canActivate: [],
     component: AddCategoryComponent,
     data: {
-        title: 'Add Category',
+      title: 'Add Category',
     } as SBRouteData,
   },
   {
@@ -66,7 +67,7 @@ const routes: Routes = [
     canActivate: [],
     component: EditCategoryComponent,
     data: {
-        title: 'Edit Category',
+      title: 'Edit Category',
     } as SBRouteData,
   },
   {
@@ -74,7 +75,7 @@ const routes: Routes = [
     canActivate: [],
     component: AttributesComponent,
     data: {
-        title: 'Attributes',
+      title: 'Attributes',
     } as SBRouteData,
   },
   {
@@ -82,15 +83,15 @@ const routes: Routes = [
     canActivate: [],
     component: AddAttributeComponent,
     data: {
-        title: 'Add Attribute',
+      title: 'Add Attribute',
     } as SBRouteData,
   },
   {
-    path: 'editattribute',
+    path: 'editattribute/:id',
     canActivate: [],
     component: EditAttributeComponent,
     data: {
-        title: 'Edit Attribute',
+      title: 'Edit Attribute',
     } as SBRouteData,
   },
   {
@@ -98,7 +99,7 @@ const routes: Routes = [
     canActivate: [],
     component: AttributeFamilyComponent,
     data: {
-        title: 'Attribute Family',
+      title: 'Attribute Family',
     } as SBRouteData,
   },
   {
@@ -106,15 +107,15 @@ const routes: Routes = [
     canActivate: [],
     component: AddAttributeFamilyComponent,
     data: {
-        title: 'Add Attribute Family',
+      title: 'Add Attribute Family',
     } as SBRouteData,
   },
   {
-    path: 'editfamily',
+    path: 'editfamily/:id',
     canActivate: [],
     component: EditAttributeFamilyComponent,
     data: {
-        title: 'Edit Attribute Family',
+      title: 'Edit Attribute Family',
     } as SBRouteData,
   },
 ];

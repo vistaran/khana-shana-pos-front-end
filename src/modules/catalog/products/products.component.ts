@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { ProductService } from '../product.service';
 
 @Component({
@@ -9,32 +10,68 @@ import { ProductService } from '../product.service';
 })
 export class ProductsComponent implements OnInit {
 
-  public pdata: any = [];
+  public productData: any = [];
+  public length = 0;
+  public total = 0;
+
 
   page = 1;
   pageSize = 5;
+  searchValue: any
+  showloader: any
 
-  constructor(private productList: ProductService, private router: Router) { }
 
-  ngOnInit(){
+  constructor(private productService: ProductService, private router: Router) {
+    console.log('Loaded.');
+  }
 
-    this.productList.getProductData()
-      .subscribe( data => this.pdata = data);
-    }
+  ngOnInit() {
 
-    onClick() {
-      this.router.navigate(['/catalog/addproduct']);
-    }
+    this.getProductData()
+  }
 
-    deleteRow(d: any){
-      const index = this.pdata.indexOf(d);
-      this.pdata.splice(index, 1);
-    }
+  // To get products data for table listing
+  getProductData() {
+    this.showloader = true
+    this.productService.getProducts(this.page).subscribe(result => {
+      this.productData = result.products.data;
+      this.length = result.products.per_page;
+      this.total = result.products.total;
+      this.showloader = false
+      console.log(this.showloader)
+    });
+  }
 
-    refreshProducts() { 
-      this.pdata = this.pdata
-        .map((user: any, i: any) => ({id: i + 1, ...user}))
-        .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
-    }
+  // For navigating to add product form on click
+  onClick() {
+    this.router.navigate(['/catalog/addproduct']);
+  }
+
+  // For updating data on page change
+  onPageChange(event: any) {
+    this.page = event;
+    this.getProductData();
+    console.log('Here >>>', this.page, this.productData);
+  }
+
+  // For deleting product
+  deleteRow(id: number) {
+    this.productService.deleteProducts(id).subscribe(data => {
+      this.getProductData();
+    });
+    console.log(this.productData);
+  }
+
+  // For searching products from table data
+  search(event: any) {
+    this.showloader = true
+    this.productService.searchProducts(this.searchValue).subscribe(res => {
+      this.productData = res.products.data
+      this.length = this.productData.length;
+      this.total = res.products.total;
+      this.showloader = false
+      console.log(this.productData)
+    })
+  }
 
 }

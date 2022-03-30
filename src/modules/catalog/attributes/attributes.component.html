@@ -1,21 +1,32 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <!-- <ul ngbNav #nav="ngbNav" class="nav-tabs mt-5">
-                    <li ngbNavItem> -->
-            <!-- <ng-template ngbNavContent> -->
             <h2 class="mt-3 mb-4">Attribute List</h2>
-            <button (click)="onClick()" class="btn btn-primary mb-4 float-right">
-                                Add Attribute
-                            </button>
 
+            <div class="row d-flex justify-content-between">
+                <div class="col-md-6 mb-4">
 
+                    <div class="input-group w-50">
+                        <input class="form-control amber-border" class="form-control" type="text" aria-label="Search"
+                            (keyup)="search($event)" placeholder="Search" [(ngModel)]="searchValue">
+                        <div class="input-group-append">
+                            <button class="btn input-group-text amber lighten-3" id="basic-text1"><i
+                                    class="fa fa-search" aria-hidden="true" (click)="search($event)"></i></button>
+                        </div>
+                    </div>
+                </div>
 
-            <table class="table table-bordered table-striped">
+                <div class="col">
+                    <button (click)="onClick()" class="btn btn-primary mb-4 float-right">
+                        Add Attribute
+                    </button>
+                </div>
+            </div>
+
+            <table class="table table-bordered table-striped shadow">
                 <thead class="head">
                     <th>ID</th>
                     <th>Code</th>
-                    <th>Name</th>
                     <th>Type</th>
                     <th>Required</th>
                     <th>Unique</th>
@@ -24,44 +35,41 @@
                     <th>Actions</th>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let data of adata">
+                    <tr *ngFor="let data of attributesData">
                         <td>{{ data.id }}</td>
-                        <td>{{data.code}}</td>
-                        <td>{{ data.name }}</td>
+                        <td>{{data.attribute_code}}</td>
                         <td>{{ data.type }}</td>
-                        <td>{{ data.required }}</td>
-                        <td>{{ data.unique }}</td>
-                        <td>{{ data.localeBased }}</td>
-                        <td>{{ data.channelBased }}</td>
+                        <td>{{ data.validation_required }}</td>
+                        <td>{{ data.validation_unique }}</td>
+                        <td>{{ data.value_per_local }}</td>
+                        <td>{{ data.value_per_channel }}</td>
                         <td>
-                            <button class="btn btn-info mr-2"><i class="fa fa-pencil-square-o fa-lg " [routerLink]="['/catalog/editattribute']"></i></button>
-                            <button id="remove" (click)="deleteRow(data)" class="btn btn-danger"><i class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                            <button class="btn btn-info mr-2"><i class="fa fa-pencil-square-o fa-lg "
+                                    [routerLink]="['/catalog/editattribute/'+data.id]"></i></button>
+                            <button id="remove" (click)="deleteRow(data.id)" class="btn btn-danger"><i
+                                    class="fa fa-trash-o fa-lg mx-auto"></i></button>
                         </td>
                     </tr>
-                    <tr *ngIf="!adata.length">
+                    <tr *ngIf="!length && !showloader">
                         <td colspan="9" class="text-center">
                             No records found.
                         </td>
                     </tr>
                 </tbody>
             </table>
-            <div class="justify-content-between row">
-                <div class="col">
-                    <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="adata.length" [boundaryLinks]="true" [maxSize]="5"></ngb-pagination>
-                </div>
-
-                <div class="col">
-                    <select class="form-select btn btn-outline-primary" [(ngModel)]="pageSize" (ngModelChange)="refreshAttributes()">
-                                        <option [ngValue]="2">2 items per page</option>
-                                        <option [ngValue]="4">4 items per page</option>
-                                        <option [ngValue]="6">6 items per page</option>
-                                    </select>
+            <div *ngIf="showloader" class="d-flex justify-content-center pt-5">
+                <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                    <!-- <img src="src\image\Infinity-1s-200px.svg"> -->
+                    <span class="sr-only">Loading...</span>
                 </div>
             </div>
-            <!-- </ng-template> -->
-            <!-- </li>
-                </ul> -->
-            <!-- <div [ngbNavOutlet]="nav"></div> -->
+            <div class="justify-content-between row">
+                <div class="col">
+                    <ngb-pagination (pageChange)="onPageChange($event)" [(page)]="page" [pageSize]="length"
+                        [collectionSize]="total" [boundaryLinks]="true" [maxSize]="total">
+                    </ngb-pagination>
+                </div>
+            </div>
         </div>
     </div>
 </div>

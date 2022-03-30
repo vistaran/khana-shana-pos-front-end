@@ -15,60 +15,61 @@ export class OutletComponent implements OnInit {
   public odata: any;
   public length = 0;
   public total = 0;
-  public id= 0;
+  public id = 0;
   page = 1;
   pageSize = 10;
   itemsPerPage: any;
   searchValue: any
+  showloader: any
   // outlets: Data = [ '', '', '','','', '', '','','', '','']
 
-  constructor(private outletData: OutletDataService, private router: Router, private route:ActivatedRoute) {
-    // this.getOutletData();
-  }
+  constructor(private outletService: OutletDataService,
+    private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.getOutletData();
   }
 
+  // To get outlet data for table listing
   getOutletData() {
-
-    this.outletData.getOutletData(this.page).subscribe(result => {
-        this.odata = result.outlets.data
-        this.length = result.outlets.per_page;
-        this.total = result.outlets.total;
-
+    this.showloader = true
+    this.outletService.getOutletData(this.page).subscribe(result => {
+      this.odata = result.outlets.data
+      this.length = result.outlets.per_page;
+      this.total = result.outlets.total;
+      this.showloader = false
     })
   }
 
-  onPageChange(event : number) {
+  // For updating data on page change
+  onPageChange(event: number) {
     this.page = event;
     this.getOutletData();
     console.log('Here >>>', this.page, this.odata);
   }
 
-  deleteRow2(id: number) {
+  // For deleting outlet
+  deleteRow(id: number) {
 
-    // const index = this.odata.indexOf(this.id);
-    // this.odata.splice(id, 1);
-    this.outletData.deleteOutlet(id).subscribe(data => {
-        this.getOutletData();
+    this.outletService.deleteOutlet(id).subscribe(data => {
+      this.getOutletData();
     });
     console.log(this.odata);
   }
 
+  // For searching outlets table data
   search(event: any) {
-    this.outletData.searchOutlet(this.searchValue).subscribe(res => {
-      this.odata = res.Outlets.data
+    this.showloader = true
+    this.outletService.searchOutlet(this.searchValue).subscribe(res => {
+      this.odata = res.outlets.data
+      this.length = this.odata.length;
+      this.total = res.outlets.total;
+      this.showloader = false
+      console.log(this.odata.length)
     })
   }
 
-  onClick() {
-    this.router.navigate(['/pos/edit/editoutlet']);
-  }
-
-  onClick2() {
-    this.router.navigate(['/pos/addoutlet']);
-  }
 }
 
 

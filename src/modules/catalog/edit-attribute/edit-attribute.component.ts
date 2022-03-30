@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+
+import { AttributesService } from '../attributes.service';
 
 @Component({
   selector: 'sb-edit-attribute',
@@ -13,10 +16,16 @@ export class EditAttributeComponent implements OnInit {
   attributeType = ['Text', 'Select'];
   validation = ['Yes', 'No'];
   swatchType = ['Dropdown'];
-  inputValid = [];
+  inputValid = ['Yes', 'No'];
+  id: any
 
+  // For validations
   get attributeCode() {
     return this.editAttributeForm.get('attributeCode');
+  }
+
+  get name() {
+    return this.editAttributeForm.get('name');
   }
 
   get attributeTyp() {
@@ -26,30 +35,43 @@ export class EditAttributeComponent implements OnInit {
   get admin() {
     return this.editAttributeForm.get('admin');
   }
-  
-  constructor(private fb: FormBuilder) { }
+
+  constructor(private fb: FormBuilder,
+    private attributeService: AttributesService,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit(): void {
 
     this.editAttributeForm = this.fb.group({
-      attributeCode: ['', [Validators.required]],
-      attributeType: ['', [Validators.required]],
-      admin: ['',[Validators.required]],
+      attribute_code: ['', [Validators.required]],
+      type: ['', [Validators.required]],
+      name: ['', [Validators.required]],
+      admin: ['', [Validators.required]],
       english: [''],
-      arabic: [''],
-      portugese: [''],
-      swatchType: [''],
-      isRequired: [''],
-      isUnique: [''],
-      inputValidation: [''],
-      valuePerLocale: [''],
-      valuePerChannel: [''],
-      layeredNav: [''],
-      cofigProduct: [''],
-      frontEnd: [''],
-      flatTable: [''],
-      comparable: ['']
+      // arabic: [''],
+      portuguse: [''],
+      // swatchType: [''],
+      validation_required: [''],
+      validation_unique: [''],
+      input_validation: [''],
+      value_per_local: [''],
+      value_per_channel: [''],
+      use_in_layered: [''],
+      use_to_create_configuration_product: [''],
+      visible_on_productview_page_front_end: [''],
+      create_in_product_flat_table: [''],
+      attribute_comparable: ['']
     })
+    this.id = this.route.snapshot.params.id
+  }
+
+  // For submitting edit attribute form data
+  updateData(data: any) {
+    this.attributeService.editAttribute(this.id, data).subscribe(data => {
+      console.log('Data updated successfully! ', data)
+    })
+    this.router.navigate(['/catalog/products']);
   }
 
 }

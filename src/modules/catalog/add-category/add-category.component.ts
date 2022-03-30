@@ -1,7 +1,7 @@
-import { CategoriesService } from './../categories.service';
-import { data } from 'jquery';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { CategoriesService } from './../categories.service';
 
 @Component({
   selector: 'sb-add-category',
@@ -11,13 +11,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class AddCategoryComponent implements OnInit {
 
   addCategoryForm!: FormGroup;
-  visibleInMenu = ['Yes','No'];
+  parentCategroryData: any;
+  visibleInMenu = ['Yes', 'No'];
   displayMode = ['Products and Description'];
   parentCategory = ['Yoga', 'Badminton'];
-  status = ['active','inactive'];
-  attribut = ['price', 'brand']
+  status = ['active', 'inactive'];
+  attribut = ['price', 'brand'];
+  page = 1;
+  isCollapsed = false;
+  parentCategoryId: any
 
-
+  // For validations
   get name() {
     return this.addCategoryForm.get('name');
   }
@@ -55,7 +59,7 @@ export class AddCategoryComponent implements OnInit {
   }
 
 
-  constructor(private fb: FormBuilder, private categoryPost: CategoriesService) { }
+  constructor(private fb: FormBuilder, private categoryService: CategoriesService) { }
 
   ngOnInit(): void {
     this.addCategoryForm = this.fb.group({
@@ -74,28 +78,34 @@ export class AddCategoryComponent implements OnInit {
       meta_keyword: ['', [Validators.required]],
       status: ['', [Validators.required]]
     });
+    this.getParentCategrory()
   }
-  // "name":"rutu",
-  //   "visible_in_menu": "yes",
-  //   "position" : "5",
-  //   "display_mode":"products only" ,
-  //   "decription" : "jhsbxjhzbhjbchasxbcj",
-  //   "image":"https://lorempixel.com/400/400/?91725",
-  //   "category_logo" :"https://lorempixel.com/400/400/?91725" ,
-  //   "parent_category":"yoga",
-    
-  //   "meta_title":"skjac",
-  //   "slug":"yoga",
-  //   "meta_description":"asjb",
-  //   "meta_keyword":"sjabkx" ,
-  //   "status":"active"
 
+  // For submitting Add category form data
   onSubmit(data: any) {
-    this.categoryPost
-            .postCategory(data)
-            .subscribe((result: any) => console.log(result));
-    console.log("Form Submitted",(data));
+    this.categoryService
+      .postCategory(data)
+      .subscribe((result: any) => console.log(result));
+    console.log('Form Submitted', (data));
   }
 
+  // For parent category listing
+  getParentCategrory() {
+    this.categoryService.getCategoriesData(this.page).subscribe(data => {
+      this.parentCategroryData = data.category.data
+      console.log(this.parentCategroryData)
+    })
+  }
+
+  // onSelectName(id: any) {
+  //   //this.parentCategoryId = id
+  //   console.log(this.parentCategoryId)
+  // }
+
+  // To get parent categories id 
+  onItemChange(value: any) {
+    console.log(" Value is : ", value);
+    this.parentCategoryId = value
+  }
 
 }

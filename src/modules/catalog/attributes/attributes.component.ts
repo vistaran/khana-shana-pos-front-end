@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { AttributesService } from '../attributes.service';
 
 @Component({
@@ -9,33 +10,66 @@ import { AttributesService } from '../attributes.service';
 })
 export class AttributesComponent implements OnInit {
 
-  public adata: any = [];
+  public attributesData: any = [];
+  public length = 0;
+  public total = 0;
 
   page = 1;
   pageSize = 5;
-  
-  constructor(private attributes: AttributesService, private router: Router) { }
+  searchValue: any
+  showloader: any
+
+  constructor(private attributeService: AttributesService, private router: Router) { }
 
   ngOnInit(): void {
 
-    this.attributes.getAttributesData()
-      .subscribe( data => this.adata = data);
-    }
+    this.getAttributesData()
 
-    onClick() {
-      this.router.navigate(['/catalog/addattribute']);
-    }
+  }
 
-    deleteRow(d: any){
-      const index = this.adata.indexOf(d);
-      this.adata.splice(index, 1);
-    }
+  // For getting attributes data for table listing
+  getAttributesData() {
+    this.showloader = true
+    this.attributeService.getAttributesData(this.page).subscribe(result => {
+      this.attributesData = result.attributes.data;
+      this.length = result.attributes.per_page;
+      this.total = result.attributes.total;
+      this.showloader = false
+      console.log(this.attributesData, this.length, this.total, this.page);
+    });
+  }
 
-    refreshAttributes() { 
-      this.adata = this.adata
-        .map((user: any, i: any) => ({id: i + 1, ...user}))
-        .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
-    }
+  // For navigating to add attribute form on click
+  onClick() {
+    this.router.navigate(['/catalog/addattribute']);
+  }
+
+  // For deleting attribute data
+  deleteRow(id: number) {
+    this.attributeService.deleteAttribute(id).subscribe(data => {
+      this.getAttributesData();
+    });
+    console.log(this.attributesData);
+  }
+
+  // For updating data on page change
+  onPageChange(event: any) {
+    this.page = event;
+    this.getAttributesData();
+    console.log('Here >>>', this.page, this.attributesData);
+  }
+
+  // For searching attributes data from table
+  search(event: any) {
+    this.showloader = true
+    this.attributeService.searchAttribute(this.searchValue).subscribe(res => {
+      this.attributesData = res.attributes.data;
+      this.length = this.attributesData.length;
+      this.total = res.attributes.total;
+      this.showloader = false
+      console.log(this.attributesData)
+    })
+  }
 }
 
-  
+

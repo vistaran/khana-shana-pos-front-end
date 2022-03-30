@@ -13,12 +13,12 @@ import { OutletDataService } from './../outlet-data.service';
 })
 export class EditOutletComponent implements OnInit {
     editOutletForm!: FormGroup
-    id:any
-    // outlet = new Outlet();
+    id: any
 
     inventorySource = ['default'];
     status = ['active', 'inactive'];
 
+    // For Validations
     get outletName() {
         return this.editOutletForm.get('name');
     }
@@ -48,13 +48,13 @@ export class EditOutletComponent implements OnInit {
     }
 
     get inventory() {
-        return this.editOutletForm.get('inventorySource');
+        return this.editOutletForm.get('inventory_source');
     }
 
     constructor(private fb: FormBuilder,
-        private edit: OutletDataService,
-         private route: ActivatedRoute,
-         private router: Router) {}
+        private outletService: OutletDataService,
+        private route: ActivatedRoute,
+        private router: Router) { }
 
     ngOnInit(): void {
         this.editOutletForm = this.fb.group({
@@ -64,23 +64,20 @@ export class EditOutletComponent implements OnInit {
             state: ['', [Validators.required]],
             city: ['', [Validators.required]],
             postcode: ['', [Validators.required]],
+            inventory_source: ['', [Validators.required]],
             status: ['', [Validators.required]]
         });
         this.id = this.route.snapshot.params.id
-    }
-    // "name": " rutu",
-    // "address": "390/2,sector-5/A",
-    // "country": "India",
-    // "state": "Gujarat",
-    // "city": "Gandhinagar",
-    // "postcode": 382006,
-    // "status": "active"
 
-    getData() {
-
+        // this.edit.editOutletForm(this.id).subscribe((data: any) => {
+        //     this.editOutletForm.patchValue(data.Show_Data)
+        //     console.log(data)
+        // })
     }
+
+    // For submitting edit outlet form data
     updateData(data: any) {
-        this.edit.editOutlet(this.id, data).subscribe(data => {
+        this.outletService.editOutlet(this.id, data).subscribe(data => {
             console.log('Data updated successfully! ', data)
         })
         this.router.navigate(['/pos/users']);

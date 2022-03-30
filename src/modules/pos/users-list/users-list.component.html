@@ -34,30 +34,46 @@
                                     <th>Actions</th>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let data of udata">
+
+                                    <tr *ngFor="let data of userData">
                                         <td>{{ data.user_id }}</td>
-                                        <td class="justify-content-center"><img class="w-25 h-25 rounded-circle" src="{{data.user_avatar}}"></td>
+                                        <td class="justify-content-center"><img class=" rounded-circle"
+                                                src="{{data.user_avatar}}"></td>
                                         <td>{{ data.username }}</td>
                                         <td>{{ data.email }}</td>
-                                        <td>{{ data.Outlet_name }}</td>
+                                        <td>{{ data.outlet_name }}</td>
                                         <td>{{ data.status }}</td>
-                                        <td>{{ data.created_at }}</td>
+                                        <td>{{ data.created_at | date: 'dd/MM/yyyy'}}</td>
                                         <td>
-                                            <button class="btn btn-info mr-2"><i class="fa fa-pencil-square-o fa-lg" [routerLink]="['/pos/edit/edituser/' + data.user_id]"></i></button>
+                                            <button class="btn btn-info mr-2"><i class="fa fa-pencil-square-o fa-lg"
+                                                    [routerLink]="['/pos/edit/edituser/' + data.user_id]"></i></button>
 
-                                            <button id="remove" (click)="deleteRow(data.user_id)" class="btn btn-danger"><i class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                                            <button id="remove" (click)="deleteRow(data.user_id)"
+                                                class="btn btn-danger"><i
+                                                    class="fa fa-trash-o fa-lg mx-auto"></i></button>
                                         </td>
                                     </tr>
-                                    <tr *ngIf="!length">
+                                    <tr *ngIf="!length && !showloader">
                                         <td colspan="8" class="text-center">
                                             No records found.
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
+
+                            <div *ngIf="showloader" class="d-flex justify-content-center pt-5">
+                                <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;"
+                                    role="status">
+                                    <!-- <img src="src\image\Infinity-1s-200px.svg"> -->
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </div>
+
                             <div class="justify-content-between row">
                                 <div class="col">
-                                    <ngb-pagination (pageChange)="onPageChange($event)" [(page)]="page" [pageSize]="length" [collectionSize]="total" [boundaryLinks]="true" [maxSize]="total">
+                                    <ngb-pagination (pageChange)="onPageChange($event)" [(page)]="page"
+                                        [pageSize]="length" [collectionSize]="total" [boundaryLinks]="true"
+                                        [maxSize]="total">
                                     </ngb-pagination>
                                 </div>
                             </div>
@@ -68,7 +84,9 @@
                         <a ngbNavLink>Outlets</a>
                         <ng-template ngbNavContent>
 
-                            <sb-outlet></sb-outlet>
+                            <sb-outlet>
+
+                            </sb-outlet>
 
                         </ng-template>
                     </li>
@@ -77,5 +95,4 @@
             </div>
         </div>
     </div>
-
 </sb-layout-dashboard>

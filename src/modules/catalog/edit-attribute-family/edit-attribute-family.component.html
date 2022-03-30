@@ -10,8 +10,18 @@
 
                     <div class="col">
                         <div class="form-group">
+                            <label class="required mt-4">Code</label>
+                            <input type="text" formControlName="attribute_family_code" class="form-control" />
+                            <div *ngIf="code?.touched && code?.invalid" class="alert alert-danger">
+                                <div *ngIf="code?.errors?.required">Code is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
                             <label class="required mt-4">Name</label>
-                            <input type="text" formControlName="name" class="form-control" />
+                            <input type="text" formControlName="attribute_family_name" class="form-control" />
                             <div *ngIf="name?.touched && name?.invalid" class="alert alert-danger">
                                 <div *ngIf="name?.errors?.required">Name is required.</div>
                             </div>
@@ -19,34 +29,160 @@
                     </div>
                 </div>
 
-                <h2 class="card-header mt-4 pb-2">Groups</h2>
-                <div class="card-body row">
-                    <div class="col">
-                        <div class="form-group">
-                            <label class="required mt-4">Group Name</label>
-                            <input type="text" formControlName="gName" class="form-control" />
-                            <div *ngIf="gName?.touched && gName?.invalid" class="alert alert-danger">
-                                <div *ngIf="gName?.errors?.required">Name is required.</div>
-                            </div>
-                        </div>
+                <h2 type="dropdown" class="card-header mt-4 pb-2">
+                    Group
+                </h2>
+
+                <ng-template #content let-modal>
+                    <div class="modal-header">
+                        <h4 class="modal-title">Add Group</h4>
+                        <button type="button" class="btn-close btn-default" aria-label="Close"
+                            (click)="modal.dismiss('Cross click')">X
+                        </button>
                     </div>
 
-                    <div class="col">
-                        <div class="form-group">
-                            <label class="required mt-4">Position</label>
-                            <input type="text" formControlName="position" class="form-control" />
-                            <div *ngIf="position?.touched && position?.invalid" class="alert alert-danger">
-                                <div *ngIf="position?.errors?.required">Position is required.</div>
+                    <div class="modal-body">
+                        <form [formGroup]="addGroup">
+
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="required mt-4">Name</label>
+                                    <input type="text" formControlName="group_name" class="form-control" />
+                                    <div *ngIf="group_name?.touched && group_name?.invalid" class="alert alert-danger">
+                                        <div *ngIf="group_name?.errors?.required">Group Name is required.</div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        </form>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" [disabled]="!addGroup.valid" class="btn btn-primary"
+                            (click)=" updateData2(addGroup.value)" (click)="modal.close('Close click')">Save
+                            Group</button>
+                    </div>
+                </ng-template>
+
+                <button class="btn btn-primary mt-4 me-2" (click)="openVerticallyCentered(content)">Add
+                    Group</button>
+
+                <div class="card-body">
+
+                    <div *ngFor="let group of groupData">
+                        <!-- <div *ngFor="let attributeData of attributeGroupData"> -->
+                        <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+                            <ngb-panel type="light">
+                                <ng-template ngbPanelTitle>
+                                    <div class="d-flex justify-content-between">
+                                        <div class="">
+                                            <h5 class="text-dark">
+                                                <i class="fa fa-chevron-down fa-sm"></i>
+                                                {{ group.group_name }}
+                                            </h5>
+                                        </div>
+                                        <div class="">
+                                            <button id=" remove" *ngIf="group.group_based == 'User'"
+                                                class="btn btn-light float-right" (click)=" deleteGroup(group.id)">
+                                                <i class="fa fa-trash-o fa-lg float-right"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </ng-template>
+
+                                <ng-template ngbPanelContent>
+                                    <div class="card-body">
+                                        <table class="table table-striped text-center shadow">
+                                            <thead class="head table-fit">
+                                                <th>Code</th>
+                                                <th>Name</th>
+                                                <th>Type</th>
+                                                <th> </th>
+                                            </thead>
+
+                                            <tbody *ngFor="let data of attributeGroupData">
+                                                <tr *ngIf="group.id == data.group_id">
+                                                    <td>{{ data.attribute_code }}</td>
+                                                    <td>{{data.name}}</td>
+                                                    <td>{{ data.type }}</td>
+                                                    <td>
+                                                        <button *ngIf="data.attribute_based == 'User'" id="remove"
+                                                            (click)="deleteRow(data.id)" class="btn btn-light"><i
+                                                                class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                                                    </td>
+                                                </tr>
+                                                <tr *ngIf="!length && !showloader">
+                                                    <td colspan="4" class="text-center">
+                                                        No records found.
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <button class="btn btn-primary mt-4 me-2"
+                                            (click)="openVerticallyCentered(content)">Add
+                                            Attribute</button>
+
+                                        <ng-template #content let-modal>
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Add Attribute</h4>
+                                                <button type="button" class="btn-close btn-default" aria-label="Close"
+                                                    (click)="modal.dismiss('Cross click')">X
+                                                </button>
+                                            </div>
+
+                                            <div class="modal-body">
+                                                <form [formGroup]="addAttribute">
+
+                                                    <div class="col">
+                                                        <div class="form-group">
+                                                            <label class="required">Select Attribute</label>
+                                                            <select name="attribute" formControlName="attributeName"
+                                                                class="form-control"
+                                                                (ngModelChange)="onSelectName($event)">
+                                                                <option value="default">--Select Attribute--
+                                                                </option>
+
+                                                                <ng-container *ngFor="let list of attributeDataList">
+                                                                    <option *ngIf="list.attribute_based == 'User'"
+                                                                        [ngValue]=" list.id">
+                                                                        {{list.id}}-{{list.name
+                                                                        }}
+                                                                    </option>
+                                                                </ng-container>
+
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="submit" [disabled]="!addAttributeForm.valid"
+                                                    class="btn btn-primary" (click)=" addAttribute(group.id)"
+                                                    (click)="modal.close('Close click')">Add
+                                                    Attribute</button>
+                                            </div>
+                                        </ng-template>
+                                    </div>
+                                </ng-template>
+                            </ngb-panel>
+                        </ngb-accordion>
+                        <!-- </div> -->
                     </div>
                 </div>
 
-                <button [disabled]="!editFamilyForm.valid" class="btn btn-primary mb-4 float-right">
-                Save Family
-            </button>
+
+                <div *ngIf="showloader" class="d-flex justify-content-center pt-5">
+                    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+
+                <button [disabled]="!editFamilyForm.valid" type="submit" class="btn btn-primary mb-4 float-right"
+                    (click)="updateData(editFamilyForm.value)" [routerLink]="['/catalog/products']">
+                    Save Family
+                </button>
             </div>
         </form>
     </div>
-
 </sb-layout-dashboard>

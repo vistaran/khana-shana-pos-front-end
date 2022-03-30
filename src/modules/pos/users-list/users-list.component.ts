@@ -13,17 +13,18 @@ import { UserDataService } from '../user-data.service';
 })
 export class UsersListComponent implements OnInit {
 
-    // items = {length: 12};
-    public udata: any = [];
+    public userData: any = [];
     public length = 0;
     public total = 0;
-    public id= 0;
+    public id = 0;
     page = 1;
     pageSize = 10;
     itemsPerPage: any;
+    searchValue: any
+    showloader: any
 
     constructor(
-        private userData: UserDataService,
+        private userService: UserDataService,
         private outletData: OutletDataService,
         private router: Router,
         private route: ActivatedRoute
@@ -34,33 +35,49 @@ export class UsersListComponent implements OnInit {
         this.getUserData();
     }
 
-
+    // To get user data for table listing
     getUserData() {
-        this.userData.getUserData(this.page).subscribe(result => {
-            this.udata = result.user.data
+        this.showloader = true
+        this.userService.getUserData(this.page).subscribe(result => {
+            this.userData = result.user.data
             this.length = result.user.per_page;
             this.total = result.user.total;
-
+            this.showloader = false
         })
     }
 
-    onPageChange(event : number) {
+    // To update data on page change
+    onPageChange(event: number) {
         this.page = event;
         this.getUserData();
-        console.log('Here >>>', this.page, this.udata);
-      }
+        console.log('Here >>>', this.page, this.userData);
+    }
 
+    // For navigating to add user form on click
     onClick() {
         this.router.navigate(['/pos/adduser']);
     }
 
+    // For deleting user
     deleteRow(id: number) {
 
-        this.userData.deleteUser(id).subscribe(data => {
+        this.userService.deleteUser(id).subscribe(data => {
             this.getUserData();
         });
-        console.log(this.udata);
-      }
+        console.log(this.userData);
+    }
+
+    // For searching users data from table
+    search(event: any) {
+        this.showloader = true
+        this.userService.searchUser(this.searchValue).subscribe(res => {
+            this.userData = res.users.data
+            this.length = this.userData.length;
+            this.total = res.users.total;
+            this.showloader = false
+            console.log(this.userData)
+        })
+    }
 
 
 }

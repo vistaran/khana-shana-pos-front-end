@@ -4,49 +4,66 @@
             <!-- <ul ngbNav #nav="ngbNav" class="nav-tabs mt-5">
                     <li ngbNavItem>
                         <ng-template ngbNavContent> -->
-            <h2 class="mt-3 mb-4">Attribute Family</h2>
-            <button (click)="onClick()" class="btn btn-primary mb-4 float-right">
-                    Add Family
-                </button>
+            <h2 class="mt-3 mb-4 ">Attribute Family</h2>
+
+            <div class="row d-flex justify-content-between">
+                <div class="col-md-6 mb-4">
+
+                    <div class="input-group w-50">
+                        <input class="form-control amber-border" class="form-control" type="text" aria-label="Search"
+                            (keyup)="search($event)" placeholder="Search" [(ngModel)]="searchValue">
+                        <div class="input-group-append ">
+                            <button class="btn input-group-text amber lighten-3 " id="basic-text1"><i
+                                    class="fa fa-search" aria-hidden="true" (click)="search($event)"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <button (click)="onClick()" class="btn btn-primary mb-4 float-right">
+                        Add Family
+                    </button>
+                </div>
+            </div>
 
 
-
-            <table class="table table-bordered table-striped">
-                <thead class="head">
+            <table class="table table-bordered table-striped text-center shadow">
+                <thead class="head table-fit">
                     <th>ID</th>
                     <th>Code</th>
                     <th>Name</th>
                     <th>Actions</th>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let data of afData">
+                    <tr *ngFor="let data of attributeFamilyData">
                         <td>{{ data.id }}</td>
-                        <td>{{data.code}}</td>
-                        <td>{{ data.name }}</td>
+                        <td>{{data.attribute_family_code}}</td>
+                        <td>{{ data.attribute_family_name }}</td>
                         <td>
-                            <button class="btn btn-info mr-2"><i class="fa fa-pencil-square-o fa-lg" [routerLink]="['/catalog/editfamily']"></i></button>
+                            <button class="btn btn-info mr-2"><i class="fa fa-pencil-square-o fa-lg"
+                                    [routerLink]="['/catalog/editfamily/'+ data.id]"></i></button>
 
-                            <button id="remove" (click)="deleteRow(data)" class="btn btn-danger"><i class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                            <button id="remove" (click)="deleteRow(data.id)" class="btn btn-danger"><i
+                                    class="fa fa-trash-o fa-lg mx-auto"></i></button>
                         </td>
                     </tr>
-                    <tr *ngIf="!afData.length">
+                    <tr *ngIf="!attributeFamilyData.length && !showloader">
                         <td colspan="4" class="text-center">
                             No records found.
                         </td>
                     </tr>
                 </tbody>
             </table>
-            <div class="justify-content-between row">
-                <div class="col">
-                    <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="afData.length" [boundaryLinks]="true" [maxSize]="5"></ngb-pagination>
+            <div *ngIf="showloader" class="d-flex justify-content-center pt-5">
+                <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                    <!-- <img src="src\image\Infinity-1s-200px.svg"> -->
+                    <span class="sr-only">Loading...</span>
                 </div>
-
-                <div class="col">
-                    <select class="form-select btn btn-outline-primary" [(ngModel)]="pageSize" (ngModelChange)="refreshAttributeFamily()">
-                                        <option [ngValue]="2">2 items per page</option>
-                                        <option [ngValue]="4">4 items per page</option>
-                                        <option [ngValue]="6">6 items per page</option>
-                                    </select>
+            </div>
+            <div class="justify-content-between row ">
+                <div class="col ">
+                    <ngb-pagination (pageChange)="onPageChange($event)" [(page)]="page" [pageSize]="length"
+                        [collectionSize]="total" [boundaryLinks]="true" [maxSize]="total">
+                    </ngb-pagination>
                 </div>
             </div>
 

@@ -1,7 +1,7 @@
 <sb-layout-dashboard>
     <div class="card">
         <h1 class="card-header">Edit Outlet</h1>
-        <form [formGroup]="editOutletForm" (ngSubmit)="updateData(editOutletForm.value)">
+        <form [formGroup]="editOutletForm">
             <div class="container-fluid">
                 <h2 class="card-header mt-4 pb-2">General</h2>
                 <div class="card-body row">
@@ -19,9 +19,9 @@
                         <div class="form-group">
                             <label class="required">Select Status</label><br />
                             <select name="status" formControlName="status" class="form-control">
-                            <option value="default">--Select Status--</option>
-                            <option *ngFor="let item of status">{{ item }}</option>
-                        </select>
+                                <option value="default">--Select Status--</option>
+                                <option *ngFor="let item of status">{{ item }}</option>
+                            </select>
                             <div *ngIf="stat?.touched && stat?.invalid" class="alert alert-danger">
                                 <div *ngIf="stat?.errors?.required">Status is required.</div>
                             </div>
@@ -84,15 +84,15 @@
                     </div>
                 </div>
 
-                <!-- <h2 class="card-header pt-4 pb-2">Inventory Source</h2>
+                <h2 class="card-header pt-4 pb-2">Inventory Source</h2>
                 <div class="card-body row">
                     <div class="col">
                         <div class="form-group">
                             <label class="required">Inventory Source</label><br />
-                            <select name="inventorySource" formControlName="inventorySource" class="form-control">
-                            <option value="default">--Select Inventory Source--</option>
-                            <option *ngFor="let item of inventorySource">{{ item }}</option>
-                        </select>
+                            <select name="inventorySource" formControlName="inventory_source" class="form-control">
+                                <option value="default">--Select Inventory Source--</option>
+                                <option *ngFor="let item of inventorySource">{{ item }}</option>
+                            </select>
                             <div *ngIf="inventory?.touched && inventory?.invalid" class="alert alert-danger">
                                 <div *ngIf="inventory?.errors?.required">
                                     Inventory source is required.
@@ -100,11 +100,12 @@
                             </div>
                         </div>
                     </div>
-                </div> -->
+                </div>
 
-                <button [disabled]="!editOutletForm.valid" type="submit" class="btn btn-primary mb-4 float-right">
-                Update
-            </button>
+                <button [disabled]="!editOutletForm.valid" type="button" (click)="updateData(editOutletForm.value)"
+                    class="btn btn-primary mb-4 float-right" [routerLink]="['/pos/users']">
+                    Update
+                </button>
             </div>
         </form>
     </div>

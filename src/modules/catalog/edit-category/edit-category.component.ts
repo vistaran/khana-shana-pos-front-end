@@ -1,7 +1,8 @@
-import { ActivatedRoute, Router } from '@angular/router';
-import { CategoriesService } from './../categories.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+
+import { CategoriesService } from './../categories.service';
 
 @Component({
   selector: 'sb-edit-category',
@@ -11,15 +12,19 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class EditCategoryComponent implements OnInit {
 
   editCategoryForm!: FormGroup;
+
   id: any;
   status = ['active', 'inactive'];
   attribut = ['price', 'brand']
-
-
   visibleInMenu = ['Yes', 'No'];
   displayMode = ['Products and Descrition'];
   parentCategory = ['Yoga', 'Badminton'];
+  parentCategroryData: any
+  parentCategoryId: any
+  page = 1
+  isCollapsed = false;
 
+  // For validations
   get name() {
     return this.editCategoryForm.get('name');
   }
@@ -57,9 +62,9 @@ export class EditCategoryComponent implements OnInit {
   }
 
   constructor(
-    private fb: FormBuilder, 
-    private categories: CategoriesService, 
-    private route:ActivatedRoute, 
+    private fb: FormBuilder,
+    private categoryService: CategoriesService,
+    private route: ActivatedRoute,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -67,47 +72,54 @@ export class EditCategoryComponent implements OnInit {
     this.editCategoryForm = this.fb.group({
       attri: ['', [Validators.required]],
       category_logo: ['', [Validators.required]],
-      decription: ['', [Validators.required]], 
+      decription: ['', [Validators.required]],
       display_mode: ['', [Validators.required]],
       image: ['', [Validators.required]],
       meta_description: ['', [Validators.required]],
       meta_keyword: [''],
       meta_title: [''],
       name: ['', [Validators.required]],
-      parent_category: ['', [Validators.required]],
+      // parent_category: ['', [Validators.required]],
       position: ['', [Validators.required]],
       slug: ['', [Validators.required]],
       status: ['', [Validators.required]],
-      visible_in_menu: ['', [Validators.required]], 
+      visible_in_menu: ['', [Validators.required]],
     });
-    // "attributes": "fhdryghtgngvn",
-    // "category_logo": "C:\\fakepath\\sample.jpg",
-    // "decription": "dsf",
-    // "display_mode": "Products and Descrition",
-    // "image": "C:\\fakepath\\sample.jpg",
-    // "meta_description": "gfh",
-    // "meta_keyword": "",
-    // "meta_title": "fgth",
-    // "name": "Vandanaba",
-    // "parent_category": "Yoga",
-    // "position": "4",
-    // "slug": "fhfgh",
-    // "status": "active",
-    // "visible_in_menu": "Yes"
 
     this.id = this.route.snapshot.params.id
+
+    this.categoryService.getEditCategoryData(this.id).subscribe((data: any) => {
+      this.editCategoryForm.patchValue(data.show_data)
+      console.log(data)
+    })
+    this.getParentCategrory()
   }
 
+  // For parent category listing
+  getParentCategrory() {
+    this.categoryService.getCategoriesData(this.page).subscribe(data => {
+      this.parentCategroryData = data.category.data
+      console.log(this.parentCategroryData)
+    })
+  }
+
+  // For submitting edit category form data
   updateData(data: any) {
-    this.categories.editCategory(this.id, data).subscribe(data => {
-        console.log("Data updated successfully! ", data)
+    this.categoryService.editCategory(this.id, data).subscribe(data => {
+      console.log('Data updated successfully! ', data)
     })
     this.router.navigate(['/catalog/products']);
-}
+  }
 
 
-upload() {
-  //
-}
+  upload() {
+    //
+  }
+
+  // To get parent categories id 
+  onItemChange(value: any) {
+    console.log(" Value is : ", value);
+    this.parentCategoryId = value
+  }
 
 }

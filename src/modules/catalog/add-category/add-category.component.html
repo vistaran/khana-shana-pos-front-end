@@ -1,7 +1,7 @@
 <sb-layout-dashboard>
     <div class="card mt-4">
         <h1 class="card-header">Add Category</h1>
-        <form [formGroup]="addCategoryForm" (ngSubmit)="onSubmit(addCategoryForm.value)">
+        <form [formGroup]="addCategoryForm">
             <div class="container-fluid">
                 <h2 class="card-header mt-4 pb-2">General</h2>
 
@@ -20,9 +20,9 @@
                         <div class="form-group">
                             <label class="required">Visible In Menu</label>
                             <select name="visible_in_menu" formControlName="visible_in_menu" class="form-control">
-                            <option value="default"></option>
-                            <option *ngFor="let item of visibleInMenu">{{ item }}</option>
-                        </select>
+                                <option value="default"></option>
+                                <option *ngFor="let item of visibleInMenu">{{ item }}</option>
+                            </select>
                             <div *ngIf="visible?.touched && visible?.invalid" class="alert alert-danger">
                                 <div *ngIf="visible?.errors?.required">Visible in Menu is required.</div>
                             </div>
@@ -46,9 +46,9 @@
                         <div class="form-group">
                             <label class="required">Display Mode</label><br />
                             <select name="display_mode" formControlName="display_mode" class="form-control">
-                            <option value="default">--Select Display Mode--</option>
-                            <option *ngFor="let item of displayMode">{{ item }}</option>
-                        </select>
+                                <option value="default">--Select Display Mode--</option>
+                                <option *ngFor="let item of displayMode">{{ item }}</option>
+                            </select>
                             <div *ngIf="displayMod?.touched && displayMod?.invalid" class="alert alert-danger">
                                 <div *ngIf="displayMod?.errors?.required">Display Mode is required.</div>
                             </div>
@@ -83,36 +83,28 @@
                 <div class="card-body row">
                     <div class="col">
                         <label for="img" class="">Image</label>
-                        <input type="file" id="img" name="image" accept="image/*" formControlName="image" class="form-control" />
-                        <button class="btn btn-primary mb-4" type="submit">Upload</button>
+                        <input type="file" id="img" name="image" accept="image/*" formControlName="image"
+                            class="form-control" />
                     </div>
 
 
                     <div class="col">
                         <div class="form-group">
                             <label for="img2">Category Logo</label>
-                            <input type="file" id="img2" name="category_logo" accept="image/*" formControlName="category_logo" class="form-control" />
-                            <button class="btn btn-primary" type="submit">Upload</button>
+                            <input type="file" id="img2" name="category_logo" accept="image/*"
+                                formControlName="category_logo" class="form-control" />
                         </div>
                     </div>
 
-                    <div class="col">
-                        <div class="form-group">
-                            <label class="required">Parent Category</label><br />
-                            <select name="parent_category" formControlName="parent_category" class="form-control">
-                            <option value="default">--Select Parent Category--</option>
-                            <option *ngFor="let item of parentCategory">{{ item }}</option>
-                        </select>
-                        </div>
-                    </div>
+
 
                     <div class="col">
                         <div class="form-group">
                             <label class="required">Status</label><br />
                             <select name="status" formControlName="status" class="form-control">
-                            <option value="default">--Status--</option>
-                            <option *ngFor="let item of status">{{ item }}</option>
-                        </select>
+                                <option value="default">--Status--</option>
+                                <option *ngFor="let item of status">{{ item }}</option>
+                            </select>
                             <div *ngIf="stat?.touched && stat?.invalid" class="alert alert-danger">
                                 <div *ngIf="stat?.errors?.required">
                                     Status is required.</div>
@@ -121,6 +113,39 @@
                     </div>
 
                 </div>
+
+                <h2 class="card-header">Parent Category</h2>
+                <div class="card-body row">
+
+                    <div class="form-group">
+
+                        <ng-container *ngFor="let data of parentCategroryData">
+                            <ul>
+                                <li *ngIf="data.parent_category_id == null" class="list-unstyled">
+                                    <i class="fa fa-chevron-down" (click)="collapse.toggle()"
+                                        [attr.aria-expanded]="isCollapsed" aria-controls="collapseExample"></i>
+                                    <input type="radio" name="parent_category" (change)="onItemChange(data.id)">
+                                    {{data.name}}
+                                </li>
+
+                                <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+                                    <ng-container *ngFor="let item of parentCategroryData">
+                                        <ul>
+                                            <li *ngIf="data.id == item.parent_category_id" class="list-unstyled">
+                                                <input type="radio" name="parent_category"
+                                                    (change)="onItemChange(item.id)">
+                                                {{item.name}}
+                                            </li>
+                                        </ul>
+                                    </ng-container>
+                                </div>
+                            </ul>
+                        </ng-container>
+                    </div>
+
+
+                </div>
+
 
                 <h2 class="card-header">Search Engine Optimization</h2>
                 <div class="card-body row">
@@ -161,7 +186,8 @@
                 </div>
 
 
-                <button [disabled]="!addCategoryForm.valid" type="submit" class="btn btn-primary mb-4 float-right">
+                <button [disabled]="!addCategoryForm.valid" type="submit" class="btn btn-primary mb-4 float-right"
+                    (click)="onSubmit(addCategoryForm.value)" [routerLink]="['/catalog/products']">
                     Submit
                 </button>
             </div>

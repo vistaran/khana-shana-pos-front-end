@@ -1,6 +1,6 @@
 <sb-layout-dashboard>
 
-    <div class="card mt-4">
+    <div class="card mt-4 shadow">
         <h1 class="card-header">Edit Product</h1>
         <form [formGroup]="editProductForm">
 
@@ -27,7 +27,7 @@
                         </div>
                     </div>
 
-                    <div class="col">
+                    <!-- <div class="col">
                         <div class="form-group">
                             <label class="required mt-4">URL Key</label>
                             <input type="text" rows="6" formControlName="urlKey" class="form-control" />
@@ -37,9 +37,9 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
-                    <div class="col">
+                    <!-- <div class="col">
                         <div class="form-group">
                             <label class="required mt-4">Tax Category</label><br />
                             <select name="status" formControlName="taxCategory" class="form-control">
@@ -47,29 +47,29 @@
                                 <option *ngFor="let item of taxCategory">{{ item }}</option>
                             </select>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="row card-body">
-                    <div class="col">
+                    <!-- <div class="col">
                         <div class="form-group">
                             <div class="custom-control custom-switch">
                                 <input type="checkbox" class="custom-control-input" id="customSwitch1" formControlName="new">
                                 <label class="custom-control-label" for="customSwitch1">New</label>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
-                    <div class="col">
+                    <!-- <div class="col">
                         <div class="form-group">
                             <div class="custom-control custom-switch">
                                 <input type="checkbox" class="custom-control-input" id="customSwitch2" formControlName="featured">
                                 <label class="custom-control-label" for="customSwitch2">Featured</label>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
-                    <div class="col">
+                    <!-- <div class="col">
                         <div class="form-group">
                             <div class="custom-control custom-switch">
                                 <input type="checkbox" class="custom-control-input" id="customSwitch3" formControlName="visibleIndividually">
@@ -81,12 +81,13 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="col">
                         <div class="form-group">
                             <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="customSwitch4" formControlName="status">
+                                <input type="checkbox" class="custom-control-input" id="customSwitch4"
+                                    formControlName="status">
                                 <label class="custom-control-label" for="customSwitch4">Status</label>
                                 <div *ngIf="status?.touched && status?.invalid" class="alert alert-danger">
                                     <div *ngIf="status?.errors?.required">
@@ -99,7 +100,7 @@
                 </div>
 
                 <div class="row card-body">
-                    <div class="col">
+                    <!-- <div class="col">
                         <div class="form-group">
                             <label class="required">Color</label>
                             <select name="status" formControlName="color" class="form-control">
@@ -107,9 +108,9 @@
                                 <option *ngFor="let item of color">{{ item }}</option>
                             </select>
                         </div>
-                    </div>
+                    </div> -->
 
-                    <div class="col">
+                    <!-- <div class="col">
                         <div class="form-group">
                             <label class="required">Size</label>
                             <select name="status" formControlName="size" class="form-control">
@@ -117,9 +118,9 @@
                                 <option *ngFor="let item of size">{{ item }}</option>
                             </select>
                         </div>
-                    </div>
+                    </div> -->
 
-                    <div class="col">
+                    <!-- <div class="col">
                         <div class="form-group">
                             <label class="required">Brand</label>
                             <select name="status" formControlName="brand" class="form-control">
@@ -127,10 +128,10 @@
                                 <option *ngFor="let item of brand">{{ item }}</option>
                             </select>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
 
-                <h2 class="card-header">Description</h2>
+                <!-- <h2 class="card-header">Description</h2>
                 <div class="row card-body">
                     <div class="col">
                         <div class="form-group">
@@ -151,14 +152,14 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <h2 class="card-header">Booking Information</h2>
                 <div class="row card-body">
                     <div class="col">
                         <div class="form-group">
                             <label class="required">Type</label>
-                            <select name="status" formControlName="type" class="form-control">
+                            <select name="status" formControlName="product_type" class="form-control">
                                 <option value="default">--Select type--</option>
                                 <option *ngFor="let item of type">{{ item }}</option>
                             </select>
@@ -171,7 +172,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label class="required">Qty</label>
-                            <input type="text" formControlName="qty" class="form-control" />
+                            <input type="text" formControlName="quantity" class="form-control" />
                             <div *ngIf="qty?.touched && qty?.invalid" class="alert alert-danger">
                                 <div *ngIf="qty?.errors?.required">Quantity is required.</div>
                             </div>
@@ -190,9 +191,10 @@
 
                 </div>
 
-                <button [disabled]="!editProductForm.valid" class="btn btn-primary mb-4 float-right">
-                Save Product
-            </button>
+                <button [disabled]="!editProductForm.valid" type="submit" class="btn btn-primary mb-4 float-right"
+                    (click)="updateData(editProductForm.value)" [routerLink]="['/catalog/products']">
+                    Save Product
+                </button>
             </div>
         </form>
     </div>
