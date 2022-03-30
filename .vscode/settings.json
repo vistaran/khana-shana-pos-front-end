@@ -6,7 +6,6 @@
         "source.fixAll.tslint": true,
         "source.organizeImports": false
     },
-    "editor.formatOnSave": true,
     "javascript.format.enable": true,
     "json.schemas": [
         {
@@ -31,5 +30,7 @@
     "puglint.enable": true,
     "puglint.run": "onSave",
     "scss.lint.duplicateProperties": "error",
-    "typescript.format.enable": true
+    "typescript.format.enable": true,
+    "editor.formatOnSaveMode": "modifications",
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
 }

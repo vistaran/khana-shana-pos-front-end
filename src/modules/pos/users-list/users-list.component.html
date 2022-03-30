@@ -7,31 +7,22 @@
                         <a ngbNavLink>Users</a>
                         <ng-template ngbNavContent>
                             <h2 class="mt-3 mb-4">POS User List</h2>
-
-                            <div class="row d-flex justify-content-between">
-                                <div class="col-md-6 mb-4">
-
-                                    <div class="input-group w-50">
-                                        <input class="form-control amber-border" class="form-control" type="text"
-                                            aria-label="Search" (keyup)="search($event)" placeholder="Search"
-                                            [(ngModel)]="searchValue">
-                                        <div class="input-group-append">
-                                            <button class="btn input-group-text amber lighten-3" id="basic-text1"><i
-                                                    class="fa fa-search" aria-hidden="true"
-                                                    (click)="search($event)"></i></button>
-
-
-                                        </div>
-                                    </div>
+                            <!-- search button -->
+                            <div class="d-flex justify-content-between mb-4">
+                            
+                                <div class="input-group rounded w-25">
+                                    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+                                        aria-describedby="search-addon" />
+                                    <span class="input-group-text border-0" id="search-addon">
+                                        <i class="fas fa-search"></i>
+                                    </span>
                                 </div>
-                                <div class="col">
-                                    <button (click)="onClick()" class="btn btn-primary mb-4 float-right">
-                                        Add User
-                                    </button>
-                                </div>
+                                <button (click)="onClick()" class="btn btn-primary float-right">
+                                Add User
+                                </button>
+
                             </div>
-
-                            <table class="table table-bordered table-striped shadow">
+                            <table class="table table-bordered table-striped">
                                 <thead class="head">
                                     <th>UserId</th>
                                     <th>Avatar</th>
