@@ -1,0 +1,179 @@
+<sb-layout-dashboard>
+    <div class="card mt-4">
+        <h1 class="card-header">Edit Attribute</h1>
+        <form [formGroup]="editAttributeForm">
+            <div class="container-fluid">
+                <h2 class="card-header mt-4 pb-2">General</h2>
+
+                <div class="row card-body">
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Attribute Code</label>
+                            <input type="text" formControlName="attributeCode" class="form-control" />
+                            <div *ngIf="attributeCode?.touched && attributeCode?.invalid" class="alert alert-danger">
+                                <div *ngIf="attributeCode?.errors?.required">Attribute Code is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Attribute Type</label>
+                            <input type="text" formControlName="attributeType" class="form-control" />
+                            <div *ngIf="attributeTyp?.touched && attributeTyp?.invalid" class="alert alert-danger">
+                                <div *ngIf="attributeTyp?.errors?.required">Attribute Type is required.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="card-header mt-4 pb-2">Label</h2>
+                <div class="row card-body">
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Admin</label>
+                            <input type="text" formControlName="admin" class="form-control" />
+                            <div *ngIf="admin?.touched && admin?.invalid" class="alert alert-danger">
+                                <div *ngIf="admin?.errors?.required">Admin is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label>English (en)</label>
+                            <input type="text" formControlName="english" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Arabic (ar)</label>
+                            <input type="text" formControlName="arabic" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Portugese (pt_br)</label>
+                            <input type="text" formControlName="portugese" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="card-header mt-4 pb-2">Options</h2>
+                <div class="row card-body">
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Is Required</label>
+                            <select name="swatchType" formControlName="swatchType" class="form-control">
+                                    <option *ngFor="let item of swatchType">{{ item }}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="card-header mt-4 pb-2">Validations</h2>
+                <div class="row card-body">
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Is Required</label>
+                            <select name="isRequired" formControlName="isRequired" class="form-control">
+                                    <option *ngFor="let item of validation">{{ item }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Is Unique</label>
+                            <select name="isUnique" formControlName="isUnique" class="form-control">
+                                    <option *ngFor="let item of validation">{{ item }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Input Validation</label>
+                            <select name="inputValidation" formControlName="inputValidation" class="form-control">
+                                    <option *ngFor="let item of inputValid">{{ item }}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="card-header mt-4 pb-2">Configuration</h2>
+                <div class="row card-body">
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="mb-5">Value Per Locale</label>
+                            <select name="valuePerLocale" formControlName="valuePerLocale" class="form-control">
+                                    <option *ngFor="let item of validation">{{ item }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="mb-5">Value Per Channel</label>
+                            <select name="valuePerChannel" formControlName="valuePerChannel" class="form-control">
+                                    <option *ngFor="let item of validation">{{ item }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="mb-4">Use in Layered Navigation</label>
+                            <select name="layeredNav" formControlName="layeredNav" class="form-control">
+                                    <option *ngFor="let item of validation">{{ item }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="mb-4">Create in Product Flat Table</label>
+                            <select name="flatTable" formControlName="flatTable" class="form-control">
+                                    <option *ngFor="let item of validation">{{ item }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="mb-4">Attribute is comparable</label>
+                            <select name="comparable" formControlName="comparable" class="form-control">
+                                    <option *ngFor="let item of validation">{{ item }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Use to Create Configurable Product</label>
+                            <select name="cofigProduct" formControlName="cofigProduct" class="form-control">
+                                    <option *ngFor="let item of validation">{{ item }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Visible on Product View Page on Front End</label>
+                            <select name="frontEnd" formControlName="frontEnd" class="form-control">
+                                    <option *ngFor="let item of validation">{{ item }}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <button [disabled]="!editAttributeForm.valid" class="btn btn-primary mb-4 float-right">
+                    Submit
+                </button>
+            </div>
+
+        </form>
+    </div>
+</sb-layout-dashboard>

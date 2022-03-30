@@ -1,0 +1,15 @@
+[
+    { "id": "24", "code": "brand", "name": "Brand", "type": "select", "required": "False", "unique": "False", "localeBased": "False", "channelBased": "False" },
+
+    { "id": "25", "code": "size", "name": "Size", "type": "select", "required": "False", "unique": "False", "localeBased": "False", "channelBased": "False" },
+
+    { "id": "26", "code": "weight", "name": "Weight", "type": "select", "required": "True", "unique": "False", "localeBased": "False", "channelBased": "False" },
+
+    { "id": "27", "code": "color", "name": "Color", "type": "text", "required": "False", "unique": "False", "localeBased": "False", "channelBased": "False" },
+
+    { "id": "28", "code": "depth", "name": "Depth", "type": "text", "required": "False", "unique": "False", "localeBased": "False", "channelBased": "False" },
+
+    { "id": "29", "code": "height", "name": "Height", "type": "text", "required": "False", "unique": "False", "localeBased": "False", "channelBased": "False" },
+
+    { "id": "30", "code": "width", "name": "Width", "type": "textarea", "required": "False", "unique": "False", "localeBased": "False", "channelBased": "False" }
+]

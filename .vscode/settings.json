@@ -1,0 +1,36 @@
+{
+    "[typescript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "editor.codeActionsOnSave": {
+        "source.fixAll.tslint": true,
+        "source.organizeImports": false
+    },
+    "javascript.format.enable": true,
+    "json.schemas": [
+        {
+            "fileMatch": [
+                "cypress.json"
+            ],
+            "url": "https://on.cypress.io/cypress.schema.json"
+        },
+        {
+            "fileMatch": [
+                ".prettierrc.json"
+            ],
+            "url": "http://json.schemastore.org/prettierrc"
+        },
+        {
+            "fileMatch": [
+                "tslint.json"
+            ],
+            "url": "http://json.schemastore.org/tslint"
+        }
+    ],
+    "puglint.enable": true,
+    "puglint.run": "onSave",
+    "scss.lint.duplicateProperties": "error",
+    "typescript.format.enable": true,
+    "editor.formatOnSaveMode": "modifications",
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+}

@@ -1,0 +1,74 @@
+<sb-layout-dashboard>
+    <div class="container ">
+        <div class="row ">
+            <div class="col ">
+                <ul ngbNav #nav="ngbNav" class="nav-tabs mt-5 font-weight-bold">
+                    <li class="font-weight-bold" ngbNavItem>
+                        <a ngbNavLink>Orders</a>
+                        <ng-template ngbNavContent>
+                            <h2 class="mt-3 mb-5">Orders</h2>
+
+                            <table class="table table-bordered table-striped">
+                                <thead class="head">
+                                    <th>ID</th>
+                                    <th>Sub Total</th>
+                                    <th>Grand Total</th>
+                                    <th>Order Date</th>
+                                    <th>Channel Name</th>
+                                    <th>Status</th>
+                                    <th>Billed To</th>
+                                    <th>Shipped To</th>
+                                    <th>Actions</th>
+                                </thead>
+                                <tbody class="justify-content-end">
+                                    <tr *ngFor="let data of odata">
+                                        <td>{{ data.id }}</td>
+                                        <td>{{ data.subTotal }}</td>
+                                        <td>{{ data.grandTotal }}</td>
+                                        <td>{{ data.orderDate }}</td>
+                                        <td>{{ data.channelName }}</td>
+                                        <td>{{ data.status }}</td>
+                                        <td>{{ data.billedTo }}</td>
+                                        <td>{{ data.shippedTo }}</td>
+                                        <td>
+                                            <i class="fa fa-eye fa-lg pr-4 mx-auto" [routerLink]="['']"></i>
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="!odata.length">
+                                        <td colspan="9" class="text-center">
+                                            No records found.
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </ng-template>
+                    </li>
+                    <li ngbNavItem>
+                        <a ngbNavLink>Shipments</a>
+                        <ng-template ngbNavContent>
+                            <sb-shipment></sb-shipment>
+                        </ng-template>
+                    </li>
+
+                    <li ngbNavItem>
+                        <a ngbNavLink>Invoices</a>
+                        <ng-template ngbNavContent>
+                            <sb-invoices></sb-invoices>
+                        </ng-template>
+                    </li>
+
+                    <li ngbNavItem>
+                        <a ngbNavLink>Refunds</a>
+                        <ng-template ngbNavContent>
+                            <sb-refunds></sb-refunds>
+                        </ng-template>
+                    </li>
+                </ul>
+
+                <div [ngbNavOutlet]="nav">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</sb-layout-dashboard>
