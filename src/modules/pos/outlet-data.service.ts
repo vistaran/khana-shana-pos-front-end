@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 
 import { OutletData } from './outletData';
@@ -8,7 +9,7 @@ import { OutletData } from './outletData';
     providedIn: 'root',
 })
 export class OutletDataService {
-    private url = 'https://ae20-43-241-193-33.ngrok.io/api/outlet/';
+    private url = environment.apiUrl + '/outlet/';
 
 
     constructor(private http: HttpClient) { }

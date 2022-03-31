@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 // import { Subject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AppToastService } from '@modules/shared-module/services/app-toast.service';
 
 // import { relative } from 'path';
 import { OutletDataService } from '../outlet-data.service';
@@ -22,13 +23,19 @@ export class UsersListComponent implements OnInit {
     itemsPerPage: any;
     searchValue: any
     showloader: any
+    activeId = 1
 
     constructor(
         private userService: UserDataService,
         private outletData: OutletDataService,
         private router: Router,
-        private route: ActivatedRoute
-    ) { }
+        private activatedRoute: ActivatedRoute,
+        private toast: AppToastService
+    ) { 
+        if(this.activatedRoute.snapshot.queryParams.outlet) {
+            this.activeId = 2
+        }
+    }
 
 
     ngOnInit() {
@@ -43,6 +50,9 @@ export class UsersListComponent implements OnInit {
             this.length = result.user.per_page;
             this.total = result.user.total;
             this.showloader = false
+        }, err => {
+            this.showloader = false
+            this.toast.show('Error', 'Server error', {className: 'bg-danger text-light'})
         })
     }
 

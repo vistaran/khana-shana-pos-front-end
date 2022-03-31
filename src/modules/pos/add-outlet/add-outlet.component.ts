@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AppToastService } from '@modules/shared-module/services/app-toast.service';
 
 import { OutletDataService } from './../outlet-data.service';
 // import { addOutlet } from '../outletData';
@@ -16,7 +18,12 @@ export class AddOutletComponent implements OnInit {
   inventorySource = ['default'];
   status = ['active', 'inactive'];
 
-  constructor(private fb: FormBuilder, private outletService: OutletDataService) { }
+  constructor(
+    private fb: FormBuilder,
+    private outletService: OutletDataService,
+    private router: Router,
+    private toast: AppToastService
+  ) { }
 
   // For Validations
   get outletName() {
@@ -70,7 +77,11 @@ export class AddOutletComponent implements OnInit {
   onSubmit(data: any) {
     this.outletService
       .postOutletData(data)
-      .subscribe((result: any) => console.log(result));
+      .subscribe((result: any) => {
+        this.router.navigate(['/pos/users'], {queryParams: {outlet: true}});
+      }, err =>  {
+        this.toast.error('Error', 'Server error.')
+      });
     console.log('Form Submitted', (data));
   }
 

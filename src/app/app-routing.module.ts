@@ -22,11 +22,11 @@ const routes: Routes = [
         loadChildren: () =>
             import('modules/pos/pos-routing.module').then(m => m.PosRoutingModule),
     },
-    {
-        path: 'charts',
-        loadChildren: () =>
-            import('modules/charts/charts-routing.module').then(m => m.ChartsRoutingModule),
-    },
+    // {
+    //     path: 'charts',
+    //     loadChildren: () =>
+    //         import('modules/charts/charts-routing.module').then(m => m.ChartsRoutingModule),
+    // },
     {
         path: 'dashboard',
         loadChildren: () =>
@@ -44,16 +44,16 @@ const routes: Routes = [
         loadChildren: () =>
             import('modules/error/error-routing.module').then(m => m.ErrorRoutingModule),
     },
-    {
-        path: 'tables',
-        loadChildren: () =>
-            import('modules/tables/tables-routing.module').then(m => m.TablesRoutingModule),
-    },
-    {
-        path: 'version',
-        loadChildren: () =>
-            import('modules/utility/utility-routing.module').then(m => m.UtilityRoutingModule),
-    },
+    // {
+    //     path: 'tables',
+    //     loadChildren: () =>
+    //         import('modules/tables/tables-routing.module').then(m => m.TablesRoutingModule),
+    // },
+    // {
+    //     path: 'version',
+    //     loadChildren: () =>
+    //         import('modules/utility/utility-routing.module').then(m => m.UtilityRoutingModule),
+    // },
     {
         path: '**',
         pathMatch: 'full',
