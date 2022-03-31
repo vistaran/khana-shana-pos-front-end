@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { AuthService } from './../../services/auth.service';
 
@@ -14,7 +15,11 @@ export class LoginComponent implements OnInit {
 
     //regData: any;
 
-    constructor(public auth: AuthService, private fb: FormBuilder) {}
+    constructor(
+        public auth: AuthService,
+        private fb: FormBuilder,
+        private router: Router
+    ) {}
 
     // get f() {
     //     return this.loginForm.controls;
@@ -28,10 +33,14 @@ export class LoginComponent implements OnInit {
     ngOnInit() {}
 
     onSubmit(data: any) {
-        // console.log(data);
-        this.auth
-            .login(data)
-            .subscribe((result: any) => localStorage.setItem('token', result.access_token));
+        console.log(data);
+        this.auth.login(data).subscribe((result: any) => {
+            localStorage.setItem('token', result.access_token)
+        }, error => {
+            this.router.navigate(['/dashboard']);
+
+        });
+
 
         // prepare parameter
         // this.auth.getUser(
