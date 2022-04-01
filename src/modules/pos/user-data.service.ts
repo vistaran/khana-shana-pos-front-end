@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 
 import { SearchUser, UserData } from './userData';
@@ -11,28 +12,28 @@ import { SearchUser, UserData } from './userData';
 })
 export class UserDataService {
 
-  private url = 'https://ae20-43-241-193-33.ngrok.io/api/user/'
+  private url = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 
   // For getting user data
   getUserData(page: number): Observable<UserData> {
 
-    return this.http.get<UserData>(this.url + 'show?page=' + page);
+    return this.http.get<UserData>(this.url + '/user/show?page=' + page);
   }
 
   // For deleting user data
   deleteUser(id: number) {
-    return this.http.get(this.url + 'delete/' + id)
+    return this.http.get(this.url + '/user/delete/' + id)
   }
 
   // For editing user data
   editUser(id: number, data: any) {
-    return this.http.put(this.url + 'edit/' + id, data)
+    return this.http.put(this.url + '/user/edit/' + id, data)
   }
 
   postUserData(data: any) {
-    return this.http.post(this.url + 'insert', data);
+    return this.http.post(this.url + '/user/insert', data);
   }
 
 

@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AppToastService } from '@modules/shared-module/services/app-toast.service';
 
 import { AuthService } from './../../services/auth.service';
 
@@ -14,7 +16,12 @@ export class LoginComponent implements OnInit {
 
     //regData: any;
 
-    constructor(public auth: AuthService, private fb: FormBuilder) {}
+    constructor(
+        public auth: AuthService,
+        private fb: FormBuilder,
+        private router: Router,
+        public toast: AppToastService
+    ) {}
 
     // get f() {
     //     return this.loginForm.controls;
@@ -28,10 +35,14 @@ export class LoginComponent implements OnInit {
     ngOnInit() {}
 
     onSubmit(data: any) {
-        // console.log(data);
-        this.auth
-            .login(data)
-            .subscribe((result: any) => localStorage.setItem('token', result.access_token));
+        console.log(data);
+        this.auth.login(data).subscribe((result: any) => {
+            localStorage.setItem('token', result.access_token)
+            this.router.navigate(['/dashboard']);
+        }, error => {
+            this.toast.show('Error', 'Invalid credentials', { className: 'bg-danger text-light'});
+        });
+
 
         // prepare parameter
         // this.auth.getUser(

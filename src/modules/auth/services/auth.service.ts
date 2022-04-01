@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '@modules/auth/models';
+import { environment } from 'environments/environment';
 import { Observable, of } from 'rxjs';
 
 // import { catchError, retry } from 'rxjs/operators';
 
 @Injectable()
 export class AuthService {
-    baseURL = 'http://127.0.0.1:8000/';
+    baseURL = environment.apiUrl;
     constructor(private http: HttpClient) {}
 
     // login(credentials: {email: string, password: string}):Observable<any> {
@@ -15,7 +16,7 @@ export class AuthService {
     // }
 
     login(data: any) {
-        return this.http.post(this.baseURL + 'api/auth/login', data);
+        return this.http.post(this.baseURL + '/auth/login', data);
     }
 
     getAuth$(): Observable<{}> {
