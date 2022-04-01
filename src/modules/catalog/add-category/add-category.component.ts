@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AppToastService } from '@modules/shared-module/services/app-toast.service';
 
 import { CategoriesService } from './../categories.service';
 
@@ -59,7 +61,12 @@ export class AddCategoryComponent implements OnInit {
   }
 
 
-  constructor(private fb: FormBuilder, private categoryService: CategoriesService) { }
+  constructor(
+    private fb: FormBuilder,
+    private categoryService: CategoriesService,
+    private toast: AppToastService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.addCategoryForm = this.fb.group({
@@ -85,8 +92,13 @@ export class AddCategoryComponent implements OnInit {
   onSubmit(data: any) {
     this.categoryService
       .postCategory(data)
-      .subscribe((result: any) => console.log(result));
-    console.log('Form Submitted', (data));
+      .subscribe((result: any) => {
+        console.log(result)
+        this.toast.success('Success', 'Added successfully.')
+        this.router.navigate(['catalog/products'], { queryParams: { categories: true } })
+      }, err => {
+        this.toast.error('Error', 'Server error.')
+      });
   }
 
   // For parent category listing
@@ -94,7 +106,9 @@ export class AddCategoryComponent implements OnInit {
     this.categoryService.getCategoriesData(this.page).subscribe(data => {
       this.parentCategroryData = data.category.data
       console.log(this.parentCategroryData)
-    })
+    }, err => {
+      this.toast.error('Error', 'Server error.')
+    });
   }
 
   // onSelectName(id: any) {
@@ -102,9 +116,9 @@ export class AddCategoryComponent implements OnInit {
   //   console.log(this.parentCategoryId)
   // }
 
-  // To get parent categories id 
+  // To get parent categories id
   onItemChange(value: any) {
-    console.log(" Value is : ", value);
+    console.log(' Value is : ', value);
     this.parentCategoryId = value
   }
 

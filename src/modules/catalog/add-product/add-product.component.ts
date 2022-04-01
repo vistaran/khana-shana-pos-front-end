@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AppToastService } from '@modules/shared-module/services/app-toast.service';
 
 import { ProductService } from '../product.service';
 
@@ -39,8 +41,12 @@ export class AddProductComponent implements OnInit {
     return this.addProductForm.get('attribute_family_name');
   }
 
-  constructor(private fb: FormBuilder,
-    private products: ProductService) { }
+  constructor(
+    private fb: FormBuilder,
+    private products: ProductService,
+    private toast: AppToastService,
+    private router: Router
+  ) { }
 
   addProductForm!: FormGroup;
 
@@ -62,8 +68,12 @@ export class AddProductComponent implements OnInit {
   onSubmit(data: any) {
     this.products
       .postProducts(data)
-      .subscribe((result: any) => console.log(result));
-    console.log('Form Submitted', (data));
+      .subscribe((result: any) => {
+        console.log(result)
+        this.toast.success('Success', 'Added successfully.')
+        this.router.navigate(['catalog/products'])
+      }, err => {
+        this.toast.error('Error', 'Server error.')
+      });
   }
-
 }

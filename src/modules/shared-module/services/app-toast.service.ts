@@ -15,4 +15,8 @@ export class AppToastService {
     this.toasts.push({ header, body, ...options });
   }
 
+  success(header: string, body: string, options: any = { className: 'bg-success text-light' }) {
+    this.toasts.push({ header, body, ...options });
+  }
+
 }

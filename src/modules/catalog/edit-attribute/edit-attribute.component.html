@@ -185,8 +185,8 @@
                     </div>
                 </div>
 
-                <button [disabled]="!editAttributeForm.valid" class="btn btn-primary mb-4 float-right"
-                    (click)="updateData(editAttributeForm.value)" [routerLink]="['/catalog/products']">
+                <button [disabled]="!editAttributeForm.valid" type="submit" class="btn btn-primary mb-4 float-right"
+                    (click)="updateData(editAttributeForm.value)">
                     Submit
                 </button>
             </div>

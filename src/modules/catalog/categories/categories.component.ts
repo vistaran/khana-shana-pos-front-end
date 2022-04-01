@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AppToastService } from '@modules/shared-module/services/app-toast.service';
 
 import { CategoriesService } from '../categories.service';
 
@@ -19,7 +20,11 @@ export class CategoriesComponent implements OnInit {
   searchValue: any
   showloader: any
 
-  constructor(private categories: CategoriesService, private router: Router) { }
+  constructor(
+    private categories: CategoriesService,
+    private router: Router,
+    private toast: AppToastService
+  ) { }
 
   ngOnInit(): void {
 
@@ -36,8 +41,10 @@ export class CategoriesComponent implements OnInit {
       this.total = result.category.total;
       this.showloader = false
       console.log(this.categoryData);
-
-    });
+    }, err => {
+      this.showloader = false
+      this.toast.error('Error', 'Server error.')
+    })
   }
 
   // For updating data on page change
@@ -56,8 +63,10 @@ export class CategoriesComponent implements OnInit {
   deleteRow(id: number) {
     this.categories.deleteCategory(id).subscribe(data => {
       this.getCategoriesData();
+      this.toast.success('Success', 'Deleted Successfully.')
+    }, err => {
+      this.toast.error('Error', 'Server error.')
     });
-    console.log(this.categoryData);
   }
 
   // For searching category data from table
@@ -69,6 +78,9 @@ export class CategoriesComponent implements OnInit {
       this.total = res.category.total;
       this.showloader = false
       console.log(this.categoryData)
-    })
+    }, err => {
+      this.toast.error('Error', 'Server error.')
+      this.showloader = false
+    });
   }
 }

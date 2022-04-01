@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AppToastService } from '@modules/shared-module/services/app-toast.service';
 
 import { AttributeFamilyService } from '../attribute-family.service';
 
@@ -29,8 +31,12 @@ export class AddAttributeFamilyComponent implements OnInit {
     return this.addFamilyForm.get('position');
   }
 
-  constructor(private fb: FormBuilder,
-    private family: AttributeFamilyService) { }
+  constructor(
+    private fb: FormBuilder,
+    private family: AttributeFamilyService,
+    private toast: AppToastService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.addFamilyForm = this.fb.group({
@@ -43,7 +49,12 @@ export class AddAttributeFamilyComponent implements OnInit {
   onSubmit(data: any) {
     this.family
       .postFamily(data)
-      .subscribe((result: any) => console.log(result));
-    console.log('Form Submitted', (data));
+      .subscribe((result: any) => {
+        console.log(result)
+        this.toast.success('Success', 'Added successfully.')
+        this.router.navigate(['catalog/products'], { queryParams: { attributeFamily: true } })
+      }, err => {
+        this.toast.error('Error', 'Server error.')
+      });
   }
 }

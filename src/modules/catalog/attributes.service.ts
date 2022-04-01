@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 
 import { Adata } from './attributes';
@@ -9,7 +10,7 @@ import { Adata } from './attributes';
 })
 export class AttributesService {
 
-  private url = 'http://127.0.0.1:8000/api/attribute/';
+  private url = environment.apiUrl + '/attribute/';
 
   constructor(private http: HttpClient) { }
 

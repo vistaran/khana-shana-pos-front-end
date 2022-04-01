@@ -12,28 +12,28 @@ import { SearchUser, UserData } from './userData';
 })
 export class UserDataService {
 
-  private url = environment.apiUrl;
+  private url = environment.apiUrl + '/user/';
 
   constructor(private http: HttpClient) { }
 
   // For getting user data
   getUserData(page: number): Observable<UserData> {
 
-    return this.http.get<UserData>(this.url + '/user/show?page=' + page);
+    return this.http.get<UserData>(this.url + 'show?page=' + page);
   }
 
   // For deleting user data
   deleteUser(id: number) {
-    return this.http.get(this.url + '/user/delete/' + id)
+    return this.http.get(this.url + 'delete/' + id)
   }
 
   // For editing user data
   editUser(id: number, data: any) {
-    return this.http.put(this.url + '/user/edit/' + id, data)
+    return this.http.put(this.url + 'edit/' + id, data)
   }
 
   postUserData(data: any) {
-    return this.http.post(this.url + '/user/insert', data);
+    return this.http.post(this.url + 'insert', data);
   }
 
 

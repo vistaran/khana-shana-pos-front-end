@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AppToastService } from '@modules/shared-module/services/app-toast.service';
 
 import { PasswordValidator } from '../password.validator';
 import { UserDataService } from '../user-data.service';
@@ -61,7 +62,8 @@ export class EditUserComponent implements OnInit {
     constructor(private fb: FormBuilder,
         private userService: UserDataService,
         private route: ActivatedRoute,
-        private router: Router) { }
+        private router: Router,
+        private toast: AppToastService) { }
 
     ngOnInit(): void {
         this.editUserForm = this.fb.group(
@@ -92,9 +94,10 @@ export class EditUserComponent implements OnInit {
     // For submitting edit user form data
     updateData(data: any) {
         this.userService.editUser(this.id, data).subscribe(data => {
-            console.log('Data updated successfully! ', data)
-        })
-        this.router.navigate(['/pos/users']);
-        console.log(this.id);
+            console.log('Data updated successfully! ', data);
+            this.router.navigate(['/pos/users']);
+        }, err => {
+            this.toast.error('Error', 'Server error.')
+        });
     }
 }

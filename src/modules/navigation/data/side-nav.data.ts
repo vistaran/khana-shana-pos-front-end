@@ -3,19 +3,11 @@ import { SideNavItems, SideNavSection } from '@modules/navigation/models';
 export const sideNavSections: SideNavSection[] = [
     {
         text: 'CORE',
-        items: ['dashboard'],
-    },
-    {
-        text: '',
-        items: ['sales'],
-    },
-    {
-        text: '',
-        items: ['catalog'],
+        items: ['dashboard', 'sales', 'catalog'],
     },
     {
         text: 'POS',
-        items: ['layouts', 'pages'],
+        items: ['layouts', 'vendors', 'uom', 'pages'],
     },
     {
         text: 'ADDONS',
@@ -74,6 +66,16 @@ export const sideNavItems: SideNavItems = {
         icon: 'columns',
         text: 'Users',
         link: '/pos/users'
+    },
+    vendors: {
+        icon: 'columns',
+        text: 'Vendors',
+        link: '/pos/vendors'
+    },
+    uom: {
+        icon: 'columns',
+        text: 'UOM',
+        link: '/pos/uom'
     },
     pages: {
         icon: 'book-open',
