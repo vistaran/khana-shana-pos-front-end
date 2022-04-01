@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AppToastService } from '@modules/shared-module/services/app-toast.service';
 import { map } from 'rxjs/operators';
 
 import { OutletDataService } from '../outlet-data.service';
@@ -25,7 +26,9 @@ export class OutletComponent implements OnInit {
 
   constructor(private outletService: OutletDataService,
     private router: Router,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private toast: AppToastService
+    ) { }
 
   ngOnInit(): void {
     this.getOutletData();
@@ -51,11 +54,15 @@ export class OutletComponent implements OnInit {
 
   // For deleting outlet
   deleteRow(id: number) {
-
-    this.outletService.deleteOutlet(id).subscribe(data => {
-      this.getOutletData();
-    });
-    console.log(this.odata);
+    if(confirm('Are you sure you want to delete?')) {
+      this.outletService.deleteOutlet(id).subscribe(data => {
+        this.getOutletData();
+        this.toast.success('Success', 'Deleted successfully.');
+      }, err => {
+        this.toast.error('Error', 'Server error.');
+      });
+      console.log(this.odata);
+    }
   }
 
   // For searching outlets table data
