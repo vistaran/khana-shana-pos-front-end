@@ -21,6 +21,7 @@ export class VendorsComponent implements OnInit {
   itemsPerPage: any;
   searchValue: any
   showloader: any
+  status: any
 
 
   constructor(
@@ -39,8 +40,7 @@ export class VendorsComponent implements OnInit {
       this.vendorData = data.vendors.data;
       this.length = this.vendorData.length
       this.showloader = false;
-      console.log(data);
-
+      console.log(this.vendorData);
     }, err => {
       this.showloader = false
       this.toast.show('Error', 'Server error', { className: 'bg-danger text-light' })

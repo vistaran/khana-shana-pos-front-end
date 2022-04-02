@@ -36,9 +36,11 @@ export class UomComponent implements OnInit {
   getUOMData() {
     this.showloader = true;
     this.uomService.getUOMData().subscribe(data => {
-      this.uomData = data;
+      this.uomData = data.units.data;
       this.length = this.uomData.length
       this.showloader = false;
+      console.log(data);
+
     }, err => {
       this.showloader = false
       this.toast.show('Error', 'Server error', { className: 'bg-danger text-light' })
@@ -51,18 +53,17 @@ export class UomComponent implements OnInit {
 
   deleteRow(id: number) {
 
-    // this.userService.deleteUser(id).subscribe(data => {
-    //   this.getUserData();
-    //   this.toast.success('Success', 'Deleted Successfully.')
-    // }, err => {
-    //   this.toast.error('Error', 'Server error.')
-    // });
+    this.uomService.deleteUomData(id).subscribe(data => {
+      this.getUOMData();
+      this.toast.success('Success', 'Deleted Successfully.')
+    }, err => {
+      this.toast.error('Error', 'Server error.')
+    });
   }
 
   onPageChange(event: number) {
-    // this.page = event;
-    // this.getUserData();
-    // console.log('Here >>>', this.page, this.userData);
+    this.page = event;
+    this.getUOMData();
   }
 
 }

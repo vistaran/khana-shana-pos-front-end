@@ -1,7 +1,7 @@
 <sb-layout-dashboard>
     <div class="card mt-4">
         <h1 class="card-header">Add Vendor</h1>
-        <form [formGroup]="addUomForm">
+        <form [formGroup]="editUomForm">
             <div class="container-fluid">
                 <h2 class="card-header mt-4 pb-2">General</h2>
                 <div class="row card-body">
@@ -27,7 +27,7 @@
 
                 </div>
 
-                <button [disabled]="!addUomForm.valid" type="submit" (click)="onSubmit(addUomForm.value)"
+                <button [disabled]="!editUomForm.valid" type="submit" (click)="updateData(editUomForm.value)"
                     class="btn btn-primary mb-4 float-right">
                     Submit
                 </button>

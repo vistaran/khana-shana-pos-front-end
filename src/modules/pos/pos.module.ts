@@ -18,10 +18,11 @@ import { UsersListComponent } from './users-list/users-list.component';
 import { VendorsComponent } from './vendors/vendors.component';
 import { UomComponent } from './uom/uom.component';
 import { AddUomComponent } from './add-uom/add-uom.component';
+import { EditUomComponent } from './edit-uom/edit-uom.component';
 
 
 @NgModule({
-  declarations: [UsersListComponent, AddUserComponent, OutletComponent, AddOutletComponent, EditUserComponent, EditOutletComponent, VendorsComponent, AddVendorComponent, EditVendorComponent, UomComponent, AddUomComponent],
+  declarations: [UsersListComponent, AddUserComponent, OutletComponent, AddOutletComponent, EditUserComponent, EditOutletComponent, VendorsComponent, AddVendorComponent, EditVendorComponent, UomComponent, AddUomComponent, EditUomComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

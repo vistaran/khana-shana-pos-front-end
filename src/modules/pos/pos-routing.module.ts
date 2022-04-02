@@ -9,6 +9,7 @@ import { AddUomComponent } from './add-uom/add-uom.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { AddVendorComponent } from './add-vendor/add-vendor.component';
 import { EditOutletComponent } from './edit-outlet/edit-outlet.component';
+import { EditUomComponent } from './edit-uom/edit-uom.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { EditVendorComponent } from './edit-vendor/edit-vendor.component';
 import { OutletComponent } from './outlet/outlet.component';
@@ -109,6 +110,14 @@ const routes: Routes = [
         component: AddUomComponent,
         data: {
             title: 'Add UOM',
+        } as SBRouteData,
+    },
+    {
+        path: 'edit/edituom/:id',
+        canActivate: [],
+        component: EditUomComponent,
+        data: {
+            title: 'Edit Vendor',
         } as SBRouteData,
     },
 ];

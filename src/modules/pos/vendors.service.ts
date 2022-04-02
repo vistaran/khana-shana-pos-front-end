@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 
-import { Vendors } from './vendorData';
+import { Data, Vendors } from './vendorData';
 
 @Injectable({
   providedIn: 'root'
@@ -20,12 +20,20 @@ export class VendorsService {
     return this.http.get<Vendors>(this.url);
   }
 
-  postVendorData(data: any) {
+  postVendorData(data: any): Observable<Vendors> {
     return this.http.post<Vendors>(this.url, data);
   }
 
   deleteVendor(id: number) {
     return this.http.delete(this.url + id)
+  }
+
+  editVendor(id: number, data: any) {
+    return this.http.put(this.url + id, data)
+  }
+
+  patchVendorData(id: number): Observable<Data> {
+    return this.http.get<Data>(this.url + id);
   }
 
 }

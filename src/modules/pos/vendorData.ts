@@ -1,9 +1,5 @@
 export interface Vendors {
     vendors: VendorDetail
-    id: number,
-    name: string,
-    address: string,
-    phone: number
 }
 
 interface VendorDetail {
@@ -21,9 +17,11 @@ interface VendorDetail {
     total: number
 }
 
-interface Data {
+export interface Data {
     name: string,
-    phone_number: number,
+    phone_numbers: number,
     address: string,
-    status: string
+    status: string,
+    created_at: Date,
+    updated_at: Date
 }

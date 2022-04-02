@@ -31,13 +31,13 @@
                             <tbody>
                                 <tr *ngFor="let data of uomData">
                                     <td>{{ data.id }}</td>
-                                    <td>{{ data.name }}</td>
+                                    <td>{{ data.unit_name }}</td>
                                     <td>{{ data.unit }}</td>
                                     <td>
                                         <button class="btn btn-info mr-2"><i class="fa fa-pencil-square-o fa-lg"
-                                                [routerLink]="['/pos/edit/edituser/' + data.user_id]"></i></button>
+                                                [routerLink]="['/pos/edit/edituom/' + data.id]"></i></button>
 
-                                        <button id="remove" (click)="deleteRow(data.user_id)" class="btn btn-danger"><i
+                                        <button id="remove" (click)="deleteRow(data.id)" class="btn btn-danger"><i
                                                 class="fa fa-trash-o fa-lg mx-auto"></i></button>
                                     </td>
                                 </tr>

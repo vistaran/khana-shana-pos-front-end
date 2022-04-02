@@ -42,7 +42,8 @@
                             <label class="required">Select Status</label><br />
                             <select name="status" formControlName="status" class="form-control">
                                 <option value="default">--Select Status--</option>
-                                <option *ngFor="let item of status">{{ item }}</option>
+                                <option value=0>active</option>
+                                <option value=1>inactive</option>
                             </select>
                             <div *ngIf="stat?.touched && stat?.invalid" class="alert alert-danger">
                                 <div *ngIf="stat?.errors?.required">Status is required.</div>

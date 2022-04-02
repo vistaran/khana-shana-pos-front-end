@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AppToastService } from '@modules/shared-module/services/app-toast.service';
+
+import { UomService } from '../uom.service';
 
 @Component({
   selector: 'sb-add-uom',
@@ -11,8 +14,9 @@ export class AddUomComponent implements OnInit {
 
   addUomForm!: FormGroup
 
+  // For Validations
   get name() {
-    return this.addUomForm.get('name');
+    return this.addUomForm.get('unit_name');
   }
 
   get unit() {
@@ -21,22 +25,31 @@ export class AddUomComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private uomService: UomService,
+    private toast: AppToastService
   ) { }
 
   ngOnInit(): void {
     this.addUomForm = this.fb.group({
-      name: ['', [Validators.required]],
+      unit_name: ['', [Validators.required]],
       unit: ['', [Validators.required]]
     })
   }
 
+  // For submitting add uom form data
   onSubmit(data: any) {
-    // this.userService
-    //   .postUserData(data)
-    //   .subscribe((result: any) => console.log(result));
+    this.uomService
+      .postUomData(data)
+      .subscribe((result: any) => {
+        console.log(result)
+        this.toast.success('Success', 'Added Successfully.')
+        this.router.navigate(['/pos/uom']);
+      }, err => {
+        this.toast.error('Error', 'Server error.')
+      });
     console.log('Form Submitted', (data));
-    this.router.navigate(['/pos/uom']);
+
   }
 
 }

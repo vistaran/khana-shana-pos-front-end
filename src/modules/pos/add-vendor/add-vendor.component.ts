@@ -14,8 +14,7 @@ export class AddVendorComponent implements OnInit {
 
   addVendorForm!: FormGroup;
 
-  status = ['active', 'inactive'];
-
+  // For Validations
   get name() {
     return this.addVendorForm.get('name');
   }

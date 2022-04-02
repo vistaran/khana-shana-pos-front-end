@@ -35,8 +35,9 @@
                                 <tr *ngFor="let data of vendorData">
                                     <td>{{ data.id }}</td>
                                     <td>{{ data.name }}</td>
-                                    <td>{{ data.phone }}</td>
-                                    <td>{{ data.status }}</td>
+                                    <td>{{ data.phone_numbers }}</td>
+                                    <td *ngIf="data.status == 0">active</td>
+                                    <td *ngIf="data.status == 1">inacitve</td>
                                     <td>
                                         <button class="btn btn-info mr-2"><i class="fa fa-pencil-square-o fa-lg"
                                                 [routerLink]="['/pos/edit/editvendor/' + data.id]"></i></button>

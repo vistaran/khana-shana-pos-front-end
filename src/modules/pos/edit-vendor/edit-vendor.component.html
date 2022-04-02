@@ -18,7 +18,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label class="required">Phone Number</label>
-                            <input type="tel" formControlName="phone" class="form-control" />
+                            <input type="tel" formControlName="phone_numbers" class="form-control" />
                             <div *ngIf="phone?.touched && phone?.invalid" class="alert alert-danger">
                                 <div *ngIf="phone?.errors?.required">Phone Number is required.</div>
                             </div>
@@ -42,7 +42,8 @@
                             <label class="required">Select Status</label><br />
                             <select name="status" formControlName="status" class="form-control">
                                 <option value="default">--Select Status--</option>
-                                <option *ngFor="let item of status">{{ item }}</option>
+                                <option value=0>active</option>
+                                <option value=1>inactive</option>
                             </select>
                             <div *ngIf="stat?.touched && stat?.invalid" class="alert alert-danger">
                                 <div *ngIf="stat?.errors?.required">Status is required.</div>
