@@ -12,7 +12,7 @@ import { SearchUser, UserData } from './userData';
 })
 export class UserDataService {
 
-  private url = environment.apiUrl + '/user/';
+  private url = environment.apiUrl + 'user/';
 
   constructor(private http: HttpClient) { }
 

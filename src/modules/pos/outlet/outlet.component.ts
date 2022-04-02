@@ -37,7 +37,7 @@ export class OutletComponent implements OnInit {
     this.showloader = true
     this.outletService.getOutletData(this.page).subscribe(result => {
       this.outletData = result.outlets.data
-      this.length = result.outlets.per_page;
+      this.length = this.outletData.length;
       this.total = result.outlets.total;
       this.showloader = false
     }, err => {

@@ -22,6 +22,16 @@ const routes: Routes = [
         loadChildren: () =>
             import('modules/pos/pos-routing.module').then(m => m.PosRoutingModule),
     },
+    {
+        path: 'item_groups',
+        loadChildren: () =>
+            import('modules/item-groups/item-groups-routing.module').then(m => m.ItemGroupsRoutingModule),
+    },
+    {
+        path: 'items',
+        loadChildren: () =>
+            import('modules/items/items-routing.module').then(m => m.ItemsRoutingModule),
+    },
     // {
     //     path: 'charts',
     //     loadChildren: () =>

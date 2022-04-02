@@ -50,6 +50,8 @@ export class UsersListComponent implements OnInit {
             this.length = result.user.per_page;
             this.total = result.user.total;
             this.showloader = false
+            console.log(result);
+
         }, err => {
             this.showloader = false
             this.toast.error('Error', 'Server error.')
