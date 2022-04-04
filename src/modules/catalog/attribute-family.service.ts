@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'environments/environment';
 import { data } from 'jquery';
 import { Observable } from 'rxjs';
 
@@ -10,8 +11,8 @@ import { AFData, AttributeFamilySearch, EditFamily, FamilyAttribute } from './at
 })
 export class AttributeFamilyService {
 
-  private url = 'http://127.0.0.1:8000/api/attribute_family/';
-  private grUrl = 'http://127.0.0.1:8000/api/group/';
+  private url = environment.apiUrl + 'attribute_family/';
+  private grUrl = environment.apiUrl + 'group/';
 
   constructor(private http: HttpClient) { }
 

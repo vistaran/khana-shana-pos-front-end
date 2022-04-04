@@ -9,7 +9,7 @@ import { OutletData } from './outletData';
     providedIn: 'root',
 })
 export class OutletDataService {
-    private url = environment.apiUrl + '/outlet/';
+    private url = environment.apiUrl + 'outlet/';
 
 
     constructor(private http: HttpClient) { }

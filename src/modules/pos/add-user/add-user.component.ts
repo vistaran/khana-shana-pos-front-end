@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AppToastService } from '@modules/shared-module/services/app-toast.service';
 import { OutletDataService } from '../outlet-data.service';
 
 import { PasswordValidator } from '../password.validator';
@@ -57,6 +58,7 @@ export class AddUserComponent implements OnInit {
 
     constructor(private fb: FormBuilder,
         private userService: UserDataService,
+        private toast: AppToastService,
         private outletService: OutletDataService
     ) { }
 
@@ -93,7 +95,12 @@ export class AddUserComponent implements OnInit {
     onSubmit(data: any) {
         this.userService
             .postUserData(data)
-            .subscribe((result: any) => console.log(result));
+            .subscribe((result: any) => {
+                console.log(result)
+                this.toast.success('Suucess', 'Added Successfully.')
+            }, err => {
+                this.toast.error('Error', 'Server error.')
+            });
         console.log('Form Submitted', (data));
     }
 }

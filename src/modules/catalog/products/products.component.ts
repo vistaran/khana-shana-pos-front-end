@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AppToastService } from '@modules/shared-module/services/app-toast.service';
 
 import { ProductService } from '../product.service';
 
@@ -19,10 +20,24 @@ export class ProductsComponent implements OnInit {
   pageSize = 5;
   searchValue: any
   showloader: any
+  activeId = 1;
 
 
-  constructor(private productService: ProductService, private router: Router) {
-    console.log('Loaded.');
+  constructor(
+    private productService: ProductService,
+    private router: Router,
+    private toast: AppToastService,
+    private activatedRoute: ActivatedRoute
+  ) {
+    if (this.activatedRoute.snapshot.queryParams.categories) {
+      this.activeId = 2
+    }
+    if (this.activatedRoute.snapshot.queryParams.attributes) {
+      this.activeId = 3
+    }
+    if (this.activatedRoute.snapshot.queryParams.attributeFamily) {
+      this.activeId = 4
+    }
   }
 
   ngOnInit() {
@@ -39,7 +54,10 @@ export class ProductsComponent implements OnInit {
       this.total = result.products.total;
       this.showloader = false
       console.log(this.showloader)
-    });
+    }, err => {
+      this.showloader = false
+      this.toast.error('Error', 'Server error.')
+    })
   }
 
   // For navigating to add product form on click
@@ -58,6 +76,9 @@ export class ProductsComponent implements OnInit {
   deleteRow(id: number) {
     this.productService.deleteProducts(id).subscribe(data => {
       this.getProductData();
+      this.toast.success('Success', 'Deleted Successfully.')
+    }, err => {
+      this.toast.error('Error', 'Server error.')
     });
     console.log(this.productData);
   }
@@ -71,7 +92,10 @@ export class ProductsComponent implements OnInit {
       this.total = res.products.total;
       this.showloader = false
       console.log(this.productData)
-    })
+    }, err => {
+      this.toast.error('Error', 'Server error.')
+      this.showloader = false
+    });
   }
 
 }

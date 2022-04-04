@@ -1,0 +1,27 @@
+<sb-layout-dashboard>
+    <div class="card mt-4">
+        <h1 class="card-header">Add Item Group</h1>
+        <form [formGroup]="addItemGroupForm">
+            <div class="container-fluid">
+                <!-- <h2 class="card-header mt-4 pb-2">General</h2> -->
+                <div class="row card-body">
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Item Group Name</label>
+                            <input type="text" formControlName="group_name" class="form-control" />
+                            <div *ngIf="group_name?.touched && group_name?.invalid" class="alert alert-danger">
+                                <div *ngIf="group_name?.errors?.required">Item Group Name is required.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button [disabled]="!addItemGroupForm.valid" type="submit" (click)="onSubmit(addItemGroupForm.value)"
+                    class="btn btn-primary mb-4 float-right">
+                    Submit
+                </button>
+
+            </div>
+        </form>
+    </div>
+</sb-layout-dashboard>

@@ -1,0 +1,37 @@
+<sb-layout-dashboard>
+    <div class="card mt-4">
+        <h1 class="card-header">Add Unit of Measurement</h1>
+        <form [formGroup]="addUomForm">
+            <div class="container-fluid">
+                <!-- <h2 class="card-header mt-4 pb-2">General</h2> -->
+                <div class="row card-body">
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Name</label>
+                            <input type="text" formControlName="unit_name" class="form-control" />
+                            <div *ngIf="name?.touched && name?.invalid" class="alert alert-danger">
+                                <div *ngIf="name?.errors?.required">Name is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Unit</label>
+                            <input type="text" formControlName="unit" class="form-control" />
+                            <div *ngIf="unit?.touched && unit?.invalid" class="alert alert-danger">
+                                <div *ngIf="unit?.errors?.required">Unit is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <button [disabled]="!addUomForm.valid" type="submit" (click)="onSubmit(addUomForm.value)"
+                    class="btn btn-primary mb-4 float-right">
+                    Submit
+                </button>
+            </div>
+        </form>
+    </div>
+</sb-layout-dashboard>

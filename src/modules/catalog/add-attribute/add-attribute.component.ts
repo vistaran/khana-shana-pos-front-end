@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Route, Router } from '@angular/router';
+import { AppToastService } from '@modules/shared-module/services/app-toast.service';
 
 import { AttributesService } from '../attributes.service';
 
@@ -33,7 +35,12 @@ export class AddAttributeComponent implements OnInit {
     return this.addAttributeForm.get('admin');
   }
 
-  constructor(private fb: FormBuilder, private attributeService: AttributesService) { }
+  constructor(
+    private fb: FormBuilder,
+    private attributeService: AttributesService,
+    private toast: AppToastService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
 
@@ -61,8 +68,13 @@ export class AddAttributeComponent implements OnInit {
   onSubmit(data: any) {
     this.attributeService
       .postAttribute(data)
-      .subscribe((result: any) => console.log(result));
-    console.log('Form Submitted', (data));
+      .subscribe((result: any) => {
+        console.log(result)
+        this.toast.success('Success', 'Added successfully.')
+        this.router.navigate(['catalog/products'], { queryParams: { attributes: true } })
+      }, err => {
+        this.toast.error('Error', 'Server error.')
+      });
   }
 
 }

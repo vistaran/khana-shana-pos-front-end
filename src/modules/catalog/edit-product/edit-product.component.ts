@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AppToastService } from '@modules/shared-module/services/app-toast.service';
 
 import { ProductService } from '../product.service';
 
@@ -23,7 +24,9 @@ export class EditProductComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private productService: ProductService,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    private toast: AppToastService
+  ) { }
 
   // For validations
   get sku() {
@@ -108,7 +111,11 @@ export class EditProductComponent implements OnInit {
   updateData(data: any) {
     this.productService.editProducts(this.id, data).subscribe(data => {
       console.log('Data updated successfully! ', data)
+      this.router.navigate(['/catalog/products']);
+      this.toast.success('Success', 'Edited successfully.')
+    }, err => {
+      this.toast.error('Error', 'Server error.')
     })
-    this.router.navigate(['/catalog/products']);
+    { queryParams: { outlet: true } }
   }
 }
