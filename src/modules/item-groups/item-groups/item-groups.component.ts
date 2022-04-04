@@ -37,7 +37,9 @@ export class ItemGroupsComponent implements OnInit {
       this.itemGroupsData = data.item_groups.data;
       this.length = this.itemGroupsData.length
       console.log(data);
-    })
+    }, err => {
+      this.toast.error('Error', 'Server error.')
+    });
   }
 
   // For navigating to add item group form on click

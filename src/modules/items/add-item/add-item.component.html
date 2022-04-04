@@ -3,7 +3,7 @@
         <h1 class="card-header">Add Item</h1>
         <form [formGroup]="addItemForm">
             <div class="container-fluid">
-                <h2 class="card-header mt-4 pb-2">General</h2>
+                <!-- <h2 class="card-header mt-4 pb-2">General</h2> -->
                 <div class="row card-body">
 
                     <div class="col">
@@ -19,8 +19,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label class="required">Select Unit</label>
-                            <select name="unit_id" formControlName="unit_id" class="form-control"
-                                (ngModelChange)="onSelectUnit($event)">
+                            <select name="unit_id" formControlName="unit_id" class="form-control">
                                 <option value="default">--Select Unit--
                                 </option>
 
@@ -40,8 +39,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label class="required">Select Item Group</label>
-                            <select name="item_group_id" formControlName="item_group_id" class="form-control"
-                                (ngModelChange)="onSelectItem($event)">
+                            <select name="item_group_id" formControlName="item_group_id" class="form-control">
                                 <option value="default">--Select Item Group--
                                 </option>
 

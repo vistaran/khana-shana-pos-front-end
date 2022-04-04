@@ -14,6 +14,7 @@ export class AddItemGroupComponent implements OnInit {
 
   addItemGroupForm!: FormGroup
 
+  // For Validations
   get group_name() {
     return this.addItemGroupForm.get('group_name');
   }

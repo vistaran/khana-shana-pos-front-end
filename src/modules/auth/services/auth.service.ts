@@ -16,7 +16,7 @@ export class AuthService {
     // }
 
     login(data: any) {
-        return this.http.post(this.baseURL + '/auth/login', data);
+        return this.http.post(this.baseURL + 'auth/login', data);
     }
 
     getAuth$(): Observable<{}> {

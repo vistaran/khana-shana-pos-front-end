@@ -55,13 +55,14 @@ export class OutletComponent implements OnInit {
 
   // For deleting outlet
   deleteRow(id: number) {
-
-    this.outletService.deleteOutlet(id).subscribe(data => {
-      this.getOutletData();
-      this.toast.success('Success', 'Deleted Successfully.')
-    }, err => {
-      this.toast.error('Error', 'Server error.')
-    });
+    if (confirm('Are you sure you want to delete?')) {
+      this.outletService.deleteOutlet(id).subscribe(data => {
+        this.getOutletData();
+        this.toast.success('Success', 'Deleted successfully.');
+      }, err => {
+        this.toast.error('Error', 'Server error.');
+      });
+    }
   }
 
   // For searching outlets table data

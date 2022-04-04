@@ -15,6 +15,7 @@ export class EditItemGroupComponent implements OnInit {
   editItemGroupForm!: FormGroup
   id: any
 
+  // For Validations
   get group_name() {
     return this.editItemGroupForm.get('group_name');
   }

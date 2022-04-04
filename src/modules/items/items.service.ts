@@ -34,7 +34,7 @@ export class ItemsService {
   }
 
   patchItemData(id: number): Observable<Data> {
-    return this.http.get<any>(this.url + id);
+    return this.http.get<Data>(this.url + id);
   }
 
 }

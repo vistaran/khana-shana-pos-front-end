@@ -11,7 +11,7 @@ export const sideNavSections: SideNavSection[] = [
     },
     {
         text: 'ADDONS',
-        items: ['items', 'item_groups', 'charts', 'tables'],
+        items: ['items', 'item_groups', 'purchase_orders', 'charts', 'tables'],
     },
 
 ];
@@ -126,6 +126,11 @@ export const sideNavItems: SideNavItems = {
         icon: 'table',
         text: 'Item Groups',
         link: '/item_groups'
+    },
+    purchase_orders: {
+        icon: 'table',
+        text: 'Purchase Orders',
+        link: '/purchase_orders'
     },
     charts: {
         icon: 'chart-area',

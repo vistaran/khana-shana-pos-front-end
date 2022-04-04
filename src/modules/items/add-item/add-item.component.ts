@@ -20,7 +20,7 @@ export class AddItemComponent implements OnInit {
   public unitId: any
   public itemGroupId: any
 
-
+// For Validations
   get item_name() {
     return this.addItemForm.get('item_name');
   }
@@ -53,6 +53,7 @@ export class AddItemComponent implements OnInit {
     this.getItemGroupsData();
   }
 
+  // For getting Item groups data
   getItemGroupsData() {
     this.itemGroupService.getItemGroupsData().subscribe(data => {
       this.itemGroupsData = data.item_groups.data;
@@ -60,22 +61,12 @@ export class AddItemComponent implements OnInit {
     })
   }
 
+  // For getting Units of Measurement data
   getUOMData() {
     this.unitService.getUOMData().subscribe(data => {
       this.unitData = data.units.data;
       console.log(data);
     })
-  }
-
-  // To get unit id
-  onSelectUnit(id: any) {
-    this.unitId = id
-    console.log(this.unitId)
-  }
-
-  onSelectItem(id: any) {
-    this.itemGroupId = id
-    console.log(this.itemGroupId)
   }
 
   // For submitting add item group form data

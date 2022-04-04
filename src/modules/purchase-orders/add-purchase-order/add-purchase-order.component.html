@@ -1,0 +1,79 @@
+<sb-layout-dashboard>
+    <div class="card mt-4">
+        <h1 class="card-header">Add Purchase Order</h1>
+        <form [formGroup]="addOrderForm">
+            <div class="container-fluid">
+                <!-- <h2 class="card-header mt-4 pb-2">General</h2> -->
+                <div class="row card-body">
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Select Vendor</label>
+                            <select name="vendor_id" formControlName="vendor_id" class="form-control">
+                                <option value="default">--Select Vendor--
+                                </option>
+
+                                <ng-container *ngFor="let list of vendorData">
+                                    <option [ngValue]=" list.id">
+                                        {{list.name
+                                        }}
+                                    </option>
+                                </ng-container>
+                            </select>
+                            <div *ngIf="vendor_id?.touched && vendor_id?.invalid" class="alert alert-danger">
+                                <div *ngIf="vendor_id?.errors?.required">Vendor is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Select Outlet</label>
+                            <select name="outlet_id" formControlName="outlet_id" class="form-control">
+                                <option value="default">--Select Outlet--
+                                </option>
+
+                                <ng-container *ngFor="let list of outletData">
+                                    <option [ngValue]=" list.id">
+                                        {{list.Outlet_name
+                                        }}
+                                    </option>
+                                </ng-container>
+                            </select>
+                            <div *ngIf="outlet_id?.touched && outlet_id?.invalid" class="alert alert-danger">
+                                <div *ngIf="outlet_id?.errors?.required">Outlet is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Select User</label>
+                            <select name="user_id" formControlName="user_id" class="form-control">
+                                <option value="default">--Select User--
+                                </option>
+
+                                <ng-container *ngFor="let list of outletData">
+                                    <option [ngValue]=" list.id">
+                                        {{list.Outlet_name
+                                        }}
+                                    </option>
+                                </ng-container>
+                            </select>
+                            <div *ngIf="user_id?.touched && user_id?.invalid" class="alert alert-danger">
+                                <div *ngIf="user_id?.errors?.required">User is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <button [disabled]="!addOrderForm.valid" type="submit" (click)="onSubmit(addOrderForm.value)"
+                    class="btn btn-primary mb-4 float-right">
+                    Submit
+                </button>
+
+            </div>
+        </form>
+    </div>
+</sb-layout-dashboard>
