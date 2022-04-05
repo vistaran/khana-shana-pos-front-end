@@ -114,7 +114,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label class="required">Select Item Group Name</label>
-                                <select name="item_group_name" formControlName="item_group_name" class="form-control">
+                                <select name="item_group_id" formControlName="item_group_id" class="form-control">
                                     <option value="default">--Select Item Group Name--
                                     </option>
     
@@ -125,8 +125,8 @@
                                         </option>
                                     </ng-container>
                                 </select>
-                                <div *ngIf="item_group_name?.touched && item_group_name?.invalid" class="alert alert-danger">
-                                    <div *ngIf="item_group_name?.errors?.required">Item Group name is required.</div>
+                                <div *ngIf="item_group_id?.touched && item_group_id?.invalid" class="alert alert-danger">
+                                    <div *ngIf="item_group_id?.errors?.required">Item Group name is required.</div>
                                 </div>
                             </div>
                         </div>
@@ -134,19 +134,19 @@
                         <div class="col">
                             <div class="form-group">
                                 <label class="required">Select Item Name</label>
-                                <select name="item_id" formControlName="item_name" class="form-control">
+                                <select name="item_id" formControlName="item_id" class="form-control">
                                     <option value="default">--Select Item Name--
                                     </option>
     
                                     <ng-container *ngFor="let list of itemsData">
-                                        <option>
+                                        <option value="{{ list.id }}">
                                             {{list.item_name
                                             }}
                                         </option>
                                     </ng-container>
                                 </select>
-                                <div *ngIf="item_name?.touched && item_name?.invalid" class="alert alert-danger">
-                                    <div *ngIf="item_name?.errors?.required">Item name is required.</div>
+                                <div *ngIf="item_id?.touched && item_id?.invalid" class="alert alert-danger">
+                                    <div *ngIf="item_id?.errors?.required">Item name is required.</div>
                                 </div>
                             </div>
                         </div>
@@ -158,19 +158,19 @@
                     <div class="col">
                         <div class="form-group">
                             <label class="required">Select Unit Name</label>
-                            <select name="unit_name" formControlName="unit_name" class="form-control">
+                            <select name="unit_id" formControlName="unit_id" class="form-control">
                                 <option value="default">--Select Unit Name--
                                 </option>
 
                                 <ng-container *ngFor="let list of unitsData">
-                                    <option>
+                                    <option value="{{ list.id }}">
                                         {{list.unit_name
                                         }}
                                     </option>
                                 </ng-container>
                             </select>
-                            <div *ngIf="unit_name?.touched && unit_name?.invalid" class="alert alert-danger">
-                                <div *ngIf="unit_name?.errors?.required">Unit name is required.</div>
+                            <div *ngIf="unit_id?.touched && unit_id?.invalid" class="alert alert-danger">
+                                <div *ngIf="unit_id?.errors?.required">Unit name is required.</div>
                             </div>
                         </div>
                     </div>
@@ -199,6 +199,18 @@
                                 </div> -->
                             </div>
                         </div> 
+
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="required">Price</label>
+                                <input type="number" formControlName="price" class="form-control" />
+                                <div *ngIf="price?.touched && price?.invalid" class="alert alert-danger">
+                                    <div *ngIf="price?.errors?.required">Price is required.
+    
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
                     </div>
 
                     </div>
@@ -220,6 +232,7 @@
                     <th>Item Name</th>
                     <th>Unit Name</th>
                     <th>Quantity</th>
+                    <th>Price</th>
                     <th>Subtotal</th>
                 </thead>
 
@@ -229,7 +242,8 @@
                         <td>{{ data.item_name }}</td>
                         <td>{{ data.unit_name }}</td>
                         <td>{{ data.qty }}</td>
-                        <td></td>
+                        <td>{{ data.price }}</td>
+                        <td>{{ data.qty * data.price }}</td>
                     </tr>
                 </tbody>
             </table>

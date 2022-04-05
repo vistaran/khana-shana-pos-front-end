@@ -32,6 +32,8 @@ export class AddPurchaseOrderComponent implements OnInit {
   page = 1
 
   // For Validations
+
+  // Add order form
   get vendor_id() {
     return this.addOrderForm.get('vendor_id');
   }
@@ -54,26 +56,28 @@ export class AddPurchaseOrderComponent implements OnInit {
   
   get total_amount() {
     return this.addOrderForm.get('shipping_charge');
-  } 
+  }
+  
+  // Add item form
 
-  get item_name() {
-    return this.itemsForm.get('item_name');
+  get item_id() {
+    return this.itemsForm.get('item_id');
   }
 
-  get item_group_name() {
-    return this.itemsForm.get('item_group_name');
+  get item_group_id() {
+    return this.itemsForm.get('item_group_id');
   }
 
   get qty() {
     return this.itemsForm.get('qty');
   }
 
-  get unit_name() {
-    return this.itemsForm.get('unit_name');
+  get unit_id() {
+    return this.itemsForm.get('unit_id');
   } 
 
-  get subtotal() {
-    return this.itemsForm.get('subtotal');
+  get price() {
+    return this.itemsForm.get('price');
   }
 
   constructor(
@@ -98,18 +102,19 @@ export class AddPurchaseOrderComponent implements OnInit {
       notes: [''],
       shipping_charge: ['', Validators.required],
       total_amount: ['', Validators.required],
+    })
 
-      items: this.itemsForm = this.fb.group({
-        notes: ['', Validators.required],
-        // item_id: ['', Validators.required],
-        item_name: ['', Validators.required],
-        // item_group_id: ['', Validators.required],
-        item_group_name: ['', Validators.required],
-        qty: ['', Validators.required],
-        // unit_id: ['', Validators.required],
-        unit_name: ['', Validators.required],
-        // subtotal: ['', Validators.required]
-      })
+    this.itemsForm = this.fb.group({
+      notes: ['', Validators.required],
+      item_id: ['', Validators.required],
+      // item_name: ['', Validators.required],
+      item_group_id: ['', Validators.required],
+      // item_group_name: ['', Validators.required],
+      qty: ['', Validators.required],
+      unit_id: ['', Validators.required],
+      // unit_name: ['', Validators.required],
+      price: ['', Validators.required],
+      // subtotal: ['', Validators.required]
     })
 
     this.getVendorsData();
@@ -177,25 +182,36 @@ export class AddPurchaseOrderComponent implements OnInit {
 
     // extract name from original array using selected group id
     var name = '';
-    console.log('Group data >', this.itemGroupsData, 'Form data > ', data);
+    var unitName ='';
+    var itemName ='';
     this.itemGroupsData.forEach((g: any) => {
-      if(g.id == data.item_group_name) {
+      if(g.id == data.item_group_id) {
         name = g.group_name
       }
     });
 
+    this.unitsData.forEach((g: any) => {
+      if(g.id == data.unit_id) {
+        unitName = g.unit_name 
+      }
+    });
+
+    this.itemsData.forEach((g: any) => {
+      if(g.id == data.item_id) {
+        itemName = g.item_name 
+      }
+    });
+
+
     var obj = [{
       item_group_name: name,
-      item_name: data.item_name,
-      unit_name: data.unit_name,
-      qty: data.qty
+      item_name: itemName,
+      unit_name: unitName,
+      qty: data.qty,
+      price: data.price
     }]
-    console.log(obj);
     this.orderItemData = this.orderItemData.concat(obj);
-    this.toast.success('Success', 'Item Added Successfully.')
-
-    console.log(this.orderItemData);
-    
+    this.toast.success('Success', 'Item Added Successfully.')    
   }
 
   // For submitting add purchase form data
