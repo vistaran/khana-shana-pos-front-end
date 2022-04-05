@@ -9,6 +9,7 @@ import { UserDataService } from '@modules/pos/user-data.service';
 import { VendorsService } from '@modules/pos/vendors.service';
 import { AppToastService } from '@modules/shared-module/services/app-toast.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 import { PurchaseOrdersService } from '../purchase-orders.service';
 
 @Component({
@@ -30,6 +31,16 @@ export class AddPurchaseOrderComponent implements OnInit {
 
   orderItemData: any = [];
   page = 1
+  isInputShown = false
+  isInputShown2 = false
+  selectedVendor!: number;
+  public name = '';
+  public unitName = '';
+  public itemName = '';
+  shippingCharge = 0
+  semitotal = 0
+  total = 0
+
 
   // For Validations
 
@@ -53,11 +64,11 @@ export class AddPurchaseOrderComponent implements OnInit {
   get shipping_charge() {
     return this.addOrderForm.get('shipping_charge');
   }
-  
+
   get total_amount() {
     return this.addOrderForm.get('shipping_charge');
   }
-  
+
   // Add item form
 
   get item_id() {
@@ -74,7 +85,7 @@ export class AddPurchaseOrderComponent implements OnInit {
 
   get unit_id() {
     return this.itemsForm.get('unit_id');
-  } 
+  }
 
   get price() {
     return this.itemsForm.get('price');
@@ -97,11 +108,10 @@ export class AddPurchaseOrderComponent implements OnInit {
   ngOnInit(): void {
     this.addOrderForm = this.fb.group({
       vendor_id: ['', Validators.required],
+      user_id: ['', [Validators.required]],
       outlet_id: ['', Validators.required],
-      user_id: ['', Validators.required],
       notes: [''],
       shipping_charge: ['', Validators.required],
-      total_amount: ['', Validators.required],
     })
 
     this.itemsForm = this.fb.group({
@@ -142,27 +152,27 @@ export class AddPurchaseOrderComponent implements OnInit {
   // To get User Data
   getUserData() {
     this.userService.getUserData(this.page).subscribe(data => {
-      this.userData = data.user.data      
+      this.userData = data.user.data
     })
   }
 
   // TO get Item group data
   getItemsData() {
-    this.itemService.getItemsData().subscribe(data=> {
+    this.itemService.getItemsData().subscribe(data => {
       this.itemsData = data.purchase_items.data
     })
   }
 
   // To get Item groups data
   getItemGroupsData() {
-    this.itemGroupService.getItemGroupsData().subscribe(data=> {
+    this.itemGroupService.getItemGroupsData().subscribe(data => {
       this.itemGroupsData = data.item_groups.data
     })
   }
 
-  //To get Units of Measurement Data
+  // To get Units of Measurement Data
   getUnitsData() {
-    this.unitService.getUOMData().subscribe(data=> {
+    this.unitService.getUOMData().subscribe(data => {
       this.unitsData = data.units.data
     })
   }
@@ -170,6 +180,13 @@ export class AddPurchaseOrderComponent implements OnInit {
   // For modal
   openVerticallyCentered(content: any) {
     this.modalService.open(content, { centered: true });
+  }
+
+  // For shipping charges value
+  onKey(event: any) {
+    this.shippingCharge = Number(event.target.value);
+    console.log(typeof (this.shippingCharge));
+
   }
 
   addItemData(data: any) {
@@ -181,56 +198,64 @@ export class AddPurchaseOrderComponent implements OnInit {
     // })
 
     // extract name from original array using selected group id
-    var name = '';
-    var unitName ='';
-    var itemName ='';
+
     this.itemGroupsData.forEach((g: any) => {
-      if(g.id == data.item_group_id) {
-        name = g.group_name
+      if (g.id == data.item_group_id) {
+        this.name = g.group_name
       }
     });
 
     this.unitsData.forEach((g: any) => {
-      if(g.id == data.unit_id) {
-        unitName = g.unit_name 
+      if (g.id == data.unit_id) {
+        this.unitName = g.unit_name
       }
     });
 
     this.itemsData.forEach((g: any) => {
-      if(g.id == data.item_id) {
-        itemName = g.item_name 
+      if (g.id == data.item_id) {
+        this.itemName = g.item_name
       }
     });
 
 
-    var obj = [{
-      item_group_name: name,
-      item_name: itemName,
-      unit_name: unitName,
+    const obj = [{
+      item_group_id: data.item_group_id,
+      item_group_name: this.name,
+      item_id: data.item_id,
+      item_name: this.itemName,
+      unit_id: data.unit_id,
+      unit_name: this.unitName,
       qty: data.qty,
-      price: data.price
+      notes: data.notes,
+      price: data.price,
+      subtotal: data.price * data.qty
     }]
     this.orderItemData = this.orderItemData.concat(obj);
-    this.toast.success('Success', 'Item Added Successfully.')    
+    console.log(this.orderItemData);
+    // tslint:disable-next-line: forin
+    this.semitotal = this.orderItemData.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
+      return a + b;
+    })
+    console.log(this.total);
+
+
+    this.toast.success('Success', 'Item Added Successfully.')
+  }
+
+  calculateTotal() {
+    this.total = Number(this.shippingCharge) + Number(this.semitotal);
   }
 
   // For submitting add purchase form data
   onSubmit(data: any) {
-    var obj = {
+    const obj = {
       vendor_id: data.vendor_id,
       outlet_id: data.outlet_id,
       user_id: data.user_id,
       notes: data.notes,
       shipping_charge: data.shipping_charge,
-      total_amount: data.total_amount,
-      items: [{
-        notes: this.orderItemData.notes,
-        item_id: this.orderItemData.item_id, 
-        item_group_id: this.orderItemData.item_group_id,
-        qty: this.orderItemData.qty,
-        unit_id: this.orderItemData.unit_id,
-        subtotal: this.orderItemData.subtotal 
-      } ]  
+      total_amount: this.total,
+      items: this.orderItemData
     }
     this.purchaseOrderService.postPurchaseOrderData(obj)
       .subscribe((result: any) => {
@@ -242,5 +267,16 @@ export class AddPurchaseOrderComponent implements OnInit {
       });
     console.log('Form Submitted', (data));
   }
+
+  onSelectName(id: any) {
+    this.isInputShown = true
+  }
+
+  onSelectName2(id: any) {
+    this.isInputShown2 = true
+  }
+
+
+
 
 }

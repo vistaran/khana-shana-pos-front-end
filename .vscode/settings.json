@@ -32,5 +32,4 @@
     "scss.lint.duplicateProperties": "error",
     "typescript.format.enable": true,
     "editor.formatOnSaveMode": "modifications",
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
 }

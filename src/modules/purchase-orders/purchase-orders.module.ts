@@ -22,7 +22,7 @@ import { PurchaseOrdersComponent } from './purchase-orders/purchase-orders.compo
     NgbModule,
     ReactiveFormsModule,
     FormsModule,
-    RouterModule
+    RouterModule,
   ]
 })
 export class PurchaseOrdersModule { }
