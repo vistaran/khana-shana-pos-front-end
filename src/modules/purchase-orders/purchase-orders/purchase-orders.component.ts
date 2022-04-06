@@ -45,4 +45,23 @@ export class PurchaseOrdersComponent implements OnInit {
     this.router.navigate(['/purchase_orders/add_purchase_order']);
   }
 
+
+  // For updating data on page change
+  onPageChange(event: number) {
+    this.page = event;
+    this.getPurchaseOrdersData();
+  }
+
+  // For deleting Item data
+  deleteRow(id: number) {
+    if (confirm('Are you sure you want to delete?')) {
+      this.purchaseOrderService.deleteOrder(id).subscribe(data => {
+        this.getPurchaseOrdersData();
+        this.toast.success('Success', 'Deleted Successfully.')
+      }, err => {
+        this.toast.error('Error', 'Server error.')
+      });
+    }
+  }
+
 }

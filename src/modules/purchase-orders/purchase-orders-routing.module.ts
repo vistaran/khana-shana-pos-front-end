@@ -34,7 +34,7 @@ const routes: Routes = [
     canActivate: [],
     component: EditPurchaseOrderComponent,
     data: {
-      title: 'Edit User',
+      title: 'Edit Order',
     } as SBRouteData,
   },
 ];

@@ -22,6 +22,51 @@
                             </button>
 
                         </div>
+
+                        <table class="table table-bordered table-striped">
+                            <thead class="head">
+                                <th>Order Id</th>
+                                <th>Vendor</th>
+                                <th>Outlet</th>
+                                <th>Total Amount</th>
+                                <th>Actions</th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of purchaseOrdersData">
+                                    <td>{{ data.id }}</td>
+                                    <td>{{ data.name }}</td>
+                                    <td>{{ data.outlet_name }}</td>
+                                    <td>₹{{ data.total_amount }}</td>
+                                    <td>
+                                        <button class="btn btn-info mr-2"><i class="fa fa-pencil-square-o fa-lg"
+                                                [routerLink]="['/purchase_orders/edit_purchase_order/' + data.id]"></i></button>
+
+                                        <button id="remove" (click)="deleteRow(data.id)" class="btn btn-danger"><i
+                                                class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                                    </td>
+                                </tr>
+                                <tr *ngIf="!length && !showloader">
+                                    <td colspan="8" class="text-center">
+                                        No records found.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div *ngIf="showloader" class="d-flex justify-content-center pt-5">
+                            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                                <!-- <img src="src\image\Infinity-1s-200px.svg"> -->
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
+
+                        <div class="justify-content-between row">
+                            <div class="col">
+                                <ngb-pagination (pageChange)="onPageChange($event)" [(page)]="page" [pageSize]="length"
+                                    [collectionSize]="total" [boundaryLinks]="true" [maxSize]="total">
+                                </ngb-pagination>
+                            </div>
+                        </div>
                     </ng-template>
                 </li>
             </ul>

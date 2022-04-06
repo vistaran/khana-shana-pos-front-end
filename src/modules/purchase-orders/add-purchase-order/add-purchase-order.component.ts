@@ -35,11 +35,14 @@ export class AddPurchaseOrderComponent implements OnInit {
   isInputShown2 = false
   selectedVendor!: number;
   public name = '';
-  public unitName = '';
+  // public unitName = '';
   public itemName = '';
   shippingCharge = 0
   semitotal = 0
   total = 0
+  group_id: any
+  unit_name: any
+  unitId: any
 
 
   // For Validations
@@ -108,10 +111,10 @@ export class AddPurchaseOrderComponent implements OnInit {
   ngOnInit(): void {
     this.addOrderForm = this.fb.group({
       vendor_id: ['', Validators.required],
-      user_id: ['', [Validators.required]],
+      // user_id: ['', [Validators.required]],
       outlet_id: ['', Validators.required],
       notes: [''],
-      shipping_charge: ['', Validators.required],
+      shipping_charge: [0],
     })
 
     this.itemsForm = this.fb.group({
@@ -121,7 +124,7 @@ export class AddPurchaseOrderComponent implements OnInit {
       item_group_id: ['', Validators.required],
       // item_group_name: ['', Validators.required],
       qty: ['', Validators.required],
-      unit_id: ['', Validators.required],
+      unit_id: [{value: '', disabled: true}, Validators.required],
       // unit_name: ['', Validators.required],
       price: ['', Validators.required],
       // subtotal: ['', Validators.required]
@@ -130,8 +133,8 @@ export class AddPurchaseOrderComponent implements OnInit {
     this.getVendorsData();
     this.getOutletsData();
     this.getUserData();
-    this.getItemsData();
     this.getItemGroupsData();
+
     this.getUnitsData();
   }
 
@@ -156,18 +159,41 @@ export class AddPurchaseOrderComponent implements OnInit {
     })
   }
 
-  // TO get Item group data
-  getItemsData() {
-    this.itemService.getItemsData().subscribe(data => {
-      this.itemsData = data.purchase_items.data
-    })
-  }
-
   // To get Item groups data
   getItemGroupsData() {
     this.itemGroupService.getItemGroupsData().subscribe(data => {
       this.itemGroupsData = data.item_groups.data
     })
+  }
+
+  onSelectGroup(id: number) {
+    console.log(id);
+    this.isInputShown = true
+    this.group_id = id
+    console.log('Group id:', this.group_id);
+    this.getItemsData();
+  }
+
+  // TO get Item group data
+  getItemsData() {
+    console.log('group_id', this.group_id);
+    this.purchaseOrderService.getItemData(this.group_id).subscribe(data => {
+      this.itemsData = data.purchase_items.data
+      this.unit_name = this.itemsData.unit_name
+      console.log(this.itemsData, this.unit_name);
+    })
+  }
+
+  onSelectNameItem(id: any) {
+    this.isInputShown2 = true
+    this.itemsData.forEach((g: any) => {
+      console.log(g);
+
+      if (g.id == id) {
+        this.unit_name = g.unit_name
+        this.unitId = g.unit_id
+      }
+    });
   }
 
   // To get Units of Measurement Data
@@ -186,7 +212,7 @@ export class AddPurchaseOrderComponent implements OnInit {
   onKey(event: any) {
     this.shippingCharge = Number(event.target.value);
     console.log(typeof (this.shippingCharge));
-
+    this.calculateTotal();
   }
 
   addItemData(data: any) {
@@ -205,26 +231,19 @@ export class AddPurchaseOrderComponent implements OnInit {
       }
     });
 
-    this.unitsData.forEach((g: any) => {
-      if (g.id == data.unit_id) {
-        this.unitName = g.unit_name
-      }
-    });
-
     this.itemsData.forEach((g: any) => {
       if (g.id == data.item_id) {
         this.itemName = g.item_name
       }
     });
 
-
     const obj = [{
       item_group_id: data.item_group_id,
       item_group_name: this.name,
       item_id: data.item_id,
       item_name: this.itemName,
-      unit_id: data.unit_id,
-      unit_name: this.unitName,
+      unit_id: this.unitId,
+      unit_name: this.unit_name,
       qty: data.qty,
       notes: data.notes,
       price: data.price,
@@ -232,14 +251,15 @@ export class AddPurchaseOrderComponent implements OnInit {
     }]
     this.orderItemData = this.orderItemData.concat(obj);
     console.log(this.orderItemData);
-    // tslint:disable-next-line: forin
+
     this.semitotal = this.orderItemData.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
       return a + b;
     })
     console.log(this.total);
+    // this.toast.success('Success', 'Item Added Successfully.')
 
+    this.calculateTotal();
 
-    this.toast.success('Success', 'Item Added Successfully.')
   }
 
   calculateTotal() {
@@ -268,13 +288,6 @@ export class AddPurchaseOrderComponent implements OnInit {
     console.log('Form Submitted', (data));
   }
 
-  onSelectName(id: any) {
-    this.isInputShown = true
-  }
-
-  onSelectName2(id: any) {
-    this.isInputShown2 = true
-  }
 
 
 
