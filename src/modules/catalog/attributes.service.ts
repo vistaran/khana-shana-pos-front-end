@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 
-import { Adata } from './attributes';
+import { Attributesdata } from './attributes';
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +15,9 @@ export class AttributesService {
   constructor(private http: HttpClient) { }
 
   // For getting attributes data
-  getAttributesData(page: number): Observable<Adata> {
+  getAttributesData(page: number): Observable<Attributesdata> {
 
-    return this.http.get<Adata>(this.url + 'show?page=' + page);
+    return this.http.get<Attributesdata>(this.url + 'show?page=' + page);
   }
 
   // For deleting attributes data
@@ -36,7 +36,7 @@ export class AttributesService {
   }
 
   // For searching attributes data
-  searchAttribute(data: any): Observable<Adata> {
-    return this.http.get<Adata>(this.url + 'search?query=' + data)
+  searchAttribute(data: any): Observable<Attributesdata> {
+    return this.http.get<Attributesdata>(this.url + 'search?query=' + data)
   }
 }

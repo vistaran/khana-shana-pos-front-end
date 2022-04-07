@@ -37,7 +37,7 @@ interface Items {
     qty: number,
     unit_id: number,
     unit_name: string,
-    subtotal: number
+    subtotal: number,
 }
 
 export interface ItemsData {
@@ -68,4 +68,21 @@ interface ItemData {
     updated_at: Date,
     unit_name: string,
     group_name: string
+}
+
+export interface PatchOrder {
+    items: Items,
+    order: OrderData
+}
+
+interface OrderData {
+    created_at: Date
+    id: number
+    notes: string
+    outlet_id: number
+    shipping_charge: number
+    total_amount: number
+    updated_at: Date
+    user_id: number
+    vendor_id: number
 }

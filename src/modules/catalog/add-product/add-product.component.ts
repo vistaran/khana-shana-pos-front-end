@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AppToastService } from '@modules/shared-module/services/app-toast.service';
+import { AttributeFamilyService } from '../attribute-family.service';
 
 import { ProductService } from '../product.service';
 
@@ -11,6 +12,9 @@ import { ProductService } from '../product.service';
   styleUrls: ['./add-product.component.scss']
 })
 export class AddProductComponent implements OnInit {
+
+  attributeFamilyData: any = [];
+  page = 1
 
   // For validations
   get productType() {
@@ -45,7 +49,8 @@ export class AddProductComponent implements OnInit {
     private fb: FormBuilder,
     private products: ProductService,
     private toast: AppToastService,
-    private router: Router
+    private router: Router,
+    private attributeFamilyService: AttributeFamilyService
   ) { }
 
   addProductForm!: FormGroup;
@@ -62,6 +67,13 @@ export class AddProductComponent implements OnInit {
       quantity: ['', [Validators.required]],
       attribute_family_name: ['', [Validators.required]]
     });
+    this.getAttributeFamilyData()
+  }
+
+  getAttributeFamilyData() {
+    this.attributeFamilyService.getFamily(this.page).subscribe(data => {
+      this.attributeFamilyData = data.attributefamily.data
+    })
   }
 
   // For submitting add product form data

@@ -1,5 +1,5 @@
-export interface PData {
-    products: Product
+export interface ProductData {
+    Products: Product
 }
 
 interface Product {

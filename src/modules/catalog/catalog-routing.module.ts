@@ -43,7 +43,7 @@ const routes: Routes = [
     canActivate: [],
     component: EditProductComponent,
     data: {
-      title: 'Add Product',
+      title: 'Edit Product',
     } as SBRouteData,
   },
   {

@@ -49,11 +49,11 @@ export class ProductsComponent implements OnInit {
   getProductData() {
     this.showloader = true
     this.productService.getProducts(this.page).subscribe(result => {
-      this.productData = result.products.data;
-      this.length = result.products.per_page;
-      this.total = result.products.total;
+      this.productData = result.Products.data;
+      this.length = this.productData.length;
+      this.total = result.Products.total;
       this.showloader = false
-      console.log(this.showloader)
+      console.log(this.length)
     }, err => {
       this.showloader = false
       this.toast.error('Error', 'Server error.')
@@ -87,11 +87,11 @@ export class ProductsComponent implements OnInit {
   search(event: any) {
     this.showloader = true
     this.productService.searchProducts(this.searchValue).subscribe(res => {
-      this.productData = res.products.data
+      this.productData = res.Products.data
       this.length = this.productData.length;
-      this.total = res.products.total;
+      this.total = res.Products.total;
       this.showloader = false
-      console.log(this.productData)
+      console.log(this.productData, this.length)
     }, err => {
       this.toast.error('Error', 'Server error.')
       this.showloader = false

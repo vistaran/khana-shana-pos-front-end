@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 
-import { PData } from './prodList';
+import { ProductData } from './prodList';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +15,8 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
   // For getting products data
-  getProducts(page: number): Observable<PData> {
-    return this.http.get<PData>(this.url + 'show?page=' + page);
+  getProducts(page: number): Observable<ProductData> {
+    return this.http.get<ProductData>(this.url + 'show?page=' + page);
   }
 
   // For deleting products data
@@ -35,7 +35,7 @@ export class ProductService {
   }
 
   // For searching products data
-  searchProducts(data: any): Observable<PData> {
-    return this.http.get<PData>(this.url + 'search?query=' + data)
+  searchProducts(data: any): Observable<ProductData> {
+    return this.http.get<ProductData>(this.url + 'search?query=' + data)
   }
 }

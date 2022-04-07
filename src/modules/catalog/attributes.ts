@@ -1,5 +1,5 @@
-export interface Adata {
-    attributes: Attributes
+export interface Attributesdata {
+    Attributes: Attributes
 
 }
 

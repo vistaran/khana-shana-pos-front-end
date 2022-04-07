@@ -35,7 +35,7 @@ export class AttributeFamilyComponent implements OnInit {
     this.showloader = true
     this.attributeFamilyService.getFamily(this.page).subscribe(result => {
       this.attributeFamilyData = result.attributefamily.data;
-      this.length = result.attributefamily.per_page;
+      this.length = this.attributeFamilyData.length;
       this.total = result.attributefamily.total;
       this.showloader = false
     }, err => {

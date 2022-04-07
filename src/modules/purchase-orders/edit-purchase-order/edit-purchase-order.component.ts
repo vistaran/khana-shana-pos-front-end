@@ -128,10 +128,26 @@ export class EditPurchaseOrderComponent implements OnInit {
     })
 
     this.curr_id = this.route.snapshot.params.id
+    console.log('Current id:', this.curr_id);
+    
 
     // To get edit order form field values
     this.purchaseOrderService.patchOrderData(this.curr_id).subscribe((data: any) => {
-      this.editOrderForm.patchValue(data)
+      this.editOrderForm.patchValue({
+        vendor_id: data.order.vendor_id,
+        outlet_id: data.order.outlet_id,
+        notes: data.order.notes,
+        shipping_charge: data.order.shipping_charge
+      })
+      this.orderItemData = data.items
+      this.total = data.order.total_amount
+      console.log('Data: ', this.orderItemData);
+      // this.calculateTotal()
+      console.log(data)
+    })
+
+    this.purchaseOrderService.patchOrderData(this.curr_id).subscribe((data: any) => {
+      this.itemsForm.patchValue(data)
       console.log(data)
     })
 
@@ -283,7 +299,7 @@ export class EditPurchaseOrderComponent implements OnInit {
       total_amount: this.total,
       items: this.orderItemData
     }
-    this.purchaseOrderService.editPurchaseOrderData(this.id, obj)
+    this.purchaseOrderService.editPurchaseOrderData(this.curr_id, obj)
       .subscribe((result: any) => {
         console.log(result)
         this.toast.success('Success', 'Edited Successfully.')

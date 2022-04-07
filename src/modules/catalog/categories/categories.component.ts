@@ -37,7 +37,7 @@ export class CategoriesComponent implements OnInit {
     this.showloader = true
     this.categories.getCategoriesData(this.page).subscribe(result => {
       this.categoryData = result.category.data;
-      this.length = result.category.per_page;
+      this.length = this.categoryData.length;
       this.total = result.category.total;
       this.showloader = false
       console.log(this.categoryData);

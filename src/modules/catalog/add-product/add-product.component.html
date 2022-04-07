@@ -86,10 +86,10 @@
                         <label class="required">Attribute Family Name</label>
                         <select name="status" formControlName="attribute_family_name" class="form-control">
                             <option value="default">--Select Attribute Family--</option>
-                            <option *ngFor="let item of attributeFamily">{{ item }}</option>
+                            <option *ngFor="let item of attributeFamilyData">{{ item.attribute_family_name }}</option>
                         </select>
                         <div *ngIf="family_name?.touched && family_name?.invalid" class="alert alert-danger">
-                            <div *ngIf="family_name?.errors?.required">Price is required.</div>
+                            <div *ngIf="family_name?.errors?.required">Attribute Family is required.</div>
                         </div>
                     </div>
                 </div>
