@@ -1,0 +1,49 @@
+<sb-layout-dashboard>
+    <div class="card mt-4">
+        <h1 class="card-header">Add Customer</h1>
+        <form [formGroup]="addCustomerForm">
+            <div class="container-fluid">
+                <!-- <h2 class="card-header mt-4 pb-2">General</h2> -->
+                <div class="row card-body">
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">First Name</label>
+                            <input type="text" formControlName="firstname" class="form-control" />
+                            <div *ngIf="firstname?.touched && firstname?.invalid" class="alert alert-danger">
+                                <div *ngIf="firstname?.errors?.required">First Name is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Last Name</label>
+                            <input type="text" formControlName="lastname" class="form-control" />
+                            <div *ngIf="lastname?.touched && lastname?.invalid" class="alert alert-danger">
+                                <div *ngIf="lastname?.errors?.required">Item Group Name is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Phone Number</label>
+                            <input type="text" formControlName="phone" class="form-control" />
+                            <div *ngIf="phone?.touched && phone?.invalid" class="alert alert-danger">
+                                <div *ngIf="phone?.errors?.required">Phone Number is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <button [disabled]="!addCustomerForm.valid" type="submit" (click)="onSubmit(addCustomerForm.value)"
+                    class="btn btn-primary mb-4 float-right">
+                    Submit
+                </button>
+
+            </div>
+        </form>
+    </div>
+</sb-layout-dashboard>

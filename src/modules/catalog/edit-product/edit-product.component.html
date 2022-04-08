@@ -1,12 +1,12 @@
 <sb-layout-dashboard>
 
     <div class="card mt-4 shadow">
-        <h1 class="card-header">Edit Product</h1>
+        <h1 class="card-header mb-3">Edit Product</h1>
         <form [formGroup]="editProductForm">
 
             <div class="container-fluid">
                 <!-- <h2 class="card-header mt-4 pb-2">General</h2> -->
-                <div class="row card-body">
+                <div class="row">
                     <!-- <div class="col">
                         <div class="form-group">
                             <label class="required mt-4">SKU</label>
@@ -19,7 +19,7 @@
 
                     <div class="col">
                         <div class="form-group">
-                            <label class="required mt-4">Name</label><br />
+                            <label class="required">Name</label><br />
                             <input type="text" formControlName="name" class="form-control" />
                             <div *ngIf="name?.touched && name?.invalid" class="alert alert-danger">
                                 <div *ngIf="name?.errors?.required">Name is required.</div>
@@ -27,7 +27,7 @@
                         </div>
                     </div>
 
-                    <div class="col">
+                    <!-- <div class="col">
                         <div class="form-group">
                             <label class="required">Quantity</label>
                             <input type="text" formControlName="quantity" class="form-control" />
@@ -35,7 +35,7 @@
                                 <div *ngIf="qty?.errors?.required">Quantity is required.</div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="col">
                         <div class="form-group">
@@ -208,7 +208,7 @@
                 </div> -->
 
                 <!-- <h2 class="card-header">Booking Information</h2> -->
-                <div class="row card-body">
+                <!-- <div class="row card-body"> -->
                     <!-- <div class="col">
                         <div class="form-group">
                             <label class="required">Type</label>
@@ -223,7 +223,7 @@
                     </div> -->
 
 
-                </div>
+                <!-- </div> -->
 
                 <button [disabled]="!editProductForm.valid" type="submit" class="btn btn-primary mb-4 float-right"
                     (click)="updateData(editProductForm.value)">

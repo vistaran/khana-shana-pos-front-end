@@ -7,10 +7,12 @@ import { NavigationModule } from '@modules/navigation/navigation.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { CustomerManagementComponent } from './customer-management/customer-management.component';
+import { AddCustomerComponent } from './add-customer/add-customer.component';
+import { EditCustomerComponent } from './edit-customer/edit-customer.component';
 
 
 @NgModule({
-  declarations: [CustomerManagementComponent],
+  declarations: [CustomerManagementComponent, AddCustomerComponent, EditCustomerComponent],
   imports: [
     CommonModule,
     NavigationModule,

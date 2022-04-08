@@ -97,6 +97,8 @@ export class EditProductComponent implements OnInit {
       product_type: ['', [Validators.required]],
       quantity: ['', [Validators.required]],
       price: ['', [Validators.required]],
+      category: ['', [Validators.required]],
+      description: ['', [Validators.required]]
 
       // metaTitle: [],
       // metaKeywords: [],
@@ -109,6 +111,7 @@ export class EditProductComponent implements OnInit {
 
     });
     this.id = this.route.snapshot.params.id
+    this.getCategoryData()
 
     // this.products.editProductForm(this.id).subscribe((data: any) => {
     //   this.editProductForm.patchValue(data.Show_Data)
@@ -132,6 +135,8 @@ export class EditProductComponent implements OnInit {
   getCategoryData() {
     this.categoryService.getCategoriesData(this.page).subscribe(data => {
       this.categoryData = data.category.data
+      console.log(data);
+
     })
   }
 }
