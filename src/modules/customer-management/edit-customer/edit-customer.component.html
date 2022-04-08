@@ -9,7 +9,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label class="required">First Name</label>
-                            <input type="text" formControlName="firstname" class="form-control" />
+                            <input type="text" formControlName="first_name" class="form-control" />
                             <div *ngIf="firstname?.touched && firstname?.invalid" class="alert alert-danger">
                                 <div *ngIf="firstname?.errors?.required">First Name is required.</div>
                             </div>
@@ -19,7 +19,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label class="required">Last Name</label>
-                            <input type="text" formControlName="lastname" class="form-control" />
+                            <input type="text" formControlName="last_name" class="form-control" />
                             <div *ngIf="lastname?.touched && lastname?.invalid" class="alert alert-danger">
                                 <div *ngIf="lastname?.errors?.required">Item Group Name is required.</div>
                             </div>
@@ -29,7 +29,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label class="required">Phone Number</label>
-                            <input type="text" formControlName="phone" class="form-control" />
+                            <input type="text" formControlName="phone_number" class="form-control" />
                             <div *ngIf="phone?.touched && phone?.invalid" class="alert alert-danger">
                                 <div *ngIf="phone?.errors?.required">Phone Number is required.</div>
                             </div>
@@ -52,7 +52,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label class="required">Home Address</label>
-                            <input type="text" formControlName="homeAddress" class="form-control" />
+                            <input type="text" formControlName="home_address" class="form-control" />
                             <div *ngIf="homeAddress?.touched && homeAddress?.invalid" class="alert alert-danger">
                                 <div *ngIf="homeAddress?.errors?.required">Home Address is required.</div>
                             </div>
@@ -62,7 +62,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label class="required">Office Address</label>
-                            <input type="text" formControlName="officeAddress" class="form-control" />
+                            <input type="text" formControlName="office_address" class="form-control" />
                             <div *ngIf="officeAddress?.touched && officeAddress?.invalid" class="alert alert-danger">
                                 <div *ngIf="officeAddress?.errors?.required">Office Address is required.</div>
                             </div>
@@ -72,7 +72,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label class="required">Other Address(optional)</label>
-                            <input type="text" formControlName="otherAddress" class="form-control" />
+                            <input type="text" formControlName="other_address" class="form-control" />
                         </div>
                     </div>
 

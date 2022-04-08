@@ -33,7 +33,7 @@ export class CustomerManagementComponent implements OnInit {
 
   getCustomerData() {
     this.customerService.getCustomerData().subscribe(data=> {
-      this.customerData = data
+      this.customerData = data.customers
       this.length = this.customerData.length
     })
   }
@@ -45,19 +45,21 @@ export class CustomerManagementComponent implements OnInit {
 
   // For updating data on page change
   onPageChange(event: any) {
-    // this.page = event;
-    // this.getCustomerData();
-    // console.log('Here >>>', this.page, this.productData);
+    this.page = event;
+    this.getCustomerData();
+    console.log('Here >>>', this.page, this.customerData);
   }
 
   // For deleting product
   deleteRow(id: number) {
-    // this.customerService.deleteProducts(id).subscribe(data => {
-    //   this.getCustomerData();
-    //   this.toast.success('Success', 'Deleted Successfully.')
-    // }, err => {
-    //   this.toast.error('Error', 'Server error.')
-    // });
+    if (confirm('Are you sure you want to delete?')) {
+      this.customerService.deleteCustomer(id).subscribe(data => {
+        this.getCustomerData();
+        this.toast.success('Success', 'Deleted Successfully.')
+      }, err => {
+        this.toast.error('Error', 'Server error.')
+      });
+    }
   }
 
 

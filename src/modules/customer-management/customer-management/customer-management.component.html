@@ -32,8 +32,8 @@
                             <tbody>
                                 <tr *ngFor="let data of customerData">
                                     <td>{{ data.id }}</td>
-                                    <td>{{ data.firstname }} {{ data.lastname}}</td>
-                                    <td>{{ data.phone }}</td>
+                                    <td>{{ data.first_name }} {{ data.last_name}}</td>
+                                    <td>{{ data.phone_number }}</td>
                                     <td>
                                         <button class="btn btn-info mr-2"><i class="fa fa-pencil-square-o fa-lg"
                                                 [routerLink]="['/customer_management/editcustomer/' + data.id]"></i></button>
