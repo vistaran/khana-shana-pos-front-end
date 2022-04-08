@@ -48,10 +48,10 @@ export class ProductsComponent implements OnInit {
   // To get products data for table listing
   getProductData() {
     this.showloader = true
-    this.productService.getProducts(this.page).subscribe(result => {
-      this.productData = result.Products.data;
+    this.productService.getProducts().subscribe(result => {
+      this.productData = result.products.data;
       this.length = this.productData.length;
-      this.total = result.Products.total;
+      this.total = result.products.total;
       this.showloader = false
       console.log(this.length)
     }, err => {
@@ -87,9 +87,9 @@ export class ProductsComponent implements OnInit {
   search(event: any) {
     this.showloader = true
     this.productService.searchProducts(this.searchValue).subscribe(res => {
-      this.productData = res.Products.data
+      this.productData = res.products.data
       this.length = this.productData.length;
-      this.total = res.Products.total;
+      this.total = res.products.total;
       this.showloader = false
       console.log(this.productData, this.length)
     }, err => {

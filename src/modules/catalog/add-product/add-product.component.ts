@@ -17,38 +17,20 @@ export class AddProductComponent implements OnInit {
   attributeFamilyData: any = [];
   categoryData: any = [];
   page = 1
+  category_name: any
 
   // For validations
-  get productType() {
-    return this.addProductForm.get('productType');
-  }
 
   get name() {
-    return this.addProductForm.get('name');
-  }
-
-  get sku() {
-    return this.addProductForm.get('sku');
-  }
-
-  get status() {
-    return this.addProductForm.get('status');
-  }
-
-  get qty() {
-    return this.addProductForm.get('quantity');
+    return this.addProductForm.get('product_name');
   }
 
   get price() {
     return this.addProductForm.get('price');
   }
 
-  get family_name() {
-    return this.addProductForm.get('attribute_family_name');
-  }
-
   get category() {
-    return this.addProductForm.get('category')
+    return this.addProductForm.get('category_id')
   }
 
   get description() {
@@ -70,25 +52,13 @@ export class AddProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.addProductForm = this.fb.group({
-      // product_type: ['', [Validators.required]],
-      name: ['', [Validators.required]],
-      // sku: ['', [Validators.required]],
-      // status: ['', [Validators.required]],
+      product_name: ['', [Validators.required]],
       price: ['', [Validators.required]],
-      quantity: ['', [Validators.required]],
-      category: ['',[Validators.required]],
+      category_id: ['',[Validators.required]],
       description: ['',[Validators.required]]
-      // attribute_family_name: ['', [Validators.required]]
     });
-    // this.getAttributeFamilyData()
     this.getCategoryData()
   }
-
-  // getAttributeFamilyData() {
-  //   this.attributeFamilyService.getFamily(this.page).subscribe(data => {
-  //     this.attributeFamilyData = data.attributefamily.data
-  //   })
-  // }
 
   // For Category dropdown
   getCategoryData() {
@@ -99,8 +69,22 @@ export class AddProductComponent implements OnInit {
 
   // For submitting add product form data
   onSubmit(data: any) {
+
+    this.categoryData.forEach((g: any) => {
+      if (g.id == data.category_id) {
+        this.category_name = g.name
+      }
+    });
+
+    const obj = {
+      product_name: data.product_name,
+      price: data.price,
+      category_id: data.category_id,
+      category_name: this.category_name ,
+      description: data.description,
+    }
     this.products
-      .postProducts(data)
+      .postProducts(obj)
       .subscribe((result: any) => {
         console.log(result)
         this.toast.success('Success', 'Added successfully.')
@@ -108,5 +92,8 @@ export class AddProductComponent implements OnInit {
       }, err => {
         this.toast.error('Error', 'Server error.')
       });
+    console.log(data);
+
   }
+
 }
