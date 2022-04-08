@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AppToastService } from '@modules/shared-module/services/app-toast.service';
-import { AttributeFamilyService } from '../attribute-family.service';
 
+import { AttributeFamilyService } from '../attribute-family.service';
+import { CategoriesService } from '../categories.service';
 import { ProductService } from '../product.service';
 
 @Component({
@@ -14,6 +15,7 @@ import { ProductService } from '../product.service';
 export class AddProductComponent implements OnInit {
 
   attributeFamilyData: any = [];
+  categoryData: any = [];
   page = 1
 
   // For validations
@@ -45,12 +47,21 @@ export class AddProductComponent implements OnInit {
     return this.addProductForm.get('attribute_family_name');
   }
 
+  get category() {
+    return this.addProductForm.get('category')
+  }
+
+  get description() {
+    return this.addProductForm.get('description')
+  }
+
   constructor(
     private fb: FormBuilder,
     private products: ProductService,
     private toast: AppToastService,
     private router: Router,
-    private attributeFamilyService: AttributeFamilyService
+    private attributeFamilyService: AttributeFamilyService,
+    private categoryService: CategoriesService
   ) { }
 
   addProductForm!: FormGroup;
@@ -59,20 +70,30 @@ export class AddProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.addProductForm = this.fb.group({
-      product_type: ['', [Validators.required]],
+      // product_type: ['', [Validators.required]],
       name: ['', [Validators.required]],
-      sku: ['', [Validators.required]],
-      status: ['', [Validators.required]],
+      // sku: ['', [Validators.required]],
+      // status: ['', [Validators.required]],
       price: ['', [Validators.required]],
       quantity: ['', [Validators.required]],
-      attribute_family_name: ['', [Validators.required]]
+      category: ['',[Validators.required]],
+      description: ['',[Validators.required]]
+      // attribute_family_name: ['', [Validators.required]]
     });
-    this.getAttributeFamilyData()
+    // this.getAttributeFamilyData()
+    this.getCategoryData()
   }
 
-  getAttributeFamilyData() {
-    this.attributeFamilyService.getFamily(this.page).subscribe(data => {
-      this.attributeFamilyData = data.attributefamily.data
+  // getAttributeFamilyData() {
+  //   this.attributeFamilyService.getFamily(this.page).subscribe(data => {
+  //     this.attributeFamilyData = data.attributefamily.data
+  //   })
+  // }
+
+  // For Category dropdown
+  getCategoryData() {
+    this.categoryService.getCategoriesData(this.page).subscribe(data => {
+      this.categoryData = data.category.data
     })
   }
 

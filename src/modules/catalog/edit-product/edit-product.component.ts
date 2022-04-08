@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppToastService } from '@modules/shared-module/services/app-toast.service';
 
+import { CategoriesService } from '../categories.service';
 import { ProductService } from '../product.service';
 
 @Component({
@@ -15,17 +16,21 @@ export class EditProductComponent implements OnInit {
   editProductForm!: FormGroup;
   id: any
 
+  categoryData: any = [];
+
   taxCategory = [];
   color = ['Red', 'Blue', 'Green', 'Yellow'];
   size = ['S', 'M', 'L', 'XL', 'XXL'];
   brand = ['Nike', 'Adidas', 'Reebok', 'Nivea'];
   type = ['booking', 'simple'];
+  page = 1;
 
   constructor(private fb: FormBuilder,
     private productService: ProductService,
     private route: ActivatedRoute,
     private router: Router,
-    private toast: AppToastService
+    private toast: AppToastService,
+    private categoryService: CategoriesService
   ) { }
 
   // For validations
@@ -67,6 +72,10 @@ export class EditProductComponent implements OnInit {
 
   get price() {
     return this.editProductForm.get('price');
+  }
+
+  get category() {
+    return this.editProductForm.get('category');
   }
 
   ngOnInit(): void {
@@ -117,5 +126,12 @@ export class EditProductComponent implements OnInit {
       this.toast.error('Error', 'Server error.')
     })
     { queryParams: { outlet: true } }
+  }
+
+  // For Category dropdown
+  getCategoryData() {
+    this.categoryService.getCategoriesData(this.page).subscribe(data => {
+      this.categoryData = data.category.data
+    })
   }
 }

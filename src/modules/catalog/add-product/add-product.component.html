@@ -1,13 +1,13 @@
 <sb-layout-dashboard>
 
     <div class="card mt-4">
-        <h1 class="card-header">Add Product</h1>
+        <h1 class="card-header mb-3">Add Product</h1>
         <form [formGroup]="addProductForm">
 
             <div class="container-fluid">
-                <h2 class="card-header mt-4 pb-2">General</h2>
+                <!-- <h2 class="card-header mt-4 pb-2">General</h2> -->
                 <div class="row">
-                    <div class="col">
+                    <!-- <div class="col">
                         <div class="form-group">
                             <label class="required mt-4">Product Type</label>
                             <input type="text" formControlName="product_type" class="form-control" />
@@ -15,22 +15,78 @@
                                 <div *ngIf="productType?.errors?.required">Product type is required.</div>
                             </div>
                         </div>
+                    </div> -->
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Name</label><br />
+                            <input type="text" rows="6" formControlName="name" class="form-control" />
+                            <div *ngIf="name?.touched && name?.invalid" class="alert alert-danger">
+                                <div *ngIf="name?.errors?.required">Name is required.</div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="col">
                         <div class="form-group">
-                            <label class="required mt-4">Name</label><br />
-                            <input type="text" rows="6" formControlName="name" class="form-control" />
-                            <div *ngIf="name?.touched && name?.invalid" class="alert alert-danger">
-                                <div *ngIf="name?.errors?.required">Attribute Family is required.</div>
+                            <label class="required">Quantity</label>
+                            <input type="text" formControlName="quantity" class="form-control" />
+                            <div *ngIf="qty?.touched && qty?.invalid" class="alert alert-danger">
+                                <div *ngIf="qty?.errors?.required">Quantity is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Price</label>
+                            <div class="input-group">
+
+
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup">₹</span>
+                                </div>
+                                <input type="text" formControlName="price" class="form-control" />
+                                <div *ngIf="price?.touched && price?.invalid" class="alert alert-danger">
+                                    <div *ngIf="price?.errors?.required">Price is required.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Category</label>
+                            <select name="status" formControlName="category" class="form-control">
+                                <option value="default">--Select Category--</option>
+                                <option *ngFor="let item of categoryData">{{ item.name }}
+                                </option>
+                            </select>
+                            <div *ngIf="category?.touched && category?.invalid" class="alert alert-danger">
+                                <div *ngIf="category?.errors?.required">Category is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Description</label><br />
+                            <input type="text" rows="6" formControlName="description" class="form-control" />
+                            <div *ngIf="description?.touched && description?.invalid" class="alert alert-danger">
+                                <div *ngIf="description?.errors?.required">description is required.</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
 
-                <div class="row">
-                    <div class="col">
+                <!-- <div class="row"> -->
+                <!-- <div class="col">
                         <div class="form-group">
                             <label class="required mt-4">SKU</label>
                             <input type="text" rows="6" formControlName="sku" class="form-control" />
@@ -40,12 +96,12 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </div> -->
+                <!-- </div> -->
 
-                <h2 class="card-header">Booking Information</h2>
-                <div class="row card-body">
-                    <div class="col">
+                <!-- <h2 class="card-header">Booking Information</h2> -->
+                <!-- <div class="row card-body"> -->
+                <!-- <div class="col">
                         <div class="form-group">
                             <div class="custom-control custom-switch">
                                 <input type="checkbox" class="custom-control-input" id="customSwitch4"
@@ -58,30 +114,14 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
-                    <div class="col">
-                        <div class="form-group">
-                            <label class="required">Qty</label>
-                            <input type="text" formControlName="quantity" class="form-control" />
-                            <div *ngIf="qty?.touched && qty?.invalid" class="alert alert-danger">
-                                <div *ngIf="qty?.errors?.required">Quantity is required.</div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="col">
-                        <div class="form-group">
-                            <label class="required">Price</label>
-                            <input type="text" formControlName="price" class="form-control" />
-                            <div *ngIf="price?.touched && price?.invalid" class="alert alert-danger">
-                                <div *ngIf="price?.errors?.required">Price is required.</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="col">
+
+                <!-- </div> -->
+
+                <!-- <div class="col">
                     <div class="form-group">
                         <label class="required">Attribute Family Name</label>
                         <select name="status" formControlName="attribute_family_name" class="form-control">
@@ -92,7 +132,7 @@
                             <div *ngIf="family_name?.errors?.required">Attribute Family is required.</div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- status price quantity -->
                 <button [disabled]="!addProductForm.valid" class="btn btn-primary mb-4 float-right"

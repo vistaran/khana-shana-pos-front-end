@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppToastService } from '@modules/shared-module/services/app-toast.service';
 
+import { AttributesService } from '../attributes.service';
+
 import { CategoriesService } from './../categories.service';
 
 @Component({
@@ -14,9 +16,10 @@ export class EditCategoryComponent implements OnInit {
 
   editCategoryForm!: FormGroup;
 
+  public attributesData: any = [];
+
   id: any;
   status = ['active', 'inactive'];
-  attribut = ['price', 'brand']
   visibleInMenu = ['Yes', 'No'];
   displayMode = ['Products and Descrition'];
   parentCategory = ['Yoga', 'Badminton'];
@@ -67,7 +70,8 @@ export class EditCategoryComponent implements OnInit {
     private categoryService: CategoriesService,
     private route: ActivatedRoute,
     private router: Router,
-    private toast: AppToastService
+    private toast: AppToastService,
+    private attributeService: AttributesService
   ) { }
 
   ngOnInit(): void {
@@ -97,6 +101,7 @@ export class EditCategoryComponent implements OnInit {
       console.log(data)
     })
     this.getParentCategrory()
+    this.getAttributesData()
   }
 
   // For parent category listing
@@ -106,6 +111,13 @@ export class EditCategoryComponent implements OnInit {
       console.log(this.parentCategroryData)
     }, err => {
       this.toast.error('Error', 'Server error.')
+    })
+  }
+
+  // For attributes dropdown
+  getAttributesData() {
+    this.attributeService.getAttributesData(this.page).subscribe(data =>{
+      this.attributesData = data.Attributes.data
     })
   }
 

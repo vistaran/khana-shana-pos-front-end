@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AppToastService } from '@modules/shared-module/services/app-toast.service';
 
+import { AttributesService } from '../attributes.service';
+
 import { CategoriesService } from './../categories.service';
 
 @Component({
@@ -13,7 +15,10 @@ import { CategoriesService } from './../categories.service';
 export class AddCategoryComponent implements OnInit {
 
   addCategoryForm!: FormGroup;
+
+  attributesData: any = [];
   parentCategroryData: any;
+
   visibleInMenu = ['Yes', 'No'];
   displayMode = ['Products and Description'];
   parentCategory = ['Yoga', 'Badminton'];
@@ -65,7 +70,8 @@ export class AddCategoryComponent implements OnInit {
     private fb: FormBuilder,
     private categoryService: CategoriesService,
     private toast: AppToastService,
-    private router: Router
+    private router: Router,
+    private attributeService: AttributesService
   ) { }
 
   ngOnInit(): void {
@@ -86,6 +92,7 @@ export class AddCategoryComponent implements OnInit {
       status: ['', [Validators.required]]
     });
     this.getParentCategrory()
+    this.getAttributesData()
   }
 
   // For submitting Add category form data
@@ -109,6 +116,13 @@ export class AddCategoryComponent implements OnInit {
     }, err => {
       this.toast.error('Error', 'Server error.')
     });
+  }
+
+  // For attributes dropdown
+  getAttributesData() {
+    this.attributeService.getAttributesData(this.page).subscribe(data =>{
+      this.attributesData = data.Attributes.data
+    })
   }
 
   // onSelectName(id: any) {

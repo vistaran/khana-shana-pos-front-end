@@ -5,9 +5,9 @@
         <form [formGroup]="editProductForm">
 
             <div class="container-fluid">
-                <h2 class="card-header mt-4 pb-2">General</h2>
+                <!-- <h2 class="card-header mt-4 pb-2">General</h2> -->
                 <div class="row card-body">
-                    <div class="col">
+                    <!-- <div class="col">
                         <div class="form-group">
                             <label class="required mt-4">SKU</label>
                             <input type="text" formControlName="sku" class="form-control" />
@@ -15,7 +15,7 @@
                                 <div *ngIf="sku?.errors?.required">SKU is required.</div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="col">
                         <div class="form-group">
@@ -23,6 +23,33 @@
                             <input type="text" formControlName="name" class="form-control" />
                             <div *ngIf="name?.touched && name?.invalid" class="alert alert-danger">
                                 <div *ngIf="name?.errors?.required">Name is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Quantity</label>
+                            <input type="text" formControlName="quantity" class="form-control" />
+                            <div *ngIf="qty?.touched && qty?.invalid" class="alert alert-danger">
+                                <div *ngIf="qty?.errors?.required">Quantity is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Price</label>
+                            <div class="input-group">
+
+
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup">₹</span>
+                                </div>
+                                <input type="text" formControlName="price" class="form-control" />
+                                <div *ngIf="price?.touched && price?.invalid" class="alert alert-danger">
+                                    <div *ngIf="price?.errors?.required">Price is required.</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -50,26 +77,52 @@
                     </div> -->
                 </div>
 
-                <div class="row card-body">
-                    <!-- <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Category</label>
+                            <select name="status" formControlName="category" class="form-control">
+                                <option value="default">--Select Category--</option>
+                                <option *ngFor="let item of categoryData">{{ item.name }}
+                                </option>
+                            </select>
+                            <div *ngIf="category?.touched && category?.invalid" class="alert alert-danger">
+                                <div *ngIf="category?.errors?.required">Category is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Description</label><br />
+                            <input type="text" rows="6" formControlName="description" class="form-control" />
+                            <div *ngIf="description?.touched && description?.invalid" class="alert alert-danger">
+                                <div *ngIf="description?.errors?.required">description is required.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="row card-body">
+                    <div class="col">
                         <div class="form-group">
                             <div class="custom-control custom-switch">
                                 <input type="checkbox" class="custom-control-input" id="customSwitch1" formControlName="new">
                                 <label class="custom-control-label" for="customSwitch1">New</label>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
 
-                    <!-- <div class="col">
+                    <div class="col">
                         <div class="form-group">
                             <div class="custom-control custom-switch">
                                 <input type="checkbox" class="custom-control-input" id="customSwitch2" formControlName="featured">
                                 <label class="custom-control-label" for="customSwitch2">Featured</label>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
 
-                    <!-- <div class="col">
+                    <div class="col">
                         <div class="form-group">
                             <div class="custom-control custom-switch">
                                 <input type="checkbox" class="custom-control-input" id="customSwitch3" formControlName="visibleIndividually">
@@ -81,7 +134,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
 
                     <div class="col">
                         <div class="form-group">
@@ -97,9 +150,9 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
-                <div class="row card-body">
+                <!-- <div class="row card-body"> -->
                     <!-- <div class="col">
                         <div class="form-group">
                             <label class="required">Color</label>
@@ -129,7 +182,7 @@
                             </select>
                         </div>
                     </div> -->
-                </div>
+                <!-- </div> -->
 
                 <!-- <h2 class="card-header">Description</h2>
                 <div class="row card-body">
@@ -154,9 +207,9 @@
                     </div>
                 </div> -->
 
-                <h2 class="card-header">Booking Information</h2>
+                <!-- <h2 class="card-header">Booking Information</h2> -->
                 <div class="row card-body">
-                    <div class="col">
+                    <!-- <div class="col">
                         <div class="form-group">
                             <label class="required">Type</label>
                             <select name="status" formControlName="product_type" class="form-control">
@@ -167,27 +220,8 @@
                                 <div *ngIf="typ?.errors?.required">Type is required.</div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
-                    <div class="col">
-                        <div class="form-group">
-                            <label class="required">Qty</label>
-                            <input type="text" formControlName="quantity" class="form-control" />
-                            <div *ngIf="qty?.touched && qty?.invalid" class="alert alert-danger">
-                                <div *ngIf="qty?.errors?.required">Quantity is required.</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="form-group">
-                            <label class="required">Price</label>
-                            <input type="text" formControlName="price" class="form-control" />
-                            <div *ngIf="price?.touched && price?.invalid" class="alert alert-danger">
-                                <div *ngIf="price?.errors?.required">Price is required.</div>
-                            </div>
-                        </div>
-                    </div>
 
                 </div>
 

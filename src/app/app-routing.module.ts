@@ -18,6 +18,11 @@ const routes: Routes = [
             import('modules/catalog/catalog-routing.module').then(m => m.CatalogRoutingModule),
     },
     {
+        path: 'customer_management',
+        loadChildren: () =>
+            import('modules/customer-management/customer-management-routing.module').then(m => m.CustomerManagementRoutingModule),
+    },
+    {
         path: 'pos',
         loadChildren: () =>
             import('modules/pos/pos-routing.module').then(m => m.PosRoutingModule),

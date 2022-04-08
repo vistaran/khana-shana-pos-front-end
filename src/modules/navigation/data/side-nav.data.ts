@@ -3,7 +3,7 @@ import { SideNavItems, SideNavSection } from '@modules/navigation/models';
 export const sideNavSections: SideNavSection[] = [
     {
         text: 'CORE',
-        items: ['dashboard', 'sales', 'catalog'],
+        items: ['dashboard', 'sales', 'catalog', 'customer'],
     },
     {
         text: 'POS',
@@ -26,6 +26,11 @@ export const sideNavItems: SideNavItems = {
         icon: 'tachometer-alt',
         text: 'Catalog',
         link: '/catalog/products',
+    },
+    customer: {
+        icon: 'tachometer-alt',
+        text: 'Customers',
+        link: '/customer_management'
     },
     // categories: {
     //     icon: '',
