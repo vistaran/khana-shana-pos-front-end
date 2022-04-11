@@ -9,10 +9,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CustomerManagementComponent } from './customer-management/customer-management.component';
 import { AddCustomerComponent } from './add-customer/add-customer.component';
 import { EditCustomerComponent } from './edit-customer/edit-customer.component';
+import { EditCustomerAddressComponent } from './edit-customer-address/edit-customer-address.component';
 
 
 @NgModule({
-  declarations: [CustomerManagementComponent, AddCustomerComponent, EditCustomerComponent],
+  declarations: [CustomerManagementComponent, AddCustomerComponent, EditCustomerComponent, EditCustomerAddressComponent],
   imports: [
     CommonModule,
     NavigationModule,

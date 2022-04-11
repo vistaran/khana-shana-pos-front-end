@@ -7,11 +7,11 @@ export const sideNavSections: SideNavSection[] = [
     },
     {
         text: 'POS',
-        items: ['layouts', 'vendors', 'uom', 'pages'],
+        items: ['users', 'vendors', 'uom'],
     },
     {
         text: 'ADDONS',
-        items: ['items', 'item_groups', 'purchase_orders', 'charts', 'tables'],
+        items: ['items', 'item_groups', 'purchase_orders'],
     },
 
 ];
@@ -67,7 +67,7 @@ export const sideNavItems: SideNavItems = {
         text: 'Refunds',
         link: '/sales/refunds'
     },
-    layouts: {
+    users: {
         icon: 'columns',
         text: 'Users',
         link: '/pos/users'
@@ -137,15 +137,15 @@ export const sideNavItems: SideNavItems = {
         text: 'Purchase Orders',
         link: '/purchase_orders'
     },
-    charts: {
-        icon: 'chart-area',
-        text: 'Charts',
-        link: '/charts',
-    },
-    tables: {
-        icon: 'table',
-        text: 'Tables',
-        link: '/tables',
-    },
+    // charts: {
+    //     icon: 'chart-area',
+    //     text: 'Charts',
+    //     link: '/charts',
+    // },
+    // tables: {
+    //     icon: 'table',
+    //     text: 'Tables',
+    //     link: '/tables',
+    // },
 
 };
