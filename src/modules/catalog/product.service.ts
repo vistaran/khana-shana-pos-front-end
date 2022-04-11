@@ -10,8 +10,8 @@ import { Data, ProductData } from './prodList';
 })
 export class ProductService {
 
-  // private url = environment.apiUrl + 'product/';
-  private url = 'https://8ddf-43-241-194-255.ngrok.io/api/product'
+  private url = environment.apiUrl + 'product/';
+  // private url = 'https://8ddf-43-241-194-255.ngrok.io/api/product'
 
   constructor(private http: HttpClient) { }
 
