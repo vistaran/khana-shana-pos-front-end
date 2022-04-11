@@ -32,10 +32,12 @@ export class CustomerManagementComponent implements OnInit {
   }
 
   getCustomerData() {
-    this.customerService.getCustomerData().subscribe(data=> {
+    this.customerService.getCustomerData(this.page).subscribe(data=> {
       this.customerData = data.customers
       this.length = this.customerData.length
-    })
+    }, err => {
+      this.toast.error('Error', 'Server error.')
+    });
   }
 
   // For navigating to add product form on click

@@ -1,12 +1,14 @@
 <sb-layout-dashboard>
-    <div class="card mt-4">
-        <h1 class="card-header">Add Item</h1>
-        <form [formGroup]="addItemForm">
-            <div class="container-fluid">
-                <!-- <h2 class="card-header mt-4 pb-2">General</h2> -->
-                <div class="row card-body">
+    <div class="d-flex justify-content-center">
 
-                    <div class="col">
+    <div class="card shadow w-75 mt-3">
+        <h1 class="card-header mb-3 text-center">Add Item</h1>
+        <form [formGroup]="addItemForm">
+            <div class="container">
+                <!-- <h2 class="card-header mt-4 pb-2">General</h2> -->
+                <div class="row card-body justify-content-around">
+
+                    <div class="col-6 col-sm-4">
                         <div class="form-group">
                             <label class="required">Item Name</label>
                             <input type="text" formControlName="item_name" class="form-control" />
@@ -16,7 +18,7 @@
                         </div>
                     </div>
 
-                    <div class="col">
+                    <div class="col-6 col-sm-4">
                         <div class="form-group">
                             <label class="required">Select Unit</label>
                             <select name="unit_id" formControlName="unit_id" class="form-control">
@@ -36,7 +38,7 @@
                         </div>
                     </div>
 
-                    <div class="col">
+                    <div class="col-6 col-sm-4">
                         <div class="form-group">
                             <label class="required">Select Item Group</label>
                             <select name="item_group_id" formControlName="item_group_id" class="form-control">
@@ -65,5 +67,6 @@
 
             </div>
         </form>
+    </div>
     </div>
 </sb-layout-dashboard>

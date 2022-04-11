@@ -80,7 +80,7 @@ export class AddProductComponent implements OnInit {
       product_name: data.product_name,
       price: data.price,
       category_id: data.category_id,
-      category_name: this.category_name ,
+      category_name: this.category_name,
       description: data.description,
     }
     this.products

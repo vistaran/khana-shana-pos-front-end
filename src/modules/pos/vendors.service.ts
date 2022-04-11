@@ -10,14 +10,14 @@ import { Data, Vendors } from './vendorData';
 })
 export class VendorsService {
 
-  private url = environment.apiUrl + 'vendors/';
+  private url = environment.apiUrl + 'vendors';
 
   constructor(
     private http: HttpClient
   ) { }
 
-  getVendorsData(): Observable<Vendors> {
-    return this.http.get<Vendors>(this.url);
+  getVendorsData(page: number): Observable<Vendors> {
+    return this.http.get<Vendors>(this.url + '?page=' + page);
   }
 
   postVendorData(data: any): Observable<Vendors> {
@@ -25,15 +25,15 @@ export class VendorsService {
   }
 
   deleteVendor(id: number) {
-    return this.http.delete(this.url + id)
+    return this.http.delete(this.url + '/' + id)
   }
 
   editVendor(id: number, data: any) {
-    return this.http.put(this.url + id, data)
+    return this.http.put(this.url + '/' + id, data)
   }
 
   patchVendorData(id: number): Observable<Data> {
-    return this.http.get<Data>(this.url + id);
+    return this.http.get<Data>(this.url + '/' + id);
   }
 
 }

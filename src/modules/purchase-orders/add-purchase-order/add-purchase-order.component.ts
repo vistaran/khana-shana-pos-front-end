@@ -140,7 +140,7 @@ export class AddPurchaseOrderComponent implements OnInit {
 
   // To get Vendors Data
   getVendorsData() {
-    this.vendorService.getVendorsData().subscribe(data => {
+    this.vendorService.getVendorsData(this.page).subscribe(data => {
       this.vendorData = data.vendors.data;
     })
   }

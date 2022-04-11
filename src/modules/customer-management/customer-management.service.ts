@@ -10,25 +10,25 @@ import { CustomerData } from './customer';
 })
 export class CustomerManagementService {
 
-  // private url = 'http://127.0.0.1:8000/api/customer/'
-  private url = environment.apiUrl + 'customer/'
+  private url = 'http://63b9-103-39-129-200.ngrok.io/api/customer'
+  // private url = environment.apiUrl + 'customer/'
 
   constructor(
     private http: HttpClient
   ) { }
 
-  getCustomerData(): Observable<CustomerData> {
-    return this.http.get<CustomerData>(this.url);
+  getCustomerData(page: number): Observable<CustomerData> {
+    return this.http.get<CustomerData>(this.url + '?page=' + page); 
   }
 
   // For deleting user data
   deleteCustomer(id: number) {
-    return this.http.delete(this.url + id)
+    return this.http.delete(this.url + '/' + id)
   }
 
   // For editing user data
   editCustomer(id: number, data: any) {
-    return this.http.put(this.url + id, data)
+    return this.http.put(this.url + '/' + id, data)
   }
 
   postCustomerData(data: any) {
@@ -42,6 +42,6 @@ export class CustomerManagementService {
 
   // To get edit user form field values
   editCustomerForm<FetchCustomer>(id: number) {
-    return this.http.get<FetchCustomer>(this.url + id)
+    return this.http.get<FetchCustomer>(this.url + '/' + id)
   }
 }

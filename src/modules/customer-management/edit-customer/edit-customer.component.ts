@@ -51,10 +51,10 @@ export class EditCustomerComponent implements OnInit {
       first_name: ['', [Validators.required]],
       last_name: ['', [Validators.required]],
       phone_number: ['', [Validators.required]],
-      email: ['', [Validators.required]],
+      email: [''],
       home_address: ['', [Validators.required]],
       office_address: ['', [Validators.required]],
-      other_address: ['', [Validators.required]]
+      other_address: ['']
     })
 
     this.id = this.route.snapshot.params.id

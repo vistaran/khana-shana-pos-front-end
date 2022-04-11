@@ -36,7 +36,7 @@ export class VendorsComponent implements OnInit {
 
   getVendorsData() {
     this.showloader = true;
-    this.vendorService.getVendorsData().subscribe(data => {
+    this.vendorService.getVendorsData(this.page).subscribe(data => {
       this.vendorData = data.vendors.data;
       this.length = this.vendorData.length
       this.showloader = false;
