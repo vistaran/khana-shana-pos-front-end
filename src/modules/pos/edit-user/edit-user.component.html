@@ -1,5 +1,5 @@
 <sb-layout-dashboard>
-    <div class="card">
+    <div class="card mt-4">
         <h1 class="card-header">Edit User</h1>
         <form [formGroup]="editUserForm">
             <div class="container-fluid">
@@ -129,7 +129,7 @@
                 </div>
 
                 <button [disabled]="!editUserForm.valid" type="submit" (click)="updateData(editUserForm.value)"
-                    class="btn btn-primary mb-4 float-right" [routerLink]="['/pos/users']">
+                    class="btn btn-primary mb-4 float-right">
                     Submit
                 </button>
             </div>

@@ -79,6 +79,7 @@ export class AddOutletComponent implements OnInit {
       .postOutletData(data)
       .subscribe((result: any) => {
         this.router.navigate(['/pos/users'], {queryParams: {outlet: true}});
+        this.toast.success('Success', 'Added Successfully.')
       }, err =>  {
         this.toast.error('Error', 'Server error.')
       });

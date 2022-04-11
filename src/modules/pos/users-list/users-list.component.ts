@@ -31,7 +31,7 @@ export class UsersListComponent implements OnInit {
         private router: Router,
         private activatedRoute: ActivatedRoute,
         private toast: AppToastService
-    ) { 
+    ) {
         if(this.activatedRoute.snapshot.queryParams.outlet) {
             this.activeId = 2
         }
@@ -50,9 +50,11 @@ export class UsersListComponent implements OnInit {
             this.length = result.user.per_page;
             this.total = result.user.total;
             this.showloader = false
+            console.log(result);
+
         }, err => {
             this.showloader = false
-            this.toast.show('Error', 'Server error', {className: 'bg-danger text-light'})
+            this.toast.error('Error', 'Server error.')
         })
     }
 
@@ -73,8 +75,10 @@ export class UsersListComponent implements OnInit {
 
         this.userService.deleteUser(id).subscribe(data => {
             this.getUserData();
+            this.toast.success('Success', 'Deleted Successfully.')
+        }, err => {
+            this.toast.error('Error', 'Server error.')
         });
-        console.log(this.userData);
     }
 
     // For searching users data from table
@@ -86,6 +90,9 @@ export class UsersListComponent implements OnInit {
             this.total = res.users.total;
             this.showloader = false
             console.log(this.userData)
+        }, err => {
+            this.showloader = false
+            this.toast.error('Error', 'Server error.')
         })
     }
 

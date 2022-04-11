@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { data } from 'jquery';
+import { AppToastService } from '@modules/shared-module/services/app-toast.service';
 
 import { OutletDataService } from './../outlet-data.service';
 
@@ -15,11 +15,11 @@ export class EditOutletComponent implements OnInit {
     editOutletForm!: FormGroup
     id: any
 
-    inventorySource = ['default'];
+    inventory_source = ['default'];
     status = ['active', 'inactive'];
 
     // For Validations
-    get outletName() {
+    get name() {
         return this.editOutletForm.get('name');
     }
 
@@ -54,32 +54,51 @@ export class EditOutletComponent implements OnInit {
     constructor(private fb: FormBuilder,
         private outletService: OutletDataService,
         private route: ActivatedRoute,
-        private router: Router) { }
+        private router: Router,
+        private toast: AppToastService) { }
 
     ngOnInit(): void {
         this.editOutletForm = this.fb.group({
-            name: ['', [Validators.required]],
-            address: ['', [Validators.required]],
-            country: ['', [Validators.required]],
-            state: ['', [Validators.required]],
-            city: ['', [Validators.required]],
-            postcode: ['', [Validators.required]],
+            Outlet_name: ['', [Validators.required]],
+            Outlet_Address: ['', [Validators.required]],
+            Country: ['', [Validators.required]],
+            State: ['', [Validators.required]],
+            City: ['', [Validators.required]],
+            Postcode: ['', [Validators.required]],
             inventory_source: ['', [Validators.required]],
-            status: ['', [Validators.required]]
+            Status: ['', [Validators.required]]
         });
         this.id = this.route.snapshot.params.id
 
-        // this.edit.editOutletForm(this.id).subscribe((data: any) => {
-        //     this.editOutletForm.patchValue(data.Show_Data)
-        //     console.log(data)
-        // })
+        this.outletService.editOutletForm(this.id).subscribe((data: any) => {
+            console.log(data);
+            
+            this.editOutletForm.patchValue(data)
+        })
     }
 
     // For submitting edit outlet form data
     updateData(data: any) {
-        this.outletService.editOutlet(this.id, data).subscribe(data => {
-            console.log('Data updated successfully! ', data)
-        })
-        this.router.navigate(['/pos/users']);
+        var obj = {
+            name: data.Outlet_name,
+            address: data.Outlet_Address,
+            country: data.Country,
+            state: data.State,
+            city: data.City,
+            postcode: data.Postcode,
+            inventory_source: data.inventory_source,
+            status:data.Status 
+        }
+        console.log(obj);
+        
+        this.outletService.editOutlet(this.id, obj).subscribe((data:any) => {
+            console.log('Data updated successfully! ', data);
+            this.router.navigate(['/pos/users'], {queryParams: {outlet: true}});
+            this.toast.success('Success', 'Edited successfully.');
+        },
+        err =>  {
+            this.toast.error('Error', 'Server error.');
+          });
+        
     }
 }

@@ -2,8 +2,8 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <ul ngbNav #nav="ngbNav" class="nav-tabs mt-5">
-                    <li ngbNavItem>
+                <ul ngbNav [(activeId)]="activeId" #nav="ngbNav" class="nav-tabs mt-5">
+                    <li [ngbNavItem]="1">
                         <a ngbNavLink>Products</a>
                         <ng-template ngbNavContent>
                             <h2 class="mt-3 mb-4">Product List</h2>
@@ -34,25 +34,17 @@
                             <table class="table table-bordered table-striped shadow">
                                 <thead class="head">
                                     <th>ID</th>
-                                    <th>SKU</th>
                                     <th>Name</th>
-                                    <th>Attribute Family</th>
-                                    <th>Type</th>
-                                    <th>Status</th>
+                                    <th>Category</th>
                                     <th>Price</th>
-                                    <th>Quantity</th>
                                     <th>Actions</th>
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let data of productData">
                                         <td>{{ data.id }}</td>
-                                        <td>{{ data.sku }}</td>
-                                        <td>{{ data.name }}</td>
-                                        <td>{{ data.attribute_family_name }}</td>
-                                        <td>{{ data.product_type }}</td>
-                                        <td>{{ data.status }}</td>
+                                        <td>{{ data.product_name }}</td>
+                                        <td>{{ data.category_name }}</td>
                                         <td>{{ data.price }}</td>
-                                        <td>{{ data.quantity }}</td>
                                         <td>
                                             <button class="btn btn-info mr-1"><i class="fa fa-pencil-square-o fa-lg"
                                                     [routerLink]="['/catalog/editproduct/' + data.id]"></i></button>
@@ -64,7 +56,7 @@
 
 
 
-                                    <tr *ngIf="!productData.length && !showloader">
+                                    <tr *ngIf="!length && !showloader">
                                         <td colspan="9" class="text-center">
                                             No records found.
                                         </td>
@@ -89,19 +81,19 @@
                             </div>
                         </ng-template>
                     </li>
-                    <li ngbNavItem>
+                    <li [ngbNavItem]="2">
                         <a ngbNavLink>Categories</a>
                         <ng-template ngbNavContent>
                             <sb-categories></sb-categories>
                         </ng-template>
                     </li>
-                    <li ngbNavItem>
+                    <li [ngbNavItem]="3">
                         <a ngbNavLink>Attributes</a>
                         <ng-template ngbNavContent>
                             <sb-attributes></sb-attributes>
                         </ng-template>
                     </li>
-                    <li ngbNavItem>
+                    <li [ngbNavItem]="4">
                         <a ngbNavLink>Attribute Family</a>
                         <ng-template ngbNavContent>
                             <sb-attribute-family></sb-attribute-family>

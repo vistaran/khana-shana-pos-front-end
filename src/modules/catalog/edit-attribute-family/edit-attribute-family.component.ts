@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AppToastService } from '@modules/shared-module/services/app-toast.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { AttributeFamilyService } from '../attribute-family.service';
@@ -61,7 +62,9 @@ export class EditAttributeFamilyComponent implements OnInit {
     private family: AttributeFamilyService,
     private route: ActivatedRoute,
     private router: Router,
-    private modalService: NgbModal) { }
+    private modalService: NgbModal,
+    private toast: AppToastService
+  ) { }
 
   ngOnInit(): void {
     this.editFamilyForm = this.fb.group({
@@ -93,19 +96,23 @@ export class EditAttributeFamilyComponent implements OnInit {
       this.length = this.attributeGroupData.length
       console.log(this.attributeGroupData, this.length)
       this.showloader = false
-    });
+    }, err => {
+      this.toast.error('Error', 'Server error.')
+    })
   }
 
   // For add attributes dropdown in add attribute modal
   getAttributesData() {
     this.showloader = true
     this.attribute.getAttributesData(this.page).subscribe(result => {
-      this.attributeDataList = result.attributes.data;
-      this.length = result.attributes.per_page;
-      this.total = result.attributes.total;
+      this.attributeDataList = result.Attributes.data;
+      this.length = result.Attributes.per_page;
+      this.total = result.Attributes.total;
       this.showloader = false
       console.log(this.attributeDataList.id);
-    });
+    }, err => {
+      this.toast.error('Error', 'Server error.')
+    })
   }
 
   // Group listing in edit attribute family form
@@ -113,6 +120,8 @@ export class EditAttributeFamilyComponent implements OnInit {
     this.family.getGroup().subscribe(result => {
       this.groupData = result.groups.data
       console.log(this.groupData)
+    }, err => {
+      this.toast.error('Error', 'Server error.')
     })
   }
 
@@ -120,14 +129,21 @@ export class EditAttributeFamilyComponent implements OnInit {
   updateData(data: any) {
     this.family.editFamily(this.familyId, data).subscribe(data => {
       console.log('Data updated successfully! ', data)
+      this.router.navigate(['/catalog/products'], { queryParams: { attributeFamily: true } });
+      this.toast.success('Success', 'Edited successfully.')
+    }, err => {
+      this.toast.error('Error', 'Server error.')
     })
-    this.router.navigate(['/catalog/products']);
+
   }
 
   // For adding group
   updateData2(data: any) {
     this.family.addGroup(data).subscribe(data => {
       console.log('Data added successfully! ', data)
+      this.toast.success('Success', 'Added successfully.')
+    }, err => {
+      this.toast.error('Error', 'Server error.')
     })
   }
 
@@ -135,15 +151,21 @@ export class EditAttributeFamilyComponent implements OnInit {
   deleteRow(id: number) {
     this.attribute.deleteAttribute(id).subscribe(data => {
       this.getAttributesGroupData();
-    });
+      this.toast.success('Success', 'Deleted successfully.')
+    }, err => {
+      this.toast.error('Error', 'Server error.')
+    })
     console.log('Deleted!');
   }
 
   // For deleting group
   deleteGroup(id: number) {
     this.family.deleteGroup(id).subscribe(data => {
+      this.toast.success('Success', 'Deleted successfully.')
       this.getGroup();
-    });
+    }, err => {
+      this.toast.error('Error', 'Server error.')
+    })
     console.log('Group deleted')
   }
 
@@ -164,11 +186,13 @@ export class EditAttributeFamilyComponent implements OnInit {
     const attribute_family_id = this.familyId
     const data = { group_id, attribute_family_id }
     this.family.addAttribute(data, this.attributeId).subscribe(result => {
+      this.toast.success('Success', 'Added successfully.')
       this.getAttributesGroupData();
       console.log(result);
 
+    }, err => {
+      this.toast.error('Error', 'Server error.')
     })
-
     // console.log('Attribute family id: ', this.familyId);
     // console.log('Atttribute id: ', this.attributeId);
     // console.log('Group id: ', group_id);

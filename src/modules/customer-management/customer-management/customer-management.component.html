@@ -1,0 +1,73 @@
+<sb-layout-dashboard>
+    <div class="row">
+        <div class="col">
+            <ul ngbNav #nav="ngbNav" class="nav-tabs mt-5 font-weight-bold">
+                <li ngbNavItem>
+                    <a ngbNavLink>Customer</a>
+                    <ng-template ngbNavContent>
+                        <h2 class="mt-3 mb-4">Customer List</h2>
+                        <!-- search button -->
+                        <div class="d-flex justify-content-between mb-4">
+
+                            <div class="input-group rounded w-25">
+                                <input type="search" class="form-control rounded" placeholder="Search"
+                                    aria-label="Search" aria-describedby="search-addon" />
+                                <span class="input-group-text border-0" id="search-addon">
+                                    <i class="fas fa-search"></i>
+                                </span>
+                            </div>
+
+                            <button (click)="onClick()" class="btn btn-primary float-right">
+                                Add Customer
+                            </button>
+
+                        </div>
+                        <table class="table table-bordered table-striped">
+                            <thead class="head">
+                                <th>Customer Id</th>
+                                <th>Name</th>
+                                <th>Phone Number</th>
+                                <th>Actions</th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of customerData">
+                                    <td>{{ data.id }}</td>
+                                    <td>{{ data.first_name }} {{ data.last_name}}</td>
+                                    <td>{{ data.phone_number }}</td>
+                                    <td>
+                                        <button class="btn btn-info mr-2"><i class="fa fa-pencil-square-o fa-lg"
+                                                [routerLink]="['/customer_management/editcustomer/' + data.id]"></i></button>
+
+                                        <button id="remove" (click)="deleteRow(data.id)" class="btn btn-danger"><i
+                                                class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                                    </td>
+                                </tr>
+                                <tr *ngIf="!length && !showloader">
+                                    <td colspan="8" class="text-center">
+                                        No records found.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div *ngIf="showloader" class="d-flex justify-content-center pt-5">
+                            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                                <!-- <img src="src\image\Infinity-1s-200px.svg"> -->
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
+
+                        <div class="justify-content-between row">
+                            <div class="col">
+                                <ngb-pagination (pageChange)="onPageChange($event)" [(page)]="page" [pageSize]="length"
+                                    [collectionSize]="total" [boundaryLinks]="true" [maxSize]="total">
+                                </ngb-pagination>
+                            </div>
+                        </div>
+                    </ng-template>
+                </li>
+            </ul>
+            <div [ngbNavOutlet]="nav"></div>
+        </div>
+    </div>
+</sb-layout-dashboard>

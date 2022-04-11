@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AppToastService } from '@modules/shared-module/services/app-toast.service';
 
 import { AttributesService } from '../attributes.service';
 
@@ -39,7 +40,9 @@ export class EditAttributeComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private attributeService: AttributesService,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    private toast: AppToastService
+  ) { }
 
   ngOnInit(): void {
 
@@ -70,8 +73,12 @@ export class EditAttributeComponent implements OnInit {
   updateData(data: any) {
     this.attributeService.editAttribute(this.id, data).subscribe(data => {
       console.log('Data updated successfully! ', data)
+      this.router.navigate(['/catalog/products'], { queryParams: { attributes: true } });
+      this.toast.success('Success', 'Edited successfully.')
+    }, err => {
+      this.toast.error('Error', 'Server error.')
     })
-    this.router.navigate(['/catalog/products']);
+
   }
 
 }

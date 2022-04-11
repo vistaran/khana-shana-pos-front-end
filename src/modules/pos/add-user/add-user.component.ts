@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AppToastService } from '@modules/shared-module/services/app-toast.service';
+import { OutletDataService } from '../outlet-data.service';
 
 import { PasswordValidator } from '../password.validator';
 import { UserDataService } from '../user-data.service';
@@ -11,6 +13,7 @@ import { UserDataService } from '../user-data.service';
 })
 export class AddUserComponent implements OnInit {
     addUserForm!: FormGroup;
+    outletList: any;
 
     // For Validations
     get userName() {
@@ -38,7 +41,7 @@ export class AddUserComponent implements OnInit {
     }
 
     get outl() {
-        return this.addUserForm.get('outlet_name');
+        return this.addUserForm.get('outlet');
     }
 
     get stat() {
@@ -49,15 +52,15 @@ export class AddUserComponent implements OnInit {
         return this.addUserForm.get('phone_no');
     }
 
-    get outstat() {
-        return this.addUserForm.get('outlet_status');
-    }
 
     outlet = ['Webkul Outlet', 'abc Outlet', 'wow Outlet', 'Mallory Wisoky', 'Antwon Berge Jr.'];
     status = ['active', 'inactive'];
 
     constructor(private fb: FormBuilder,
-        private userService: UserDataService) { }
+        private userService: UserDataService,
+        private toast: AppToastService,
+        private outletService: OutletDataService
+    ) { }
 
     ngOnInit(): void {
         this.addUserForm = this.fb.group(
@@ -67,22 +70,37 @@ export class AddUserComponent implements OnInit {
                 lastname: ['', [Validators.required]],
                 email: [''],
                 phone_no: ['', [Validators.required]],
-                user_avatar: [''],
+                // user_avatar: [''],
                 password: ['', [Validators.required]],
                 confirm_password: ['', [Validators.required]],
-                outlet_name: ['', [Validators.required]],
+                outlet: ['', [Validators.required]],
                 status: ['', [Validators.required]],
-                outlet_status: ['', [Validators.required]]
+                // outlet_status: ['', [Validators.required]]
             },
             { validators: PasswordValidator }
         );
+
+        this.getOutletData()
     }
+
+    getOutletData() {
+        this.outletService.getOutletData(1).subscribe(result => {
+          this.outletList = result.outlets.data;
+
+          this.addUserForm.get('outlet')?.setValue(this.outletList[0].id)
+        })
+      }
 
     // For submitting add user form data
     onSubmit(data: any) {
         this.userService
             .postUserData(data)
-            .subscribe((result: any) => console.log(result));
+            .subscribe((result: any) => {
+                console.log(result)
+                this.toast.success('Suucess', 'Added Successfully.')
+            }, err => {
+                this.toast.error('Error', 'Server error.')
+            });
         console.log('Form Submitted', (data));
     }
 }

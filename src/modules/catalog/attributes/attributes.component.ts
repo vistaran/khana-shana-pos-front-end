@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AppToastService } from '@modules/shared-module/services/app-toast.service';
 
 import { AttributesService } from '../attributes.service';
 
@@ -19,7 +20,11 @@ export class AttributesComponent implements OnInit {
   searchValue: any
   showloader: any
 
-  constructor(private attributeService: AttributesService, private router: Router) { }
+  constructor(
+    private attributeService: AttributesService,
+    private router: Router,
+    private toast: AppToastService
+  ) { }
 
   ngOnInit(): void {
 
@@ -31,12 +36,15 @@ export class AttributesComponent implements OnInit {
   getAttributesData() {
     this.showloader = true
     this.attributeService.getAttributesData(this.page).subscribe(result => {
-      this.attributesData = result.attributes.data;
-      this.length = result.attributes.per_page;
-      this.total = result.attributes.total;
+      this.attributesData = result.Attributes.data;
+      this.length = this.attributesData.length;
+      this.total = result.Attributes.total;
       this.showloader = false
       console.log(this.attributesData, this.length, this.total, this.page);
-    });
+    }, err => {
+      this.showloader = false
+      this.toast.error('Error', 'Server error.')
+    })
   }
 
   // For navigating to add attribute form on click
@@ -48,8 +56,10 @@ export class AttributesComponent implements OnInit {
   deleteRow(id: number) {
     this.attributeService.deleteAttribute(id).subscribe(data => {
       this.getAttributesData();
+      this.toast.success('Success', 'Deleted Successfully.')
+    }, err => {
+      this.toast.error('Error', 'Server error.')
     });
-    console.log(this.attributesData);
   }
 
   // For updating data on page change
@@ -63,12 +73,15 @@ export class AttributesComponent implements OnInit {
   search(event: any) {
     this.showloader = true
     this.attributeService.searchAttribute(this.searchValue).subscribe(res => {
-      this.attributesData = res.attributes.data;
+      this.attributesData = res.Attributes.data;
       this.length = this.attributesData.length;
-      this.total = res.attributes.total;
+      this.total = res.Attributes.total;
       this.showloader = false
       console.log(this.attributesData)
-    })
+    }, err => {
+      this.toast.error('Error', 'Server error.')
+      this.showloader = false
+    });
   }
 }
 

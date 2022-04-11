@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AppToastService } from '@modules/shared-module/services/app-toast.service';
 
 import { AttributeFamilyService } from '../attribute-family.service';
 
@@ -19,7 +20,11 @@ export class AttributeFamilyComponent implements OnInit {
   searchValue: any
   showloader: any
 
-  constructor(private attributeFamilyService: AttributeFamilyService, private router: Router) { }
+  constructor(
+    private attributeFamilyService: AttributeFamilyService,
+    private router: Router,
+    private toast: AppToastService
+  ) { }
 
   ngOnInit(): void {
     this.getFamily()
@@ -30,8 +35,11 @@ export class AttributeFamilyComponent implements OnInit {
     this.showloader = true
     this.attributeFamilyService.getFamily(this.page).subscribe(result => {
       this.attributeFamilyData = result.attributefamily.data;
-      this.length = result.attributefamily.per_page;
+      this.length = this.attributeFamilyData.length;
       this.total = result.attributefamily.total;
+      this.showloader = false
+    }, err => {
+      this.toast.error('Error', 'Server error.')
       this.showloader = false
     });
   }
@@ -52,8 +60,10 @@ export class AttributeFamilyComponent implements OnInit {
   deleteRow(id: number) {
     this.attributeFamilyService.deleteFamily(id).subscribe(data => {
       this.getFamily();
+      this.toast.success('Success', 'Deleted Successfully.')
+    }, err => {
+      this.toast.error('Error', 'Server error.')
     });
-    console.log('Deleted!');
   }
 
   // For searching data from table
@@ -65,6 +75,9 @@ export class AttributeFamilyComponent implements OnInit {
       this.total = res.attributes_family.total;
       this.showloader = false
       console.log(this.attributeFamilyData)
-    })
+    }, err => {
+      this.toast.error('Error', 'Server error.')
+      this.showloader = false
+    });
   }
 }

@@ -3,23 +3,15 @@ import { SideNavItems, SideNavSection } from '@modules/navigation/models';
 export const sideNavSections: SideNavSection[] = [
     {
         text: 'CORE',
-        items: ['dashboard'],
-    },
-    {
-        text: '',
-        items: ['sales'],
-    },
-    {
-        text: '',
-        items: ['catalog'],
+        items: ['dashboard', 'sales', 'catalog', 'customer'],
     },
     {
         text: 'POS',
-        items: ['layouts', 'pages'],
+        items: ['layouts', 'vendors', 'uom', 'pages'],
     },
     {
         text: 'ADDONS',
-        items: ['charts', 'tables'],
+        items: ['items', 'item_groups', 'purchase_orders', 'charts', 'tables'],
     },
 
 ];
@@ -34,6 +26,11 @@ export const sideNavItems: SideNavItems = {
         icon: 'tachometer-alt',
         text: 'Catalog',
         link: '/catalog/products',
+    },
+    customer: {
+        icon: 'tachometer-alt',
+        text: 'Customers',
+        link: '/customer_management'
     },
     // categories: {
     //     icon: '',
@@ -75,6 +72,16 @@ export const sideNavItems: SideNavItems = {
         text: 'Users',
         link: '/pos/users'
     },
+    vendors: {
+        icon: 'columns',
+        text: 'Vendors',
+        link: '/pos/vendors'
+    },
+    uom: {
+        icon: 'columns',
+        text: 'UOM',
+        link: '/pos/uom'
+    },
     pages: {
         icon: 'book-open',
         text: 'Products',
@@ -114,6 +121,21 @@ export const sideNavItems: SideNavItems = {
                 ],
             },
         ],
+    },
+    items: {
+        icon: 'table',
+        text: 'Items',
+        link: '/items'
+    },
+    item_groups: {
+        icon: 'table',
+        text: 'Item Groups',
+        link: '/item_groups'
+    },
+    purchase_orders: {
+        icon: 'table',
+        text: 'Purchase Orders',
+        link: '/purchase_orders'
     },
     charts: {
         icon: 'chart-area',

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AppToastService } from '@modules/shared-module/services/app-toast.service';
+
+import { AttributesService } from '../attributes.service';
 
 import { CategoriesService } from './../categories.service';
 
@@ -13,9 +16,10 @@ export class EditCategoryComponent implements OnInit {
 
   editCategoryForm!: FormGroup;
 
+  public attributesData: any = [];
+
   id: any;
   status = ['active', 'inactive'];
-  attribut = ['price', 'brand']
   visibleInMenu = ['Yes', 'No'];
   displayMode = ['Products and Descrition'];
   parentCategory = ['Yoga', 'Badminton'];
@@ -65,7 +69,10 @@ export class EditCategoryComponent implements OnInit {
     private fb: FormBuilder,
     private categoryService: CategoriesService,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    private toast: AppToastService,
+    private attributeService: AttributesService
+  ) { }
 
   ngOnInit(): void {
 
@@ -88,11 +95,13 @@ export class EditCategoryComponent implements OnInit {
 
     this.id = this.route.snapshot.params.id
 
+    // To get Field values
     this.categoryService.getEditCategoryData(this.id).subscribe((data: any) => {
       this.editCategoryForm.patchValue(data.show_data)
       console.log(data)
     })
     this.getParentCategrory()
+    this.getAttributesData()
   }
 
   // For parent category listing
@@ -100,6 +109,15 @@ export class EditCategoryComponent implements OnInit {
     this.categoryService.getCategoriesData(this.page).subscribe(data => {
       this.parentCategroryData = data.category.data
       console.log(this.parentCategroryData)
+    }, err => {
+      this.toast.error('Error', 'Server error.')
+    })
+  }
+
+  // For attributes dropdown
+  getAttributesData() {
+    this.attributeService.getAttributesData(this.page).subscribe(data =>{
+      this.attributesData = data.Attributes.data
     })
   }
 
@@ -107,18 +125,16 @@ export class EditCategoryComponent implements OnInit {
   updateData(data: any) {
     this.categoryService.editCategory(this.id, data).subscribe(data => {
       console.log('Data updated successfully! ', data)
+      this.router.navigate(['/catalog/products'], { queryParams: { categories: true } });
+      this.toast.success('Success', 'Edited successfully.')
+    }, err => {
+      this.toast.error('Error', 'Server error.')
     })
-    this.router.navigate(['/catalog/products']);
   }
 
-
-  upload() {
-    //
-  }
-
-  // To get parent categories id 
+  // To get parent categories id
   onItemChange(value: any) {
-    console.log(" Value is : ", value);
+    console.log(' Value is : ', value);
     this.parentCategoryId = value
   }
 

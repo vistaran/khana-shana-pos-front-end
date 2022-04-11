@@ -71,7 +71,7 @@
                             <label class="required">Attributes</label>
                             <select name="attri" formControlName="attri" class="form-control">
                                 <option value="default">--Attributes--</option>
-                                <option *ngFor="let item of attribut">{{ item }}</option>
+                                <option *ngFor="let item of attributesData">{{ item.name }}</option>
                             </select>
                         </div>
                         <div *ngIf="attributes?.touched && attributes?.invalid" class="alert alert-danger">
@@ -185,7 +185,7 @@
 
 
                 <button [disabled]="!editCategoryForm.valid" type="submit" class="btn btn-primary mb-4 float-right"
-                    (click)="updateData(editCategoryForm.value)" [routerLink]="['/catalog/products']">
+                    (click)="updateData(editCategoryForm.value)">
                     Submit
                 </button>
             </div>

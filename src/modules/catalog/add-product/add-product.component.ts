@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AppToastService } from '@modules/shared-module/services/app-toast.service';
 
+import { AttributeFamilyService } from '../attribute-family.service';
+import { CategoriesService } from '../categories.service';
 import { ProductService } from '../product.service';
 
 @Component({
@@ -10,37 +14,37 @@ import { ProductService } from '../product.service';
 })
 export class AddProductComponent implements OnInit {
 
+  attributeFamilyData: any = [];
+  categoryData: any = [];
+  page = 1
+  category_name: any
+
   // For validations
-  get productType() {
-    return this.addProductForm.get('productType');
-  }
 
   get name() {
-    return this.addProductForm.get('name');
-  }
-
-  get sku() {
-    return this.addProductForm.get('sku');
-  }
-
-  get status() {
-    return this.addProductForm.get('status');
-  }
-
-  get qty() {
-    return this.addProductForm.get('quantity');
+    return this.addProductForm.get('product_name');
   }
 
   get price() {
     return this.addProductForm.get('price');
   }
 
-  get family_name() {
-    return this.addProductForm.get('attribute_family_name');
+  get category() {
+    return this.addProductForm.get('category_id')
   }
 
-  constructor(private fb: FormBuilder,
-    private products: ProductService) { }
+  get description() {
+    return this.addProductForm.get('description')
+  }
+
+  constructor(
+    private fb: FormBuilder,
+    private products: ProductService,
+    private toast: AppToastService,
+    private router: Router,
+    private attributeFamilyService: AttributeFamilyService,
+    private categoryService: CategoriesService
+  ) { }
 
   addProductForm!: FormGroup;
 
@@ -48,22 +52,48 @@ export class AddProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.addProductForm = this.fb.group({
-      product_type: ['', [Validators.required]],
-      name: ['', [Validators.required]],
-      sku: ['', [Validators.required]],
-      status: ['', [Validators.required]],
+      product_name: ['', [Validators.required]],
       price: ['', [Validators.required]],
-      quantity: ['', [Validators.required]],
-      attribute_family_name: ['', [Validators.required]]
+      category_id: ['',[Validators.required]],
+      description: ['',[Validators.required]]
     });
+    this.getCategoryData()
+  }
+
+  // For Category dropdown
+  getCategoryData() {
+    this.categoryService.getCategoriesData(this.page).subscribe(data => {
+      this.categoryData = data.category.data
+    })
   }
 
   // For submitting add product form data
   onSubmit(data: any) {
+
+    this.categoryData.forEach((g: any) => {
+      if (g.id == data.category_id) {
+        this.category_name = g.name
+      }
+    });
+
+    const obj = {
+      product_name: data.product_name,
+      price: data.price,
+      category_id: data.category_id,
+      category_name: this.category_name,
+      description: data.description,
+    }
     this.products
-      .postProducts(data)
-      .subscribe((result: any) => console.log(result));
-    console.log('Form Submitted', (data));
+      .postProducts(obj)
+      .subscribe((result: any) => {
+        console.log(result)
+        this.toast.success('Success', 'Added successfully.')
+        this.router.navigate(['catalog/products'])
+      }, err => {
+        this.toast.error('Error', 'Server error.')
+      });
+    console.log(data);
+
   }
 
 }
