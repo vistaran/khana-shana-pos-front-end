@@ -10,8 +10,8 @@ import { CustomerData } from './customer';
 })
 export class CustomerManagementService {
 
-  private url = 'http://63b9-103-39-129-200.ngrok.io/api/customer'
-  // private url = environment.apiUrl + 'customer/'
+  // private url = 'http://63b9-103-39-129-200.ngrok.io/api/customer'
+  private url = environment.apiUrl + 'customer'
 
   constructor(
     private http: HttpClient
