@@ -1,0 +1,118 @@
+<sb-layout-dashboard>
+    <div class="card shadow mt-4">
+        <h1 class="card-header mb-3">Add Order</h1>
+        <form [formGroup]="addSaleForm">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col">
+                        <h2 class="card-header">Product List</h2>
+
+                        <div class="card-deck row mt-2">
+                            <div class="col-5 mb-3" *ngFor="let data of productData">
+
+
+                                <div class="card shadow">
+                                    <button class="bg-transparent" type="button"
+                                        (click)="openVerticallyCentered(content)">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ data.product_name }}</h5>
+                                            <p class="card-text"><b>Category:</b> {{ data.category_name }}
+                                            </p>
+                                            <p class="card-text"><b>Description:</b> {{ data.description }}
+                                            </p>
+                                            <p class="card-text"><b>Price:</b> {{ data.price }}
+                                            </p>
+                                        </div>
+                                        <!-- <div class="align-items-end mb-2 ml-2">
+                                        <button class="btn btn-info mr-2 btn-sm"
+                                            (click)="openVerticallyCentered2(content2, data.id)"><i
+                                                class="fa fa-pencil-square-o fa-lg"></i></button>
+        
+                                        <button id="remove" class="btn btn-danger btn-sm"
+                                            (click)="deleteAddress(data.id)"><i
+                                                class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                                    </div> -->
+                                    </button>
+                                </div>
+
+                                <ng-template #content let-modal>
+
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Product Quantity</h4>
+                                        <button type="button" class="btn-close btn-default" aria-label="Close"
+                                            (click)="modal.dismiss('Cross click')">X
+                                        </button>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <form [formGroup]="qtyForm">
+
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <label class="required">Quantity</label>
+                                                    <input type="number" formControlName="quantity" class="form-control" />
+
+                                                    <!-- <div *ngIf="unit_id?.touched && unit_id?.invalid" class="alert alert-danger">
+                                                        <div *ngIf="unit_id?.errors?.required">Unit is required.</div>
+                                                    </div> -->
+                                                </div>
+                                            </div>
+
+                                        </form>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary" (click)="onSelectProduct(data, qtyForm.value)"
+                                            (click)="modal.close('Close click')">Save
+                                            Order</button>
+                                    </div>
+
+                                </ng-template>
+
+
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <h2 class="card-header">Added Products</h2>
+
+                        <div class="card-deck row mt-2">
+                            <div class="col-5 mb-3" *ngFor="let data of addedProduct">
+
+                                <div class="card shadow">
+                                    <button class="bg-transparent" type="button">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ data.product_name }}</h5>
+                                            <p class="card-text"><b>Category:</b> {{ data.category_name }}
+                                            </p>
+                                            <p class="card-text"><b>Description:</b> {{ data.description }}
+                                            </p>
+                                            <p class="card-text"><b>Price:</b> {{ data.price }}
+                                            </p>
+                                            <p class="card-text"><b>Quantity:</b> {{ data.quantity }}
+                                            </p>
+                                        </div>
+                                        <!-- <div class="align-items-end mb-2 ml-2">
+                                        <button class="btn btn-info mr-2 btn-sm"
+                                            (click)="openVerticallyCentered2(content2, data.id)"><i
+                                                class="fa fa-pencil-square-o fa-lg"></i></button>
+        
+                                        <button id="remove" class="btn btn-danger btn-sm"
+                                            (click)="deleteAddress(data.id)"><i
+                                                class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                                    </div> -->
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</sb-layout-dashboard>

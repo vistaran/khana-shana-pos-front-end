@@ -1,0 +1,58 @@
+<sb-layout-dashboard>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <!-- <ul ngbNav #nav="ngbNav" class="nav-tabs mt-5">
+                        <li ngbNavItem>
+                            <ng-template ngbNavContent> -->
+                <h2 class="mt-3 mb-5">Sales</h2>
+
+                <div class="d-flex justify-content-between mb-4">
+
+                    <div class="input-group rounded w-25">
+                        <input type="search" class="form-control rounded" placeholder="Search"
+                            aria-label="Search" aria-describedby="search-addon" />
+                        <span class="input-group-text border-0" id="search-addon">
+                            <i class="fas fa-search"></i>
+                        </span>
+                    </div>
+                    <button (click)="onClick()" class="btn btn-primary float-right">
+                        Add Order
+                    </button>
+
+                </div>
+    
+                <!-- <table class="table table-bordered table-striped">
+                    <thead class="head">
+                        <th>ID</th>
+                        <th>Order Id</th>
+                        <th>Refunded</th>
+                        <th>Billed To</th>
+                        <th>Actions</th>
+                    </thead>
+                    <tbody class="justify-content-end">
+                        <tr *ngFor="let data of rdata">
+                            <td>{{ data.id }}</td>
+                            <td>{{ data.orderId }}</td>
+                            <td>{{ data.refunded }}</td>
+                            <td>{{ data.billedTo }}</td>
+                            <td>
+                                <i class="fa fa-eye fa-lg pr-4 mx-auto" [routerLink]="['']"></i>
+                            </td>
+                        </tr>
+                        <tr *ngIf="!rdata.length">
+                            <td colspan="5" class="text-center">
+                                No records found.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table> -->
+                <div class="alert alert-danger" id="no-rows-alert" style="display: none">No records found</div>
+                <!-- </ng-template>
+                        </li>
+                    </ul>
+                    <div [ngbNavOutlet]="nav"></div> -->
+            </div>
+        </div>
+    </div>
+</sb-layout-dashboard>

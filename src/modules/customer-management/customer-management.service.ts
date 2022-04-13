@@ -12,14 +12,14 @@ export class CustomerManagementService {
 
   // private url = 'http://63b9-103-39-129-200.ngrok.io/api/customer'
   private url = environment.apiUrl + 'customer'
-  private addUrl = environment.apiUrl + 'userAddress'
+  private addressUrl = environment.apiUrl + 'userAddress'
 
   constructor(
     private http: HttpClient
   ) { }
 
   getCustomerData(page: number): Observable<CustomerData> {
-    return this.http.get<CustomerData>(this.url + '?page=' + page); 
+    return this.http.get<CustomerData>(this.url + '?page=' + page);
   }
 
   // For deleting user data
@@ -46,26 +46,25 @@ export class CustomerManagementService {
     return this.http.get<FetchCustomer>(this.url + '/' + id)
   }
 
-
   // For customer Addresses
   getCustomerAddress(id: number): Observable<Address> {
-    return this.http.get<Address>(this.addUrl + '/' + id); 
+    return this.http.get<Address>(this.addressUrl + '/' + id);
   }
 
   addCustomerAddress(data: any) {
-    return this.http.post(this.addUrl, data);
+    return this.http.post(this.addressUrl, data);
   }
 
   deleteCustomerAddress(id: number) {
-    return this.http.delete(this.addUrl + '/' + id)
+    return this.http.delete(this.addressUrl + '/' + id)
   }
 
   editCustomerAddress(id: number, data: any) {
-    return this.http.put(this.addUrl + '/' + id, data)
+    return this.http.put(this.addressUrl + '/' + id, data)
   }
 
-  editCustomerFormData(id: number): Observable<CustomerAddress> {
-    return this.http.get<CustomerAddress>(this.addUrl + '/' + id)
+  editAddressFormData(id: number): Observable<CustomerAddress> {
+    return this.http.get<CustomerAddress>(this.addressUrl + '/' + id + '/edit')
   }
 
 

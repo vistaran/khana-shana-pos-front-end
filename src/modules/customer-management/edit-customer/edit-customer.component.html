@@ -1,5 +1,5 @@
 <sb-layout-dashboard>
-    <div class="card mt-4">
+    <div class="card shadow mt-4">
         <h1 class="card-header">Edit Customer</h1>
         <form [formGroup]="editCustomerForm">
             <div class="container-fluid">
@@ -46,11 +46,15 @@
                 </div>
 
                 <h2 class="card-header mt-4 mb-3 pb-2">Addresses</h2>
-                <button type="button" class="btn btn-primary float-right" (click)="openVerticallyCentered(content)">
-                    Add Address
-                </button>
+
+                <div class="d-flex flex-row-reverse mb-3">
+                    <button type="button" class="btn btn-primary" (click)="openVerticallyCentered(content)">
+                        Add Address
+                    </button>
+                </div>
 
                 <ng-template #content let-modal>
+
                     <div class="modal-header">
                         <h4 class="modal-title">Add Address</h4>
                         <button type="button" class="btn-close btn-default" aria-label="Close"
@@ -66,9 +70,9 @@
                                     <label class="required">Address Type</label>
                                     <select name="address_type" formControlName="address_type" class="form-control">
 
-                                        <ng-container *ngFor="let list of address_type_name; index as i">
-                                            <option value="{{i + 1}}">
-                                                {{ list }}
+                                        <ng-container *ngFor="let list of address_type_name">
+                                            <option value="{{ list.id }}">
+                                                {{ list.name }}
                                             </option>
                                         </ng-container>
                                     </select>
@@ -94,40 +98,41 @@
                                     <div class="form-group">
                                         <label class="required mt-4">Address line 2</label>
                                         <input type="text" formControlName="address_line_2" class="form-control"
-                                            placeholder="Street name" />
+                                            placeholder="Street name/number" />
                                         <!-- <div *ngIf="address_line_1?.touched && address_line_1?.invalid" class="alert alert-danger">
                                         <div *ngIf="address_line_1?.errors?.required">Group Name is required.</div>
                                     </div> -->
                                     </div>
                                 </div>
+
+
+
                             </div>
 
                             <div class="row">
-
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="required mt-4">Address line 3</label>
-                                        <input type="text" formControlName="address_line_3" class="form-control"
-                                            placeholder="Street number" />
-                                        <!-- <div *ngIf="address_line_1?.touched && address_line_1?.invalid" class="alert alert-danger">
-                                        <div *ngIf="address_line_1?.errors?.required">Group Name is required.</div>
-                                    </div> -->
-                                    </div>
-                                </div>
 
                                 <div class="col">
                                     <div class="form-group">
                                         <label class="required mt-4">Landmark</label>
-                                        <input type="text" formControlName="landmark" class="form-control"
-                                            placeholder="Landmark(optional)" />
+                                        <input type="text" formControlName="address_line_3" class="form-control"
+                                            placeholder="Landmark" />
                                         <!-- <div *ngIf="address_line_1?.touched && address_line_1?.invalid" class="alert alert-danger">
                                         <div *ngIf="address_line_1?.errors?.required">Group Name is required.</div>
                                     </div> -->
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="row">
+                                <!-- <div class="col">
+                                    <div class="form-group">
+                                        <label class="required mt-4">Landmark</label>
+                                        <input type="text" formControlName="landmark" class="form-control"
+                                            placeholder="Landmark(optional)" />
+                                         <div *ngIf="address_line_1?.touched && address_line_1?.invalid" class="alert alert-danger">
+                                        <div *ngIf="address_line_1?.errors?.required">Group Name is required.</div>
+                                    </div> 
+                                    </div>
+                                </div> -->
+
                                 <div class="col">
                                     <div class="form-group">
                                         <label class="required mt-4">City</label>
@@ -149,6 +154,9 @@
                                     </div> -->
                                     </div>
                                 </div>
+
+
+
                             </div>
 
                             <div class="row">
@@ -156,7 +164,7 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label class="required mt-4">Country</label>
-                                        <input type="text" formControlName="country" class="form-control"
+                                        <input type="text" formControlName="contry" class="form-control"
                                             placeholder="Country" />
                                         <!-- <div *ngIf="address_line_1?.touched && address_line_1?.invalid" class="alert alert-danger">
                                         <div *ngIf="address_line_1?.errors?.required">Group Name is required.</div>
@@ -174,9 +182,6 @@
                                     </div> -->
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="row">
 
                                 <div class="col">
                                     <div class="form-group">
@@ -199,7 +204,9 @@
                                     </div> -->
                                     </div>
                                 </div>
+
                             </div>
+
                         </form>
                     </div>
 
@@ -208,35 +215,212 @@
                             (click)="modal.close('Close click')">Save
                             Address</button>
                     </div>
+
                 </ng-template>
 
-                <div class="d-flex">
-                    <div *ngFor="let data of customerAddressData">
 
-                        <div class="card mx-2" style="width: 18 rem;">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ data.address_line_1 }}</h5>
-                                <p class="card-text">{{ data.address_line_2 }}
-                                </p>
-                                <p class="card-text">{{ data.address_line_3 }}
-                                </p>
-                                <p class="card-text">{{ data.landmark }}
-                                </p>
-                                <p class="card-text">{{ data.city }}, {{ data.state }}, {{ data.contry }} - {{
-                                    data.postalcode }}
-                                </p>
 
-                                <button class="btn btn-info mr-2 btn-sm"
-                                    [routerLink]="['/customer_management/edit_customer_address/' + data.id]"><i
-                                        class="fa fa-pencil-square-o fa-lg"></i></button>
+                <div class="mt-auto">
+                    <ng-container *ngFor="let item of address_type_name">
+                        <!-- <div class=""> -->
+                        <h3 class="card-header mb-2">{{ item.name }}</h3>
+                        <!-- </div> -->
+                        <div class="card-deck row">
+                            <div class="col-4 mb-3" *ngFor="let data of item.addresses">
 
-                                <button id="remove" class="btn btn-danger btn-sm" (click)="deleteAddress(data.id)"><i
-                                        class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                                <div class="card shadow">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ data.address_line_1 }}</h5>
+                                        <p class="card-text">{{ data.address_line_2 }}
+                                        </p>
+                                        <p class="card-text">{{ data.address_line_3 }}
+                                        </p>
+                                        <p class="card-text">{{ data.landmark }}
+                                        </p>
+                                        <p class="card-text">{{ data.city }}, {{ data.state }}, {{ data.contry }} -
+                                            {{
+                                                data.postalcode }}
+                                        </p>
+
+                                    </div>
+
+                                    <div class="align-items-end mb-2 ml-2">
+                                        <button class="btn btn-info mr-2 btn-sm"
+                                            (click)="openVerticallyCentered2(content2, data.id)"><i
+                                                class="fa fa-pencil-square-o fa-lg"></i></button>
+
+                                        <button id="remove" class="btn btn-danger btn-sm"
+                                            (click)="deleteAddress(data.id)"><i
+                                                class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                                    </div>
+
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </ng-container>
+                </div>
+
+                <!-- Edit Customer Address Form -->
+
+                <ng-template #content2 let-modal>
+                    <div class="modal-header">
+                        <h4 class="modal-title">Edit Address</h4>
+                        <button type="button" class="btn-close btn-default" aria-label="Close"
+                            (click)="modal.dismiss('Cross click')">X
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <form [formGroup]="editAddressForm">
+
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="required">Address Type</label>
+                                    <select name="address_type" formControlName="address_type" class="form-control">
+
+                                        <ng-container *ngFor="let list of address_type_name">
+                                            <option value="{{list.id}}">
+                                                {{ list.name }}
+                                            </option>
+                                        </ng-container>
+                                    </select>
+                                </div>
                             </div>
 
-                        </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="required mt-4">Address line 1</label>
+                                        <input type="text" formControlName="address_line_1" class="form-control"
+                                            placeholder="House no./name" />
+                                        <!-- <div *ngIf="address_line_1?.touched && address_line_1?.invalid" class="alert alert-danger">
+                                    <div *ngIf="address_line_1?.errors?.required">Group Name is required.</div>
+                                </div> -->
+                                    </div>
+                                </div>
+
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="required mt-4">Address line 2</label>
+                                        <input type="text" formControlName="address_line_2" class="form-control"
+                                            placeholder="Street name/number" />
+                                        <!-- <div *ngIf="address_line_1?.touched && address_line_1?.invalid" class="alert alert-danger">
+                                    <div *ngIf="address_line_1?.errors?.required">Group Name is required.</div>
+                                </div> -->
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="required mt-4">Landmark</label>
+                                        <input type="text" formControlName="address_line_3" class="form-control"
+                                            placeholder="Landmark" />
+                                        <!-- <div *ngIf="address_line_1?.touched && address_line_1?.invalid" class="alert alert-danger">
+                                    <div *ngIf="address_line_1?.errors?.required">Group Name is required.</div>
+                                </div> -->
+                                    </div>
+                                </div>
+
+                                <!-- <div class="col">
+                                    <div class="form-group">
+                                        <label class="required mt-4">Landmark</label>
+                                        <input type="text" formControlName="landmark" class="form-control"
+                                            placeholder="Landmark(optional)" />
+                                         <div *ngIf="address_line_1?.touched && address_line_1?.invalid" class="alert alert-danger">
+                                    <div *ngIf="address_line_1?.errors?.required">Group Name is required.</div>
+                                </div>
+                                    </div>
+                                </div> -->
+
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="required mt-4">City</label>
+                                        <input type="text" formControlName="city" class="form-control"
+                                            placeholder="City" />
+                                        <!-- <div *ngIf="address_line_1?.touched && address_line_1?.invalid" class="alert alert-danger">
+                                    <div *ngIf="address_line_1?.errors?.required">Group Name is required.</div>
+                                </div> -->
+                                    </div>
+                                </div>
+
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="required mt-4">State</label>
+                                        <input type="text" formControlName="state" class="form-control"
+                                            placeholder="State" />
+                                        <!-- <div *ngIf="address_line_1?.touched && address_line_1?.invalid" class="alert alert-danger">
+                                    <div *ngIf="address_line_1?.errors?.required">Group Name is required.</div>
+                                </div> -->
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="required mt-4">Country</label>
+                                        <input type="text" formControlName="contry" class="form-control"
+                                            placeholder="Country" />
+                                        <!-- <div *ngIf="address_line_1?.touched && address_line_1?.invalid" class="alert alert-danger">
+                                    <div *ngIf="address_line_1?.errors?.required">Group Name is required.</div>
+                                </div> -->
+                                    </div>
+                                </div>
+
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="required mt-4">Pin Code</label>
+                                        <input type="text" formControlName="postalcode" class="form-control"
+                                            placeholder="Pin code" />
+                                        <!-- <div *ngIf="address_line_1?.touched && address_line_1?.invalid" class="alert alert-danger">
+                                    <div *ngIf="address_line_1?.errors?.required">Group Name is required.</div>
+                                </div> -->
+                                    </div>
+                                </div>
+
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="required mt-4">Latitude</label>
+                                        <input type="text" formControlName="latitude" class="form-control"
+                                            placeholder="Latitude" />
+                                        <!-- <div *ngIf="address_line_1?.touched && address_line_1?.invalid" class="alert alert-danger">
+                                    <div *ngIf="address_line_1?.errors?.required">Group Name is required.</div>
+                                </div> -->
+                                    </div>
+                                </div>
+
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="required mt-4">Longitude</label>
+                                        <input type="text" formControlName="longitude" class="form-control"
+                                            placeholder="Longitude" />
+                                        <!-- <div *ngIf="address_line_1?.touched && address_line_1?.invalid" class="alert alert-danger">
+                                    <div *ngIf="address_line_1?.errors?.required">Group Name is required.</div>
+                                </div> -->
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
                     </div>
-                </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" (click)="editAddress(editAddressForm.value)"
+                            (click)="modal.close('Close click')">Save
+                            Address</button>
+                    </div>
+                </ng-template>
+
 
                 <!-- <div class="row car-body">
 
@@ -270,7 +454,7 @@
                 </div> -->
 
                 <button [disabled]="!editCustomerForm.valid" type="submit" (click)="onSubmit(editCustomerForm.value)"
-                    class="btn btn-primary mb-4 float-right">
+                    class="btn btn-primary mb-4 float-right align-items-end">
                     Submit
                 </button>
 

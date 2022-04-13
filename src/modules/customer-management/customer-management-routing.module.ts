@@ -5,7 +5,7 @@ import { SBRouteData } from '@modules/navigation/models';
 import { AddCustomerComponent } from './add-customer/add-customer.component';
 import { CustomerManagementModule } from './customer-management.module';
 import { CustomerManagementComponent } from './customer-management/customer-management.component';
-import { EditCustomerAddressComponent } from './edit-customer-address/edit-customer-address.component';
+// import { EditCustomerAddressComponent } from './edit-customer-address/edit-customer-address.component';
 import { EditCustomerComponent } from './edit-customer/edit-customer.component';
 
 const routes: Routes = [
@@ -38,14 +38,14 @@ const routes: Routes = [
       title: 'Edit Customer',
     } as SBRouteData,
   },
-  {
-    path: 'edit_customer_address/:id',
-    canActivate: [],
-    component: EditCustomerAddressComponent,
-    data: {
-      title: 'Edit Customer Address',
-    } as SBRouteData,
-  },
+  // {
+  //   path: 'edit_customer_address/:id',
+  //   canActivate: [],
+  //   component: EditCustomerAddressComponent,
+  //   data: {
+  //     title: 'Edit Customer Address',
+  //   } as SBRouteData,
+  // },
 ];
 
 @NgModule({

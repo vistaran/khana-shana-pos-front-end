@@ -2,73 +2,37 @@ import { SideNavItems, SideNavSection } from '@modules/navigation/models';
 
 export const sideNavSections: SideNavSection[] = [
     {
-        text: 'CORE',
-        items: ['dashboard', 'sales', 'catalog', 'customer'],
+        text: 'Financial',
+        items: ['purchase_orders', 'sales'],
     },
     {
-        text: 'POS',
-        items: ['users', 'vendors', 'uom'],
+        text: 'System',
+        items: ['users', 'vendors', 'uom', 'item_groups', 'items', 'customer'],
     },
     {
-        text: 'ADDONS',
-        items: ['items', 'item_groups', 'purchase_orders'],
-    },
-
+        text: 'Catalog',
+        items: ['products', 'categories', 'attributes', 'attributeFamily'],
+    }
 ];
 
 export const sideNavItems: SideNavItems = {
-    dashboard: {
-        icon: 'tachometer-alt',
-        text: 'Dashboard',
-        link: '/dashboard',
+
+    // Financial
+    purchase_orders: {
+        // icon: 'dollar-sign',
+        text: '₹ Purchase Orders',
+        link: '/purchase_orders'
     },
-    catalog: {
-        icon: 'tachometer-alt',
-        text: 'Catalog',
-        link: '/catalog/products',
-    },
-    customer: {
-        icon: 'tachometer-alt',
-        text: 'Customers',
-        link: '/customer_management'
-    },
-    // categories: {
-    //     icon: '',
-    //     text: 'Categories',
-    //     link: '/catalog/categories'
-    // },
-    // attributes: {
-    //     icon: '',
-    //     text: 'Attributes',
-    //     link: '/catalog/attributes'
-    // },
-    // attributeFamily: {
-    //     icon: '',
-    //     text: 'Attribute Family',
-    //     link: '/catalog/attributeFamily'
-    // },
     sales: {
-        icon: 'tachometer-alt',
-        text: 'Sales',
-        link: '/sales/orders'
+        // icon: 'table',
+        text: '₹ Sales',
+        link: '/sales'
     },
-    shipments: {
-        icon: '',
-        text: 'Shipments',
-        link: '/sales/shipments'
-    },
-    invoices: {
-        icon: '',
-        text: 'Invoices',
-        link: '/sales/invoices'
-    },
-    refunds: {
-        icon: '',
-        text: 'Refunds',
-        link: '/sales/refunds'
-    },
+
+
+    // System
     users: {
-        icon: 'columns',
+        icon: ' fa-user-tie',
         text: 'Users',
         link: '/pos/users'
     },
@@ -82,6 +46,75 @@ export const sideNavItems: SideNavItems = {
         text: 'UOM',
         link: '/pos/uom'
     },
+    item_groups: {
+        icon: 'columns',
+        text: 'Item Groups',
+        link: '/item_groups'
+    },
+    items: {
+        icon: 'columns',
+        text: 'Items',
+        link: '/items'
+    },
+    customer: {
+        icon: 'columns',
+        text: 'Customers',
+        link: '/customer_management'
+    },
+
+
+    // Catalog
+    products: {
+        icon: 'tachometer-alt',
+        text: 'Products',
+        link: '/catalog/products',
+    },
+    categories: {
+        icon: 'tachometer-alt',
+        text: 'Categories',
+        link: '/catalog/categories'
+    },
+    attributes: {
+        icon: 'tachometer-alt',
+        text: 'Attributes',
+        link: '/catalog/attributes'
+    },
+    attributeFamily: {
+        icon: 'tachometer-alt',
+        text: 'Attribute Family',
+        link: '/catalog/attributeFamily'
+    },
+
+
+
+    // dashboard: {
+    //     icon: 'tachometer-alt',
+    //     text: 'Dashboard',
+    //     link: '/dashboard',
+    // },
+
+
+    // sales: {
+    //     icon: 'tachometer-alt',
+    //     text: 'Sales',
+    //     link: '/sales/orders'
+    // },
+    // shipments: {
+    //     icon: '',
+    //     text: 'Shipments',
+    //     link: '/sales/shipments'
+    // },
+    // invoices: {
+    //     icon: '',
+    //     text: 'Invoices',
+    //     link: '/sales/invoices'
+    // },
+    // refunds: {
+    //     icon: '',
+    //     text: 'Refunds',
+    //     link: '/sales/refunds'
+    // },
+
     pages: {
         icon: 'book-open',
         text: 'Products',
@@ -122,21 +155,7 @@ export const sideNavItems: SideNavItems = {
             },
         ],
     },
-    items: {
-        icon: 'table',
-        text: 'Items',
-        link: '/items'
-    },
-    item_groups: {
-        icon: 'table',
-        text: 'Item Groups',
-        link: '/item_groups'
-    },
-    purchase_orders: {
-        icon: 'table',
-        text: 'Purchase Orders',
-        link: '/purchase_orders'
-    },
+
     // charts: {
     //     icon: 'chart-area',
     //     text: 'Charts',
