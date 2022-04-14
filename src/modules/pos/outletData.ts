@@ -29,5 +29,9 @@ export interface OutletData {
     outlets: Outlets;
 }
 
+export interface OutlSearch {
+    Outlets: Outlets
+}
+
 
 

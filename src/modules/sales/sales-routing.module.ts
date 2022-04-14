@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SBRouteData } from '@modules/navigation/models';
 
 import { AddSaleComponent } from './add-sale/add-sale.component';
+import { EditSaleComponent } from './edit-sale/edit-sale.component';
 import { InvoicesComponent } from './invoices/invoices.component';
 import { OrdersComponent } from './orders/orders.component';
 import { RefundsComponent } from './refunds/refunds.component';
@@ -30,6 +31,14 @@ const routes: Routes = [
       component: AddSaleComponent,
       data: {
           title: 'Add Sale',
+      } as SBRouteData,
+  },
+  {
+    path: 'edit_sale/:id',
+      canActivate: [],
+      component: EditSaleComponent,
+      data: {
+          title: 'Edit Sale',
       } as SBRouteData,
   }
 

@@ -20,7 +20,7 @@ export const sideNavItems: SideNavItems = {
     // Financial
     purchase_orders: {
         // icon: 'dollar-sign',
-        text: '₹ Purchase Orders',
+        text: '₹ Purchases',
         link: '/purchase_orders'
     },
     sales: {
@@ -32,7 +32,7 @@ export const sideNavItems: SideNavItems = {
 
     // System
     users: {
-        icon: ' fa-user-tie',
+        icon: 'columns',
         text: 'Users',
         link: '/pos/users'
     },
@@ -48,12 +48,12 @@ export const sideNavItems: SideNavItems = {
     },
     item_groups: {
         icon: 'columns',
-        text: 'Item Groups',
+        text: 'Purchase Item Groups',
         link: '/item_groups'
     },
     items: {
         icon: 'columns',
-        text: 'Items',
+        text: 'Purchase Items',
         link: '/items'
     },
     customer: {

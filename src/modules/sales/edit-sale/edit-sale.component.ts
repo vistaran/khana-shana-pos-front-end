@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Form, FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '@modules/catalog/product.service';
 import { CustomerManagementService } from '@modules/customer-management/customer-management.service';
 import { AppToastService } from '@modules/shared-module/services/app-toast.service';
@@ -9,18 +9,20 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SalesService } from '../sales.service';
 
 @Component({
-  selector: 'sb-add-sale',
-  templateUrl: './add-sale.component.html',
-  styleUrls: ['./add-sale.component.scss']
+  selector: 'sb-edit-sale',
+  templateUrl: './edit-sale.component.html',
+  styleUrls: ['./edit-sale.component.scss']
 })
-export class AddSaleComponent implements OnInit {
+export class EditSaleComponent implements OnInit {
+
+  editSaleForm!: FormGroup
+  qtyForm!: FormGroup
+  customerForm!: FormGroup
+
 
   productData: any = [];
   addedProduct: any = [];
   customerData: any = []
-  addSaleForm!: FormGroup
-  qtyForm!: FormGroup
-  customerForm!: FormGroup
 
   payment_mode: any
 
@@ -60,7 +62,7 @@ export class AddSaleComponent implements OnInit {
     }
   ]
 
-
+  id: any
   shipping_charge = 0;
   total = 0;
   semitotal = 0
@@ -79,11 +81,12 @@ export class AddSaleComponent implements OnInit {
     private customerService: CustomerManagementService,
     private saleService: SalesService,
     private toast: AppToastService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.addSaleForm = this.fb.group({
+    this.editSaleForm = this.fb.group({
       shipping_charge: [''],
       payment_mode: [''],
       notes: ['']
@@ -98,6 +101,21 @@ export class AddSaleComponent implements OnInit {
     })
     this.getProductsData()
     this.getCustomerData()
+
+    this.id = this.route.snapshot.params.id
+
+
+    // To get edit order form field values
+    this.saleService.editOrderFormData(this.id).subscribe((data: any) => {
+      this.editSaleForm.patchValue(data.order)
+      console.log(data);
+
+      this.addedProduct = data.items
+      this.total = data.order.total_amount
+      // this.shipping_charge = data.order.shipping_charge
+      // this.calculateTotal()
+      console.log(data)
+    })
   }
 
   getProductsData() {
@@ -210,26 +228,13 @@ export class AddSaleComponent implements OnInit {
 
     console.log(obj);
 
-    this.saleService.postOrder(obj).subscribe((result: any) => {
-      console.log(result)
-      this.toast.success('Success', 'Added Successfully.')
-      this.router.navigate(['/sales']);
-    }, err => {
-      this.toast.error('Error', 'Server error.')
-    });
+    // this.saleService.postOrder(obj).subscribe((result: any) => {
+    //   console.log(result)
+    //   this.toast.success('Success', 'Added Successfully.')
+    //   this.router.navigate(['/sales']);
+    // }, err => {
+    //   this.toast.error('Error', 'Server error.')
+    // });
   }
-
-  // search(event: any) {
-  //   this.showloader = true
-  //   this.customerService.searchCustomer(this.searchValue).subscribe(res => {
-  //     this.customerData = res.customers
-  //     this.showloader = false
-  //     // console.log(this.outletData.length)
-  //   }, err => {
-  //     this.toast.error('Error', 'Server error.')
-  //     this.showloader = false
-  //   });
-  // }
-
 
 }

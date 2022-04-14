@@ -64,5 +64,17 @@ export class CustomerManagementComponent implements OnInit {
     }
   }
 
+  search(event: any) {
+    this.showloader = true
+    this.customerService.searchCustomer(this.searchValue).subscribe(res => {
+      this.customerData = res.customers
+      this.length = this.customerData.length;
+      this.showloader = false
+    }, err => {
+      this.toast.error('Error', 'Server error.')
+      this.showloader = false
+    });
+  }
+
 
 }

@@ -14,10 +14,11 @@ import { OrdersComponent } from './orders/orders.component';
 import { RefundsComponent } from './refunds/refunds.component';
 import { SalesComponent } from './sales/sales.component';
 import { ShipmentComponent } from './shipment/shipment.component';
+import { EditSaleComponent } from './edit-sale/edit-sale.component';
 
 
 @NgModule({
-  declarations: [OrdersComponent, ShipmentComponent, InvoicesComponent, RefundsComponent, SalesComponent, AddSaleComponent],
+  declarations: [OrdersComponent, ShipmentComponent, InvoicesComponent, RefundsComponent, SalesComponent, AddSaleComponent, EditSaleComponent],
   imports: [
     CommonModule,
     RouterModule,

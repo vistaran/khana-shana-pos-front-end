@@ -10,8 +10,8 @@
                 <div class="d-flex justify-content-between mb-4">
 
                     <div class="input-group rounded w-25">
-                        <input type="search" class="form-control rounded" placeholder="Search"
-                            aria-label="Search" aria-describedby="search-addon" />
+                        <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+                            aria-describedby="search-addon" />
                         <span class="input-group-text border-0" id="search-addon">
                             <i class="fas fa-search"></i>
                         </span>
@@ -21,32 +21,36 @@
                     </button>
 
                 </div>
-    
-                <!-- <table class="table table-bordered table-striped">
+
+                <table class="table table-bordered table-striped">
                     <thead class="head">
-                        <th>ID</th>
-                        <th>Order Id</th>
-                        <th>Refunded</th>
-                        <th>Billed To</th>
+                        <th>Order ID</th>
+                        <th>Customer Name</th>
+                        <th>Payment Mode</th>
+                        <th>Total Amount</th>
                         <th>Actions</th>
                     </thead>
                     <tbody class="justify-content-end">
-                        <tr *ngFor="let data of rdata">
+                        <tr *ngFor="let data of orderData">
                             <td>{{ data.id }}</td>
-                            <td>{{ data.orderId }}</td>
-                            <td>{{ data.refunded }}</td>
-                            <td>{{ data.billedTo }}</td>
+                            <td>{{ data.customer_id }}</td>
+                            <td>{{ data.payment_mode }}</td>
+                            <td>₹ {{ data.total_amount }}</td>
                             <td>
-                                <i class="fa fa-eye fa-lg pr-4 mx-auto" [routerLink]="['']"></i>
+                                <button class="btn btn-info mr-2"><i class="fa fa-pencil-square-o fa-lg"
+                                        [routerLink]="['/sales/edit_sale/' + data.id]"></i></button>
+
+                                <button id="remove" (click)="deleteRow(data.id)" class="btn btn-danger"><i
+                                        class="fa fa-trash-o fa-lg mx-auto"></i></button>
                             </td>
                         </tr>
-                        <tr *ngIf="!rdata.length">
+                        <tr *ngIf="!orderData.length">
                             <td colspan="5" class="text-center">
                                 No records found.
                             </td>
                         </tr>
                     </tbody>
-                </table> -->
+                </table>
                 <div class="alert alert-danger" id="no-rows-alert" style="display: none">No records found</div>
                 <!-- </ng-template>
                         </li>

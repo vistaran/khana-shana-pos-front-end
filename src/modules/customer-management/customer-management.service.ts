@@ -67,5 +67,10 @@ export class CustomerManagementService {
     return this.http.get<CustomerAddress>(this.addressUrl + '/' + id + '/edit')
   }
 
+  searchCustomer(data: any): Observable<CustomerData> {
+    return this.http.get<CustomerData>(this.url + 'search?query=' + data)
+
+  }
+
 
 }

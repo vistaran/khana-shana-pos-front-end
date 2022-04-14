@@ -1,7 +1,7 @@
 <sb-layout-dashboard>
     <div class="card shadow mt-4">
-        <h1 class="card-header mb-3">Add Order</h1>
-        <form [formGroup]="addSaleForm">
+        <h1 class="card-header mb-3">Edit Order</h1>
+        <form [formGroup]="editSaleForm">
             <div class="container-fluid">
 
                 <!-- <h3 class="card-header mb-2">Select Customer</h3> -->
@@ -227,7 +227,7 @@
                     </div>
                 </div>
 
-                <button [disabled]="!addSaleForm.valid" type="submit" (click)="onSubmit(addSaleForm.value)"
+                <button [disabled]="!editSaleForm.valid" type="submit" (click)="onSubmit(editSaleForm.value)"
                     class="btn btn-primary mb-4 float-right">
                     Submit
                 </button>
