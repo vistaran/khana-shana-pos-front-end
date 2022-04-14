@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 
-import { OutletData } from './outletData';
+import { OutletData, OutlSearch } from './outletData';
 
 @Injectable({
     providedIn: 'root',
@@ -35,8 +35,8 @@ export class OutletDataService {
     }
 
     // For searching outlet data
-    searchOutlet(data: any): Observable<OutletData> {
-        return this.http.get<OutletData>(this.url + 'search?query=' + data)
+    searchOutlet(data: any): Observable<OutlSearch> {
+        return this.http.get<OutlSearch>(this.url + 'search?query=' + data)
     }
 
     // To get edit outlet form field values

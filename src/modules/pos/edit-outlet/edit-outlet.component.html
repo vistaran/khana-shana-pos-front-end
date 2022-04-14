@@ -8,7 +8,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label class="required">Outlet Name</label>
-                            <input type="text" formControlName="Outlet_name" class="form-control" />
+                            <input type="text" formControlName="outlet_name" class="form-control" />
                             <div *ngIf="name?.touched && name?.invalid" class="alert alert-danger">
                                 <div *ngIf="name?.errors?.required">Outlet Name is required.</div>
                             </div>
@@ -18,7 +18,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label class="required">Select Status</label><br />
-                            <select name="status" formControlName="Status" class="form-control">
+                            <select name="status" formControlName="status" class="form-control">
                                 <option value="default">--Select Status--</option>
                                 <option *ngFor="let item of status">{{ item }}</option>
                             </select>
@@ -34,7 +34,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label class="required">Outlet Address</label>
-                            <input type="text" rows="6" formControlName="Outlet_Address" class="form-control" />
+                            <input type="text" rows="6" formControlName="outlet_Address" class="form-control" />
                             <div *ngIf="outletAddress?.touched && outletAddress?.invalid" class="alert alert-danger">
                                 <div *ngIf="outletAddress?.errors?.required">
                                     Outlet Address is required.
@@ -46,7 +46,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label class="required">Country</label>
-                            <input type="text" formControlName="Country" class="form-control" />
+                            <input type="text" formControlName="country" class="form-control" />
                             <div *ngIf="country?.touched && country?.invalid" class="alert alert-danger">
                                 <div *ngIf="country?.errors?.required">Country is required.</div>
                             </div>
@@ -56,7 +56,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label class="required">State</label>
-                            <input type="text" formControlName="State" class="form-control" />
+                            <input type="text" formControlName="state" class="form-control" />
                             <div *ngIf="state?.touched && state?.invalid" class="alert alert-danger">
                                 <div *ngIf="state?.errors?.required">State is required.</div>
                             </div>
@@ -66,7 +66,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label class="required">City</label>
-                            <input type="text" formControlName="City" class="form-control" />
+                            <input type="text" formControlName="city" class="form-control" />
                             <div *ngIf="city?.touched && city?.invalid" class="alert alert-danger">
                                 <div *ngIf="city?.errors?.required">City is required.</div>
                             </div>
@@ -76,7 +76,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label class="required">Postcode</label>
-                            <input type="text" formControlName="Postcode" class="form-control" />
+                            <input type="text" formControlName="postcode" class="form-control" />
                             <div *ngIf="postCode?.touched && postCode?.invalid" class="alert alert-danger">
                                 <div *ngIf="postCode?.errors?.required">Postcode is required.</div>
                             </div>

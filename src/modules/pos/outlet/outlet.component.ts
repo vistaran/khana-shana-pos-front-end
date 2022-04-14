@@ -69,9 +69,9 @@ export class OutletComponent implements OnInit {
   search(event: any) {
     this.showloader = true
     this.outletService.searchOutlet(this.searchValue).subscribe(res => {
-      this.outletData = res.outlets.data
+      this.outletData = res.Outlets.data
       this.length = this.outletData.length;
-      this.total = res.outlets.total;
+      this.total = res.Outlets.total;
       this.showloader = false
       console.log(this.outletData.length)
     }, err => {

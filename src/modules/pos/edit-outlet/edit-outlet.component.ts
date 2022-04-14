@@ -20,7 +20,7 @@ export class EditOutletComponent implements OnInit {
 
     // For Validations
     get name() {
-        return this.editOutletForm.get('name');
+        return this.editOutletForm.get('outlet_name');
     }
 
     get stat() {
@@ -28,7 +28,7 @@ export class EditOutletComponent implements OnInit {
     }
 
     get outletAddress() {
-        return this.editOutletForm.get('address');
+        return this.editOutletForm.get('outlet_Address');
     }
 
     get country() {
@@ -59,38 +59,38 @@ export class EditOutletComponent implements OnInit {
 
     ngOnInit(): void {
         this.editOutletForm = this.fb.group({
-            Outlet_name: ['', [Validators.required]],
-            Outlet_Address: ['', [Validators.required]],
-            Country: ['', [Validators.required]],
-            State: ['', [Validators.required]],
-            City: ['', [Validators.required]],
-            Postcode: ['', [Validators.required]],
+            outlet_name: ['', [Validators.required]],
+            outlet_Address: ['', [Validators.required]],
+            country: ['', [Validators.required]],
+            state: ['', [Validators.required]],
+            city: ['', [Validators.required]],
+            postcode: ['', [Validators.required]],
             inventory_source: ['', [Validators.required]],
-            Status: ['', [Validators.required]]
+            status: ['', [Validators.required]]
         });
         this.id = this.route.snapshot.params.id
 
         this.outletService.editOutletForm(this.id).subscribe((data: any) => {
             console.log(data);
-            
+
             this.editOutletForm.patchValue(data)
         })
     }
 
     // For submitting edit outlet form data
     updateData(data: any) {
-        var obj = {
-            name: data.Outlet_name,
-            address: data.Outlet_Address,
-            country: data.Country,
-            state: data.State,
-            city: data.City,
-            postcode: data.Postcode,
+        const obj = {
+            name: data.outlet_name,
+            address: data.outlet_Address,
+            country: data.country,
+            state: data.state,
+            city: data.city,
+            postcode: data.postcode,
             inventory_source: data.inventory_source,
-            status:data.Status 
+            status:data.status
         }
         console.log(obj);
-        
+
         this.outletService.editOutlet(this.id, obj).subscribe((data:any) => {
             console.log('Data updated successfully! ', data);
             this.router.navigate(['/pos/users'], {queryParams: {outlet: true}});
@@ -99,6 +99,6 @@ export class EditOutletComponent implements OnInit {
         err =>  {
             this.toast.error('Error', 'Server error.');
           });
-        
+
     }
 }
