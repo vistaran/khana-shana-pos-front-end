@@ -106,7 +106,7 @@ export class EditSaleComponent implements OnInit {
 
 
     // To get edit order form field values
-    this.saleService.editOrderFormData(this.id).subscribe((data: any) => {
+    this.saleService.orderDetailData(this.id).subscribe((data: any) => {
       this.editSaleForm.patchValue(data.order)
       console.log(data);
 

@@ -37,6 +37,9 @@
                             <td>{{ data.payment_mode }}</td>
                             <td>₹ {{ data.total_amount }}</td>
                             <td>
+                                <button class="btn btn-light mr-2" (click)="openXl(content)"
+                                    (click)="getOrderDetail(data.id)"><i class="fa fa-eye fa-lg"></i></button>
+
                                 <button class="btn btn-info mr-2"><i class="fa fa-pencil-square-o fa-lg"
                                         [routerLink]="['/sales/edit_sale/' + data.id]"></i></button>
 
@@ -58,5 +61,22 @@
                     <div [ngbNavOutlet]="nav"></div> -->
             </div>
         </div>
+
+        <ng-template #content let-modal>
+            <div class="modal-header">
+                <h4 class="modal-title">Order Details</h4>
+                <button type="button" class="btn-close" aria-label="Close"
+                    (click)="modal.dismiss('Cross click')">X</button>
+            </div>
+            <div class="modal-body">
+                <ng-container *ngFor="let data of orderDetail">
+                    <p>Order Id: {{data.id}}</p>
+                </ng-container>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+            </div>
+        </ng-template>
+
     </div>
 </sb-layout-dashboard>

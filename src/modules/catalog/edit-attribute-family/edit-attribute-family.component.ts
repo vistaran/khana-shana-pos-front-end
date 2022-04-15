@@ -129,7 +129,7 @@ export class EditAttributeFamilyComponent implements OnInit {
   updateData(data: any) {
     this.family.editFamily(this.familyId, data).subscribe(data => {
       console.log('Data updated successfully! ', data)
-      this.router.navigate(['/catalog/products'], { queryParams: { attributeFamily: true } });
+      this.router.navigate(['/catalog/products']);
       this.toast.success('Success', 'Edited successfully.')
     }, err => {
       this.toast.error('Error', 'Server error.')

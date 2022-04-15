@@ -125,7 +125,7 @@ export class EditCategoryComponent implements OnInit {
   updateData(data: any) {
     this.categoryService.editCategory(this.id, data).subscribe(data => {
       console.log('Data updated successfully! ', data)
-      this.router.navigate(['/catalog/products'], { queryParams: { categories: true } });
+      this.router.navigate(['/catalog/products']);
       this.toast.success('Success', 'Edited successfully.')
     }, err => {
       this.toast.error('Error', 'Server error.')

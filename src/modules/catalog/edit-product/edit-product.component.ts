@@ -88,7 +88,6 @@ export class EditProductComponent implements OnInit {
     }, err => {
       this.toast.error('Error', 'Server error.')
     })
-    { queryParams: { product: true } }
   }
 
   // For Category dropdown

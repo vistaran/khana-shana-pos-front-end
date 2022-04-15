@@ -29,15 +29,7 @@ export class ProductsComponent implements OnInit {
     private toast: AppToastService,
     private activatedRoute: ActivatedRoute
   ) {
-    if (this.activatedRoute.snapshot.queryParams.categories) {
-      this.activeId = 2
-    }
-    if (this.activatedRoute.snapshot.queryParams.attributes) {
-      this.activeId = 3
-    }
-    if (this.activatedRoute.snapshot.queryParams.attributeFamily) {
-      this.activeId = 4
-    }
+
   }
 
   ngOnInit() {

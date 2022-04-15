@@ -73,7 +73,7 @@ export class EditAttributeComponent implements OnInit {
   updateData(data: any) {
     this.attributeService.editAttribute(this.id, data).subscribe(data => {
       console.log('Data updated successfully! ', data)
-      this.router.navigate(['/catalog/products'], { queryParams: { attributes: true } });
+      this.router.navigate(['/catalog/products']);
       this.toast.success('Success', 'Edited successfully.')
     }, err => {
       this.toast.error('Error', 'Server error.')
