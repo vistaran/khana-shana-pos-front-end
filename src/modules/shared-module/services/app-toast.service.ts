@@ -19,4 +19,8 @@ export class AppToastService {
     this.toasts.push({ header, body, ...options });
   }
 
+  remove(toast: any) {
+    this.toasts = this.toasts.filter(t => t != toast);
+  }
+
 }
