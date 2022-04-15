@@ -12,7 +12,7 @@
                         <div class="col-6 col-sm-4">
                             <div class="form-group">
                                 <label class="required">Name</label><br />
-                                <input type="text" formControlName="product_name" class="form-control" />
+                                <input type="text" formControlName="product_name" class="form-control" autofocus/>
                                 <div *ngIf="name?.touched && name?.invalid" class="alert alert-danger">
                                     <div *ngIf="name?.errors?.required">Name is required.</div>
                                 </div>

@@ -58,12 +58,14 @@ export class AttributeFamilyComponent implements OnInit {
 
   // For deleting attribute family
   deleteRow(id: number) {
-    this.attributeFamilyService.deleteFamily(id).subscribe(data => {
-      this.getFamily();
-      this.toast.success('Success', 'Deleted Successfully.')
-    }, err => {
-      this.toast.error('Error', 'Server error.')
-    });
+    if (confirm('Are you sure you want to delete?')) {
+      this.attributeFamilyService.deleteFamily(id).subscribe(data => {
+        this.getFamily();
+        this.toast.success('Success', 'Deleted Successfully.')
+      }, err => {
+        this.toast.error('Error', 'Server error.')
+      });
+    }
   }
 
   // For searching data from table

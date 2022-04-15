@@ -34,6 +34,11 @@ export class SalesService {
     return this.http.post(this.url, data, { headers });
   }
 
+  editOrder(id: number,data: any) {
+    const headers = this.createAuthrorizationHeader();
+    return this.http.put(this.url + id, data, { headers })
+  }
+
   deleteOrder(id: number) {
     return this.http.delete(this.url + id)
   }

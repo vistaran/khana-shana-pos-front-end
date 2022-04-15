@@ -11,7 +11,8 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label class="required">Firstname</label>
-                                    <input type="text" formControlName="first_name" class="form-control" />
+                                    <input type="text" formControlName="first_name" class="form-control" autofocus/>
+                                    
                                     <div *ngIf="firstName?.touched && firstName?.invalid" class="alert alert-danger">
                                         <div *ngIf="firstName?.errors?.required">First name is required.</div>
                                     </div>

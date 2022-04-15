@@ -54,12 +54,14 @@ export class AttributesComponent implements OnInit {
 
   // For deleting attribute data
   deleteRow(id: number) {
-    this.attributeService.deleteAttribute(id).subscribe(data => {
-      this.getAttributesData();
-      this.toast.success('Success', 'Deleted Successfully.')
-    }, err => {
-      this.toast.error('Error', 'Server error.')
-    });
+    if (confirm('Are you sure you want to delete?')) {
+      this.attributeService.deleteAttribute(id).subscribe(data => {
+        this.getAttributesData();
+        this.toast.success('Success', 'Deleted Successfully.')
+      }, err => {
+        this.toast.error('Error', 'Server error.')
+      });
+    }
   }
 
   // For updating data on page change

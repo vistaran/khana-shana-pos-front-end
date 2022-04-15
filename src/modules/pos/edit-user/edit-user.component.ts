@@ -85,10 +85,21 @@ export class EditUserComponent implements OnInit {
 
         this.id = this.route.snapshot.params.id
 
-        // this.edit.editUserForm(this.id).subscribe((data: any) => {
-        //     this.editUserForm.patchValue(data.Show_Data)
-        //     console.log(data)
-        // })
+        this.userService.editUserForm(this.id).subscribe((data: any) => {
+            this.editUserForm.patchValue({
+                first_name: data.show_data.first_name,
+                lastname: data.show_data.lastname,
+                username: data.show_data.username,
+                email: data.show_data.email,
+                password: data.show_data.password,
+                confirm_password: data.show_data.confirm_password,
+                outlet_name: data.show_data.outlet_name,
+                outlet_status: data.show_data.outlet_status,
+                phone_no: data.show_data.phone_no,
+                status: data.show_data.status,
+            })
+            console.log(data)
+        })
     }
 
     // For submitting edit user form data

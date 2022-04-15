@@ -77,13 +77,14 @@ export class ItemsComponent implements OnInit {
 
   // For deleting Item data
   deleteRow(id: number) {
-
-    this.itemService.deleteItem(id).subscribe(data => {
-      this.getItemsData();
-      this.toast.success('Success', 'Deleted Successfully.')
-    }, err => {
-      this.toast.error('Error', 'Server error.')
-    });
+    if (confirm('Are you sure you want to delete?')) {
+      this.itemService.deleteItem(id).subscribe(data => {
+        this.getItemsData();
+        this.toast.success('Success', 'Deleted Successfully.')
+      }, err => {
+        this.toast.error('Error', 'Server error.')
+      });
+    }
   }
 
 }

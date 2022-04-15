@@ -14,6 +14,7 @@ export class SalesComponent implements OnInit {
 
   orderData: any = [];
   orderDetail: any = [];
+  itemDetail: any = [];
 
 
   constructor(
@@ -37,8 +38,9 @@ export class SalesComponent implements OnInit {
 
   getOrderDetail(id: number) {
     this.saleService.orderDetailData(id).subscribe((data) => {
-      this.orderDetail = data.order;
-      console.log(data);
+      this.orderDetail = data.order
+      this.itemDetail = data.items
+      console.log(this.orderDetail);
 
     })
   }

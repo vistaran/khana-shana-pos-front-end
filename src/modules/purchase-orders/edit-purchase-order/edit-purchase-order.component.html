@@ -9,7 +9,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label class="required">Select Vendor</label>
-                            <select name="vendor_id" formControlName="vendor_id" class="form-control">
+                            <select name="vendor_id" formControlName="vendor_id" class="form-control" autofocus>
                                 <option value="default">--Select Vendor--
                                 </option>
 
@@ -106,7 +106,7 @@
                                     <div class="form-group">
                                         <label class="required">Select Item Group Name</label>
                                         <select name="item_group_id" formControlName="item_group_id"
-                                            class="form-control" (ngModelChange)="onSelectGroup($event)">
+                                            class="form-control" (ngModelChange)="onSelectGroup($event)" autofocus>
                                             <option value="default">--Select Item Group Name--
                                             </option>
 

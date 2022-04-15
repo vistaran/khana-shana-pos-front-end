@@ -26,39 +26,21 @@ export class EditSaleComponent implements OnInit {
 
   payment_mode: any
 
-  payment_mode_copy = [
-    {
-      id: 1, name: 'Cash',
-    },
-    {
-      id: 2, name: 'UPI'
-    },
-    {
-      id: 3, name: 'Netbanking'
-    },
-    {
-      id: 3, name: 'Debit card'
-    },
-    {
-      id: 4, name: 'Credit card'
-    }
-  ]
-
   payment_mode_array = [
     {
-      id: 1, name: 'cash',
+      id: 1, name: 'Cash', alternate_name: 'cash'
     },
     {
-      id: 2, name: 'upi'
+      id: 2, name: 'UPI', alternate_name: 'upi'
     },
     {
-      id: 3, name: 'net_banking'
+      id: 3, name: 'Netbanking', alternate_name: 'net_banking'
     },
     {
-      id: 3, name: 'debit_card'
+      id: 3, name: 'Debit card',alternate_name: 'debit_card'
     },
     {
-      id: 4, name: 'credit_card'
+      id: 4, name: 'Credit card', alternate_name: 'credit_card'
     }
   ]
 
@@ -69,7 +51,6 @@ export class EditSaleComponent implements OnInit {
   page = 1
   showloader: any
   searchValue: any
-  showCustomerDetail = false;
   customerName: any
   customerNumber: any
   customer_id: any
@@ -107,13 +88,22 @@ export class EditSaleComponent implements OnInit {
 
     // To get edit order form field values
     this.saleService.orderDetailData(this.id).subscribe((data: any) => {
-      this.editSaleForm.patchValue(data.order)
-      console.log(data);
+      this.editSaleForm.patchValue({
+        shipping_charge: data.order.shipping_charge,
+        payment_mode: data.order.payment_mode,
+        notes: data.order.notes
+      })
+
+      this.customerData.forEach((g: any) => {
+        if (g.first_name == data.order.first_name) {
+         this.customer_id = g.id
+        }
+      });
 
       this.addedProduct = data.items
       this.total = data.order.total_amount
-      // this.shipping_charge = data.order.shipping_charge
-      // this.calculateTotal()
+      this.customerName = data.order.first_name + ' ' + data.order.last_name
+      this.customerNumber = data.order.phone_number
       console.log(data)
     })
   }
@@ -133,10 +123,7 @@ export class EditSaleComponent implements OnInit {
 
   onSelectProduct(data: any, qty: any) {
 
-
-
     console.log('Quantity', qty.quantity);
-
     this.productData.forEach((g: any) => {
       g.quantity = 0;
       g.subtotal = 0;
@@ -145,10 +132,11 @@ export class EditSaleComponent implements OnInit {
         g.quantity += qty.quantity
         g.subtotal += (data.price * qty.quantity)
         this.addedProduct.push(g)
-
-        this.ngOnInit()
       }
+      // this.ngOnInit()
     });
+    console.log('Added Product ',this.addedProduct);
+
 
     this.semitotal = this.addedProduct.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
       return a + b;
@@ -170,7 +158,6 @@ export class EditSaleComponent implements OnInit {
       if (g.id == data.value.customer_id) {
         this.customerName = g.first_name + ' ' + g.last_name
         this.customerNumber = g.phone_number
-        this.showCustomerDetail = true
       }
     });
   }
@@ -193,7 +180,7 @@ export class EditSaleComponent implements OnInit {
 
     console.log(data);
 
-    const addedProductSubmit:any = []
+    const addedProductSubmit: any = []
 
     this.addedProduct.forEach((g: any) => {
       addedProductSubmit.push({
@@ -208,33 +195,24 @@ export class EditSaleComponent implements OnInit {
     });
     console.log('addedProductSubmit: ', addedProductSubmit);
 
-
-
-    this.payment_mode_array.forEach((g: any) => {
-      // console.log(g);
-      if (g.id == data.payment_mode) {
-        this.payment_mode = g.name
-      }
-    });
-
     const obj = {
       shipping_charge: data.shipping_charge,
       total_amount: this.total,
       products: addedProductSubmit,
-      payment_mode: this.payment_mode,
+      payment_mode: data.payment_mode,
       customer_id: this.customer_id,
       notes: data.notes
     }
 
-    console.log(obj);
+    // console.log(obj);
 
-    // this.saleService.postOrder(obj).subscribe((result: any) => {
-    //   console.log(result)
-    //   this.toast.success('Success', 'Added Successfully.')
-    //   this.router.navigate(['/sales']);
-    // }, err => {
-    //   this.toast.error('Error', 'Server error.')
-    // });
+    this.saleService.editOrder(this.id, obj).subscribe((result: any) => {
+      console.log(result)
+      this.toast.success('Success', 'Edited Successfully.')
+      this.router.navigate(['/sales']);
+    }, err => {
+      this.toast.error('Error', 'Server error.')
+    });
   }
 
 }

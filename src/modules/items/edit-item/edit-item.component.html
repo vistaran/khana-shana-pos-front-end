@@ -8,7 +8,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label class="required">Item Name</label>
-                            <input type="text" formControlName="item_name" class="form-control" />
+                            <input type="text" formControlName="item_name" class="form-control" autofocus/>
                             <div *ngIf="item_name?.touched && item_name?.invalid" class="alert alert-danger">
                                 <div *ngIf="item_name?.errors?.required">Item Group Name is required.</div>
                             </div>

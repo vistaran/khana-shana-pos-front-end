@@ -35,10 +35,10 @@
                                     <td>{{ data.first_name }} {{ data.last_name}}</td>
                                     <td>{{ data.phone_number }}</td>
                                     <td>
-                                        <button class="btn btn-info mr-2"><i class="fa fa-pencil-square-o fa-lg"
+                                        <button ngbTooltip="Edit" class="btn btn-info mr-2"><i class="fa fa-pencil-square-o fa-lg"
                                                 [routerLink]="['/customer_management/editcustomer/' + data.id]"></i></button>
 
-                                        <button id="remove" (click)="deleteRow(data.id)" class="btn btn-danger"><i
+                                        <button ngbTooltip="Delete" id="remove" (click)="deleteRow(data.id)" class="btn btn-danger"><i
                                                 class="fa fa-trash-o fa-lg mx-auto"></i></button>
                                     </td>
                                 </tr>

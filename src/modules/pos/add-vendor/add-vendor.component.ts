@@ -57,11 +57,12 @@ export class AddVendorComponent implements OnInit {
       .subscribe((result: any) => {
         console.log(result)
         this.toast.success('Success', 'Added Successfully.')
+        this.router.navigate(['/pos/vendors']);
+
       }, err => {
         this.toast.error('Error', 'Server error.')
       });
     console.log('Form Submitted', (data));
-    this.router.navigate(['/pos/vendors']);
   }
 
 }
