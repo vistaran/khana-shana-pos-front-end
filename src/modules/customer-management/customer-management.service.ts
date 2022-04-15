@@ -13,7 +13,7 @@ export class CustomerManagementService {
   // private url = 'http://63b9-103-39-129-200.ngrok.io/api/customer'
   private url = environment.apiUrl + 'customer'
   private addressUrl = environment.apiUrl + 'userAddress'
-  private searchUrl = environment.apiUrl + 'search/customerSearch?='
+  private searchUrl = environment.apiUrl + 'search/customerSearch?query='
 
   constructor(
     private http: HttpClient
@@ -69,7 +69,7 @@ export class CustomerManagementService {
   }
 
   searchCustomer(data: any): Observable<CustomerData> {
-    return this.http.get<CustomerData>(this.url + data)
+    return this.http.get<CustomerData>(this.searchUrl + data)
   }
 
 }

@@ -11,7 +11,7 @@
 
                             <div class="input-group rounded w-25">
                                 <input type="search" class="form-control rounded" placeholder="Search"
-                                    aria-label="Search" aria-describedby="search-addon" />
+                                    aria-label="Search" (keyup)="search($event)" placeholder="Search" [(ngModel)]="searchValue" aria-describedby="search-addon" />
                                 <span class="input-group-text border-0" id="search-addon">
                                     <i class="fas fa-search"></i>
                                 </span>
@@ -22,7 +22,7 @@
                             </button>
 
                         </div>
-                        <table class="table table-bordered table-striped">
+                        <table class="table table-bordered table-striped table-hover">
                             <thead class="head">
                                 <th>Customer Id</th>
                                 <th>Name</th>
