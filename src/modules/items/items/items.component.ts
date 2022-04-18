@@ -20,7 +20,7 @@ export class ItemsComponent implements OnInit {
   public total = 0;
   public id = 0;
   page = 1;
-  pageSize = 10;
+  pageSize = 100;
   itemsPerPage: any;
   searchValue: any
   showloader: any
@@ -39,30 +39,20 @@ export class ItemsComponent implements OnInit {
 
   // For getting Item data for listing
   getItemsData() {
-    this.itemService.getItemsData().subscribe(data => {
-      this.itemsData = data.purchase_items.data;
+    this.itemService.getItemsData(this.page, this.pageSize).subscribe((data: any) => {
+      this.itemsData = data.data;
       this.length = this.itemsData.length
-      console.log(data);
+      this.total = data.total
     }, err => {
       this.toast.error('Error', 'Server error.')
     });
   }
 
-  // For Item Group Data
-  getItemGroupsData() {
-    this.itemGroupService.getItemGroupsData().subscribe(data => {
-      this.itemGroupsData = data.item_groups.data;
-      console.log(data);
-    })
+  refreshItemsData(limit: any) {
+    this.pageSize = limit
+    this.getItemsData()
   }
 
-  // For Unit Measurements Data
-  getUOMData() {
-    this.unitService.getUOMData().subscribe(data => {
-      this.unitData = data.units.data;
-      console.log(data);
-    })
-  }
 
   // For navigating to add item form on click
   onClick() {
@@ -77,12 +67,27 @@ export class ItemsComponent implements OnInit {
 
   // For deleting Item data
   deleteRow(id: number) {
+    if (confirm('Are you sure you want to delete?')) {
+      this.itemService.deleteItem(id).subscribe(data => {
+        this.getItemsData();
+        this.toast.success('Success', 'Deleted Successfully.')
+      }, err => {
+        this.toast.error('Error', 'Server error.')
+      });
+    }
+  }
 
-    this.itemService.deleteItem(id).subscribe(data => {
-      this.getItemsData();
-      this.toast.success('Success', 'Deleted Successfully.')
+  // For searching items table data
+  search(event: any) {
+    this.showloader = true
+    this.itemService.searchItems(this.searchValue).subscribe((data: any) => {
+      this.itemsData = data.data;
+      this.length = this.itemsData.length
+      this.total = data.total
+      this.showloader = false
     }, err => {
       this.toast.error('Error', 'Server error.')
+      this.showloader = false
     });
   }
 

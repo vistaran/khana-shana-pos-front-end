@@ -10,7 +10,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label class="required mt-4">Family Code</label>
-                            <input type="text" formControlName="attribute_family_code" class="form-control" />
+                            <input type="text" formControlName="attribute_family_code" class="form-control" autofocus/>
                             <div *ngIf="familyCode?.touched && familyCode?.invalid" class="alert alert-danger">
                                 <div *ngIf="familyCode?.errors?.required">Family Code is required.</div>
                             </div>

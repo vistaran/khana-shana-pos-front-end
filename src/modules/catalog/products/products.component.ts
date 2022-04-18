@@ -29,15 +29,7 @@ export class ProductsComponent implements OnInit {
     private toast: AppToastService,
     private activatedRoute: ActivatedRoute
   ) {
-    if (this.activatedRoute.snapshot.queryParams.categories) {
-      this.activeId = 2
-    }
-    if (this.activatedRoute.snapshot.queryParams.attributes) {
-      this.activeId = 3
-    }
-    if (this.activatedRoute.snapshot.queryParams.attributeFamily) {
-      this.activeId = 4
-    }
+
   }
 
   ngOnInit() {
@@ -74,13 +66,15 @@ export class ProductsComponent implements OnInit {
 
   // For deleting product
   deleteRow(id: number) {
-    this.productService.deleteProducts(id).subscribe(data => {
-      this.getProductData();
-      this.toast.success('Success', 'Deleted Successfully.')
-    }, err => {
-      this.toast.error('Error', 'Server error.')
-    });
-    console.log(this.productData);
+    if (confirm('Are you sure you want to delete?')) {
+      this.productService.deleteProducts(id).subscribe(data => {
+        this.getProductData();
+        this.toast.success('Success', 'Deleted Successfully.')
+      }, err => {
+        this.toast.error('Error', 'Server error.')
+      });
+      console.log(this.productData);
+    }
   }
 
   // For searching products from table data

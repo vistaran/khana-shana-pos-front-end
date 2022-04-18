@@ -9,7 +9,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label class="required">Attribute Code</label>
-                            <input type="text" formControlName="attribute_code" class="form-control" />
+                            <input type="text" formControlName="attribute_code" class="form-control" autofocus/>
                             <div *ngIf="attributeCode?.touched && attributeCode?.invalid" class="alert alert-danger">
                                 <div *ngIf="attributeCode?.errors?.required">Attribute Code is required.</div>
                             </div>

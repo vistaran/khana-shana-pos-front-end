@@ -35,6 +35,7 @@ export class ItemGroupsComponent implements OnInit {
   getItemGroupsData() {
     this.itemGroupService.getItemGroupsData().subscribe(data => {
       this.itemGroupsData = data.item_groups.data;
+      this.total = data.item_groups.total
       this.length = this.itemGroupsData.length
       console.log(data);
     }, err => {
@@ -55,13 +56,14 @@ export class ItemGroupsComponent implements OnInit {
 
   // For deleting Item group data
   deleteRow(id: number) {
-
-    this.itemGroupService.deleteItemGrpup(id).subscribe(data => {
-      this.getItemGroupsData();
-      this.toast.success('Success', 'Deleted Successfully.')
-    }, err => {
-      this.toast.error('Error', 'Server error.')
-    });
+    if (confirm('Are you sure you want to delete?')) {
+      this.itemGroupService.deleteItemGrpup(id).subscribe(data => {
+        this.getItemGroupsData();
+        this.toast.success('Success', 'Deleted Successfully.')
+      }, err => {
+        this.toast.error('Error', 'Server error.')
+      });
+    }
   }
 
 }

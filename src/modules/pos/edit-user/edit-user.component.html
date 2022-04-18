@@ -8,7 +8,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label class="required">Username</label>
-                            <input type="text" formControlName="username" class="form-control" placeholder="" />
+                            <input type="text" formControlName="username" class="form-control" placeholder="" autofocus/>
                             <div *ngIf="userName?.touched && userName?.invalid" class="alert alert-danger">
                                 <div *ngIf="userName?.errors?.required">Username is required.</div>
                             </div>

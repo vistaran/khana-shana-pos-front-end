@@ -32,7 +32,7 @@ export class UsersListComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         private toast: AppToastService
     ) {
-        if(this.activatedRoute.snapshot.queryParams.outlet) {
+        if (this.activatedRoute.snapshot.queryParams.outlet) {
             this.activeId = 2
         }
     }
@@ -72,13 +72,14 @@ export class UsersListComponent implements OnInit {
 
     // For deleting user
     deleteRow(id: number) {
-
-        this.userService.deleteUser(id).subscribe(data => {
-            this.getUserData();
-            this.toast.success('Success', 'Deleted Successfully.')
-        }, err => {
-            this.toast.error('Error', 'Server error.')
-        });
+        if (confirm('Are you sure you want to delete?')) {
+            this.userService.deleteUser(id).subscribe(data => {
+                this.getUserData();
+                this.toast.success('Success', 'Deleted Successfully.')
+            }, err => {
+                this.toast.error('Error', 'Server error.')
+            });
+        }
     }
 
     // For searching users data from table

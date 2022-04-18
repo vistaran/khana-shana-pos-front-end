@@ -9,7 +9,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label class="required">First Name</label>
-                            <input type="text" formControlName="first_name" class="form-control" />
+                            <input type="text" formControlName="first_name" class="form-control" autofocus/>
                             <div *ngIf="firstname?.touched && firstname?.invalid" class="alert alert-danger">
                                 <div *ngIf="firstname?.errors?.required">First Name is required.</div>
                             </div>
@@ -68,7 +68,7 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label class="required">Address Type</label>
-                                    <select name="address_type" formControlName="address_type" class="form-control">
+                                    <select name="address_type" formControlName="address_type" class="form-control" autofocus>
 
                                         <ng-container *ngFor="let list of address_type_name">
                                             <option value="{{ list.id }}">
@@ -277,7 +277,7 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label class="required">Address Type</label>
-                                    <select name="address_type" formControlName="address_type" class="form-control">
+                                    <select name="address_type" formControlName="address_type" class="form-control" autofocus>
 
                                         <ng-container *ngFor="let list of address_type_name">
                                             <option value="{{list.id}}">
@@ -360,8 +360,6 @@
                                     </div>
                                 </div>
 
-
-
                             </div>
 
                             <div class="row">
@@ -420,7 +418,6 @@
                             Address</button>
                     </div>
                 </ng-template>
-
 
                 <!-- <div class="row car-body">
 

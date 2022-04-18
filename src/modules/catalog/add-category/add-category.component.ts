@@ -102,7 +102,7 @@ export class AddCategoryComponent implements OnInit {
       .subscribe((result: any) => {
         console.log(result)
         this.toast.success('Success', 'Added successfully.')
-        this.router.navigate(['catalog/products'], { queryParams: { categories: true } })
+        this.router.navigate(['catalog/products'])
       }, err => {
         this.toast.error('Error', 'Server error.')
       });

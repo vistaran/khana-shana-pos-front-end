@@ -5,14 +5,15 @@
             <div class="container-fluid">
 
                 <!-- <h3 class="card-header mb-2">Select Customer</h3> -->
-                <button [hidden]="showCustomerDetail" class="btn btn-info mb-2" type="button"
+                <!-- <button [hidden]="!showCustomerDetail" class="btn btn-info mb-2" type="button"
                     (click)="openVerticallyCentered(content3)">Select
-                    Customer</button>
-                <div [hidden]="!showCustomerDetail">
+                    Customer</button> -->
+                <div>
                     <h4>Customer Details: </h4>
-                    <p>Name: {{ customerName}}</p>
-                    <p>Phone number: {{ customerNumber}}</p>
-                    <button class="btn btn-info mb-2" type="button" (click)="openVerticallyCentered(content3)">Select
+                    <p>Name: {{ customerName }}</p>
+                    <p>Phone number: {{ customerNumber }}</p>
+                    <button class="btn btn-info mb-2" type="button" (click)="openVerticallyCentered(content3)"
+                        autofocus>Select
                         Another Customer</button>
                 </div>
 
@@ -41,7 +42,7 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label class="required">Select Customer</label><br />
-                                    <select formControlName="customer_id" class="form-control">
+                                    <select formControlName="customer_id" class="form-control" autofocus>
                                         <option value="default">--Select Customer--</option>
                                         <option *ngFor="let item of customerData; index as i" value="{{item.id}}">{{ i+1
                                             }}. {{
@@ -106,12 +107,9 @@
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label class="required">Quantity</label>
-                                                    <input type="number" formControlName="quantity"
-                                                        class="form-control" />
+                                                    <input type="number" formControlName="quantity" class="form-control"
+                                                        autofocus />
 
-                                                    <!-- <div *ngIf="unit_id?.touched && unit_id?.invalid" class="alert alert-danger">
-                                                        <div *ngIf="unit_id?.errors?.required">Unit is required.</div>
-                                                    </div> -->
                                                 </div>
                                             </div>
 
@@ -124,11 +122,7 @@
                                             (click)="modal.close('Close click')">Save
                                             Order</button>
                                     </div>
-
                                 </ng-template>
-
-
-
                             </div>
 
                         </div>
@@ -147,33 +141,36 @@
                                 <th>Quantity</th>
                                 <th>Price</th>
                                 <th>Subtotal</th>
+                                <th>Actions</th>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let data of addedProduct">
                                     <td>{{ data.product_name }}</td>
-                                    <td>{{ data.category_name }}</td>
+                                    <td>{{ data.name }}</td>
                                     <td>{{ data.quantity }}</td>
-                                    <td>₹ {{ data.price }}</td>
+                                    <td>₹{{ data.price }}</td>
                                     <td>{{ data.quantity * data.price}}</td>
+                                    <td>
+
+                                        <button id="remove" class="btn btn-danger btn-sm"
+                                            (click)="RemoveProduct(data.id)"><i
+                                                class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                                    </td>
                                 </tr>
 
                                 <tr class="table-sm">
-                                    <td colspan="4" class="text-right"><b>Shipping Charges</b></td>
+                                    <td colspan="5" class="text-right"><b>Shipping Charges</b></td>
                                     <td>
                                         <div class="input-group input-group-sm mb-3">
                                             <input type="number" formControlName="shipping_charge" class="form-control"
                                                 aria-label="Sizing example input"
                                                 aria-describedby="inputGroup-sizing-sm" (keyup)="onKey($event)">
                                         </div>
-                                        <!-- <div *ngIf="shipping_charge?.touched && shipping_charge?.invalid"
-                                                    class="alert alert-danger">
-                                                    <div *ngIf="shipping_charge?.errors?.required">Shipping charge is required.</div>
-                                                </div> -->
                                     </td>
                                 </tr>
 
                                 <tr class="table-sm">
-                                    <td colspan="4" class="text-right"><b>Total Amount:</b></td>
+                                    <td colspan="5" class="text-right"><b>Total Amount:</b></td>
                                     <td>₹{{ total }}</td>
                                 </tr>
 
@@ -222,7 +219,8 @@
                         <label>Payment Mode</label>
                         <select formControlName="payment_mode" class="form-control">
                             <option value="default">--Select Payment Mode--</option>
-                            <option *ngFor="let item of payment_mode_copy" value="{{item.id}}">{{ item.name }}</option>
+                            <option *ngFor="let item of payment_mode_array" value="{{item.alternate_name}}">{{ item.name
+                                }}</option>
                         </select>
                     </div>
                 </div>

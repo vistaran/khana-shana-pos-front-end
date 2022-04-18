@@ -6,7 +6,7 @@
 
                 <!-- <h3 class="card-header mb-2">Select Customer</h3> -->
                 <button [hidden]="showCustomerDetail" class="btn btn-info mb-2" type="button"
-                    (click)="openVerticallyCentered(content3)">Select
+                    (click)="openVerticallyCentered(content3)" autofocus>Select
                     Customer</button>
                 <div [hidden]="!showCustomerDetail">
                     <h4>Customer Details: </h4>
@@ -41,7 +41,7 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label class="required">Select Customer</label><br />
-                                    <select formControlName="customer_id" class="form-control">
+                                    <select formControlName="customer_id" class="form-control" autofocus>
                                         <option value="default">--Select Customer--</option>
                                         <option *ngFor="let item of customerData; index as i" value="{{item.id}}">{{ i+1
                                             }}. {{
@@ -79,15 +79,7 @@
                                             <small class="card-text"><b>Price: </b> ₹ {{ data.price }}
                                             </small>
                                         </div>
-                                        <!-- <div class="align-items-end mb-2 ml-2">
-                                        <button class="btn btn-info mr-2 btn-sm"
-                                            (click)="openVerticallyCentered2(content2, data.id)"><i
-                                                class="fa fa-pencil-square-o fa-lg"></i></button>
-        
-                                        <button id="remove" class="btn btn-danger btn-sm"
-                                            (click)="deleteAddress(data.id)"><i
-                                                class="fa fa-trash-o fa-lg mx-auto"></i></button>
-                                    </div> -->
+                                       
                                     </button>
                                 </div>
 
@@ -107,7 +99,7 @@
                                                 <div class="form-group">
                                                     <label class="required">Quantity</label>
                                                     <input type="number" formControlName="quantity"
-                                                        class="form-control" />
+                                                        class="form-control" autofocus/>
 
                                                     <!-- <div *ngIf="unit_id?.touched && unit_id?.invalid" class="alert alert-danger">
                                                         <div *ngIf="unit_id?.errors?.required">Unit is required.</div>
@@ -147,33 +139,36 @@
                                 <th>Quantity</th>
                                 <th>Price</th>
                                 <th>Subtotal</th>
+                                <th>Actions</th>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let data of addedProduct">
                                     <td>{{ data.product_name }}</td>
                                     <td>{{ data.category_name }}</td>
                                     <td>{{ data.quantity }}</td>
-                                    <td>₹ {{ data.price }}</td>
+                                    <td>₹{{ data.price }}</td>
                                     <td>{{ data.quantity * data.price}}</td>
+                                    <td>
+    
+                                            <button id="remove" class="btn btn-danger btn-sm"
+                                                (click)="RemoveProduct(data.id)"><i
+                                                    class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                                    </td>
                                 </tr>
 
                                 <tr class="table-sm">
-                                    <td colspan="4" class="text-right"><b>Shipping Charges</b></td>
+                                    <td colspan="5" class="text-right"><b>Shipping Charges</b></td>
                                     <td>
                                         <div class="input-group input-group-sm mb-3">
                                             <input type="number" formControlName="shipping_charge" class="form-control"
                                                 aria-label="Sizing example input"
                                                 aria-describedby="inputGroup-sizing-sm" (keyup)="onKey($event)">
                                         </div>
-                                        <!-- <div *ngIf="shipping_charge?.touched && shipping_charge?.invalid"
-                                                    class="alert alert-danger">
-                                                    <div *ngIf="shipping_charge?.errors?.required">Shipping charge is required.</div>
-                                                </div> -->
                                     </td>
                                 </tr>
 
                                 <tr class="table-sm">
-                                    <td colspan="4" class="text-right"><b>Total Amount:</b></td>
+                                    <td colspan="5" class="text-right"><b>Total Amount:</b></td>
                                     <td>₹{{ total }}</td>
                                 </tr>
 
@@ -222,7 +217,7 @@
                         <label>Payment Mode</label>
                         <select formControlName="payment_mode" class="form-control">
                             <option value="default">--Select Payment Mode--</option>
-                            <option *ngFor="let item of payment_mode_copy" value="{{item.id}}">{{ item.name }}</option>
+                            <option *ngFor="let item of payment_mode_copy" value="{{item.alternate_name}}">{{ item.name }}</option>
                         </select>
                     </div>
                 </div>

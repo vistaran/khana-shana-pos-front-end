@@ -52,13 +52,14 @@ export class UomComponent implements OnInit {
   }
 
   deleteRow(id: number) {
-
-    this.uomService.deleteUomData(id).subscribe(data => {
-      this.getUOMData();
-      this.toast.success('Success', 'Deleted Successfully.')
-    }, err => {
-      this.toast.error('Error', 'Server error.')
-    });
+    if (confirm('Are you sure you want to delete?')) {
+      this.uomService.deleteUomData(id).subscribe(data => {
+        this.getUOMData();
+        this.toast.success('Success', 'Deleted Successfully.')
+      }, err => {
+        this.toast.error('Error', 'Server error.')
+      });
+    }
   }
 
   onPageChange(event: number) {

@@ -29,3 +29,34 @@ export interface Data {
     created_at: Date,
     updated_at: Date
 }
+
+// Details interface
+
+export interface OrderDetails {
+    order: Order[]
+    items: Items[]
+}
+
+interface Order {
+    created_at: Date
+    customer_id: number
+    id: number
+    notes: string
+    payment_mode: string
+    shipping_charge: number
+    total_amount: number
+    updated_at: Date
+    user_id: number
+}
+
+interface Items {
+    category_id: number
+    created_at: Date
+    id: number
+    order_id: number
+    price: number
+    product_id: number
+    quantity: number
+    subtotal: number
+    updated_at: Date
+}

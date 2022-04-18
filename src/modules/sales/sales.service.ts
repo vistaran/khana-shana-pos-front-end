@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 
-import { Data, Orders } from './sales';
+import { Data, OrderDetails, Orders } from './sales';
 
 @Injectable({
   providedIn: 'root'
@@ -34,12 +34,17 @@ export class SalesService {
     return this.http.post(this.url, data, { headers });
   }
 
+  editOrder(id: number,data: any) {
+    const headers = this.createAuthrorizationHeader();
+    return this.http.put(this.url + id, data, { headers })
+  }
+
   deleteOrder(id: number) {
     return this.http.delete(this.url + id)
   }
 
-  editOrderFormData(id: number):Observable<Data> {
-    return this.http.get<Data>(this.url + id)
+  orderDetailData(id: number):Observable<OrderDetails> {
+    return this.http.get<OrderDetails>(this.url + id)
   }
 
 

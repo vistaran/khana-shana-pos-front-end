@@ -42,6 +42,11 @@ const routes: Routes = [
         loadChildren: () =>
             import('modules/purchase-orders/purchase-orders-routing.module').then(m => m.PurchaseOrdersRoutingModule),
     },
+    {
+        path: 'reports',
+        loadChildren: () =>
+            import('modules/reports/reports-routing.module').then(m => m.ReportsRoutingModule),
+    },
     // {
     //     path: 'charts',
     //     loadChildren: () =>

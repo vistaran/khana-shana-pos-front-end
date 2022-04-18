@@ -129,7 +129,7 @@ export class EditAttributeFamilyComponent implements OnInit {
   updateData(data: any) {
     this.family.editFamily(this.familyId, data).subscribe(data => {
       console.log('Data updated successfully! ', data)
-      this.router.navigate(['/catalog/products'], { queryParams: { attributeFamily: true } });
+      this.router.navigate(['/catalog/products']);
       this.toast.success('Success', 'Edited successfully.')
     }, err => {
       this.toast.error('Error', 'Server error.')
@@ -149,13 +149,15 @@ export class EditAttributeFamilyComponent implements OnInit {
 
   // For deleting attribute from group
   deleteRow(id: number) {
-    this.attribute.deleteAttribute(id).subscribe(data => {
-      this.getAttributesGroupData();
-      this.toast.success('Success', 'Deleted successfully.')
-    }, err => {
-      this.toast.error('Error', 'Server error.')
-    })
-    console.log('Deleted!');
+    if (confirm('Are you sure you want to delete?')) {
+      this.attribute.deleteAttribute(id).subscribe(data => {
+        this.getAttributesGroupData();
+        this.toast.success('Success', 'Deleted successfully.')
+      }, err => {
+        this.toast.error('Error', 'Server error.')
+      })
+      console.log('Deleted!');
+    }
   }
 
   // For deleting group

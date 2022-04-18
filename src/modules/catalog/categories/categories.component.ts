@@ -61,12 +61,14 @@ export class CategoriesComponent implements OnInit {
 
   // For deleting category data
   deleteRow(id: number) {
-    this.categories.deleteCategory(id).subscribe(data => {
-      this.getCategoriesData();
-      this.toast.success('Success', 'Deleted Successfully.')
-    }, err => {
-      this.toast.error('Error', 'Server error.')
-    });
+    if (confirm('Are you sure you want to delete?')) {
+      this.categories.deleteCategory(id).subscribe(data => {
+        this.getCategoriesData();
+        this.toast.success('Success', 'Deleted Successfully.')
+      }, err => {
+        this.toast.error('Error', 'Server error.')
+      });
+    }
   }
 
   // For searching category data from table

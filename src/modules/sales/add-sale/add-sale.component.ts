@@ -26,39 +26,39 @@ export class AddSaleComponent implements OnInit {
 
   payment_mode_copy = [
     {
-      id: 1, name: 'Cash',
+      id: 1, name: 'Cash', alternate_name: 'cash'
     },
     {
-      id: 2, name: 'UPI'
+      id: 2, name: 'UPI', alternate_name: 'upi'
     },
     {
-      id: 3, name: 'Netbanking'
+      id: 3, name: 'Netbanking', alternate_name: 'net_banking'
     },
     {
-      id: 3, name: 'Debit card'
+      id: 3, name: 'Debit card', alternate_name: 'debit_card'
     },
     {
-      id: 4, name: 'Credit card'
+      id: 4, name: 'Credit card', alternate_name: 'credit_card'
     }
   ]
 
-  payment_mode_array = [
-    {
-      id: 1, name: 'cash',
-    },
-    {
-      id: 2, name: 'upi'
-    },
-    {
-      id: 3, name: 'net_banking'
-    },
-    {
-      id: 3, name: 'debit_card'
-    },
-    {
-      id: 4, name: 'credit_card'
-    }
-  ]
+  // payment_mode_array = [
+  //   {
+  //     id: 1, name: 'cash',
+  //   },
+  //   {
+  //     id: 2, name: 'upi'
+  //   },
+  //   {
+  //     id: 3, name: 'net_banking'
+  //   },
+  //   {
+  //     id: 3, name: 'debit_card'
+  //   },
+  //   {
+  //     id: 4, name: 'credit_card'
+  //   }
+  // ]
 
 
   shipping_charge = 0;
@@ -115,8 +115,6 @@ export class AddSaleComponent implements OnInit {
 
   onSelectProduct(data: any, qty: any) {
 
-
-
     console.log('Quantity', qty.quantity);
 
     this.productData.forEach((g: any) => {
@@ -139,7 +137,6 @@ export class AddSaleComponent implements OnInit {
     this.total += (data.quantity * data.price)
     this.calculateTotal()
     // console.log('Added Product', this.addedProduct);
-
   }
 
   onSelectCustomer(data: any) {
@@ -167,6 +164,13 @@ export class AddSaleComponent implements OnInit {
     this.calculateTotal();
   }
 
+  RemoveProduct(id: any) {
+    if (confirm('Are you sure you want to delete?')) {
+      this.addedProduct = this.addedProduct.filter((item: any) => item.id !== id);
+      console.log('afterdelete', this.addedProduct);
+    }
+  }
+
   calculateTotal() {
     this.total = Number(this.shipping_charge) + Number(this.semitotal);
   }
@@ -175,7 +179,7 @@ export class AddSaleComponent implements OnInit {
 
     console.log(data);
 
-    const addedProductSubmit:any = []
+    const addedProductSubmit: any = []
 
     this.addedProduct.forEach((g: any) => {
       addedProductSubmit.push({
@@ -192,18 +196,18 @@ export class AddSaleComponent implements OnInit {
 
 
 
-    this.payment_mode_array.forEach((g: any) => {
-      // console.log(g);
-      if (g.id == data.payment_mode) {
-        this.payment_mode = g.name
-      }
-    });
+    // this.payment_mode_array.forEach((g: any) => {
+    //   // console.log(g);
+    //   if (g.id == data.payment_mode) {
+    //     this.payment_mode = g.name
+    //   }
+    // });
 
     const obj = {
       shipping_charge: data.shipping_charge,
       total_amount: this.total,
       products: addedProductSubmit,
-      payment_mode: this.payment_mode,
+      payment_mode: data.payment_mode,
       customer_id: this.customer_id,
       notes: data.notes
     }

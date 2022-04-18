@@ -11,7 +11,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label class="required mt-4">Code</label>
-                            <input type="text" formControlName="attribute_family_code" class="form-control" />
+                            <input type="text" formControlName="attribute_family_code" class="form-control" autofocus/>
                             <div *ngIf="code?.touched && code?.invalid" class="alert alert-danger">
                                 <div *ngIf="code?.errors?.required">Code is required.</div>
                             </div>
@@ -47,7 +47,7 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label class="required mt-4">Name</label>
-                                    <input type="text" formControlName="group_name" class="form-control" />
+                                    <input type="text" formControlName="group_name" class="form-control" autofocus/>
                                     <div *ngIf="group_name?.touched && group_name?.invalid" class="alert alert-danger">
                                         <div *ngIf="group_name?.errors?.required">Group Name is required.</div>
                                     </div>
@@ -138,7 +138,7 @@
                                                             <label class="required">Select Attribute</label>
                                                             <select name="attribute" formControlName="attributeName"
                                                                 class="form-control"
-                                                                (ngModelChange)="onSelectName($event)">
+                                                                (ngModelChange)="onSelectName($event)" autofocus>
                                                                 <option value="default">--Select Attribute--
                                                                 </option>
 

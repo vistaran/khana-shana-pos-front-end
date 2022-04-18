@@ -39,11 +39,12 @@ export class AddItemGroupComponent implements OnInit {
       .subscribe((result: any) => {
         console.log(result)
         this.toast.success('Success', 'Added Successfully.')
+        this.router.navigate(['/item_groups']);
+
       }, err => {
         this.toast.error('Error', 'Server error.')
       });
     console.log('Form Submitted', (data));
-    this.router.navigate(['/item_groups']);
   }
 
 

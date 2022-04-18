@@ -49,6 +49,14 @@
   }
 }
 
+.modal-backdrop {
+  z-index: 100000 !important;
+}
+
+.modal {
+  z-index: 100001 !important;
+}
+
 // Responsive styling for the sidenav layout
 @include media-breakpoint-up(lg) {
   #layoutSidenav {
