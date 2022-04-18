@@ -58,7 +58,11 @@ export class EditItemComponent implements OnInit {
 
     // To get edit item form field values
     this.itemService.patchItemData(this.id).subscribe((data: any) => {
-      this.editItemForm.patchValue(data)
+      this.editItemForm.patchValue({
+        item_name: data.item_name,
+        unit_id: Number(data.unit_id),
+        item_group_id: data.item_group_id
+      })
       console.log(data)
     })
   }
