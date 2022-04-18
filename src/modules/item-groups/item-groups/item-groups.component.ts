@@ -35,6 +35,7 @@ export class ItemGroupsComponent implements OnInit {
   getItemGroupsData() {
     this.itemGroupService.getItemGroupsData().subscribe(data => {
       this.itemGroupsData = data.item_groups.data;
+      this.total = data.item_groups.total
       this.length = this.itemGroupsData.length
       console.log(data);
     }, err => {

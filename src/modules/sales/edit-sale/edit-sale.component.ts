@@ -22,7 +22,9 @@ export class EditSaleComponent implements OnInit {
 
   productData: any = [];
   addedProduct: any = [];
-  customerData: any = []
+  newProduct: any = [];
+  deletedProduct: any = [];
+  customerData: any = [];
 
   payment_mode: any
 
@@ -37,7 +39,7 @@ export class EditSaleComponent implements OnInit {
       id: 3, name: 'Netbanking', alternate_name: 'net_banking'
     },
     {
-      id: 3, name: 'Debit card',alternate_name: 'debit_card'
+      id: 3, name: 'Debit card', alternate_name: 'debit_card'
     },
     {
       id: 4, name: 'Credit card', alternate_name: 'credit_card'
@@ -96,12 +98,13 @@ export class EditSaleComponent implements OnInit {
 
       this.customerData.forEach((g: any) => {
         if (g.first_name == data.order.first_name) {
-         this.customer_id = g.id
+          this.customer_id = g.id
         }
       });
 
       this.addedProduct = data.items
       this.total = data.order.total_amount
+      this.shipping_charge = data.order.shipping_charge
       this.customerName = data.order.first_name + ' ' + data.order.last_name
       this.customerNumber = data.order.phone_number
       console.log(data)
@@ -122,21 +125,20 @@ export class EditSaleComponent implements OnInit {
   }
 
   onSelectProduct(data: any, qty: any) {
-
     console.log('Quantity', qty.quantity);
     this.productData.forEach((g: any) => {
       g.quantity = 0;
       g.subtotal = 0;
-      // console.log(g)
       if (g.id == data.id) {
         g.quantity += qty.quantity
         g.subtotal += (data.price * qty.quantity)
         this.addedProduct.push(g)
+        this.newProduct.push(g)
       }
-      // this.ngOnInit()
-    });
-    console.log('Added Product ',this.addedProduct);
 
+    });
+
+    console.log('Added Product ', this.addedProduct);
 
     this.semitotal = this.addedProduct.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
       return a + b;
@@ -144,17 +146,14 @@ export class EditSaleComponent implements OnInit {
 
     this.total += (data.quantity * data.price)
     this.calculateTotal()
-    // console.log('Added Product', this.addedProduct);
-
   }
 
+
+
   onSelectCustomer(data: any) {
-    // console.log(data.value.customer_id);
     this.customer_id = data.value.customer_id
     console.log('Customer id: ', this.customer_id);
-
     this.customerData.forEach((g: any) => {
-
       if (g.id == data.value.customer_id) {
         this.customerName = g.first_name + ' ' + g.last_name
         this.customerNumber = g.phone_number
@@ -172,27 +171,60 @@ export class EditSaleComponent implements OnInit {
     this.calculateTotal();
   }
 
+  RemoveProduct(id: any) {
+
+    this.deletedProduct = this.addedProduct.filter((item: any) => item.id == id);
+
+    if (confirm('Are you sure you want to delete?')) {
+      this.addedProduct = this.addedProduct.filter((item: any) => item.id !== id);
+      console.log('afterdelete', this.deletedProduct);
+    }
+
+    if (this.addedProduct.length) {
+      this.semitotal = this.addedProduct.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
+        return a + b;
+      })
+    }
+    this.calculateTotal()
+  }
+
   calculateTotal() {
     this.total = Number(this.shipping_charge) + Number(this.semitotal);
   }
 
   onSubmit(data: any) {
 
-    console.log(data);
+    console.log('on submit: ', this.addedProduct);
 
     const addedProductSubmit: any = []
 
-    this.addedProduct.forEach((g: any) => {
-      addedProductSubmit.push({
-        product_id: g.id,
-        category_id: g.category_id,
-        price: g.price,
-        quantity: g.quantity,
-        subtotal: g.subtotal
-      })
-      // console.log(g);
+    if (this.deletedProduct.length) {
+      this.deletedProduct.forEach((g: any) => {
+        addedProductSubmit.push({
+          product_id: g.product_id,
+          category_id: g.category_id,
+          order_id: this.id,
+          flag: 'delete'
+        })
+        // console.log(g);
+      });
+    }
 
-    });
+    if (this.addedProduct.length ) {
+      this.newProduct.forEach((g: any) => {
+        addedProductSubmit.push({
+          order_id: this.id,
+          product_id: g.id,
+          category_id: g.category_id,
+          price: g.price,
+          quantity: g.quantity,
+          subtotal: g.subtotal,
+          flag: 'add'
+        })
+      })
+    }
+    console.log('Final: ', addedProductSubmit)
+
     console.log('addedProductSubmit: ', addedProductSubmit);
 
     const obj = {

@@ -18,7 +18,7 @@ const routes: Routes = [
     canActivate: [],
     component: ItemGroupsComponent,
     data: {
-      title: 'POS Users',
+      title: 'Item Groups',
     } as SBRouteData,
   },
   {

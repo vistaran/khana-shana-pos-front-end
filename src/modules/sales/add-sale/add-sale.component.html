@@ -79,15 +79,7 @@
                                             <small class="card-text"><b>Price: </b> ₹ {{ data.price }}
                                             </small>
                                         </div>
-                                        <!-- <div class="align-items-end mb-2 ml-2">
-                                        <button class="btn btn-info mr-2 btn-sm"
-                                            (click)="openVerticallyCentered2(content2, data.id)"><i
-                                                class="fa fa-pencil-square-o fa-lg"></i></button>
-        
-                                        <button id="remove" class="btn btn-danger btn-sm"
-                                            (click)="deleteAddress(data.id)"><i
-                                                class="fa fa-trash-o fa-lg mx-auto"></i></button>
-                                    </div> -->
+                                       
                                     </button>
                                 </div>
 
@@ -147,33 +139,36 @@
                                 <th>Quantity</th>
                                 <th>Price</th>
                                 <th>Subtotal</th>
+                                <th>Actions</th>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let data of addedProduct">
                                     <td>{{ data.product_name }}</td>
                                     <td>{{ data.category_name }}</td>
                                     <td>{{ data.quantity }}</td>
-                                    <td>₹ {{ data.price }}</td>
+                                    <td>₹{{ data.price }}</td>
                                     <td>{{ data.quantity * data.price}}</td>
+                                    <td>
+    
+                                            <button id="remove" class="btn btn-danger btn-sm"
+                                                (click)="RemoveProduct(data.id)"><i
+                                                    class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                                    </td>
                                 </tr>
 
                                 <tr class="table-sm">
-                                    <td colspan="4" class="text-right"><b>Shipping Charges</b></td>
+                                    <td colspan="5" class="text-right"><b>Shipping Charges</b></td>
                                     <td>
                                         <div class="input-group input-group-sm mb-3">
                                             <input type="number" formControlName="shipping_charge" class="form-control"
                                                 aria-label="Sizing example input"
                                                 aria-describedby="inputGroup-sizing-sm" (keyup)="onKey($event)">
                                         </div>
-                                        <!-- <div *ngIf="shipping_charge?.touched && shipping_charge?.invalid"
-                                                    class="alert alert-danger">
-                                                    <div *ngIf="shipping_charge?.errors?.required">Shipping charge is required.</div>
-                                                </div> -->
                                     </td>
                                 </tr>
 
                                 <tr class="table-sm">
-                                    <td colspan="4" class="text-right"><b>Total Amount:</b></td>
+                                    <td colspan="5" class="text-right"><b>Total Amount:</b></td>
                                     <td>₹{{ total }}</td>
                                 </tr>
 

@@ -3,7 +3,11 @@ import { SideNavItems, SideNavSection } from '@modules/navigation/models';
 export const sideNavSections: SideNavSection[] = [
     {
         text: 'Financial',
-        items: ['item_groups', 'items','purchase_orders', 'sales'],
+        items: ['item_groups', 'items', 'purchase_orders', 'sales'],
+    },
+    {
+        text: 'Reports',
+        items: ['expense_by_group'],
     },
     {
         text: 'System',
@@ -24,13 +28,13 @@ export const sideNavItems: SideNavItems = {
         link: '/purchase_orders'
     },
     item_groups: {
-        icon: 'btc',
-        text: 'Item Groups',
+        // icon: '',
+        text: '₹ Item Groups',
         link: '/item_groups'
     },
     items: {
-        icon: 'columns',
-        text: 'Items',
+        // icon: 'columns',
+        text: '₹ Items',
         link: '/items'
     },
     sales: {
@@ -61,6 +65,13 @@ export const sideNavItems: SideNavItems = {
         icon: 'columns',
         text: 'Customers',
         link: '/customer_management'
+    },
+
+    // Reports
+    expense_by_group: {
+        icon: 'columns',
+        text: 'Expense By Item Group',
+        link: '/reports/expense_by_group',
     },
 
 
