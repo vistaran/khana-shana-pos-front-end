@@ -80,7 +80,7 @@ export class EditSaleComponent implements OnInit {
     })
 
     this.customerForm = this.fb.group({
-      customer_id: ['']
+      customer_id: [null]
     })
     this.getProductsData()
     this.getCustomerData()

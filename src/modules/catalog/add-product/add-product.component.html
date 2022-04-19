@@ -42,11 +42,10 @@
 
                             <div class="form-group">
                                 <label class="required">Category</label>
-                                <select name="status" formControlName="category_id" class="form-control">
-                                    <option value="default">--Select Category--</option>
-                                    <option *ngFor="let item of categoryData" value="{{item.id}}">{{ item.name }}
-                                    </option>
-                                </select>
+                                <ng-select name="status" formControlName="category_id" placeholder="Select Category">
+                                    <ng-option *ngFor="let item of categoryData" value="{{item.id}}">{{ item.name }}
+                                    </ng-option>
+                                </ng-select>
                                 <div *ngIf="category?.touched && category?.invalid" class="alert alert-danger">
                                     <div *ngIf="category?.errors?.required">Category is required.</div>
                                 </div>

@@ -20,34 +20,23 @@
                 <ng-template #content3 let-modal>
 
                     <div class="modal-header">
-                        <h4 class="modal-title">Product Quantity</h4>
+                        <h4 class="modal-title">Select Customer</h4>
                         <button type="button" class="btn-close btn-default" aria-label="Close"
                             (click)="modal.dismiss('Cross click')">X
                         </button>
                     </div>
 
                     <div class="modal-body">
-                        <!-- <div class="input-group rounded">
-                            <input class="form-control amber-border" class="form-control" type="text"
-                                aria-label="Search" (keyup)="search($event)" placeholder="Search"
-                                [(ngModel)]="searchValue">
-                            <div class="input-group-append">
-                                <button class="btn input-group-text amber lighten-3" id="basic-text1"><i
-                                        class="fa fa-search" aria-hidden="true" (click)="search($event)"></i></button>
-                            </div>
-                        </div> -->
-
 
                         <form [formGroup]="customerForm">
                             <div class="col">
                                 <div class="form-group">
                                     <label class="required">Select Customer</label><br />
-                                    <select formControlName="customer_id" class="form-control" autofocus>
-                                        <option value="default">--Select Customer--</option>
-                                        <option *ngFor="let item of customerData; index as i" value="{{item.id}}">{{ i+1
+                                    <ng-select formControlName="customer_id" placeholder="Select Customer">
+                                        <ng-option *ngFor="let item of customerData; index as i" value="{{item.id}}">{{ i+1
                                             }}. {{
-                                            item.first_name }} {{ item.last_name}}</option>
-                                    </select>
+                                            item.first_name }} {{ item.last_name}}</ng-option>
+                                    </ng-select>
                                 </div>
                             </div>
                         </form>

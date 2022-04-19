@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { AppCommonModule } from '@common/app-common.module';
 import { NavigationModule } from '@modules/navigation/navigation.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 import { AddPurchaseOrderComponent } from './add-purchase-order/add-purchase-order.component';
 import { EditPurchaseOrderComponent } from './edit-purchase-order/edit-purchase-order.component';
@@ -23,6 +24,7 @@ import { PurchaseOrdersComponent } from './purchase-orders/purchase-orders.compo
     ReactiveFormsModule,
     FormsModule,
     RouterModule,
+    NgSelectModule
   ]
 })
 export class PurchaseOrdersModule { }

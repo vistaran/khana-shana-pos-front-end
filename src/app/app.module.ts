@@ -11,7 +11,12 @@ import { SearchfilterPipe } from './searchfilter.pipe';
 
 @NgModule({
     declarations: [AppComponent, SearchfilterPipe, AppToastsComponentComponent],
-    imports: [BrowserModule, CommonModule, AppRoutingModule, HttpClientModule, NgbToastModule],
+    imports: [BrowserModule, 
+        CommonModule, 
+        AppRoutingModule,
+        HttpClientModule, 
+        NgbToastModule
+    ],
     providers: [],
     bootstrap: [AppComponent],
 })

@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { AppCommonModule } from '@common/app-common.module';
 import { NavigationModule } from '@modules/navigation/navigation.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 import { AddAttributeFamilyComponent } from './add-attribute-family/add-attribute-family.component';
 import { AddAttributeComponent } from './add-attribute/add-attribute.component';
@@ -38,7 +39,8 @@ import { SearchPipe } from './search.pipe';
     AttributeFamilyComponent,
     AddAttributeFamilyComponent,
     EditAttributeFamilyComponent,
-    SearchPipe],
+    SearchPipe,
+  ],
 
   imports: [
     CommonModule,
@@ -48,6 +50,7 @@ import { SearchPipe } from './search.pipe';
     NgbModule,
     ReactiveFormsModule,
     FormsModule,
+    NgSelectModule
   ]
 })
 export class CatalogModule { }

@@ -112,18 +112,18 @@ export class EditPurchaseOrderComponent implements OnInit {
   ngOnInit(): void {
 
     this.editOrderForm = this.fb.group({
-      vendor_id: ['', Validators.required],
-      outlet_id: ['', Validators.required],
+      vendor_id: [null, Validators.required],
+      outlet_id: [null, Validators.required],
       notes: [''],
       shipping_charge: [0],
     })
 
     this.itemsForm = this.fb.group({
       notes: ['', Validators.required],
-      item_id: ['', Validators.required],
-      item_group_id: ['', Validators.required],
+      item_id: [null, Validators.required],
+      item_group_id: [null, Validators.required],
       qty: ['', Validators.required],
-      unit_id: [{ value: '', disabled: true }, Validators.required],
+      unit_id: [{ value: null, disabled: true }, Validators.required],
       price: ['', Validators.required],
     })
 
@@ -202,8 +202,8 @@ export class EditPurchaseOrderComponent implements OnInit {
   // TO get Item group data
   getItemsData() {
     console.log('group_id', this.group_id);
-    this.purchaseOrderService.getItemData(this.group_id).subscribe(data => {
-      this.itemsData = data.purchase_items.data
+    this.purchaseOrderService.getItemData(this.group_id).subscribe((data: any) => {
+      this.itemsData = data.data
       this.unit_name = this.itemsData.unit_name
       console.log(this.itemsData, this.unit_name);
     })

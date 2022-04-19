@@ -15,6 +15,7 @@ import { RefundsComponent } from './refunds/refunds.component';
 import { SalesComponent } from './sales/sales.component';
 import { ShipmentComponent } from './shipment/shipment.component';
 import { EditSaleComponent } from './edit-sale/edit-sale.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { EditSaleComponent } from './edit-sale/edit-sale.component';
     AppCommonModule,
     NgbModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgSelectModule
   ]
 })
 export class SalesModule { }
