@@ -19,6 +19,7 @@ export class AddItemComponent implements OnInit {
   public unitData: any = [];
   public unitId: any
   public itemGroupId: any
+  selectedCity:any
 
 // For Validations
   get item_name() {
@@ -45,8 +46,8 @@ export class AddItemComponent implements OnInit {
   ngOnInit(): void {
     this.addItemForm = this.fb.group({
       item_name: ['', [Validators.required]],
-      unit_id: ['', [Validators.required]],
-      item_group_id: ['', [Validators.required]]
+      unit_id: [null, [Validators.required]],
+      item_group_id: [null, [Validators.required]]
     })
 
     this.getUOMData();

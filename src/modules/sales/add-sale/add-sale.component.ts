@@ -5,6 +5,7 @@ import { ProductService } from '@modules/catalog/product.service';
 import { CustomerManagementService } from '@modules/customer-management/customer-management.service';
 import { AppToastService } from '@modules/shared-module/services/app-toast.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Subject } from 'rxjs';
 
 import { SalesService } from '../sales.service';
 
@@ -21,9 +22,9 @@ export class AddSaleComponent implements OnInit {
   addSaleForm!: FormGroup
   qtyForm!: FormGroup
   customerForm!: FormGroup
+  selectedCity: any
 
   payment_mode: any
-
   payment_mode_copy = [
     {
       id: 1, name: 'Cash', alternate_name: 'cash'
@@ -94,7 +95,7 @@ export class AddSaleComponent implements OnInit {
     })
 
     this.customerForm = this.fb.group({
-      customer_id: ['']
+      customer_id: [null]
     })
     this.getProductsData()
     this.getCustomerData()
@@ -111,6 +112,15 @@ export class AddSaleComponent implements OnInit {
     this.customerService.getCustomerData(this.page).subscribe(data => {
       this.customerData = data.customers
     })
+  }
+
+  search(event: any) {
+    this.customerService.searchCustomer(this.searchValue).subscribe((res: any) => {
+      this.customerData = res.customers.data
+    }, err => {
+      this.toast.error('Error', 'Server error.')
+      this.showloader = false
+    });
   }
 
   onSelectProduct(data: any, qty: any) {

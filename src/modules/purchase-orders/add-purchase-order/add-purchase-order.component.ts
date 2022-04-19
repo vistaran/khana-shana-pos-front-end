@@ -110,21 +110,21 @@ export class AddPurchaseOrderComponent implements OnInit {
 
   ngOnInit(): void {
     this.addOrderForm = this.fb.group({
-      vendor_id: ['', Validators.required],
+      vendor_id: [null, Validators.required],
       // user_id: ['', [Validators.required]],
-      outlet_id: ['', Validators.required],
+      outlet_id: [null, Validators.required],
       notes: [''],
       shipping_charge: [0],
     })
 
     this.itemsForm = this.fb.group({
       notes: ['', Validators.required],
-      item_id: ['', Validators.required],
+      item_id: [null, Validators.required],
       // item_name: ['', Validators.required],
-      item_group_id: ['', Validators.required],
+      item_group_id: [null, Validators.required],
       // item_group_name: ['', Validators.required],
       qty: ['', Validators.required],
-      unit_id: [{value: '', disabled: true}, Validators.required],
+      unit_id: [{value: null, disabled: true}, Validators.required],
       // unit_name: ['', Validators.required],
       price: ['', Validators.required],
       // subtotal: ['', Validators.required]
@@ -177,8 +177,8 @@ export class AddPurchaseOrderComponent implements OnInit {
   // TO get Item group data
   getItemsData() {
     console.log('group_id', this.group_id);
-    this.purchaseOrderService.getItemData(this.group_id).subscribe(data => {
-      this.itemsData = data.purchase_items.data
+    this.purchaseOrderService.getItemData(this.group_id).subscribe((data: any) => {
+      this.itemsData = data.data
       this.unit_name = this.itemsData.unit_name
       console.log(this.itemsData, this.unit_name);
     })
@@ -216,15 +216,7 @@ export class AddPurchaseOrderComponent implements OnInit {
   }
 
   addItemData(data: any) {
-    // this.family.addGroup(data).subscribe(data => {
-    //   console.log('Data added successfully! ', data)
-    //   this.toast.success('Success', 'Added successfully.')
-    // }, err => {
-    //   this.toast.error('Error', 'Server error.')
-    // })
-
-    // extract name from original array using selected group id
-
+   
     this.itemGroupsData.forEach((g: any) => {
       if (g.id == data.item_group_id) {
         this.name = g.group_name

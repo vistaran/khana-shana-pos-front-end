@@ -9,60 +9,35 @@
                     <div class="col">
                         <div class="form-group">
                             <label class="required">Select Vendor</label>
-                            <select name="vendor_id" formControlName="vendor_id" class="form-control" autofocus>
-                                <option value="default">--Select Vendor--
-                                </option>
+                            <ng-select name="vendor_id" placeholder="Select Vendor" formControlName="vendor_id"
+                                autofocus>
 
                                 <ng-container *ngFor="let list of vendorData">
-                                    <option [ngValue]=" list.id">
+                                    <ng-option value="{{list.id}}">
                                         {{list.name
                                         }}
-                                    </option>
+                                    </ng-option>
                                 </ng-container>
-                            </select>
+                            </ng-select>
                             <div *ngIf="vendor_id?.touched && vendor_id?.invalid" class="alert alert-danger">
                                 <div *ngIf="vendor_id?.errors?.required">Vendor is required.</div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- <div class="col">
-                        <div class="form-group">
-                            <label class="required">Select User</label>
-                            <select name="vendor_id" formControlName="user_id" class="form-control">
-                                <option value="default">--Select User--
-                                </option>
-
-                                <ng-container *ngFor="let list of userData">
-                                    <option [ngValue]=" list.id">
-                                        {{list.username
-                                        }}
-                                    </option>
-                                </ng-container>
-                            </select>
-                            <div *ngIf="user_id?.touched && user_id?.invalid" class="alert alert-danger">
-                                <div *ngIf="user_id?.errors?.required">User is required.</div>
-                            </div>
-                        </div>
-                    </div> -->
-                    <!-- <ng-select [items]="vendorData" bindLabel="name" placeholder="Select item" appendTo="body" multiple="true"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            [(ngModel)]="selectedVendor">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </ng-select> -->
 
                     <div class="col">
                         <div class="form-group">
                             <label class="required">Select Outlet</label>
-                            <select name="outlet_id" formControlName="outlet_id" class="form-control">
-                                <option value="default">--Select Outlet--
-                                </option>
+                            <ng-select name="outlet_id" formControlName="outlet_id" placeholder="Select Outlet">
 
                                 <ng-container *ngFor="let list of outletData">
-                                    <option [ngValue]=" list.id">
-                                        {{list.Outlet_name
+                                    <ng-option value="{{list.id}}">
+                                        {{list.outlet_name
                                         }}
-                                    </option>
+                                    </ng-option>
                                 </ng-container>
-                            </select>
+                            </ng-select>
                             <div *ngIf="outlet_id?.touched && outlet_id?.invalid" class="alert alert-danger">
                                 <div *ngIf="outlet_id?.errors?.required">Outlet is required.</div>
                             </div>
@@ -93,7 +68,7 @@
 
                         <div class="modal-header">
                             <h4 class="modal-title">Add Item</h4>
-                            <button type="button" class="btn-close btn-default" aria-label="Close"
+                            <button type="button" class="btn-close btn-primary" aria-label="Close"
                                 (click)="modal.dismiss('Cross click')">X
                             </button>
                         </div>
@@ -105,18 +80,17 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label class="required">Select Item Group Name</label>
-                                        <select name="item_group_id" formControlName="item_group_id"
-                                            class="form-control" (ngModelChange)="onSelectGroup($event)" autofocus>
-                                            <option value="default">--Select Item Group Name--
-                                            </option>
+                                        <ng-select name="item_group_id" formControlName="item_group_id"
+                                            (ngModelChange)="onSelectGroup($event)" autofocus
+                                            placeholder="Select Item Group Name">
 
                                             <ng-container *ngFor="let list of itemGroupsData">
-                                                <option value="{{ list.id }}">
+                                                <ng-option value="{{ list.id }}">
                                                     {{list.group_name
                                                     }}
-                                                </option>
+                                                </ng-option>
                                             </ng-container>
-                                        </select>
+                                        </ng-select>
                                         <div *ngIf="item_group_id?.touched && item_group_id?.invalid"
                                             class="alert alert-danger">
                                             <div *ngIf="item_group_id?.errors?.required">Item Group name is required.
@@ -126,22 +100,21 @@
                                 </div>
 
                                 <div [hidden]="!isInputShown">
-                                    
+
                                     <div class="col">
                                         <div class="form-group">
                                             <label class="required">Select Item Name</label>
-                                            <select name="item_id" formControlName="item_id" class="form-control"
-                                                (ngModelChange)="onSelectNameItem($event)">
-                                                <option value="default">--Select Item Name--
-                                                </option>
+                                            <ng-select name="item_id" formControlName="item_id"
+                                                (ngModelChange)="onSelectNameItem($event)"
+                                                placeholder="Select Item Name">
 
                                                 <ng-container *ngFor="let list of itemsData">
-                                                    <option value="{{ list.id }}">
+                                                    <ng-option value="{{ list.id }}">
                                                         {{list.item_name
                                                         }}
-                                                    </option>
+                                                    </ng-option>
                                                 </ng-container>
-                                            </select>
+                                            </ng-select>
                                             <div *ngIf="item_id?.touched && item_id?.invalid"
                                                 class="alert alert-danger">
                                                 <div *ngIf="item_id?.errors?.required">Item name is required.</div>
@@ -155,21 +128,10 @@
                                 <div [hidden]="!isInputShown2">
                                     <div class="row card-body">
 
-                                        <div class="col" >
+                                        <div class="col">
                                             <div class="form-group">
                                                 <label class="required">Select Unit Name</label>
-                                                <input type="text" formControlName="unit_id" class="form-control" value="{{ unit_name }}"/>
-                                                <!-- <select name="unit_id" formControlName="unit_id" class="form-control">
-                                                    <option value="default">--Select Unit Name--
-                                                    </option>
-
-                                                    <ng-container *ngFor="let list of unitsData">
-                                                        <option value="{{ list.id }}">
-                                                            {{list.unit_name
-                                                            }}
-                                                        </option>
-                                                    </ng-container>
-                                                </select> -->
+                                                <input type="text" formControlName="unit_id" value="{{ unit_name }}" />
                                             </div>
                                         </div>
 
@@ -288,8 +250,8 @@
             </div> -->
 
 
-                <button [disabled]="!addOrderForm.valid && !itemsForm.valid" type="submit" (click)="onSubmit(addOrderForm.value)"
-                    class="btn btn-primary mb-4 float-right">
+                <button [disabled]="!addOrderForm.valid && !itemsForm.valid" type="submit"
+                    (click)="onSubmit(addOrderForm.value)" class="btn btn-primary mb-4 float-right">
                     Submit
                 </button>
 

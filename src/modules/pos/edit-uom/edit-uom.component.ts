@@ -39,6 +39,12 @@ export class EditUomComponent implements OnInit {
     })
 
     this.id = this.route.snapshot.params.id
+
+    this.uomService.patchUomData(this.id).subscribe((data: any) => {
+      this.editUomForm.patchValue(data)
+      console.log(data)
+    })
+
   }
 
   updateData(data: any) {

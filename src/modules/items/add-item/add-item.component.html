@@ -1,72 +1,67 @@
 <sb-layout-dashboard>
     <div class="d-flex justify-content-center">
 
-    <div class="card shadow w-75 mt-3">
-        <h1 class="card-header mb-3 text-center">Add Item</h1>
-        <form [formGroup]="addItemForm">
-            <div class="container">
-                <!-- <h2 class="card-header mt-4 pb-2">General</h2> -->
-                <div class="row card-body justify-content-around">
+        <div class="card shadow w-75 mt-3">
+            <h1 class="card-header mb-3 text-center">Add Item</h1>
+            <form [formGroup]="addItemForm">
+                <div class="container">
+                    <!-- <h2 class="card-header mt-4 pb-2">General</h2> -->
+                    <div class="row card-body justify-content-around">
 
-                    <div class="col-6 col-sm-4">
-                        <div class="form-group">
-                            <label class="required">Item Name</label>
-                            <input type="text" formControlName="item_name" class="form-control" autofocus/>
-                            <div *ngIf="item_name?.touched && item_name?.invalid" class="alert alert-danger">
-                                <div *ngIf="item_name?.errors?.required">Item Group Name is required.</div>
+                        <div class="col-6 col-sm-4">
+                            <div class="form-group">
+                                <label class="required">Item Name</label>
+                                <input type="text" formControlName="item_name" class="form-control" autofocus />
+                                <div *ngIf="item_name?.touched && item_name?.invalid" class="alert alert-danger">
+                                    <div *ngIf="item_name?.errors?.required">Item Group Name is required.</div>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="col-6 col-sm-4">
-                        <div class="form-group">
-                            <label class="required">Select Unit</label>
-                            <select name="unit_id" formControlName="unit_id" class="form-control">
-                                <option value="default">--Select Unit--
-                                </option>
-
-                                <ng-container *ngFor="let list of unitData">
-                                    <option [ngValue]=" list.id">
+                        <div class="col-6 col-sm-4">
+                            <div class="form-group">
+                                <label class="required">Select Unit</label>
+                                <ng-select name="unit_id" placeholder="Select Unit" formControlName="unit_id">
+                                    
+                                    <ng-option *ngFor="let list of unitData" value="{{list.id}}">
                                         {{list.unit_name
                                         }}
-                                    </option>
-                                </ng-container>
-                            </select>
-                            <div *ngIf="unit_id?.touched && unit_id?.invalid" class="alert alert-danger">
-                                <div *ngIf="unit_id?.errors?.required">Unit is required.</div>
+                                    </ng-option>
+                                </ng-select>
+                                <div *ngIf="unit_id?.touched && unit_id?.invalid" class="alert alert-danger">
+                                    <div *ngIf="unit_id?.errors?.required">Unit is required.</div>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="col-6 col-sm-4">
-                        <div class="form-group">
-                            <label class="required">Select Item Group</label>
-                            <select name="item_group_id" formControlName="item_group_id" class="form-control">
-                                <option value="default">--Select Item Group--
-                                </option>
+                        <div class="col-6 col-sm-4">
+                            <div class="form-group">
+                                <label class="required">Select Item Group</label>
+                                <ng-select name="item_group_id" placeholder="Select Item Group" formControlName="item_group_id">
 
-                                <ng-container *ngFor="let list of itemGroupsData">
-                                    <option [ngValue]=" list.id">
-                                        {{list.group_name
-                                        }}
-                                    </option>
-                                </ng-container>
-                            </select>
-                            <div *ngIf="item_group_id?.touched && item_group_id?.invalid" class="alert alert-danger">
-                                <div *ngIf="item_group_id?.errors?.required">Item Group is required.</div>
+                                    <ng-container *ngFor="let list of itemGroupsData">
+                                        <ng-option value="{{list.id}}">
+                                            {{list.group_name
+                                            }}
+                                        </ng-option>
+                                    </ng-container>
+                                </ng-select>
+                                <div *ngIf="item_group_id?.touched && item_group_id?.invalid"
+                                    class="alert alert-danger">
+                                    <div *ngIf="item_group_id?.errors?.required">Item Group is required.</div>
+                                </div>
                             </div>
                         </div>
+
                     </div>
+
+                    <button [disabled]="!addItemForm.valid" type="submit" (click)="onSubmit(addItemForm.value)"
+                        class="btn btn-primary mb-4 float-right">
+                        Submit
+                    </button>
 
                 </div>
-
-                <button [disabled]="!addItemForm.valid" type="submit" (click)="onSubmit(addItemForm.value)"
-                    class="btn btn-primary mb-4 float-right">
-                    Submit
-                </button>
-
-            </div>
-        </form>
-    </div>
+            </form>
+        </div>
     </div>
 </sb-layout-dashboard>

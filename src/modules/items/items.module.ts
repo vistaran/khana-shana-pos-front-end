@@ -8,6 +8,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ItemsComponent } from './items/items.component';
 import { AddItemComponent } from './add-item/add-item.component';
 import { EditItemComponent } from './edit-item/edit-item.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 // import { ItemsRoutingModule } from './items-routing.module';
 
@@ -21,7 +22,8 @@ import { EditItemComponent } from './edit-item/edit-item.component';
     NgbModule,
     ReactiveFormsModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    NgSelectModule
     // ItemsRoutingModule
   ]
 })

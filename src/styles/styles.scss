@@ -16,6 +16,8 @@
 @import "navigation/sidenav/sidenav-dark.scss";
 @import "navigation/sidenav/sidenav-light.scss";
 
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
 .bg-primary {background-color: #44B276 !important;}
 
 .img-xs { width: 30px;}
