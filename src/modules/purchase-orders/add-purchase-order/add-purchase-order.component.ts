@@ -8,7 +8,7 @@ import { UomService } from '@modules/pos/uom.service';
 import { UserDataService } from '@modules/pos/user-data.service';
 import { VendorsService } from '@modules/pos/vendors.service';
 import { AppToastService } from '@modules/shared-module/services/app-toast.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDate, NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { PurchaseOrdersService } from '../purchase-orders.service';
 
@@ -29,6 +29,15 @@ export class AddPurchaseOrderComponent implements OnInit {
   public itemGroupsData: any = [];
   public unitsData: any = [];
 
+  today = new Date()
+  dd = this.today.getDate();
+  mm = this.today.getMonth()+1; //January is 0!
+  yyyy = this.today.getFullYear();
+
+  curr_date: NgbDate = new NgbDate(this.yyyy, this.mm, this.dd); 
+  date = ''
+
+
   orderItemData: any = [];
   page = 1
   isInputShown = false
@@ -37,6 +46,7 @@ export class AddPurchaseOrderComponent implements OnInit {
   public name = '';
   // public unitName = '';
   public itemName = '';
+  pageSize = 100
   shippingCharge = 0
   semitotal = 0
   total = 0
@@ -113,6 +123,7 @@ export class AddPurchaseOrderComponent implements OnInit {
       vendor_id: [null, Validators.required],
       // user_id: ['', [Validators.required]],
       outlet_id: [null, Validators.required],
+      purchase_date: [this.curr_date],
       notes: [''],
       shipping_charge: [0],
     })
@@ -124,7 +135,7 @@ export class AddPurchaseOrderComponent implements OnInit {
       item_group_id: [null, Validators.required],
       // item_group_name: ['', Validators.required],
       qty: ['', Validators.required],
-      unit_id: [{value: null, disabled: true}, Validators.required],
+      unit_id: [{ value: null, disabled: true }, Validators.required],
       // unit_name: ['', Validators.required],
       price: ['', Validators.required],
       // subtotal: ['', Validators.required]
@@ -136,6 +147,8 @@ export class AddPurchaseOrderComponent implements OnInit {
     this.getItemGroupsData();
 
     this.getUnitsData();
+    
+
   }
 
   // To get Vendors Data
@@ -174,14 +187,32 @@ export class AddPurchaseOrderComponent implements OnInit {
     this.getItemsData();
   }
 
+  onSelectDate(date: any) {
+    console.log(date);
+    this.date = date.year + '-' + date.month + '-' + date.day
+    console.log(this.date);
+    
+  }
+
   // TO get Item group data
   getItemsData() {
     console.log('group_id', this.group_id);
-    this.purchaseOrderService.getItemData(this.group_id).subscribe((data: any) => {
+    this.purchaseOrderService.getItemData(this.group_id, this.pageSize).subscribe((data: any) => {
       this.itemsData = data.data
       this.unit_name = this.itemsData.unit_name
       console.log(this.itemsData, this.unit_name);
     })
+  }
+
+  searchItem(event: any) {
+    console.log(event.term);
+    this.purchaseOrderService.searchItems(event.term).subscribe((res: any) => {
+      this.itemsData = res.data
+      // console.log(this.customerData);
+    }, err => {
+      this.toast.error('Error', 'Server error.')
+      // this.showloader = false
+    });
   }
 
   onSelectNameItem(id: any) {
@@ -216,7 +247,7 @@ export class AddPurchaseOrderComponent implements OnInit {
   }
 
   addItemData(data: any) {
-   
+
     this.itemGroupsData.forEach((g: any) => {
       if (g.id == data.item_group_id) {
         this.name = g.group_name
@@ -260,9 +291,12 @@ export class AddPurchaseOrderComponent implements OnInit {
 
   // For submitting add purchase form data
   onSubmit(data: any) {
+    
+    
     const obj = {
       vendor_id: data.vendor_id,
       outlet_id: data.outlet_id,
+      purchase_date: this.date,
       user_id: data.user_id,
       notes: data.notes,
       shipping_charge: data.shipping_charge,
@@ -277,11 +311,8 @@ export class AddPurchaseOrderComponent implements OnInit {
       }, err => {
         this.toast.error('Error', 'Server error.')
       });
-    console.log('Form Submitted', (data));
+
+    console.log('Form Submitted', (obj));
   }
-
-
-
-
 
 }

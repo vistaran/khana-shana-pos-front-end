@@ -27,6 +27,7 @@
                         <th>Order ID</th>
                         <th>Customer Name</th>
                         <th>Payment Mode</th>
+                        <th>Order Date</th>
                         <th>Total Amount</th>
                         <th>Actions</th>
                     </thead>
@@ -35,6 +36,7 @@
                             <td>{{ data.id }}</td>
                             <td>{{ data.first_name }} {{data.last_name}}</td>
                             <td>{{ data.payment_mode }}</td>
+                            <td>{{ data.order_date | date: 'dd/MM/yyyy' }}</td>
                             <td>₹ {{ data.total_amount }}</td>
                             <td>
                                 <button class="btn btn-dark mr-2" ngbTooltip="View Details" (click)="openXl(content)"

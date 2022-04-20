@@ -43,9 +43,9 @@ export class AddVendorComponent implements OnInit {
     this.addVendorForm = this.fb.group(
       {
         name: ['', [Validators.required]],
-        phone_numbers: ['', [Validators.required]],
-        address: ['', [Validators.required]],
-        status: ['', [Validators.required]]
+        phone_numbers: [''],
+        address: [''],
+        status: [0, [Validators.required]]
       }
     );
   }

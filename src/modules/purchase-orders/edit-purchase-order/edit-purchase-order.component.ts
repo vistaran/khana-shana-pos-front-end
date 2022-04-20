@@ -8,7 +8,7 @@ import { UomService } from '@modules/pos/uom.service';
 import { UserDataService } from '@modules/pos/user-data.service';
 import { VendorsService } from '@modules/pos/vendors.service';
 import { AppToastService } from '@modules/shared-module/services/app-toast.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDate, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { PurchaseOrdersService } from '../purchase-orders.service';
 
@@ -37,6 +37,7 @@ export class EditPurchaseOrderComponent implements OnInit {
   public name = '';
   // public unitName = '';
   public itemName = '';
+  pageSize = 100
   shippingCharge = 0
   semitotal = 0
   total = 0
@@ -44,6 +45,11 @@ export class EditPurchaseOrderComponent implements OnInit {
   unit_name: any
   id: any
   curr_id: any
+  curr_date!: NgbDate;
+  year = 0
+  month = 0
+  day = 0
+  date = ''
 
   // For Validations
 
@@ -113,7 +119,9 @@ export class EditPurchaseOrderComponent implements OnInit {
 
     this.editOrderForm = this.fb.group({
       vendor_id: [null, Validators.required],
-      outlet_id: [null, Validators.required],
+      outlet_id: ['', Validators.required],
+      purchase_date: [],
+      order_date: [],
       notes: [''],
       shipping_charge: [0],
     })
@@ -129,13 +137,23 @@ export class EditPurchaseOrderComponent implements OnInit {
 
     this.curr_id = this.route.snapshot.params.id
     console.log('Current id:', this.curr_id);
-    
+
 
     // To get edit order form field values
     this.purchaseOrderService.patchOrderData(this.curr_id).subscribe((data: any) => {
+
+      if (data.order.purchase_date) {
+        this.year = Number(data.order.purchase_date.substr(0, 4))
+        this.month = Number(data.order.purchase_date.substring(5, 7))
+        this.day = Number(data.order.purchase_date.substring(8, 10))
+        this.curr_date = new NgbDate(this.year, this.month, this.day)
+      }
+      console.log('Year', this.year, 'Month', this.month, 'Day', this.day, 'Date', this.curr_date);
+
       this.editOrderForm.patchValue({
         vendor_id: data.order.vendor_id,
         outlet_id: data.order.outlet_id,
+        purchase_date: this.curr_date,
         notes: data.order.notes,
         shipping_charge: data.order.shipping_charge
       })
@@ -158,10 +176,7 @@ export class EditPurchaseOrderComponent implements OnInit {
 
     this.getUnitsData();
 
-
   }
-
-
 
   // To get Vendors Data
   getVendorsData() {
@@ -191,6 +206,11 @@ export class EditPurchaseOrderComponent implements OnInit {
     })
   }
 
+  onSelectDate(date: any) {
+    this.date = date.year + '-' + date.month + '-' + date.day
+    console.log(this.date);
+  }
+
   onSelectGroup(id: number) {
     console.log(id);
     this.isInputShown = true
@@ -202,7 +222,7 @@ export class EditPurchaseOrderComponent implements OnInit {
   // TO get Item group data
   getItemsData() {
     console.log('group_id', this.group_id);
-    this.purchaseOrderService.getItemData(this.group_id).subscribe((data: any) => {
+    this.purchaseOrderService.getItemData(this.group_id, this.pageSize).subscribe((data: any) => {
       this.itemsData = data.data
       this.unit_name = this.itemsData.unit_name
       console.log(this.itemsData, this.unit_name);
@@ -238,12 +258,6 @@ export class EditPurchaseOrderComponent implements OnInit {
   }
 
   addItemData(data: any) {
-    // this.family.addGroup(data).subscribe(data => {
-    //   console.log('Data added successfully! ', data)
-    //   this.toast.success('Success', 'Added successfully.')
-    // }, err => {
-    //   this.toast.error('Error', 'Server error.')
-    // })
 
     // extract name from original array using selected group id
 
@@ -293,6 +307,7 @@ export class EditPurchaseOrderComponent implements OnInit {
     const obj = {
       vendor_id: data.vendor_id,
       outlet_id: data.outlet_id,
+      purchase_date: this.date,
       user_id: data.user_id,
       notes: data.notes,
       shipping_charge: data.shipping_charge,

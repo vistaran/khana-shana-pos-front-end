@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '@modules/catalog/product.service';
 import { CustomerManagementService } from '@modules/customer-management/customer-management.service';
 import { AppToastService } from '@modules/shared-module/services/app-toast.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDate, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { SalesService } from '../sales.service';
 
@@ -57,6 +57,12 @@ export class EditSaleComponent implements OnInit {
   customerNumber: any
   customer_id: any
 
+  curr_date!: NgbDate;
+  year = 0
+  month = 0
+  day = 0
+  date = ''
+
   constructor(
     private productService: ProductService,
     private fb: FormBuilder,
@@ -71,6 +77,7 @@ export class EditSaleComponent implements OnInit {
   ngOnInit(): void {
     this.editSaleForm = this.fb.group({
       shipping_charge: [''],
+      order_date: [],
       payment_mode: [''],
       notes: ['']
     })
@@ -90,8 +97,18 @@ export class EditSaleComponent implements OnInit {
 
     // To get edit order form field values
     this.saleService.orderDetailData(this.id).subscribe((data: any) => {
+
+      if (data.order.order_date) {
+        this.year = Number(data.order.order_date.substr(0, 4))
+        this.month = Number(data.order.order_date.substring(5, 7))
+        this.day = Number(data.order.order_date.substring(8, 10))
+        this.curr_date = new NgbDate(this.year, this.month, this.day)
+      }
+      console.log(this.curr_date);
+
       this.editSaleForm.patchValue({
         shipping_charge: data.order.shipping_charge,
+        order_date: this.curr_date,
         payment_mode: data.order.payment_mode,
         notes: data.order.notes
       })
@@ -123,6 +140,23 @@ export class EditSaleComponent implements OnInit {
       this.customerData = data.customers
     })
   }
+
+  search(event: any) {
+    console.log(event.term);
+    this.customerService.searchCustomer(event.term).subscribe((res: any) => {
+      this.customerData = res.customers.data
+      console.log(this.customerData);
+    }, err => {
+      this.toast.error('Error', 'Server error.')
+      this.showloader = false
+    });
+  }
+
+  onSelectDate(date: any) {
+    this.date = date.year + '-' + date.month + '-' + date.day
+    console.log(this.date);
+  }
+
 
   onSelectProduct(data: any, qty: any) {
     console.log('Quantity', qty.quantity);
@@ -229,6 +263,7 @@ export class EditSaleComponent implements OnInit {
 
     const obj = {
       shipping_charge: data.shipping_charge,
+      order_date: this.date,
       total_amount: this.total,
       products: addedProductSubmit,
       payment_mode: data.payment_mode,

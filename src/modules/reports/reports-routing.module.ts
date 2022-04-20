@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SBRouteData } from '@modules/navigation/models';
 
 import { ExpenseByGroupComponent } from './expense-by-group/expense-by-group.component';
+import { MonthlyExpenseComponent } from './monthly-expense/monthly-expense.component';
 import { ReportsModule } from './reports.module';
 
 const routes: Routes = [
@@ -17,6 +18,14 @@ const routes: Routes = [
     component: ExpenseByGroupComponent,
     data: {
       title: 'Expense By Item Group',
+    } as SBRouteData,
+  },
+  {
+    path: 'monthly_expense',
+    canActivate: [],
+    component: MonthlyExpenseComponent,
+    data: {
+      title: 'Monthly Expense',
     } as SBRouteData,
   },
 ];

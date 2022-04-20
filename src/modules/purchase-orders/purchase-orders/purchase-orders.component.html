@@ -28,6 +28,7 @@
                                 <th>Order Id</th>
                                 <th>Vendor</th>
                                 <th>Outlet</th>
+                                <th>Purchase Date</th>
                                 <th>Total Amount</th>
                                 <th>Actions</th>
                             </thead>
@@ -36,6 +37,7 @@
                                     <td>{{ data.id }}</td>
                                     <td>{{ data.name }}</td>
                                     <td>{{ data.outlet_name }}</td>
+                                    <td>{{ data.purchase_date | date: 'dd/MM/yyyy' }}</td>
                                     <td>₹{{ data.total_amount }}</td>
                                     <td>
                                         <button ngbTooltip="Edit" class="btn btn-info mr-2"><i class="fa fa-pencil-square-o fa-lg"
