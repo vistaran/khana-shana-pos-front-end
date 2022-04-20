@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { ProductService } from '@modules/catalog/product.service';
 import { CustomerManagementService } from '@modules/customer-management/customer-management.service';
 import { AppToastService } from '@modules/shared-module/services/app-toast.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDate, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 
 import { SalesService } from '../sales.service';
@@ -25,6 +25,15 @@ export class AddSaleComponent implements OnInit {
   selectedCity: any
 
   payment_mode: any
+
+  today = new Date()
+  dd = this.today.getDate();
+  mm = this.today.getMonth()+1; //January is 0!
+  yyyy = this.today.getFullYear();
+
+  curr_date: NgbDate = new NgbDate(this.yyyy, this.mm, this.dd); 
+  date = ''
+
   payment_mode_copy = [
     {
       id: 1, name: 'Cash', alternate_name: 'cash'
@@ -85,8 +94,9 @@ export class AddSaleComponent implements OnInit {
 
   ngOnInit(): void {
     this.addSaleForm = this.fb.group({
-      shipping_charge: [''],
-      payment_mode: [''],
+      shipping_charge: [0],
+      order_date: [this.curr_date],
+      payment_mode: [0],
       notes: ['']
     })
 
@@ -115,12 +125,21 @@ export class AddSaleComponent implements OnInit {
   }
 
   search(event: any) {
-    this.customerService.searchCustomer(this.searchValue).subscribe((res: any) => {
+    console.log(event.term);
+    this.customerService.searchCustomer(event.term).subscribe((res: any) => {
       this.customerData = res.customers.data
+      console.log(this.customerData);
     }, err => {
       this.toast.error('Error', 'Server error.')
       this.showloader = false
     });
+  }
+
+  onSelectDate(date: any) {
+    console.log(date);
+    this.date = date.year + '-' + date.month + '-' + date.day
+    console.log(this.date);
+    
   }
 
   onSelectProduct(data: any, qty: any) {
@@ -216,6 +235,7 @@ export class AddSaleComponent implements OnInit {
     const obj = {
       shipping_charge: data.shipping_charge,
       total_amount: this.total,
+      order_date: this.date,
       products: addedProductSubmit,
       payment_mode: data.payment_mode,
       customer_id: this.customer_id,

@@ -9,16 +9,16 @@
                     <div class="col">
                         <div class="form-group">
                             <label class="required">Select Vendor</label>
-                            <ng-select name="vendor_id" placeholder="Select Vendor" formControlName="vendor_id"
-                                autofocus>
+                            <select name="vendor_id" class="form-control" placeholder="Select Vendor"
+                                formControlName="vendor_id" autofocus>
 
                                 <ng-container *ngFor="let list of vendorData">
-                                    <ng-option value="{{list.id}}">
+                                    <option value="{{list.id}}">
                                         {{list.name
                                         }}
-                                    </ng-option>
+                                    </option>
                                 </ng-container>
-                            </ng-select>
+                            </select>
                             <div *ngIf="vendor_id?.touched && vendor_id?.invalid" class="alert alert-danger">
                                 <div *ngIf="vendor_id?.errors?.required">Vendor is required.</div>
                             </div>
@@ -29,31 +29,50 @@
                     <div class="col">
                         <div class="form-group">
                             <label class="required">Select Outlet</label>
-                            <ng-select name="outlet_id" formControlName="outlet_id" placeholder="Select Outlet">
+                            <select name="outlet_id" class="form-control" formControlName="outlet_id"
+                                placeholder="Select Outlet">
 
                                 <ng-container *ngFor="let list of outletData">
-                                    <ng-option value="{{list.id}}">
+                                    <option value="{{list.id}}">
                                         {{list.outlet_name
                                         }}
-                                    </ng-option>
+                                    </option>
                                 </ng-container>
-                            </ng-select>
+                            </select>
                             <div *ngIf="outlet_id?.touched && outlet_id?.invalid" class="alert alert-danger">
                                 <div *ngIf="outlet_id?.errors?.required">Outlet is required.</div>
                             </div>
                         </div>
                     </div>
 
+
+
                     <div class="col">
                         <div class="form-group">
+                            <label class="required">Purchase Date</label>
+                            <div class="input-group">
+                                <input class="form-control" placeholder="yyyy-mm-dd"
+                                       name="dp" ngbDatepicker #d="ngbDatepicker" formControlName="purchase_date" (dateSelect)="onSelectDate($event)">
+                                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+                                    <i class="fa fa-calendar fa-lg mx-auto"></i>
+                                </button>   
+                              </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="row card-body">
+                    <div class="col-4">
+                        <div class="form-group">
                             <label class="required">Add a Note</label>
-                            <input type="text" formControlName="notes" class="form-control" />
+                            <textarea type="text" formControlName="notes" class="form-control"></textarea>
                             <!-- <div *ngIf="notes?.touched && notes?.invalid" class="alert alert-danger">
                                 <div *ngIf="notes?.errors?.required">Note is required.</div>
                             </div> -->
                         </div>
                     </div>
-
                 </div>
 
 
@@ -80,17 +99,17 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label class="required">Select Item Group Name</label>
-                                        <ng-select name="item_group_id" formControlName="item_group_id"
+                                        <select name="item_group_id" formControlName="item_group_id"
                                             (ngModelChange)="onSelectGroup($event)" autofocus
                                             placeholder="Select Item Group Name">
 
                                             <ng-container *ngFor="let list of itemGroupsData">
-                                                <ng-option value="{{ list.id }}">
+                                                <option value="{{ list.id }}">
                                                     {{list.group_name
                                                     }}
-                                                </ng-option>
+                                                </option>
                                             </ng-container>
-                                        </ng-select>
+                                        </select>
                                         <div *ngIf="item_group_id?.touched && item_group_id?.invalid"
                                             class="alert alert-danger">
                                             <div *ngIf="item_group_id?.errors?.required">Item Group name is required.
@@ -105,7 +124,7 @@
                                         <div class="form-group">
                                             <label class="required">Select Item Name</label>
                                             <ng-select name="item_id" formControlName="item_id"
-                                                (ngModelChange)="onSelectNameItem($event)"
+                                                (search)="searchItem($event)" (ngModelChange)="onSelectNameItem($event)"
                                                 placeholder="Select Item Name">
 
                                                 <ng-container *ngFor="let list of itemsData">
@@ -122,8 +141,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-
 
                                 <div [hidden]="!isInputShown2">
                                     <div class="row card-body">
@@ -156,10 +173,9 @@
                                         <div class="col">
                                             <div class="form-group">
                                                 <label class="required">Add a Note</label>
-                                                <input type="text" formControlName="notes" class="form-control" />
-                                                <!-- <div *ngIf="notes?.touched && notes?.invalid" class="alert alert-danger">
-                                    <div *ngIf="notes?.errors?.required">Note is required.</div>
-                                </div> -->
+                                                <textarea type="text" formControlName="notes"
+                                                    class="form-control"></textarea>
+
                                             </div>
                                         </div>
 
@@ -219,10 +235,6 @@
                                         aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
                                         (keyup)="onKey($event)">
                                 </div>
-                                <!-- <div *ngIf="shipping_charge?.touched && shipping_charge?.invalid"
-                                    class="alert alert-danger">
-                                    <div *ngIf="shipping_charge?.errors?.required">Shipping charge is required.</div>
-                                </div> -->
                             </td>
                         </tr>
 
@@ -232,23 +244,6 @@
                         </tr>
                     </tbody>
                 </table>
-
-                <!-- <div class="row">
-                
-                <div class="col"></div>
-                <div class="col"></div>
-                <div class="col text-right"><b>Total: </b></div>
-
-                <div class="col">
-                    <div class="form-group">
-                         <label class="required"></label> 
-                        <div class="input-group input-group-sm mb-3">
-                            <input type="number" formControlName="total_amount" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                          </div>
-                    </div>
-                </div>
-            </div> -->
-
 
                 <button [disabled]="!addOrderForm.valid && !itemsForm.valid" type="submit"
                     (click)="onSubmit(addOrderForm.value)" class="btn btn-primary mb-4 float-right">

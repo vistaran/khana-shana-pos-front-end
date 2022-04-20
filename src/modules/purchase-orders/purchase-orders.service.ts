@@ -13,7 +13,7 @@ export class PurchaseOrdersService {
   // token = localStorage.getItem('token');
 
   private url = environment.apiUrl + 'purchase_order/';
-  private itemUrl = environment.apiUrl + 'purchase_items?group_id='
+  private itemUrl = environment.apiUrl + 'purchase_items'
 
   constructor(
     private http: HttpClient
@@ -54,8 +54,12 @@ export class PurchaseOrdersService {
   }
 
   // For purchase order forms
-  getItemData(id: number): Observable<ItemsData> {
-    return this.http.get<ItemsData>(this.itemUrl + id)
+  getItemData(id: number, pageSize: number): Observable<ItemsData> {
+    return this.http.get<ItemsData>(this.itemUrl + '?group_id=' + id + '&limit=' + pageSize)
+  }
+
+  searchItems(data: any): Observable<any> {
+    return this.http.get<any>(this.itemUrl + '?query=' + data)
   }
 
 }

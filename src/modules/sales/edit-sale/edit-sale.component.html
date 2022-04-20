@@ -21,7 +21,7 @@
 
                     <div class="modal-header">
                         <h4 class="modal-title">Select Customer</h4>
-                        <button type="button" class="btn-close btn-default" aria-label="Close"
+                        <button type="button" class="btn-close btn-primary" aria-label="Close"
                             (click)="modal.dismiss('Cross click')">X
                         </button>
                     </div>
@@ -32,7 +32,7 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label class="required">Select Customer</label><br />
-                                    <ng-select formControlName="customer_id" placeholder="Select Customer">
+                                    <ng-select formControlName="customer_id" (search)="search($event)" placeholder="Select Customer">
                                         <ng-option *ngFor="let item of customerData; index as i" value="{{item.id}}">{{ i+1
                                             }}. {{
                                             item.first_name }} {{ item.last_name}}</ng-option>
@@ -85,7 +85,7 @@
 
                                     <div class="modal-header">
                                         <h4 class="modal-title">Product Quantity</h4>
-                                        <button type="button" class="btn-close btn-default" aria-label="Close"
+                                        <button type="button" class="btn-close btn-primary" aria-label="Close"
                                             (click)="modal.dismiss('Cross click')">X
                                         </button>
                                     </div>
@@ -166,33 +166,6 @@
                             </tbody>
                         </table>
 
-                        <!-- <div class="card shadow">
-                                    <button class="bg-transparent" type="button">
-                                        <div class="card-body">
-                                            <h5 class="card-title">{{ data.product_name }}</h5>
-                                            <p class="card-text"><b>Category:</b> {{ data.category_name }}
-                                            </p>
-                                            <p class="card-text"><b>Description:</b> {{ data.description }}
-                                            </p>
-                                            <p class="card-text"><b>₹ Price:</b> {{ data.price }}
-                                            </p>
-                                            <p class="card-text"><b>Quantity:</b> {{ data.quantity }}
-                                            </p>
-                                        </div> -->
-                        <!-- <div class="align-items-end mb-2 ml-2">
-                                        <button class="btn btn-info mr-2 btn-sm"
-                                            (click)="openVerticallyCentered2(content2, data.id)"><i
-                                                class="fa fa-pencil-square-o fa-lg"></i></button>
-        
-                                        <button id="remove" class="btn btn-danger btn-sm"
-                                            (click)="deleteAddress(data.id)"><i
-                                                class="fa fa-trash-o fa-lg mx-auto"></i></button>
-                                    </div> -->
-                        <!-- </button>
-                                </div>
-                            </div> -->
-
-                        <!-- </div> -->
                     </div>
                 </div>
 
@@ -200,7 +173,20 @@
                     <div class="col">
                         <div class="form-group">
                             <label class="required">Add a Note</label>
-                            <input type="text" formControlName="notes" class="form-control" />
+                            <textarea type="text" formControlName="notes" class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Order Date</label>
+                            <div class="input-group">
+                                <input class="form-control" placeholder="yyyy-mm-dd"
+                                       name="dp" ngbDatepicker #d="ngbDatepicker" formControlName="order_date" (dateSelect)="onSelectDate($event)">
+                                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+                                    <i class="fa fa-calendar fa-lg mx-auto"></i>
+                                </button>   
+                              </div>
                         </div>
                     </div>
 

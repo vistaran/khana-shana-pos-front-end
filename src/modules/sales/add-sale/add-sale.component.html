@@ -19,23 +19,13 @@
                 <ng-template #content3 let-modal>
 
                     <div class="modal-header">
-                        <h4 class="modal-title">Product Quantity</h4>
-                        <button type="button" class="btn-close btn-default" aria-label="Close"
+                        <h4 class="modal-title">Select Customer</h4>
+                        <button type="button" class="btn-close btn-primary" aria-label="Close"
                             (click)="modal.dismiss('Cross click')">X
                         </button>
                     </div>
 
                     <div class="modal-body">
-                        <!-- <div class="input-group rounded">
-                            <input class="form-control amber-border" class="form-control" type="text"
-                                aria-label="Search" (keyup)="search($event)" placeholder="Search"
-                                [(ngModel)]="searchValue">
-                            <div class="input-group-append">
-                                <button class="btn input-group-text amber lighten-3" id="basic-text1"><i
-                                        class="fa fa-search" aria-hidden="true" (click)="search($event)"></i></button>
-                            </div>
-                        </div> -->
-
 
                         <form [formGroup]="customerForm">
                             <div class="col">
@@ -44,8 +34,10 @@
 
                                     <!-- <ng-select formControlName="customer_id" [items]="customerData.first_name" bindLabel="name" placeholder="Select Customer" [(ngModel)]="selectedCity">
                                     </ng-select> -->
-                                    <ng-select formControlName="customer_id" placeholder="Select Customer">
-                                        <ng-option class="border" *ngFor="let item of customerData; index as i" value="{{item.id}}">{{ i+1
+                                    <ng-select formControlName="customer_id" (search)="search($event)"
+                                        placeholder="Select Customer">
+                                        <ng-option class="border" *ngFor="let item of customerData; index as i"
+                                            value="{{item.id}}">{{ i+1
                                             }}. {{
                                             item.first_name }} {{ item.last_name}}</ng-option>
                                     </ng-select>
@@ -89,7 +81,7 @@
 
                                     <div class="modal-header">
                                         <h4 class="modal-title">Product Quantity</h4>
-                                        <button type="button" class="btn-close btn-default" aria-label="Close"
+                                        <button type="button" class="btn-close btn-primary" aria-label="Close"
                                             (click)="modal.dismiss('Cross click')">X
                                         </button>
                                     </div>
@@ -208,22 +200,34 @@
                 </div>
 
                 <div class="row">
+
                     <div class="col">
                         <div class="form-group">
-                            <label class="required">Add a Note</label>
-                            <input type="text" formControlName="notes" class="form-control" />
+                            <label class="required">Purchase Date</label>
+                            <div class="input-group">
+                                <input class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker
+                                    #d="ngbDatepicker" formControlName="order_date"
+                                    (dateSelect)="onSelectDate($event)">
+                                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+                                    <i class="fa fa-calendar fa-lg mx-auto"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
-
-                   
 
                     <div class="col">
                         <label>Payment Mode</label>
                         <select formControlName="payment_mode" class="form-control">
-                            <option value="default">--Select Payment Mode--</option>
                             <option *ngFor="let item of payment_mode_copy" value="{{item.alternate_name}}">{{ item.name
                                 }}</option>
                         </select>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required">Add a Note</label>
+                            <textarea type="text" formControlName="notes" class="form-control"></textarea>
+                        </div>
                     </div>
                 </div>
 

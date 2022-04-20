@@ -1,0 +1,30 @@
+<sb-layout-dashboard>
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col">
+
+                <h2>Monthly Expense</h2>
+
+                <div class="col-4">
+                    <ng-select name="month" [(ngModel)]="chosenMonth" (ngModelChange)="onSelectMonth($event)" placeholder="Select Month">
+                        <ng-option>All</ng-option>
+                        <ng-option *ngFor="let item of month">
+                            {{item.name}}
+                        </ng-option>
+                    </ng-select>
+                </div>
+
+                <div *ngIf="monthSelected" class="text-info mt-5">
+                    <div *ngFor="let item of month">
+                        <h2 *ngIf="selectedMonth==item.name">{{item.name}}</h2>
+
+                        <div *ngIf="selectedMonth == 'All'">
+                            <h2 class="mb-3">{{ item.name }}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</sb-layout-dashboard>

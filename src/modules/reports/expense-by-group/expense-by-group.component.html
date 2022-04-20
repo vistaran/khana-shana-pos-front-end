@@ -1,40 +1,99 @@
 <sb-layout-dashboard>
-    <div class="d-flex justify-content-center">
-        <form>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>Expense By Item Group</h2>
+                <div class="d-flex">
 
-            <div class="card mt-2">
-                <div class="card-header text-center">Fliter By Date</div>
-                <div class="card-body">
-                    <div class="row row-cols-sm-auto">
-                        <div class="col">
-                            <div class="input-group">
-                                <!-- <label class="form-label">Start Date: </label> -->
-                                <input class="form-control" placeholder="Start Date" id="floatingInput" name="dp"
-                                    [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
-                                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
-                                    <i class="fa fa-calendar fa-lg mx-auto"></i>
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="input-group">
-                                <!-- <label>End Date: </label> -->
-                                <input class="form-control" placeholder="End Date" id="floatingInput2" name="dp2"
-                                    [(ngModel)]="model" ngbDatepicker #d2="ngbDatepicker">
-                                <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button">
-                                    <i class="fa fa-calendar fa-lg mx-auto"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                    <form>
+                        <div class="card mt-2">
+                            <div class="card-header text-center">Fliter By Date</div>
+                            <div class="card-body">
 
 
+                                <div class="dp-hidden position-absolute">
+                                    <div class="input-group">
+                                        <input name="datepicker" class="form-control" ngbDatepicker
+                                            #datepicker="ngbDatepicker" [autoClose]="'outside'"
+                                            (dateSelect)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t"
+                                            outsideDays="hidden" [startDate]="fromDate!" tabindex="-1">
+                                        <ng-template #t let-date let-focused="focused">
+                                            <span class="custom-day" [class.focused]="focused"
+                                                [class.range]="isRange(date)"
+                                                [class.faded]="isHovered(date) || isInside(date)"
+                                                (mouseenter)="hoveredDate = date" (mouseleave)="hoveredDate = null">
+                                                {{ date.day }}
+                                            </span>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                                <div class="row row-cols-sm-auto">
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <input #dpFromDate class="form-control" placeholder="yyyy-mm-dd"
+                                                name="dpFromDate" [value]="formatter.format(fromDate)"
+                                                (input)="fromDate = validateInput(fromDate, dpFromDate.value)">
+                                            <button class="btn btn-outline-secondary calendar"
+                                                (click)="datepicker.toggle()" type="button">
+                                                <i class="fa fa-calendar fa-lg mx-auto"></i>
+                                            </button>
+                                        </div>
+                                    </div>
 
-                    <!-- <hr /> -->
-                    <!-- <pre>Model: {{ model | json }}</pre> -->
+                                        <div class="col">
+                                            <div class="input-group">
+                                                <input #dpToDate class="form-control" placeholder="yyyy-mm-dd"
+                                                    name="dpToDate" [value]="formatter.format(toDate)"
+                                                    (input)="toDate = validateInput(toDate, dpToDate.value)">
+                                                <button class="btn btn-outline-secondary calendar"
+                                                    (click)="datepicker.toggle()" type="button">
+                                                    <i class="fa fa-calendar fa-lg mx-auto"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                         <hr />
+                                      <!-- <pre>From date model: {{ fromDate | json }}</pre>
+                                        <pre>To date model: {{ toDate | json }}</pre>  -->
+
+                                        <!-- <div class="row row-cols-sm-auto">
+                                    <div class="col">
+                                        <div class="input-group">
+                                           <label class="form-label">Start Date: </label> 
+                                            <input class="form-control" placeholder="Start Date" id="floatingInput"
+                                                name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+                                            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()"
+                                                type="button">
+                                                <i class="fa fa-calendar fa-lg mx-auto"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <div class="input-group">
+                                             <label>End Date: </label> 
+                                            <input class="form-control" placeholder="End Date" id="floatingInput2"
+                                                name="dp2" [(ngModel)]="model" ngbDatepicker #d2="ngbDatepicker">
+                                            <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()"
+                                                type="button">
+                                                <i class="fa fa-calendar fa-lg mx-auto"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div> -->
+
+
+
+                                        <!-- <hr /> -->
+                                        <!-- <pre>Model: {{ model | json }}</pre> -->
+                                    </div>
+                                </div>
+                    </form>
                 </div>
+
             </div>
-        </form>
+        </div>
     </div>
 </sb-layout-dashboard>

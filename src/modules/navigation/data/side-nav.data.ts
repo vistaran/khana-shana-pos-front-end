@@ -7,7 +7,7 @@ export const sideNavSections: SideNavSection[] = [
     },
     {
         text: 'Reports',
-        items: ['expense_by_group'],
+        items: ['expense_by_group','monthly_expense'],
     },
     {
         text: 'System',
@@ -72,6 +72,11 @@ export const sideNavItems: SideNavItems = {
         icon: 'columns',
         text: 'Expense By Item Group',
         link: '/reports/expense_by_group',
+    },
+    monthly_expense: {
+        icon: 'columns',
+        text: 'Monthly Expense',
+        link: '/reports/monthly_expense',
     },
 
 
