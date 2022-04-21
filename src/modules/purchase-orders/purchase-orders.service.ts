@@ -12,16 +12,16 @@ export class PurchaseOrdersService {
 
   // token = localStorage.getItem('token');
 
-  private url = environment.apiUrl + 'purchase_order/';
+  private url = environment.apiUrl + 'purchase_order';
   private itemUrl = environment.apiUrl + 'purchase_items'
 
   constructor(
     private http: HttpClient
   ) { }
 
-  getPurchaseOrdersData(): Observable<PurchaseOrder> {
+  getPurchaseOrdersData(page: number): Observable<PurchaseOrder> {
     const headers = this.createAuthrorizationHeader();
-    return this.http.get<PurchaseOrder>(this.url, { headers });
+    return this.http.get<PurchaseOrder>(this.url + '?page=' + page, { headers });
   }
 
   createAuthrorizationHeader(): HttpHeaders {
@@ -41,16 +41,16 @@ export class PurchaseOrdersService {
 
   editPurchaseOrderData(id: number, data: any) {
     const headers = this.createAuthrorizationHeader();
-    return this.http.put(this.url + id, data, { headers })
+    return this.http.put(this.url + '/' + id, data, { headers })
   }
 
   deleteOrder(id: number) {
-    return this.http.delete(this.url + id)
+    return this.http.delete(this.url + '/' + id)
   }
 
   patchOrderData(id: number): Observable<PatchOrder> {
     console.log('Patched id: ', id);
-    return this.http.get<PatchOrder>(this.url + id);
+    return this.http.get<PatchOrder>(this.url + '/' + id);
   }
 
   // For purchase order forms

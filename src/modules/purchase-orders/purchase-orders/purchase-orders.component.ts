@@ -33,9 +33,10 @@ export class PurchaseOrdersComponent implements OnInit {
 
   // For getting Item group data for listing
   getPurchaseOrdersData() {
-    this.purchaseOrderService.getPurchaseOrdersData().subscribe(data => {
+    this.purchaseOrderService.getPurchaseOrdersData(this.page).subscribe(data => {
       this.purchaseOrdersData = data.orders.data;
       this.length = this.purchaseOrdersData.length
+      this.total = data.orders.total
       console.log(this.purchaseOrdersData);
     })
   }

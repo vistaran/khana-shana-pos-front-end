@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppToastService } from '@modules/shared-module/services/app-toast.service';
 
+import { OutletDataService } from '../outlet-data.service';
 import { PasswordValidator } from '../password.validator';
 import { UserDataService } from '../user-data.service';
 
@@ -15,6 +16,9 @@ export class EditUserComponent implements OnInit {
     editUserForm!: FormGroup;
     id: any
     data: any
+
+    outletData: any = []
+    page = 1
 
     get userName() {
         return this.editUserForm.get('username');
@@ -56,11 +60,12 @@ export class EditUserComponent implements OnInit {
         return this.editUserForm.get('outlet_status');
     }
 
-    outlet = ['Webkul Outlet', 'abc Outlet', 'wow Outlet', 'Yasmin Mueller'];
+    // outlet = ['Webkul Outlet', 'abc Outlet', 'wow Outlet', 'Yasmin Mueller'];
     status = ['active', 'inactive'];
 
     constructor(private fb: FormBuilder,
         private userService: UserDataService,
+        private outletService: OutletDataService,
         private route: ActivatedRoute,
         private router: Router,
         private toast: AppToastService) { }
@@ -99,6 +104,14 @@ export class EditUserComponent implements OnInit {
                 status: data.show_data.status,
             })
             console.log(data)
+        })
+
+        this.getOutletData()
+    }
+
+    getOutletData() {
+        this.outletService.getOutletData(this.page).subscribe(data=> {
+            this.outletData = data.outlets.data;
         })
     }
 

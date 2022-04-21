@@ -20,6 +20,8 @@ export class AddItemComponent implements OnInit {
   public unitId: any
   public itemGroupId: any
   selectedCity:any
+  unit_id_form_set: any
+  group_id_form_set: any
 
 // For Validations
   get item_name() {
@@ -46,29 +48,41 @@ export class AddItemComponent implements OnInit {
   ngOnInit(): void {
     this.addItemForm = this.fb.group({
       item_name: ['', [Validators.required]],
-      unit_id: [null, [Validators.required]],
-      item_group_id: [null, [Validators.required]]
+      unit_id: [0, [Validators.required]],
+      item_group_id: [0, [Validators.required]]
     })
 
     this.getUOMData();
     this.getItemGroupsData();
   }
 
+
+
   // For getting Item groups data
   getItemGroupsData() {
     this.itemGroupService.getItemGroupsData().subscribe(data => {
       this.itemGroupsData = data.item_groups.data;
       console.log(data);
+      this.addItemForm.patchValue({
+        item_group_id: this.itemGroupsData[0].id
+      })
     })
   }
+
+
 
   // For getting Units of Measurement data
   getUOMData() {
     this.unitService.getUOMData().subscribe(data => {
       this.unitData = data.units.data;
-      console.log(data);
+      console.log();
+      this.addItemForm.patchValue({
+        unit_id : this.unitData[0].id
+      })
     })
   }
+
+
 
   // For submitting add item group form data
   onSubmit(data: any) {

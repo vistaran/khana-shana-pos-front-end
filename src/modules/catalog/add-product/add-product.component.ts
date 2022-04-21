@@ -54,8 +54,8 @@ export class AddProductComponent implements OnInit {
     this.addProductForm = this.fb.group({
       product_name: ['', [Validators.required]],
       price: ['', [Validators.required]],
-      category_id: [null,[Validators.required]],
-      description: ['',[Validators.required]]
+      category_id: [null, [Validators.required]],
+      description: ['', [Validators.required]]
     });
     this.getCategoryData()
   }
@@ -64,6 +64,9 @@ export class AddProductComponent implements OnInit {
   getCategoryData() {
     this.categoryService.getCategoriesData(this.page).subscribe(data => {
       this.categoryData = data.category.data
+      this.addProductForm.patchValue({
+        category_id: this.categoryData[0].id
+      })
     })
   }
 

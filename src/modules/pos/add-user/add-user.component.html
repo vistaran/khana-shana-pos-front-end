@@ -96,8 +96,7 @@
                                     <label class="required">Outlet Name</label><br />
                                     
                                     <select name="outlet" formControlName="outlet" class="form-control">
-                                        <option value="default">--Select Status--</option>
-                                        <option *ngFor="let item of outletList" value="{{ item.id }}">{{ item.Outlet_name }}</option>
+                                        <option *ngFor="let item of outletList" value="{{ item.id }}">{{ item.outlet_name }}</option>
                                     </select>
 
                                     <div *ngIf="outl?.touched && outl?.invalid" class="alert alert-danger">
@@ -110,7 +109,6 @@
                                 <div class="form-group">
                                     <label class="required">Select User Account Status</label><br />
                                     <select name="status" formControlName="status" class="form-control">
-                                        <option value="default">--Select Status--</option>
                                         <option *ngFor="let item of status">{{ item }}</option>
                                     </select>
                                     <div *ngIf="stat?.touched && stat?.invalid" class="alert alert-danger">

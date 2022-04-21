@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AppToastService } from '@modules/shared-module/services/app-toast.service';
-import { OutletDataService } from '../outlet-data.service';
 
+import { OutletDataService } from '../outlet-data.service';
 import { PasswordValidator } from '../password.validator';
 import { UserDataService } from '../user-data.service';
 
@@ -74,7 +74,7 @@ export class AddUserComponent implements OnInit {
                 password: ['', [Validators.required]],
                 confirm_password: ['', [Validators.required]],
                 outlet: ['', [Validators.required]],
-                status: ['', [Validators.required]],
+                status: [0, [Validators.required]],
                 // outlet_status: ['', [Validators.required]]
             },
             { validators: PasswordValidator }
