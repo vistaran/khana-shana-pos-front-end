@@ -28,10 +28,10 @@ export class AddSaleComponent implements OnInit {
 
   today = new Date()
   dd = this.today.getDate();
-  mm = this.today.getMonth()+1; //January is 0!
+  mm = this.today.getMonth()+1; // January is 0!
   yyyy = this.today.getFullYear();
 
-  curr_date: NgbDate = new NgbDate(this.yyyy, this.mm, this.dd); 
+  curr_date: NgbDate = new NgbDate(this.yyyy, this.mm, this.dd);
   date = ''
 
   payment_mode_copy = [
@@ -51,25 +51,6 @@ export class AddSaleComponent implements OnInit {
       id: 4, name: 'Credit card', alternate_name: 'credit_card'
     }
   ]
-
-  // payment_mode_array = [
-  //   {
-  //     id: 1, name: 'cash',
-  //   },
-  //   {
-  //     id: 2, name: 'upi'
-  //   },
-  //   {
-  //     id: 3, name: 'net_banking'
-  //   },
-  //   {
-  //     id: 3, name: 'debit_card'
-  //   },
-  //   {
-  //     id: 4, name: 'credit_card'
-  //   }
-  // ]
-
 
   shipping_charge = 0;
   total = 0;
@@ -96,7 +77,7 @@ export class AddSaleComponent implements OnInit {
     this.addSaleForm = this.fb.group({
       shipping_charge: [0],
       order_date: [this.curr_date],
-      payment_mode: [0],
+      payment_mode: ['cash'],
       notes: ['']
     })
 
@@ -139,7 +120,7 @@ export class AddSaleComponent implements OnInit {
     console.log(date);
     this.date = date.year + '-' + date.month + '-' + date.day
     console.log(this.date);
-    
+
   }
 
   onSelectProduct(data: any, qty: any) {

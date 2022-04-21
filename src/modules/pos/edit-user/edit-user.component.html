@@ -93,7 +93,7 @@
                             <label class="required">Select Outlet</label><br />
                             <select name="outlet" formControlName="outlet_name" class="form-control">
                                 <option value="default">--Select Outlet--</option>
-                                <option *ngFor="let item of outlet">{{ item }}</option>
+                                <option *ngFor="let item of outletData" value="{{item.id}}">{{ item.outlet_name }}</option>
                             </select>
                             <div *ngIf="outl?.touched && outl?.invalid" class="alert alert-danger">
                                 <div *ngIf="outl?.errors?.required">Outlet is required.</div>

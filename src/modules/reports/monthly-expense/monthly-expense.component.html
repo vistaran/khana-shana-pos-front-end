@@ -5,16 +5,16 @@
 
                 <h2>Monthly Expense</h2>
 
-                <div class="col-4">
+                <!-- <div class="col-4">
                     <ng-select name="month" [(ngModel)]="chosenMonth" (ngModelChange)="onSelectMonth($event)" placeholder="Select Month">
                         <ng-option>All</ng-option>
                         <ng-option *ngFor="let item of month">
                             {{item.name}}
                         </ng-option>
                     </ng-select>
-                </div>
+                </div> -->
 
-                <div *ngIf="monthSelected" class="text-info mt-5">
+                <!-- <div *ngIf="monthSelected" class="text-info mt-5">
                     <div *ngFor="let item of month">
                         <h2 *ngIf="selectedMonth==item.name">{{item.name}}</h2>
 
@@ -22,7 +22,31 @@
                             <h2 class="mb-3">{{ item.name }}</h2>
                         </div>
                     </div>
+                </div> -->
+
+                <div class="col-2">
+                    <label>Select Year</label>
+                    <select name="year" class="form-control" placeholder="Select Month">
+                        <option *ngFor="let item of years">
+                            {{item}}
+                        </option>
+                    </select>
                 </div>
+
+                <div class="card-deck mt-3 row">
+                    <div *ngFor="let item of month" class="col-4 mb-3">
+                        <div class="card shadow">
+                            <button type="button " class="btn border border-info">
+                                <div class="card-body">
+                                    <h5 class="card-title text-info">{{item.name}}</h5>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+
             </div>
         </div>
     </div>

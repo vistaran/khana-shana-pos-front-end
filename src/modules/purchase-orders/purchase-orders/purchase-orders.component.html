@@ -1,10 +1,10 @@
 <sb-layout-dashboard>
     <div class="row">
         <div class="col">
-            <ul ngbNav #nav="ngbNav" class="nav-tabs mt-5 font-weight-bold">
+            <!-- <ul ngbNav #nav="ngbNav" class="nav-tabs mt-5 font-weight-bold">
                 <li ngbNavItem>
-                    <a ngbNavLink>Orders</a>
-                    <ng-template ngbNavContent>
+                    <a ngbNavLink>Orders</a> -->
+                    <!-- <ng-template ngbNavContent> -->
                         <h2 class="mt-3 mb-4">Purchase Order List</h2>
                         <!-- search button -->
                         <div class="d-flex justify-content-between mb-4">
@@ -64,15 +64,15 @@
 
                         <div class="justify-content-between row">
                             <div class="col">
-                                <ngb-pagination (pageChange)="onPageChange($event)" [(page)]="page" [pageSize]="length"
+                                <ngb-pagination (pageChange)="onPageChange($event)" [(page)]="page" [pageSize]="pageSize"
                                     [collectionSize]="total" [boundaryLinks]="true" [maxSize]="total">
                                 </ngb-pagination>
                             </div>
                         </div>
-                    </ng-template>
-                </li>
+                    <!-- </ng-template> -->
+                <!-- </li>
             </ul>
-            <div [ngbNavOutlet]="nav"></div>
+            <div [ngbNavOutlet]="nav"></div> -->
         </div>
     </div>
 </sb-layout-dashboard>

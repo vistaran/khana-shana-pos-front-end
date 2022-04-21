@@ -100,7 +100,7 @@
                                     <div class="form-group">
                                         <label class="required">Select Item Group Name</label>
                                         <select name="item_group_id" formControlName="item_group_id"
-                                            (ngModelChange)="onSelectGroup($event)" autofocus
+                                            (ngModelChange)="onSelectGroup($event)" class="form-control" autofocus
                                             placeholder="Select Item Group Name">
 
                                             <ng-container *ngFor="let list of itemGroupsData">

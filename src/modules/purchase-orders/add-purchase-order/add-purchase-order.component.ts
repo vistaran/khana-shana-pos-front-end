@@ -31,10 +31,10 @@ export class AddPurchaseOrderComponent implements OnInit {
 
   today = new Date()
   dd = this.today.getDate();
-  mm = this.today.getMonth()+1; //January is 0!
+  mm = this.today.getMonth()+1; // January is 0!
   yyyy = this.today.getFullYear();
 
-  curr_date: NgbDate = new NgbDate(this.yyyy, this.mm, this.dd); 
+  curr_date: NgbDate = new NgbDate(this.yyyy, this.mm, this.dd);
   date = ''
 
 
@@ -120,9 +120,9 @@ export class AddPurchaseOrderComponent implements OnInit {
 
   ngOnInit(): void {
     this.addOrderForm = this.fb.group({
-      vendor_id: [null, Validators.required],
+      vendor_id: [0, Validators.required],
       // user_id: ['', [Validators.required]],
-      outlet_id: [null, Validators.required],
+      outlet_id: [0, Validators.required],
       purchase_date: [this.curr_date],
       notes: [''],
       shipping_charge: [0],
@@ -147,7 +147,7 @@ export class AddPurchaseOrderComponent implements OnInit {
     this.getItemGroupsData();
 
     this.getUnitsData();
-    
+
 
   }
 
@@ -155,6 +155,9 @@ export class AddPurchaseOrderComponent implements OnInit {
   getVendorsData() {
     this.vendorService.getVendorsData(this.page).subscribe(data => {
       this.vendorData = data.vendors.data;
+      this.addOrderForm.patchValue({
+        vendor_id : this.vendorData[0].id
+      })
     })
   }
 
@@ -162,6 +165,9 @@ export class AddPurchaseOrderComponent implements OnInit {
   getOutletsData() {
     this.outletService.getOutletData(this.page).subscribe(data => {
       this.outletData = data.outlets.data;
+      this.addOrderForm.patchValue({
+        outlet_id: this.outletData[0].id
+      })
     })
   }
 
@@ -191,7 +197,6 @@ export class AddPurchaseOrderComponent implements OnInit {
     console.log(date);
     this.date = date.year + '-' + date.month + '-' + date.day
     console.log(this.date);
-    
   }
 
   // TO get Item group data
@@ -291,8 +296,8 @@ export class AddPurchaseOrderComponent implements OnInit {
 
   // For submitting add purchase form data
   onSubmit(data: any) {
-    
-    
+
+
     const obj = {
       vendor_id: data.vendor_id,
       outlet_id: data.outlet_id,

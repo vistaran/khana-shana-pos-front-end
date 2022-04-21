@@ -12,6 +12,8 @@ export class MonthlyExpenseComponent implements OnInit {
   monthForm!: FormGroup
   selectedMonth: any;
   monthSelected = false
+  // start_year = 2022
+  years:any = []
 
   month = [
     { name: 'January' },
@@ -33,14 +35,26 @@ export class MonthlyExpenseComponent implements OnInit {
 
   ngOnInit(): void {
     this.monthForm = this.fb.group({
-      month: ['']
+      year: [0]
     })
+
+    const date = new Date()
+    const year = date.getFullYear()
+    for(let i = 2022; i <= year; i++) {
+      this.years.push(i)
+    }
+    console.log(this.years);
+
   }
 
-  onSelectMonth(event: any) {
-    this.selectedMonth = event.$ngOptionLabel.trim()
-    this.monthSelected = true
-    console.log(this.chosenMonth); 
+  // onSelectMonth(event: any) {
+  //   this.selectedMonth = event.$ngOptionLabel.trim()
+  //   this.monthSelected = true
+  //   console.log(this.chosenMonth);
+  // }
+
+  currentYear() {
+
   }
 
 }
