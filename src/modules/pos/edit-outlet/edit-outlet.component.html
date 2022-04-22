@@ -1,112 +1,123 @@
 <sb-layout-dashboard>
-    <div class="card mt-4">
-        <h1 class="card-header">Edit Outlet</h1>
-        <form [formGroup]="editOutletForm">
-            <div class="container-fluid">
-                <h2 class="card-header mt-4 pb-2">General</h2>
-                <div class="card-body row">
-                    <div class="col">
-                        <div class="form-group">
-                            <label class="required">Outlet Name</label>
-                            <input type="text" formControlName="outlet_name" class="form-control" autofocus/>
-                            <div *ngIf="name?.touched && name?.invalid" class="alert alert-danger">
-                                <div *ngIf="name?.errors?.required">Outlet Name is required.</div>
+    <div class="row">
+        <div class="col-8">
+            <div class="card mt-4">
+                <h1 class="card-header">Edit Outlet</h1>
+                <form [formGroup]="editOutletForm">
+                    <div class="container-fluid">
+                        <h2 class="card-header mt-4 pb-2">General</h2>
+                        <div class="card-body row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="required">Outlet Name</label>
+                                    <input type="text" formControlName="outlet_name" class="form-control" autofocus />
+                                    <div *ngIf="name?.touched && name?.invalid" class="alert alert-danger">
+                                        <div *ngIf="name?.errors?.required">Outlet Name is required.</div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="col">
-                        <div class="form-group">
-                            <label class="required">Select Status</label><br />
-                            <select name="status" formControlName="status" class="form-control">
-                                <option value="default">--Select Status--</option>
-                                <option *ngFor="let item of status">{{ item }}</option>
-                            </select>
-                            <div *ngIf="stat?.touched && stat?.invalid" class="alert alert-danger">
-                                <div *ngIf="stat?.errors?.required">Status is required.</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <h2 class="card-header pt-4 pb-2">Outlet Address</h2>
-                <div class="card-body row">
-                    <div class="col">
-                        <div class="form-group">
-                            <label class="required">Outlet Address</label>
-                            <input type="text" rows="6" formControlName="outlet_Address" class="form-control" />
-                            <div *ngIf="outletAddress?.touched && outletAddress?.invalid" class="alert alert-danger">
-                                <div *ngIf="outletAddress?.errors?.required">
-                                    Outlet Address is required.
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="required">Select Status</label><br />
+                                    <select name="status" formControlName="status" class="form-control">
+                                        <option value="default">--Select Status--</option>
+                                        <option *ngFor="let item of status">{{ item }}</option>
+                                    </select>
+                                    <div *ngIf="stat?.touched && stat?.invalid" class="alert alert-danger">
+                                        <div *ngIf="stat?.errors?.required">Status is required.</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="col">
-                        <div class="form-group">
-                            <label class="required">Country</label>
-                            <input type="text" formControlName="country" class="form-control" />
-                            <div *ngIf="country?.touched && country?.invalid" class="alert alert-danger">
-                                <div *ngIf="country?.errors?.required">Country is required.</div>
+                        <h2 class="card-header pt-4 pb-2">Outlet Address</h2>
+                        <div class="card-body row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="required">Outlet Address</label>
+                                    <input type="text" rows="6" formControlName="outlet_Address" class="form-control" />
+                                    <div *ngIf="outletAddress?.touched && outletAddress?.invalid"
+                                        class="alert alert-danger">
+                                        <div *ngIf="outletAddress?.errors?.required">
+                                            Outlet Address is required.
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="col">
-                        <div class="form-group">
-                            <label class="required">State</label>
-                            <input type="text" formControlName="state" class="form-control" />
-                            <div *ngIf="state?.touched && state?.invalid" class="alert alert-danger">
-                                <div *ngIf="state?.errors?.required">State is required.</div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="required">Country</label>
+                                    <!-- <input type="text" formControlName="country" class="form-control" /> -->
+                                    <ng-select placeholder="Select Country">
+                                        <ng-option *ngFor="let item of myData">
+                                            {{ item.text }}
+                                        </ng-option>
+                                    </ng-select>
+                                    <div *ngIf="country?.touched && country?.invalid" class="alert alert-danger">
+                                        <div *ngIf="country?.errors?.required">Country is required.</div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="col">
-                        <div class="form-group">
-                            <label class="required">City</label>
-                            <input type="text" formControlName="city" class="form-control" />
-                            <div *ngIf="city?.touched && city?.invalid" class="alert alert-danger">
-                                <div *ngIf="city?.errors?.required">City is required.</div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="required">State</label>
+                                    <input type="text" formControlName="state" class="form-control" />
+                                    <div *ngIf="state?.touched && state?.invalid" class="alert alert-danger">
+                                        <div *ngIf="state?.errors?.required">State is required.</div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="col">
-                        <div class="form-group">
-                            <label class="required">Postcode</label>
-                            <input type="text" formControlName="postcode" class="form-control" />
-                            <div *ngIf="postCode?.touched && postCode?.invalid" class="alert alert-danger">
-                                <div *ngIf="postCode?.errors?.required">Postcode is required.</div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="required">City</label>
+                                    <input type="text" formControlName="city" class="form-control" />
+                                    <div *ngIf="city?.touched && city?.invalid" class="alert alert-danger">
+                                        <div *ngIf="city?.errors?.required">City is required.</div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
 
-                <h2 class="card-header pt-4 pb-2">Inventory Source</h2>
-                <div class="card-body row">
-                    <div class="col">
-                        <div class="form-group">
-                            <label class="required">Inventory Source</label><br />
-                            <select name="inventory_source" formControlName="inventory_source" class="form-control">
-                                <option value="">--Select Inventory Source--</option>
-                                <option value="default">Default</option>
-                            </select>
-                            <div *ngIf="inventory?.touched && inventory?.invalid" class="alert alert-danger">
-                                <div *ngIf="inventory?.errors?.required">
-                                    Inventory source is required.
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="required">Postcode</label>
+                                    <input type="text" formControlName="postcode" class="form-control" />
+                                    <div *ngIf="postCode?.touched && postCode?.invalid" class="alert alert-danger">
+                                        <div *ngIf="postCode?.errors?.required">Postcode is required.</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                <button [disabled]="!editOutletForm.valid" type="button" (click)="updateData(editOutletForm.value)"
-                    class="btn btn-primary mb-4 float-right">
-                    Update
-                </button>
+                        <h2 class="card-header pt-4 pb-2">Inventory Source</h2>
+                        <div class="card-body row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="required">Inventory Source</label><br />
+                                    <select name="inventory_source" formControlName="inventory_source"
+                                        class="form-control">
+                                        <option value="">--Select Inventory Source--</option>
+                                        <option value="default">Default</option>
+                                    </select>
+                                    <div *ngIf="inventory?.touched && inventory?.invalid" class="alert alert-danger">
+                                        <div *ngIf="inventory?.errors?.required">
+                                            Inventory source is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button [disabled]="!editOutletForm.valid" type="button"
+                            (click)="updateData(editOutletForm.value)" class="btn btn-primary mb-4 float-right">
+                            Update
+                        </button>
+                    </div>
+                </form>
             </div>
-        </form>
+        </div>
     </div>
 </sb-layout-dashboard>

@@ -1,7 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppToastService } from '@modules/shared-module/services/app-toast.service';
+import { CountryListService } from '@modules/shared-module/services/Country List/country-list.service';
 
 import { OutletDataService } from './../outlet-data.service';
 
@@ -14,6 +16,7 @@ import { OutletDataService } from './../outlet-data.service';
 export class EditOutletComponent implements OnInit {
     editOutletForm!: FormGroup
     id: any
+    myData: any
 
     inventory_source = ['default'];
     status = ['active', 'inactive'];
@@ -55,13 +58,16 @@ export class EditOutletComponent implements OnInit {
         private outletService: OutletDataService,
         private route: ActivatedRoute,
         private router: Router,
-        private toast: AppToastService) { }
+        private toast: AppToastService,
+        private http: HttpClient,
+        private countries: CountryListService
+    ) { }
 
     ngOnInit(): void {
         this.editOutletForm = this.fb.group({
             outlet_name: ['', [Validators.required]],
             outlet_Address: ['', [Validators.required]],
-            country: ['', [Validators.required]],
+            country: [null, [Validators.required]],
             state: ['', [Validators.required]],
             city: ['', [Validators.required]],
             postcode: ['', [Validators.required]],
@@ -75,6 +81,15 @@ export class EditOutletComponent implements OnInit {
 
             this.editOutletForm.patchValue(data)
         })
+
+        this.countries.getCountryList().subscribe((resp: any) => {
+            const countries = [];
+            for (let i = 0; i < resp.length; ++i) {
+                const country = resp[i];
+                countries.push({ text: country.text, value: country.value });
+            }
+            this.myData = countries;
+        })
     }
 
     // For submitting edit outlet form data
@@ -87,18 +102,18 @@ export class EditOutletComponent implements OnInit {
             city: data.city,
             postcode: data.postcode,
             inventory_source: data.inventory_source,
-            status:data.status
+            status: data.status
         }
         console.log(obj);
 
-        this.outletService.editOutlet(this.id, obj).subscribe((data:any) => {
+        this.outletService.editOutlet(this.id, obj).subscribe((data: any) => {
             console.log('Data updated successfully! ', data);
-            this.router.navigate(['/pos/users'], {queryParams: {outlet: true}});
+            this.router.navigate(['/pos/users'], { queryParams: { outlet: true } });
             this.toast.success('Success', 'Edited successfully.');
         },
-        err =>  {
-            this.toast.error('Error', 'Server error.');
-          });
+            err => {
+                this.toast.error('Error', 'Server error.');
+            });
 
     }
 }

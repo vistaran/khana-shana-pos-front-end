@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AppToastService } from '@modules/shared-module/services/app-toast.service';
 
 import { OutletDataService } from '../outlet-data.service';
@@ -32,6 +33,10 @@ export class AddUserComponent implements OnInit {
         return this.addUserForm.get('email');
     }
 
+    get user_avatar() {
+        return this.addUserForm.get('user_avatar');
+    }
+
     get password() {
         return this.addUserForm.get('password');
     }
@@ -59,7 +64,8 @@ export class AddUserComponent implements OnInit {
     constructor(private fb: FormBuilder,
         private userService: UserDataService,
         private toast: AppToastService,
-        private outletService: OutletDataService
+        private outletService: OutletDataService,
+        private route: Router
     ) { }
 
     ngOnInit(): void {
@@ -68,9 +74,9 @@ export class AddUserComponent implements OnInit {
                 username: ['', [Validators.required]],
                 first_name: ['', [Validators.required]],
                 lastname: ['', [Validators.required]],
-                email: [''],
+                email: ['', [Validators.required]],
                 phone_no: ['', [Validators.required]],
-                // user_avatar: [''],
+                user_avatar: ['', [Validators.required]],
                 password: ['', [Validators.required]],
                 confirm_password: ['', [Validators.required]],
                 outlet: ['', [Validators.required]],
@@ -85,11 +91,11 @@ export class AddUserComponent implements OnInit {
 
     getOutletData() {
         this.outletService.getOutletData(1).subscribe(result => {
-          this.outletList = result.outlets.data;
+            this.outletList = result.outlets.data;
 
-          this.addUserForm.get('outlet')?.setValue(this.outletList[0].id)
+            this.addUserForm.get('outlet')?.setValue(this.outletList[0].id)
         })
-      }
+    }
 
     // For submitting add user form data
     onSubmit(data: any) {
@@ -98,6 +104,7 @@ export class AddUserComponent implements OnInit {
             .subscribe((result: any) => {
                 console.log(result)
                 this.toast.success('Suucess', 'Added Successfully.')
+                this.route.navigate(['/pos/users'])
             }, err => {
                 this.toast.error('Error', 'Server error.')
             });

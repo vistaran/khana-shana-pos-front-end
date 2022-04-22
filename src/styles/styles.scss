@@ -1,26 +1,30 @@
 // Import Custom Variables
-@import "variables.scss";
+@import 'variables.scss';
 // Import Bootstrap
-@import "bootstrap/scss/bootstrap.scss";
+@import 'bootstrap/scss/bootstrap.scss';
 // Import Custom SCSS
-@import "global.scss";
+@import 'global.scss';
 // Layout
-@import "layout/authentication.scss";
-@import "layout/dashboard-default.scss";
-@import "layout/dashboard-fixed.scss";
-@import "layout/error.scss";
+@import 'layout/authentication.scss';
+@import 'layout/dashboard-default.scss';
+@import 'layout/dashboard-fixed.scss';
+@import 'layout/error.scss';
 // Navigation
-@import "navigation/nav.scss";
-@import "navigation/topnav.scss";
-@import "navigation/sidenav/sidenav.scss";
-@import "navigation/sidenav/sidenav-dark.scss";
-@import "navigation/sidenav/sidenav-light.scss";
+@import 'navigation/nav.scss';
+@import 'navigation/topnav.scss';
+@import 'navigation/sidenav/sidenav.scss';
+@import 'navigation/sidenav/sidenav-dark.scss';
+@import 'navigation/sidenav/sidenav-light.scss';
 
-@import "~@ng-select/ng-select/themes/default.theme.css";
+@import '~@ng-select/ng-select/themes/default.theme.css';
 
-.bg-primary {background-color: #44B276 !important;}
+.bg-primary {
+    background-color: #44b276 !important;
+}
 
-.img-xs { width: 30px;}
+.img-xs {
+    width: 30px;
+}
 
 .custom-day {
     text-align: center;
@@ -28,14 +32,20 @@
     display: inline-block;
     height: 2rem;
     width: 2rem;
-  }
-  .custom-day.focused {
+}
+.custom-day.focused {
     background-color: #e6e6e6;
-  }
-  .custom-day.range, .custom-day:hover {
+}
+.custom-day.range,
+.custom-day:hover {
     background-color: rgb(2, 117, 216);
     color: white;
-  }
-  .custom-day.faded {
+}
+.custom-day.faded {
     background-color: rgba(2, 117, 216, 0.5);
-  }
+}
+.required label:after {
+    color: #e32;
+    content: ' *';
+    display: inline;
+}

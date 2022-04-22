@@ -36,6 +36,10 @@ export class EditUserComponent implements OnInit {
         return this.editUserForm.get('email');
     }
 
+    get user_avatar() {
+        return this.editUserForm.get('user_avatar');
+    }
+
     get password() {
         return this.editUserForm.get('password');
     }
@@ -99,7 +103,7 @@ export class EditUserComponent implements OnInit {
                 password: data.show_data.password,
                 confirm_password: data.show_data.confirm_password,
                 outlet_name: data.show_data.outlet_name,
-                outlet_status: data.show_data.outlet_status,
+                // outlet_status: data.show_data.outlet_status,
                 phone_no: data.show_data.phone_no,
                 status: data.show_data.status,
             })

@@ -9,20 +9,22 @@
                         <div class="row card-body">
 
                             <div class="col-6">
-                                <div class="form-group">
-                                    <label class="required">Firstname</label>
-                                    <input type="text" formControlName="first_name" class="form-control" autofocus/>
-                                    
+                                <div class="form-group required">
+                                    <label class="required">First name</label>
+                                    <input type="text" formControlName="first_name" class="form-control"
+                                        placeholder="Enter First Name" autofocus />
+
                                     <div *ngIf="firstName?.touched && firstName?.invalid" class="alert alert-danger">
                                         <div *ngIf="firstName?.errors?.required">First name is required.</div>
                                     </div>
                                 </div>
                             </div>
-        
+
                             <div class="col-6">
-                                <div class="form-group">
-                                    <label class="required">Lastname</label>
-                                    <input type="text" formControlName="lastname" class="form-control" />
+                                <div class="form-group required">
+                                    <label class="required">Last name</label>
+                                    <input type="text" formControlName="lastname" placeholder="Enter Last Name"
+                                        class="form-control" />
                                     <div *ngIf="lastName?.touched && lastName?.invalid" class="alert alert-danger">
                                         <div *ngIf="lastName?.errors?.required">Last name is required.</div>
                                     </div>
@@ -30,57 +32,75 @@
                             </div>
 
                             <div class="col-6">
-                                <div class="form-group">
+                                <div class="form-group required">
                                     <label class="required">Username</label>
-                                    <input type="text" formControlName="username" class="form-control" />
+                                    <input type="text" formControlName="username" placeholder="Enter Username"
+                                        class="form-control" />
                                     <div *ngIf="userName?.touched && userName?.invalid" class="alert alert-danger">
                                         <div *ngIf="userName?.errors?.required">Username is required.</div>
                                     </div>
                                 </div>
                             </div>
-        
+
                             <div class="col-6">
-                                <div class="form-group">
+                                <div class="form-group required">
                                     <label>Email</label>
-                                    <input type="text" formControlName="email" class="form-control" />
+                                    <input type="text" formControlName="email" placeholder="Enter Email"
+                                        class="form-control" />
+                                    <div *ngIf="email?.touched && email?.invalid" class="alert alert-danger">
+                                        <div *ngIf="email?.errors?.required">Email is required.</div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-        
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label>Phone Number</label>
-                                <input type="text" formControlName="phone_no" class="form-control" />
-                                <div *ngIf="phone?.touched && phone?.invalid" class="alert alert-danger">
-                                    <div *ngIf="phone?.errors?.required">Phone number is required.</div>
+
+                            <div class="col-6">
+                                <div class="form-group required">
+                                    <label>Phone Number</label>
+                                    <input type="tel" formControlName="phone_no" placeholder="Enter Phone Number"
+                                        class="form-control" />
+                                    <div *ngIf="phone?.touched && phone?.invalid" class="alert alert-danger">
+                                        <div *ngIf="phone?.errors?.required">Phone number is required.</div>
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
-        
-                        <!-- <h2 class="card-header pt-4 pb-2">Use Avatar</h2>
+
+
+                        <h2 class="card-header pt-2 pb-2">Use Avatar</h2>
                         <div class="card-body row">
                             <div class="col">
-                                <!-- <label for="img">Add Avatar</label> --
-                                <input type="file" id="img" name="img" accept="image/*" formControlName="user_avatar" />
+                                <div class="form-group required">
+                                    <label for="img">Add Avatar</label><br>
+                                    <input type="file" id="img" name="img" accept="image/*"
+                                        formControlName="user_avatar" />
+                                    <div *ngIf="user_avatar?.touched && user_avatar?.invalid"
+                                        class="alert alert-danger">
+                                        <div *ngIf="user_avatar?.errors?.required">User Avatar is required.</div>
+                                    </div>
+                                </div>
                             </div>
-                        </div> -->
-        
+                        </div>
+
+
                         <h2 class="card-header pt-4">Password</h2>
                         <div class="card-body row">
                             <div class="col">
-                                <div class="form-group">
+                                <div class="form-group required">
                                     <label class="required">Password</label>
-                                    <input type="password" formControlName="password" class="form-control" />
+                                    <input type="password" formControlName="password" placeholder="Enter Password"
+                                        class="form-control" />
                                     <div *ngIf="password?.touched && password?.invalid" class="alert alert-danger">
                                         <div *ngIf="password?.errors?.required">Password is required.</div>
                                     </div>
                                 </div>
                             </div>
-        
+
                             <div class="col">
-                                <div class="form-group">
+                                <div class="form-group required">
                                     <label class="required">Confirm Password</label>
-                                    <input [class.is-invalid]="addUserForm?.errors?.mismatch" type="password"
+                                    <input [class.is-invalid]="addUserForm?.errors?.mismatch"
+                                        placeholder="Enter password again" type="password"
                                         formControlName="confirm_password" class="form-control" />
                                     <div *ngIf="addUserForm?.errors?.mismatch" class="alert alert-danger">
                                         Passwords do not match.
@@ -88,15 +108,16 @@
                                 </div>
                             </div>
                         </div>
-        
+
                         <h2 class="card-header pt-4 pb-2">Status & Outlet</h2>
                         <div class="card-body row">
                             <div class="col">
-                                <div class="form-group">
+                                <div class="form-group required">
                                     <label class="required">Outlet Name</label><br />
-                                    
+
                                     <select name="outlet" formControlName="outlet" class="form-control">
-                                        <option *ngFor="let item of outletList" value="{{ item.id }}">{{ item.outlet_name }}</option>
+                                        <option *ngFor="let item of outletList" value="{{ item.id }}">{{
+                                            item.outlet_name }}</option>
                                     </select>
 
                                     <div *ngIf="outl?.touched && outl?.invalid" class="alert alert-danger">
@@ -106,7 +127,7 @@
                             </div>
 
                             <div class="col">
-                                <div class="form-group">
+                                <div class="form-group required">
                                     <label class="required">Select User Account Status</label><br />
                                     <select name="status" formControlName="status" class="form-control">
                                         <option *ngFor="let item of status">{{ item }}</option>
@@ -117,10 +138,10 @@
                                 </div>
                             </div>
                         </div>
-        
-        
+
+
                         <button [disabled]="!addUserForm.valid" type="submit" (click)="onSubmit(addUserForm.value)"
-                            class="btn btn-primary mb-4 float-right" [routerLink]="['/pos/users']">
+                            class="btn btn-primary mb-4 float-right">
                             Submit
                         </button>
                     </div>
