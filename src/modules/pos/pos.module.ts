@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { AppCommonModule } from '@common/app-common.module';
 import { NavigationModule } from '@modules/navigation/navigation.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 import { AddOutletComponent } from './add-outlet/add-outlet.component';
 import { AddUomComponent } from './add-uom/add-uom.component';
@@ -33,7 +34,8 @@ import { VendorsComponent } from './vendors/vendors.component';
     EditVendorComponent,
     UomComponent,
     AddUomComponent,
-    EditUomComponent],
+    EditUomComponent
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -41,7 +43,8 @@ import { VendorsComponent } from './vendors/vendors.component';
     AppCommonModule,
     NavigationModule,
     RouterModule,
-    NgbModule
+    NgbModule,
+    NgSelectModule
   ]
 })
 export class PosModule { }

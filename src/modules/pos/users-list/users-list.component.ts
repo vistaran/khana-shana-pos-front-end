@@ -47,7 +47,7 @@ export class UsersListComponent implements OnInit {
         this.showloader = true
         this.userService.getUserData(this.page).subscribe(result => {
             this.userData = result.user.data
-            this.length = result.user.per_page;
+            this.length = this.userData.length;
             this.total = result.user.total;
             this.showloader = false
             console.log(result);

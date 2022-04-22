@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AppToastService } from '@modules/shared-module/services/app-toast.service';
+import { CountryListService } from '@modules/shared-module/services/Country List/country-list.service';
 
 import { OutletDataService } from './../outlet-data.service';
 // import { addOutlet } from '../outletData';
@@ -14,6 +15,7 @@ import { OutletDataService } from './../outlet-data.service';
 export class AddOutletComponent implements OnInit {
 
   addOutletForm!: FormGroup;
+  myData: any = []
 
   inventorySource = ['default'];
   status = ['active', 'inactive'];
@@ -22,7 +24,8 @@ export class AddOutletComponent implements OnInit {
     private fb: FormBuilder,
     private outletService: OutletDataService,
     private router: Router,
-    private toast: AppToastService
+    private toast: AppToastService,
+    private countries: CountryListService
   ) { }
 
   // For Validations
@@ -70,6 +73,15 @@ export class AddOutletComponent implements OnInit {
       postcode: ['', [Validators.required]],
       inventory_source: ['', [Validators.required]],
     });
+
+    this.countries.getCountryList().subscribe((resp: any) => {
+      const countries = [];
+      for (let i = 0; i < resp.length; ++i) {
+          const country = resp[i];
+          countries.push({ text: country.text, value: country.value });
+      }
+      this.myData = countries;
+  })
   }
 
 

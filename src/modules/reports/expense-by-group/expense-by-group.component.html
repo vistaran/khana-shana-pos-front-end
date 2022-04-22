@@ -3,14 +3,14 @@
         <div class="row">
             <div class="col">
                 <h2>Expense By Item Group</h2>
-                <div class="d-flex">
 
-                    <form>
-                        <div class="card mt-2">
+                <!-- <div class=""> -->
+                <div class="row  mb-5">
+                    <div class="col d-flex">
+
+                        <div class="card mt-2 ">
                             <div class="card-header text-center">Fliter By Date</div>
                             <div class="card-body">
-
-
                                 <div class="dp-hidden position-absolute">
                                     <div class="input-group">
                                         <input name="datepicker" class="form-control" ngbDatepicker
@@ -21,7 +21,7 @@
                                             <span class="custom-day" [class.focused]="focused"
                                                 [class.range]="isRange(date)"
                                                 [class.faded]="isHovered(date) || isInside(date)"
-                                                (mouseenter)="hoveredDate = date" (mouseleave)="hoveredDate = null">
+                                                (mouseenter)="hoveredDate = date" (mouseleave)="hoveredDate = null" >
                                                 {{ date.day }}
                                             </span>
                                         </ng-template>
@@ -33,65 +33,69 @@
                                             <input #dpFromDate class="form-control" placeholder="yyyy-mm-dd"
                                                 name="dpFromDate" [value]="formatter.format(fromDate)"
                                                 (input)="fromDate = validateInput(fromDate, dpFromDate.value)">
-                                            <button class="btn btn-outline-secondary calendar"
+                                            <button class="btn btn-outline-secondary calendar text-dark"
+                                                (click)="datepicker.toggle()" type="button">
+                                                <i class="fa fa-calendar fa-lg mx-auto bg-info"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <input #dpToDate class="form-control" placeholder="yyyy-mm-dd"
+                                                name="dpToDate" [value]="formatter.format(toDate)"
+                                                (input)="toDate = validateInput(toDate, dpToDate.value)">
+                                            <button class="btn btn-outline-secondary calendar text-dark"
                                                 (click)="datepicker.toggle()" type="button">
                                                 <i class="fa fa-calendar fa-lg mx-auto"></i>
                                             </button>
                                         </div>
                                     </div>
-
-                                        <div class="col">
-                                            <div class="input-group">
-                                                <input #dpToDate class="form-control" placeholder="yyyy-mm-dd"
-                                                    name="dpToDate" [value]="formatter.format(toDate)"
-                                                    (input)="toDate = validateInput(toDate, dpToDate.value)">
-                                                <button class="btn btn-outline-secondary calendar"
-                                                    (click)="datepicker.toggle()" type="button">
-                                                    <i class="fa fa-calendar fa-lg mx-auto"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                         <hr />
-                                      <!-- <pre>From date model: {{ fromDate | json }}</pre>
-                                        <pre>To date model: {{ toDate | json }}</pre>  -->
-
-                                        <!-- <div class="row row-cols-sm-auto">
-                                    <div class="col">
-                                        <div class="input-group">
-                                           <label class="form-label">Start Date: </label> 
-                                            <input class="form-control" placeholder="Start Date" id="floatingInput"
-                                                name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
-                                            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()"
-                                                type="button">
-                                                <i class="fa fa-calendar fa-lg mx-auto"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <div class="col">
-                                        <div class="input-group">
-                                             <label>End Date: </label> 
-                                            <input class="form-control" placeholder="End Date" id="floatingInput2"
-                                                name="dp2" [(ngModel)]="model" ngbDatepicker #d2="ngbDatepicker">
-                                            <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()"
-                                                type="button">
-                                                <i class="fa fa-calendar fa-lg mx-auto"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div> -->
-
-
-
-                                        <!-- <hr /> -->
-                                        <!-- <pre>Model: {{ model | json }}</pre> -->
-                                    </div>
                                 </div>
-                    </form>
+                                <hr />
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+
+
+                <table class="table table-bordered table-striped table-sm table-hover">
+                    <thead class="head">
+                        <th>No.</th>
+                        <th>Item Group Name</th>
+                        <th>Subtotal</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of expenseGroupData; index as i">
+                            <td>{{ i+1 }}</td>
+                            <td>{{ data.item_group_name }}</td>
+                            <td>₹{{ data.subtotal }}</td>
+                        </tr>
+                        <tr *ngIf="!length && !showloader">
+                            <td colspan="3" class="text-center">
+                                No records found.
+                            </td>
+                        </tr>
+                        <tr *ngIf="length">
+                            <td colspan="2" class="text-right">
+                                <b>Total Expense in selected Range</b>
+                            </td>
+                            <td><b>₹{{ totalExpense }}</b></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div *ngIf="showloader" class="d-flex justify-content-center pt-5">
+                    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                        <!-- <img src="src\image\Infinity-1s-200px.svg"> -->
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+
+                <!-- </div> -->
+
+
 
             </div>
         </div>
