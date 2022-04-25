@@ -1,8 +1,38 @@
 <footer class="py-4  mt-auto">
     <div class="container-fluid">
         <div class="d-flex align-items-center justify-content-between small">
-            <div class="text-muted">Copyright &copy; Your Website 2020</div>
-            <div><a href="#">Privacy Policy &middot;</a><a href="#">Terms &amp; Conditions</a></div>
+            <div class="text-muted">Copyright &copy; Your Website 2022</div>
+            <div><a type="button" class="text-primary" (click)="open(content2)">Privacy Policy &middot;</a><a type="button" class="text-primary" (click)="open(content)">Terms &amp; Conditions</a></div>
         </div>
     </div>
+
+    <ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Terms & Conditions</h4>
+          <button type="button" class="btn btn-primary btn-close" aria-label="Close" (click)="d('Cross click')">X</button>
+        </div>
+        <div class="modal-body">
+          <p>Hello, World!</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Close</button>
+        </div>
+      </ng-template>
+
+      <ng-template #content2 let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Privacy Policy</h4>
+          <button type="button" class="btn btn-primary btn-close" aria-label="Close" (click)="d('Cross click')">X</button>
+        </div>
+        <div class="modal-body">
+          <p>Hello, World!</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Close</button>
+        </div>
+      </ng-template>
+      
+      
+      <!-- <button class="btn btn-lg btn-outline-primary" >Launch demo modal</button> -->
+
 </footer>

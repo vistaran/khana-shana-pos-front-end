@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AppToastService } from '@modules/shared-module/services/app-toast.service';
 
@@ -12,9 +12,10 @@ import { AuthService } from './../../services/auth.service';
     styleUrls: ['login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-    // loginForm!: FormGroup;
 
+    loginForm!: FormGroup;
     // regData: any;
+    public userData: any = [];
 
     constructor(
         public auth: AuthService,
@@ -31,18 +32,33 @@ export class LoginComponent implements OnInit {
     //     email: this.f.email.value,
     //     password: this.f.password.value
     // }
+    get email() {
+        return this.loginForm.get('email');
+    }
 
-    ngOnInit() {}
+    get password() {
+        return this.loginForm.get('password');
+    }
+
+    ngOnInit() {
+        this.loginForm = this.fb.group({
+            email: ['', [Validators.required]],
+            password: ['', [Validators.required]]
+        })
+    }
 
     onSubmit(data: any) {
         console.log(data);
         this.auth.login(data).subscribe((result: any) => {
             localStorage.setItem('token', result.access_token)
+            localStorage.setItem('Firstname', result.user.first_name)
+            localStorage.setItem('Lastname', result.user.lastname)
+            localStorage.setItem('Email',result.user.email)
             this.router.navigate(['/dashboard']);
+            this.userData = result.user
         }, error => {
             this.toast.show('Error', 'Invalid credentials', { className: 'bg-danger text-light'});
         });
-
 
         // prepare parameter
         // this.auth.getUser(

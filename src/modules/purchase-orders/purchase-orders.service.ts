@@ -21,6 +21,8 @@ export class PurchaseOrdersService {
 
   getPurchaseOrdersData(page: number): Observable<PurchaseOrder> {
     const headers = this.createAuthrorizationHeader();
+    console.log(headers);
+
     return this.http.get<PurchaseOrder>(this.url + '?page=' + page, { headers });
   }
 

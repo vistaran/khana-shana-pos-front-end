@@ -74,8 +74,8 @@ export class AddUserComponent implements OnInit {
                 username: ['', [Validators.required]],
                 first_name: ['', [Validators.required]],
                 lastname: ['', [Validators.required]],
-                email: ['', [Validators.required]],
-                phone_no: ['', [Validators.required]],
+                email: ['', [Validators.required, Validators.email]],
+                phone_no: ['', [Validators.required, Validators.maxLength(10)]],
                 user_avatar: ['', [Validators.required]],
                 password: ['', [Validators.required]],
                 confirm_password: ['', [Validators.required]],
@@ -103,7 +103,7 @@ export class AddUserComponent implements OnInit {
             .postUserData(data)
             .subscribe((result: any) => {
                 console.log(result)
-                this.toast.success('Suucess', 'Added Successfully.')
+                this.toast.success('Success', 'Added Successfully.')
                 this.route.navigate(['/pos/users'])
             }, err => {
                 this.toast.error('Error', 'Server error.')

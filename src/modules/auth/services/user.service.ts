@@ -10,7 +10,9 @@ const userSubject: ReplaySubject<User> = new ReplaySubject(1);
 @Injectable()
 export class UserService {
 
-  private url = environment.apiUrl + 'auth/logout';
+    private url = environment.apiUrl + 'auth/logout';
+
+
 
     constructor(
         private http: HttpClient
@@ -32,20 +34,26 @@ export class UserService {
         return userSubject.asObservable();
     }
 
-    createAuthrorizationHeader(): HttpHeaders {
+    createAuthorizationHeader(): HttpHeaders {
 
         let headers = new HttpHeaders();
         const token: any = localStorage.getItem('token');
 
-        headers = headers.append('Authorization', 'Bearer ' + token);
-        console.log(headers);
-
+        headers = headers.set('Authorization', 'Bearer ' + token);
         return headers;
-      }
+    }
 
     logout() {
 
-        const headers = this.createAuthrorizationHeader();
+        const headers: any = this.createAuthorizationHeader();
+        console.log(headers);
+
         return this.http.post(this.url, { headers })
     }
+
+    // createAuthorizationHeader(headers: Headers) {
+    //     const token: any = localStorage.getItem('token');
+    //     headers.set('Authorization', 'Bearer ' + token);
+    // }
+
 }

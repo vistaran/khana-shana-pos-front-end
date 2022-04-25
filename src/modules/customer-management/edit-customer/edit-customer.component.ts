@@ -190,17 +190,6 @@ export class EditCustomerComponent implements OnInit {
       console.log(this.customerAddressData[0].address_type);
       console.log('length', this.customerAddressData.length);
 
-      // for (let i = 0; i < this.customerAddressData.length; i++) {
-      //   if (this.customerAddressData[i].address_type === this.address_type[i].name) {
-      //     console.log('yes');
-
-      //     this.address_type_name.push({
-      //       id: this.address_type[i].name,
-      //       name: this.address_type[i].name,
-      //       addresses: this.customerAddressData[i]
-      //     })
-      //   }
-      // }
       this.address_type_name.forEach((g: any) => {
         g.addresses = [];
         this.customerAddressData.forEach((c: any) => {

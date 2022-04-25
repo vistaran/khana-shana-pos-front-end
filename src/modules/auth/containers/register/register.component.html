@@ -7,31 +7,30 @@
                         <h3 class="text-center font-weight-light my-4">Create Account</h3>
                     </div>
                     <div class="card-body">
-                        <form #createAccountForm="ngForm">
+                        <form [formGroup]="createAccountForm" (ngSubmit)="onSubmit(createAccountForm.value)">
                             <div class="form-row">
                                 <div class="col-md-6">
                                     <div class="form-group required">
-                                        <label class="small mb-1" for="first_Name">First
+                                        <label class="small mb-1">First
                                             Name</label>
-                                        <input class="form-control py-4" required id="first_Name" ngModel name="first_Name"
-                                            type="text" #first_Name="ngModel"
-                                            [class.is-invalid]="first_Name.invalid && first_Name.touched"
-                                            placeholder="Enter first name" />
-                                            <div class="text-danger" [class.d-none]="first_Name.valid || first_Name.untouched">
-                                                <small>First Name is required</small>
-                                            </div>
+                                        <input type="text" formControlName="first_Name" placeholder="Enter First Name"
+                                            class="form-control" required
+                                            [class.is-invalid]="first_Name?.touched && first_Name?.invalid" />
+                                        <div *ngIf="first_Name?.touched && first_Name?.invalid" class="text-danger">
+                                            <small *ngIf="first_Name?.errors?.required">First Name is required.</small>
+                                        </div>
                                     </div>
-                                   
+
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group required">
                                         <label class="small mb-1" for="lastname">Last
                                             Name</label>
-                                        <input class="form-control py-4" required ngModel #lastname="ngModel"
-                                            [class.is-invalid]="lastname.invalid && lastname.touched" id="lastname"
-                                            name="lastname" type="text" placeholder="Enter last name" />
-                                        <div class="text-danger" [class.d-none]="lastname.valid || lastname.untouched">
-                                            <small>Last Name is required</small>
+                                        <input type="text" formControlName="lastname" placeholder="Enter Last Name"
+                                            class="form-control"
+                                            [class.is-invalid]="lastname?.touched && lastname?.invalid" />
+                                        <div *ngIf="lastname?.touched && lastname?.invalid" class="text-danger">
+                                            <small *ngIf="lastname?.errors?.required">Last Name is required.</small>
                                         </div>
                                     </div>
                                 </div>
@@ -41,24 +40,23 @@
                                 <div class="col-md-6">
                                     <div class="form-group required"><label class="small mb-1" for="username">User
                                             Name</label>
-                                        <input class="form-control py-4" required id="username" ngModel #username="ngModel"
-                                            [class.is-invalid]="username.invalid && username.touched" name="username"
-                                            type="text" placeholder="Enter user name" />
-                                        <div class="text-danger" [class.d-none]="username.valid || username.untouched">
-                                            <small>User Name is required</small>
+                                        <input type="text" formControlName="username" placeholder="Enter Username"
+                                            class="form-control"
+                                            [class.is-invalid]="username?.touched && username?.invalid" />
+                                        <div *ngIf="username?.touched && username?.invalid" class="text-danger">
+                                            <small *ngIf="username?.errors?.required">Username is required.</small>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <div class="form-group required">
-                                        <label class="small mb-1" for="email">Email</label>
-                                        <input class="form-control py-4" required id="inputEmailAddress" ngModel #email="ngModel"
-                                            [class.is-invalid]="email.invalid && email.touched" type="email"
-                                            name="email" aria-describedby="emailHelp"
-                                            placeholder="Enter email address" />
-                                        <div class="text-danger" [class.d-none]="email.valid || email.untouched">
-                                            <small>Email is required</small>
+                                        <label class="small mb-1">Email</label>
+                                        <input type="text" formControlName="email" placeholder="Enter Email"
+                                            class="form-control"
+                                            [class.is-invalid]="email?.touched && email?.invalid" />
+                                        <div *ngIf="email?.touched && email?.invalid" class="text-danger">
+                                            <small *ngIf="email?.errors?.required">Email is required.</small>
                                         </div>
                                     </div>
                                 </div>
@@ -68,12 +66,11 @@
                                 <div class="col-md-6">
                                     <div class="form-group required"><label class="small mb-1"
                                             for="password">Password</label>
-                                        <input class="form-control py-4" required id="password" name="password" ngModel
-                                            #password="ngModel"
-                                            [class.is-invalid]="password.invalid && password.touched" type="password"
-                                            placeholder="Enter password" />
-                                        <div class="text-danger" [class.d-none]="password.valid || password.untouched">
-                                            <small>Password is required</small>
+                                        <input type="text" formControlName="password" placeholder="Enter Password"
+                                            class="form-control"
+                                            [class.is-invalid]="password?.touched && password?.invalid" />
+                                        <div *ngIf="password?.touched && password?.invalid" class="text-danger">
+                                            <small *ngIf="password?.errors?.required">Password is required.</small>
                                         </div>
 
                                     </div>
@@ -81,19 +78,23 @@
                                 <div class="col-md-6">
                                     <div class="form-group required"><label class="small mb-1"
                                             for="confirm_password">Confirm Password</label>
-                                        <input class="form-control py-4" required id="confirm_password" name="confirm_password"
-                                            type="password" ngModel #confirm_password="ngModel"
-                                            [class.is-invalid]="confirm_password.invalid && confirm_password.touched"
-                                            placeholder="Confirm password" />
-                                        <div class="text-danger"
-                                            [class.d-none]="confirm_password.valid || confirm_password.untouched">
-                                            <small>Confirm Password is required</small>
+                                        <input type="text" formControlName="confirm_password"
+                                            placeholder="Enter Confirm Password" class="form-control"
+                                            [class.is-invalid]="confirm_password?.touched && confirm_password?.invalid" />
+                                        <div *ngIf="confirm_password?.touched && confirm_password?.invalid"
+                                            class="text-danger">
                                         </div>
+                                        <small *ngIf="createAccountForm?.errors?.mismatch" class="text-danger">
+                                            Passwords do not match.
+                                        </small>
+
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group mt-4 mb-0"><a class="btn btn-primary btn-block"
-                                    routerLink="/dashboard">Create Account</a></div>
+                            <!-- <div class="mt-4"> -->
+                            <button [disabled]="!createAccountForm.valid" class="btn btn-primary float-right">Create
+                                Account</button>
+                            <!-- </div> -->
                         </form>
                     </div>
                     <div class="card-footer text-center">

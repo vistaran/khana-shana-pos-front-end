@@ -105,7 +105,7 @@ export class EditUserComponent implements OnInit {
                 outlet_name: data.show_data.outlet_name,
                 // outlet_status: data.show_data.outlet_status,
                 phone_no: data.show_data.phone_no,
-                status: data.show_data.status,
+                status: Number(data.show_data.status),
             })
             console.log(data)
         })
