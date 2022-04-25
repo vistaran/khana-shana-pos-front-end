@@ -80,6 +80,7 @@ export class EditOutletComponent implements OnInit {
             console.log(data);
 
             this.editOutletForm.patchValue(data)
+            this.editOutletForm.get('country')?.setValue(data.country)
         })
 
         this.countries.getCountryList().subscribe((resp: any) => {

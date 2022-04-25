@@ -9,7 +9,9 @@ import { NavigationService } from '@modules/navigation/services';
 })
 export class TopNavComponent implements OnInit {
     constructor(private navigationService: NavigationService) {}
-    ngOnInit() {}
+    ngOnInit(
+
+    ) {}
     toggleSideNav() {
         this.navigationService.toggleSideNav();
     }

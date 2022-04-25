@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'sb-footer',
@@ -7,6 +8,12 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
     styleUrls: ['footer.component.scss'],
 })
 export class FooterComponent implements OnInit {
-    constructor() {}
+    constructor(
+        private modalService: NgbModal
+    ) {}
     ngOnInit() {}
+
+    open(content: any) {
+        this.modalService.open(content);
+      }
 }

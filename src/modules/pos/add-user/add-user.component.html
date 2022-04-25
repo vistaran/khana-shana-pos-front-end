@@ -49,6 +49,7 @@
                                         class="form-control" />
                                     <div *ngIf="email?.touched && email?.invalid" class="alert alert-danger">
                                         <div *ngIf="email?.errors?.required">Email is required.</div>
+                                        <div *ngIf="email?.errors?.email">Email is invalid</div>
                                     </div>
                                 </div>
                             </div>
@@ -57,10 +58,12 @@
                                 <div class="form-group required">
                                     <label>Phone Number</label>
                                     <input type="tel" formControlName="phone_no" placeholder="Enter Phone Number"
-                                        class="form-control" />
+                                        class="form-control"/>
                                     <div *ngIf="phone?.touched && phone?.invalid" class="alert alert-danger">
                                         <div *ngIf="phone?.errors?.required">Phone number is required.</div>
+                                        <div *ngIf="phone?.errors?.maxlength">Phone number must not exceed 10 digits</div>
                                     </div>
+                                    
                                 </div>
                             </div>
 
@@ -133,7 +136,7 @@
                                         <option *ngFor="let item of status">{{ item }}</option>
                                     </select>
                                     <div *ngIf="stat?.touched && stat?.invalid" class="alert alert-danger">
-                                        <div *ngIf="stat?.errors?.required">Status is required.</div>
+                                        <div *ngIf="stat?.errors?.required">User Account Status is required.</div>
                                     </div>
                                 </div>
                             </div>

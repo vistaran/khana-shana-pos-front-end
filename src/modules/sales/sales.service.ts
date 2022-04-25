@@ -36,6 +36,7 @@ export class SalesService {
 
   editOrder(id: number,data: any) {
     const headers = this.createAuthrorizationHeader();
+    console.log(headers);
     return this.http.put(this.url + id, data, { headers })
   }
 
