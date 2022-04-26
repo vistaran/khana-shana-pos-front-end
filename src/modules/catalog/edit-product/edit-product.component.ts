@@ -53,7 +53,7 @@ export class EditProductComponent implements OnInit {
       product_name: ['', [Validators.required]],
       price: ['', [Validators.required]],
       category_id: ['', [Validators.required]],
-      description: ['', [Validators.required]]
+      description: ['']
     });
     this.id = this.route.snapshot.params.id
     this.getCategoryData()

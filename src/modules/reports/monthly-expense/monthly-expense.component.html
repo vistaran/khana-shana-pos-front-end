@@ -5,40 +5,25 @@
 
                 <h2>Monthly Expense</h2>
 
-                <!-- <div class="col-4">
-                    <ng-select name="month" [(ngModel)]="chosenMonth" (ngModelChange)="onSelectMonth($event)" placeholder="Select Month">
-                        <ng-option>All</ng-option>
-                        <ng-option *ngFor="let item of month">
-                            {{item.name}}
-                        </ng-option>
-                    </ng-select>
-                </div> -->
-
-                <!-- <div *ngIf="monthSelected" class="text-info mt-5">
-                    <div *ngFor="let item of month">
-                        <h2 *ngIf="selectedMonth==item.name">{{item.name}}</h2>
-
-                        <div *ngIf="selectedMonth == 'All'">
-                            <h2 class="mb-3">{{ item.name }}</h2>
-                        </div>
+                <div class="card bg-light col-3 d-flex mt-3">
+                    <div class="card-header">
+                        Select Year
                     </div>
-                </div> -->
-
-                <div class="col-2">
-                    <label>Select Year</label>
-                    <select name="year" class="form-control" placeholder="Select Month">
-                        <option *ngFor="let item of years">
-                            {{item}}
-                        </option>
-                    </select>
+                    <div class="card-body">
+                        <select name="year" class="form-control" placeholder="Select Year" [(ngModel)]="year">
+                            <option *ngFor="let item of years" value="{{item}}">
+                                {{item}}
+                            </option>
+                        </select>
+                    </div>
                 </div>
 
-                <div class="card-deck mt-3 row">
-                    <div *ngFor="let item of month" class="col-4 mb-3">
+                <div class="card-deck mt-3 row" *ngIf="!showData">
+                    <div *ngFor="let item of month" class="col-sm-3 mb-3">
                         <div class="card shadow">
-                            <button type="button " class="btn border border-info">
+                            <button type="button" class="btn border border-secondary" (click)="onSelectMonth(item.value)">
                                 <div class="card-body">
-                                    <h5 class="card-title text-info">{{item.name}}</h5>
+                                    <h5 class="card-title text-secondary">{{item.name}}</h5>
                                 </div>
                             </button>
                         </div>
@@ -46,6 +31,64 @@
                 </div>
 
 
+                <div *ngIf="showData" class="container">
+                    <div class="row mt-4">
+                        <div class="col">
+
+                            <div class="d-flex mb-4">
+                                <div class="mr-3">
+                                    <button class="btn btn-secondary" (click)="showData = false"><i
+                                            class="fa fa-angle-left"></i></button>
+                                </div>
+                                <div>
+                                    <h2 class="text-secondary">{{ selectedMonth }} Expenses
+                                    </h2>
+                                </div>
+                            </div>
+
+                            <div class="">
+
+                                <table class="table table-bordered table-striped table-sm table-hover">
+                                    <thead class="head">
+                                        <th>No.</th>
+                                        <th>Item Group Name</th>
+                                        <th>Total Amount</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let data of monthlyExpenseData; index as i">
+                                            <td><b>{{ i+1 }}</b></td>
+                                            <td>{{ data.item_group_name }}</td>
+                                            <td>₹{{ data.total.toFixed(2) }}</td>
+                                        </tr>
+                                        <tr *ngIf="!length && !showloader">
+                                            <td colspan="3" class="text-center">
+                                                No records found.
+                                            </td>
+                                        </tr>
+                                        <tr *ngIf="length">
+                                            <td colspan="2" class="text-right">
+                                                <b>Total expense of selected year & month</b>
+                                            </td>
+                                            <td><b>₹{{ totalExpense| number }}</b></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div *ngIf="showloader" class="d-flex justify-content-center pt-5">
+                                    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;"
+                                        role="status">
+                                        <!-- <img src="src\image\Infinity-1s-200px.svg"> -->
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
 
             </div>
         </div>

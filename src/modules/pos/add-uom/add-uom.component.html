@@ -7,7 +7,7 @@
                 <!-- <h2 class="card-header mt-4 pb-2">General</h2> -->
                 <div class="row card-body justify-content-around">
                     <div class="col-6 col-sm-4">
-                        <div class="form-group">
+                        <div class="form-group required">
                             <label class="required">Name</label>
                             <input type="text" formControlName="unit_name" class="form-control" autofocus/>
                             <div *ngIf="name?.touched && name?.invalid" class="alert alert-danger">
@@ -17,7 +17,7 @@
                     </div>
 
                     <div class="col-6 col-sm-4">
-                        <div class="form-group">
+                        <div class="form-group required">
                             <label class="required">Unit</label>
                             <input type="text" formControlName="unit" class="form-control" />
                             <div *ngIf="unit?.touched && unit?.invalid" class="alert alert-danger">

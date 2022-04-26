@@ -55,7 +55,7 @@ export class AddProductComponent implements OnInit {
       product_name: ['', [Validators.required]],
       price: ['', [Validators.required]],
       category_id: [null, [Validators.required]],
-      description: ['', [Validators.required]]
+      description: ['']
     });
     this.getCategoryData()
   }

@@ -10,7 +10,7 @@
                     <div class="row card-body justify-content-around">
 
                         <div class="col-6 col-sm-4">
-                            <div class="form-group">
+                            <div class="form-group required">
                                 <label class="required">Name</label><br />
                                 <input type="text" formControlName="product_name" class="form-control" autofocus/>
                                 <div *ngIf="name?.touched && name?.invalid" class="alert alert-danger">
@@ -20,7 +20,7 @@
                         </div>
 
                         <div class="col-6 col-sm-4">
-                            <div class="form-group">
+                            <div class="form-group required">
                                 <label class="required">Price</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -40,7 +40,7 @@
                     <div class="row card-body justify-content-around">
                         <div class="col-6 col-sm-4">
 
-                            <div class="form-group">
+                            <div class="form-group required">
                                 <label class="required">Category</label>
                                 <select name="status" class="form-control" formControlName="category_id" placeholder="Select Category">
                                     <option *ngFor="let item of categoryData" value="{{item.id}}">{{ item.name }}
@@ -57,9 +57,9 @@
                             <div class="form-group">
                                 <label class="required">Description</label><br />
                                 <input type="text" rows="6" formControlName="description" class="form-control" />
-                                <div *ngIf="description?.touched && description?.invalid" class="alert alert-danger">
+                                <!-- <div *ngIf="description?.touched && description?.invalid" class="alert alert-danger">
                                     <div *ngIf="description?.errors?.required">Description is required.</div>
-                                </div>
+                                </div> -->
                             </div>
 
                         </div>

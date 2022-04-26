@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbCalendar, NgbDate, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
-import { ExpenseByGroupService } from '../expense-by-group.service';
+import { ExpenseByGroupService } from '../services/expense-by-group.service';
 
 @Component({
   selector: 'sb-expense-by-group',

@@ -1,5 +1,9 @@
+import {formatNumber} from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { AppToastService } from '@modules/shared-module/services/app-toast.service';
+
+import { MonthlyExpenseService } from '../services/monthly-expense.service';
 
 @Component({
   selector: 'sb-monthly-expense',
@@ -12,25 +16,35 @@ export class MonthlyExpenseComponent implements OnInit {
   monthForm!: FormGroup
   selectedMonth: any;
   monthSelected = false
+  monthlyExpenseData: any = []
+  length = 0
   // start_year = 2022
   years:any = []
+  value: any
+  year: any
+  showloader: any
+  totalExpense = 0
+  showData = false
 
   month = [
-    { name: 'January' },
-    { name: 'February' },
-    { name: 'March' },
-    { name: 'April' },
-    { name: 'May' },
-    { name: 'June' },
-    { name: 'July' },
-    { name: 'August' },
-    { name: 'September' },
-    { name: 'November' },
-    { name: 'December' },
+    { name: 'January', value: '01' },
+    { name: 'February', value: '02' },
+    { name: 'March', value: '03' },
+    { name: 'April', value: '04' },
+    { name: 'May', value: '05' },
+    { name: 'June', value: '06' },
+    { name: 'July', value: '07' },
+    { name: 'August', value: '08' },
+    { name: 'September', value: '09' },
+    { name: 'October', value: '10' },
+    { name: 'November', value: '11' },
+    { name: 'December', value: '12' },
   ]
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private expenseService: MonthlyExpenseService,
+    private toast: AppToastService
   ) { }
 
   ngOnInit(): void {
@@ -45,7 +59,40 @@ export class MonthlyExpenseComponent implements OnInit {
     }
     console.log(this.years);
 
+
   }
+
+  onSelectMonth(value: any) {
+    console.log(this.year);
+
+    this.value = value
+    this.month.forEach((g: any) => {
+      if(g.value == value)
+      this.selectedMonth = g.name
+    });
+
+    console.log(this.value);
+    this.monthlyExpense()
+  }
+
+  monthlyExpense() {
+    this.showloader = true
+    this.expenseService.getExpenseReport(this.year, this.value).subscribe(data => {
+
+      this.showloader = false
+      this.showData = true
+
+      this.monthlyExpenseData = data.amount
+      this.length = this.monthlyExpenseData.length
+
+      this.monthlyExpenseData.forEach((g: any) => {
+        this.totalExpense += g.total
+      });
+    }, err => {
+      this.toast.error('Error', 'Server error.')
+    })
+  }
+
 
   // onSelectMonth(event: any) {
   //   this.selectedMonth = event.$ngOptionLabel.trim()
