@@ -12,7 +12,7 @@
 
                             <div class="input-group rounded w-25">
                                 <input type="search" class="form-control rounded" aria-label="Search"
-                                (keyup)="search($event)" placeholder="Search" [(ngModel)]="searchValue" />
+                                    (keyup)="search($event)" placeholder="Search" [(ngModel)]="searchValue" />
                                 <span class="input-group-text border-0" id="search-addon">
                                     <i class="fas fa-search" aria-hidden="true" (click)="search($event)"></i>
                                 </span>
@@ -33,23 +33,23 @@
                                 <th>Created At</th>
                                 <th>Actions</th>
                             </thead>
-                            <tbody>
+                            <tbody *ngIf="!showloader">
                                 <tr *ngFor="let data of userData">
-                                    <td>{{ data.id }}</td>
+                                    <td>{{ data.user_id }}</td>
                                     <td class="justify-content-center"><img class="img-xs rounded-circle"
                                             src="{{data.user_avatar}}"
                                             onerror="this.src='https://cdn.icon-icons.com/icons2/1378/PNG/128/avatardefault_92824.png'">
                                     </td>
                                     <td>{{ data.username }}</td>
                                     <td>{{ data.email }}</td>
-                                    <td>{{ data.outlet_name }}</td>
+                                    <td>{{ data.Outlet_name }}</td>
                                     <td *ngIf="data.status == 0">active</td>
                                     <td *ngIf="data.status == 1">inactive</td>
                                     <td>{{ data.created_at | date: 'dd/MM/yyyy'}}</td>
                                     <td>
-                                        <button ngbTooltip="Edit" class="btn btn-info mr-2"><i
-                                                class="fa fa-pencil-square-o fa-lg"
-                                                [routerLink]="['/pos/edit/edituser/' + data.id]"></i></button>
+                                        <button ngbTooltip="Edit" class="btn btn-info mr-2"
+                                            [routerLink]="['/pos/edit/edituser/' + data.id]"><i
+                                                class="fa fa-pencil-square-o fa-lg"></i></button>
 
                                         <button id="remove" ngbTooltip="Delete" (click)="deleteRow(data.id)"
                                             class="btn btn-danger"><i class="fa fa-trash-o fa-lg mx-auto"></i></button>

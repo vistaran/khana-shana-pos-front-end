@@ -11,7 +11,8 @@
 
                             <div class="input-group rounded w-25">
                                 <input type="search" class="form-control rounded" placeholder="Search"
-                                    aria-label="Search" (keyup)="search($event)" placeholder="Search" [(ngModel)]="searchValue" aria-describedby="search-addon" />
+                                    aria-label="Search" (keyup)="search($event)" placeholder="Search"
+                                    [(ngModel)]="searchValue" aria-describedby="search-addon" />
                                 <span class="input-group-text border-0" id="search-addon">
                                     <i class="fas fa-search"></i>
                                 </span>
@@ -29,17 +30,18 @@
                                 <th>Phone Number</th>
                                 <th>Actions</th>
                             </thead>
-                            <tbody>
+                            <tbody *ngIf="!showloader">
                                 <tr *ngFor="let data of customerData">
                                     <td>{{ data.id }}</td>
                                     <td>{{ data.first_name }} {{ data.last_name}}</td>
                                     <td>{{ data.phone_number }}</td>
                                     <td>
-                                        <button ngbTooltip="Edit" class="btn btn-info mr-2"><i class="fa fa-pencil-square-o fa-lg"
-                                                [routerLink]="['/customer_management/editcustomer/' + data.id]"></i></button>
+                                        <button ngbTooltip="Edit" class="btn btn-info mr-2"
+                                            [routerLink]="['/customer_management/editcustomer/' + data.id]"><i
+                                                class="fa fa-pencil-square-o fa-lg"></i></button>
 
-                                        <button ngbTooltip="Delete" id="remove" (click)="deleteRow(data.id)" class="btn btn-danger"><i
-                                                class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                                        <button ngbTooltip="Delete" id="remove" (click)="deleteRow(data.id)"
+                                            class="btn btn-danger"><i class="fa fa-trash-o fa-lg mx-auto"></i></button>
                                     </td>
                                 </tr>
                                 <tr *ngIf="!length && !showloader">

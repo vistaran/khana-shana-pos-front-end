@@ -142,23 +142,23 @@ export class EditPurchaseOrderComponent implements OnInit {
     // To get edit order form field values
     this.purchaseOrderService.patchOrderData(this.curr_id).subscribe((data: any) => {
 
-      if (data.order.purchase_date) {
-        this.year = Number(data.order.purchase_date.substr(0, 4))
-        this.month = Number(data.order.purchase_date.substring(5, 7))
-        this.day = Number(data.order.purchase_date.substring(8, 10))
+      if (data.order[0].purchase_date) {
+        this.year = Number(data.order[0].purchase_date.substr(0, 4))
+        this.month = Number(data.order[0].purchase_date.substring(5, 7))
+        this.day = Number(data.order[0].purchase_date.substring(8, 10))
         this.curr_date = new NgbDate(this.year, this.month, this.day)
       }
       console.log('Year', this.year, 'Month', this.month, 'Day', this.day, 'Date', this.curr_date);
 
       this.editOrderForm.patchValue({
-        vendor_id: data.order.vendor_id,
-        outlet_id: data.order.outlet_id,
+        vendor_id: data.order[0].vendor_id,
+        outlet_id: data.order[0].outlet_id,
         purchase_date: this.curr_date,
-        notes: data.order.notes,
-        shipping_charge: data.order.shipping_charge
+        notes: data.order[0].notes,
+        shipping_charge: data.order[0].shipping_charge
       })
       this.orderItemData = data.items
-      this.total = data.order.total_amount
+      this.total = data.order[0].total_amount
       console.log('Data: ', this.orderItemData);
       // this.calculateTotal()
       console.log(data)

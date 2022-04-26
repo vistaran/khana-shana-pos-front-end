@@ -34,11 +34,12 @@
                                     <td>{{ data.id }}</td>
                                     <td>{{ data.group_name }}</td>
                                     <td>
-                                        <button ngbTooltip="Edit" class="btn btn-info mr-2"><i class="fa fa-pencil-square-o fa-lg"
-                                                [routerLink]="['/item_groups/edit_item_group/' + data.id]"></i></button>
+                                        <button ngbTooltip="Edit" class="btn btn-info mr-2"
+                                            [routerLink]="['/item_groups/edit_item_group/' + data.id]"><i
+                                                class="fa fa-pencil-square-o fa-lg"></i></button>
 
-                                        <button ngbTooltip="Delete" id="remove" (click)="deleteRow(data.id)" class="btn btn-danger"><i
-                                                class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                                        <button ngbTooltip="Delete" id="remove" (click)="deleteRow(data.id)"
+                                            class="btn btn-danger"><i class="fa fa-trash-o fa-lg mx-auto"></i></button>
                                     </td>
                                 </tr>
                                 <tr *ngIf="!length && !showloader">
@@ -58,8 +59,8 @@
 
                         <div class="justify-content-between row">
                             <div class="col">
-                                <ngb-pagination (pageChange)="onPageChange($event)" [(page)]="page" [pageSize]="pageSize"
-                                    [collectionSize]="total" [boundaryLinks]="true">
+                                <ngb-pagination (pageChange)="onPageChange($event)" [(page)]="page"
+                                    [pageSize]="pageSize" [collectionSize]="total" [boundaryLinks]="true">
                                 </ngb-pagination>
                             </div>
                         </div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppToastService } from '@modules/shared-module/services/app-toast.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { PurchaseOrdersService } from '../purchase-orders.service';
 
@@ -12,6 +13,8 @@ import { PurchaseOrdersService } from '../purchase-orders.service';
 export class PurchaseOrdersComponent implements OnInit {
 
   public purchaseOrdersData: any = [];
+  orderDetail: any = []
+  itemDetail: any = []
   public length = 0;
   public total = 0;
   public id = 0;
@@ -24,7 +27,8 @@ export class PurchaseOrdersComponent implements OnInit {
   constructor(
     private purchaseOrderService: PurchaseOrdersService,
     private toast: AppToastService,
-    private router: Router
+    private router: Router,
+    private modalService: NgbModal
   ) { }
 
   ngOnInit(): void {
@@ -63,6 +67,19 @@ export class PurchaseOrdersComponent implements OnInit {
         this.toast.error('Error', 'Server error.')
       });
     }
+  }
+
+  getOrderDetail(id: number) {
+    this.purchaseOrderService.patchOrderData(id).subscribe((data: any) => {
+      this.orderDetail = data.order[0]
+      this.itemDetail = data.items
+      console.log(this.orderDetail);
+
+    })
+  }
+
+  openXl(content: any) {
+    this.modalService.open(content, { size: 'xl' });
   }
 
 }

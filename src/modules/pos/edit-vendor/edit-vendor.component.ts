@@ -44,8 +44,8 @@ export class EditVendorComponent implements OnInit {
     this.editVendorForm = this.fb.group(
       {
         name: ['', [Validators.required]],
-        phone_numbers: ['', [Validators.required]],
-        address: ['', [Validators.required]],
+        phone_numbers: ['', [Validators.maxLength(10)]],
+        address: [''],
         status: ['', [Validators.required]]
       }
     );

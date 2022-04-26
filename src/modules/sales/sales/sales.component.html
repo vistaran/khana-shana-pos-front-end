@@ -42,11 +42,12 @@
                                 <button class="btn btn-dark mr-2" ngbTooltip="View Details" (click)="openXl(content)"
                                     (click)="getOrderDetail(data.id)"><i class="fa fa-eye fa-lg"></i></button>
 
-                                <button class="btn btn-info mr-2" ngbTooltip="Edit"><i class="fa fa-pencil-square-o fa-lg"
-                                        [routerLink]="['/sales/edit_sale/' + data.id]"></i></button>
+                                <button class="btn btn-info mr-2" ngbTooltip="Edit"
+                                    [routerLink]="['/sales/edit_sale/' + data.id]"><i
+                                        class="fa fa-pencil-square-o fa-lg"></i></button>
 
-                                <button id="remove" ngbTooltip="Delete" (click)="deleteRow(data.id)" class="btn btn-danger"><i
-                                        class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                                <button id="remove" ngbTooltip="Delete" (click)="deleteRow(data.id)"
+                                    class="btn btn-danger"><i class="fa fa-trash-o fa-lg mx-auto"></i></button>
                             </td>
                         </tr>
                         <tr *ngIf="!orderData.length">
@@ -79,34 +80,34 @@
                 </p>
 
                 <p class="mb-2"><b>Product Details:</b></p>
-                    <table class="table table-bordered table-striped table-sm table-hover">
-                        <thead class="head">
-                            <th>Product</th>
-                            <th>Category</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                            <th>Subtotal</th>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let data of itemDetail">
-                                <td>{{ data.product_name }}</td>
-                                <td>{{ data.name }}</td>
-                                <td>{{ data.quantity }}</td>
-                                <td>₹ {{ data.price }}</td>
-                                <td>{{ data.subtotal }}</td>
-                            </tr>
-                            <tr class="table-sm">
-                                <td colspan="4" class="text-right"><b>Shipping Cahrges:</b></td>
-                                <td>₹{{ orderDetail.shipping_charge }}</td>
-                            </tr>
-                            <tr class="table-sm">
-                                <td colspan="4" class="text-right"><b>Total Amount:</b></td>
-                                <td>₹{{ orderDetail.total_amount }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    
-                    <p><b>Payment Mode: </b> {{ orderDetail.payment_mode }}</p>
+                <table class="table table-bordered table-striped table-sm table-hover">
+                    <thead class="head">
+                        <th>Product</th>
+                        <th>Category</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Subtotal</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of itemDetail">
+                            <td>{{ data.product_name }}</td>
+                            <td>{{ data.name }}</td>
+                            <td>{{ data.quantity }}</td>
+                            <td>₹ {{ data.price }}</td>
+                            <td>{{ data.subtotal }}</td>
+                        </tr>
+                        <tr class="table-sm">
+                            <td colspan="4" class="text-right"><b>Shipping Cahrges:</b></td>
+                            <td>₹{{ orderDetail.shipping_charge }}</td>
+                        </tr>
+                        <tr class="table-sm">
+                            <td colspan="4" class="text-right"><b>Total Amount:</b></td>
+                            <td>₹{{ orderDetail.total_amount }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p><b>Payment Mode: </b> {{ orderDetail.payment_mode }}</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-info" (click)="modal.close('Close click')">Close</button>

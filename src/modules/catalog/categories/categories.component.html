@@ -47,11 +47,12 @@
                             <td>{{ data.status }}</td>
                             <td>{{ data.number_of_products }}</td>
                             <td>
-                                <button ngbTooltip="Edit" class="btn btn-info mr-2"><i class="fa fa-pencil-square-o"
-                                        [routerLink]="['/catalog/editcategory/'+data.id]"></i></button>
+                                <button ngbTooltip="Edit" class="btn btn-info mr-2"
+                                    [routerLink]="['/catalog/editcategory/'+data.id]"><i
+                                        class="fa fa-pencil-square-o"></i></button>
 
-                                <button ngbTooltip="Delete" id="remove" (click)="deleteRow(data.id)" class="btn btn-danger"><i
-                                        class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                                <button ngbTooltip="Delete" id="remove" (click)="deleteRow(data.id)"
+                                    class="btn btn-danger"><i class="fa fa-trash-o fa-lg mx-auto"></i></button>
                             </td>
                         </tr>
                         <tr *ngIf="!length && !showloader">

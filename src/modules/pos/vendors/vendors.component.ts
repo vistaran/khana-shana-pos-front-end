@@ -39,6 +39,7 @@ export class VendorsComponent implements OnInit {
     this.vendorService.getVendorsData(this.page).subscribe(data => {
       this.vendorData = data.vendors.data;
       this.length = this.vendorData.length
+      this.total = data.vendors.total
       this.showloader = false;
       console.log(this.vendorData);
     }, err => {
