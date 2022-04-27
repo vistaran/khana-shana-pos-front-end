@@ -281,7 +281,7 @@ export class EditCustomerComponent implements OnInit {
     if (confirm('Are you sure you want to delete?')) {
       this.customerService.deleteCustomerAddress(id).subscribe(data => {
         this.getCustomerAddress();
-        this.toast.success('Success', 'Deleted Successfully.')
+        this.toast.success('Success', 'Address Deleted Successfully.')
       }, err => {
         this.toast.error('Error', 'Server error.')
       });

@@ -75,7 +75,7 @@ export class UsersListComponent implements OnInit {
         if (confirm('Are you sure you want to delete?')) {
             this.userService.deleteUser(id).subscribe(data => {
                 this.getUserData();
-                this.toast.success('Success', 'Deleted Successfully.')
+                this.toast.success('Success', 'User Deleted Successfully.')
             }, err => {
                 this.toast.error('Error', 'Server error.')
             });

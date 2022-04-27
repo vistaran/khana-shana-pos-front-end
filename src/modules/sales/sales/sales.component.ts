@@ -54,7 +54,7 @@ export class SalesComponent implements OnInit {
     if (confirm('Are you sure you want to delete?')) {
       this.saleService.deleteOrder(id).subscribe(data => {
         this.getOrderData();
-        this.toast.success('Success', 'Deleted Successfully.')
+        this.toast.success('Success', 'Order Deleted Successfully.')
       }, err => {
         this.toast.error('Error', 'Server error.')
       });

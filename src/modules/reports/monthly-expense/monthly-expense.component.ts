@@ -1,7 +1,8 @@
-import {formatNumber} from '@angular/common';
+import { formatNumber } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AppToastService } from '@modules/shared-module/services/app-toast.service';
+import { data } from 'jquery';
 
 import { MonthlyExpenseService } from '../services/monthly-expense.service';
 
@@ -17,14 +18,21 @@ export class MonthlyExpenseComponent implements OnInit {
   selectedMonth: any;
   monthSelected = false
   monthlyExpenseData: any = []
+  expenseByItemData: any = []
   length = 0
   // start_year = 2022
-  years:any = []
+  years: any = []
   value: any
   year: any
   showloader: any
   totalExpense = 0
+  totalExpenseForItem = 0
+  total = 0
+  lengthItemData = 0
+  page = 1
+  pageSize = 10
   showData = false
+  showItem = false
 
   month = [
     { name: 'January', value: '01' },
@@ -54,11 +62,10 @@ export class MonthlyExpenseComponent implements OnInit {
 
     const date = new Date()
     const year = date.getFullYear()
-    for(let i = 2022; i <= year; i++) {
+    for (let i = 2022; i <= year; i++) {
       this.years.push(i)
     }
     console.log(this.years);
-
 
   }
 
@@ -67,8 +74,8 @@ export class MonthlyExpenseComponent implements OnInit {
 
     this.value = value
     this.month.forEach((g: any) => {
-      if(g.value == value)
-      this.selectedMonth = g.name
+      if (g.value == value)
+        this.selectedMonth = g.name
     });
 
     console.log(this.value);
@@ -77,7 +84,7 @@ export class MonthlyExpenseComponent implements OnInit {
 
   monthlyExpense() {
     this.showloader = true
-    this.expenseService.getExpenseReport(this.year, this.value).subscribe(data => {
+    this.expenseService.getExpenseByGroup(this.year, this.value).subscribe(data => {
 
       this.showloader = false
       this.showData = true
@@ -88,9 +95,37 @@ export class MonthlyExpenseComponent implements OnInit {
       this.monthlyExpenseData.forEach((g: any) => {
         this.totalExpense += g.total
       });
+
+      this.monthlyExpenseByItem()
+
     }, err => {
       this.toast.error('Error', 'Server error.')
     })
+  }
+
+  monthlyExpenseByItem() {
+    this.expenseService.getExpenseByItem(this.year, this.value, this.page).subscribe(result => {
+      this.totalExpenseForItem = 0
+      this.expenseByItemData = result.data.data
+      console.log(this.expenseByItemData);
+
+      this.lengthItemData = this.expenseByItemData.length
+      this.total = result.data.total
+
+      this.expenseByItemData.forEach((g: any) => {
+        this.totalExpenseForItem += g.subtotal
+          g.number = result.data.from
+        console.log(g);
+      });
+
+    }, err => {
+      this.toast.error('Error', 'Server error.')
+    })
+  }
+
+  onPageChange(event: number) {
+    this.page = event;
+    this.monthlyExpenseByItem();
   }
 
 

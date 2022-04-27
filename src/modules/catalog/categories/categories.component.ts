@@ -64,7 +64,7 @@ export class CategoriesComponent implements OnInit {
     if (confirm('Are you sure you want to delete?')) {
       this.categories.deleteCategory(id).subscribe(data => {
         this.getCategoriesData();
-        this.toast.success('Success', 'Deleted Successfully.')
+        this.toast.success('Success', 'Category Deleted Successfully.')
       }, err => {
         this.toast.error('Error', 'Server error.')
       });

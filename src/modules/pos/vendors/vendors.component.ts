@@ -61,7 +61,7 @@ export class VendorsComponent implements OnInit {
     if (confirm('Are you sure you want to delete?')) {
       this.vendorService.deleteVendor(id).subscribe(data => {
         this.getVendorsData();
-        this.toast.success('Success', 'Deleted Successfully.')
+        this.toast.success('Success', 'Vendor Deleted Successfully.')
       }, err => {
         this.toast.error('Error', 'Server error.')
       });

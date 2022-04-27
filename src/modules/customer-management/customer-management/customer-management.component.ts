@@ -57,7 +57,7 @@ export class CustomerManagementComponent implements OnInit {
     if (confirm('Are you sure you want to delete?')) {
       this.customerService.deleteCustomer(id).subscribe(data => {
         this.getCustomerData();
-        this.toast.success('Success', 'Deleted Successfully.')
+        this.toast.success('Success', 'Customer Deleted Successfully.')
       }, err => {
         this.toast.error('Error', 'Server error.')
       });

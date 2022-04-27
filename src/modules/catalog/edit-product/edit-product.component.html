@@ -13,7 +13,7 @@
                         <div class="col-6 col-sm-4">
                             <div class="form-group required">
                                 <label class="required">Name</label><br />
-                                <input type="text" formControlName="product_name" class="form-control" autofocus/>
+                                <input type="text" placeholder="Enter Name" formControlName="product_name" class="form-control" autofocus/>
                                 <div *ngIf="name?.touched && name?.invalid" class="alert alert-danger">
                                     <div *ngIf="name?.errors?.required">Name is required.</div>
                                 </div>
@@ -25,12 +25,10 @@
                             <div class="form-group required">
                                 <label class="required">Price</label>
                                 <div class="input-group">
-
-
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="inputGroup">₹</span>
                                     </div>
-                                    <input type="text" formControlName="price" class="form-control" />
+                                    <input type="text" placeholder="Enter Price" formControlName="price" class="form-control" />
                                     <div *ngIf="price?.touched && price?.invalid" class="alert alert-danger">
                                         <div *ngIf="price?.errors?.required">Price is required.</div>
                                     </div>
@@ -58,7 +56,7 @@
                         <div class="col-6 col-sm-4">
                             <div class="form-group">
                                 <label class="required">Description</label><br />
-                                <input type="text" rows="6" formControlName="description" class="form-control" />
+                                <input type="text" placeholder="Add Description" rows="6" formControlName="description" class="form-control" />
                                 <!-- <div *ngIf="description?.touched && description?.invalid" class="alert alert-danger">
                                     <div *ngIf="description?.errors?.required">description is required.</div>
                                 </div> -->

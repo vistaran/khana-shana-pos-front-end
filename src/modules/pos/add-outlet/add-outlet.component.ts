@@ -66,7 +66,7 @@ export class AddOutletComponent implements OnInit {
     this.addOutletForm = this.fb.group({
       name: ['', [Validators.required]],
       address: ['', [Validators.required]],
-      country: [null, [Validators.required]],
+      country: ['India', [Validators.required]],
       state: ['', [Validators.required]],
       city: ['', [Validators.required]],
       status: ['', [Validators.required]],

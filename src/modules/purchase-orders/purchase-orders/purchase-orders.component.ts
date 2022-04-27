@@ -62,7 +62,7 @@ export class PurchaseOrdersComponent implements OnInit {
     if (confirm('Are you sure you want to delete?')) {
       this.purchaseOrderService.deleteOrder(id).subscribe(data => {
         this.getPurchaseOrdersData();
-        this.toast.success('Success', 'Deleted Successfully.')
+        this.toast.success('Success', 'Order Deleted Successfully.')
       }, err => {
         this.toast.error('Error', 'Server error.')
       });

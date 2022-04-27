@@ -86,16 +86,16 @@
             <button type="button" class="btn btn-light" aria-label="Close" (click)="modal.dismiss('Cross click')">X</button>
         </div>
         <div class="modal-body">
-            <p><b class="text-success">Order Id:</b> {{orderDetail.id}}</p>
+            <p><b>Order Id:</b> {{orderDetail.id}}</p>
             <p>
-                <b class="text-success">Outlet: </b> {{ orderDetail.outlet_name}}
+                <b>Outlet: </b> {{ orderDetail.outlet_name}}
                 <br>
-                <b class="text-success">Vendor: </b> {{ orderDetail.vendor_name }}
+                <b>Vendor: </b> {{ orderDetail.vendor_name }}
                 <br>
-                <b class="text-success">Purchase Date: </b> {{orderDetail.purchase_date | date: 'dd/MM/yyyy'}}
+                <b>Purchase Date: </b> {{orderDetail.purchase_date | date: 'dd/MM/yyyy'}}
             </p>
 
-            <p class="mb-2"><b class="text-success">Product Details:</b></p>
+            <p class="mb-2"><b>Product Details:</b></p>
             <table class="table table-bordered table-striped table-success table-sm table-hover">
                 <thead class="head">
                     <th>Item Group Name</th>
@@ -127,7 +127,7 @@
                 </tbody>
             </table>
 
-            <p><b class="text-success">Note: </b> {{ orderDetail.notes }}</p>
+            <p><b>Note: </b> {{ orderDetail.notes }}</p>
         </div>
         <div class="modal-footer bg-dark">
             <button type="button" class="btn btn-info" (click)="modal.close('Close click')">Close</button>

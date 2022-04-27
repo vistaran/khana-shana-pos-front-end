@@ -57,7 +57,7 @@ export class AttributesComponent implements OnInit {
     if (confirm('Are you sure you want to delete?')) {
       this.attributeService.deleteAttribute(id).subscribe(data => {
         this.getAttributesData();
-        this.toast.success('Success', 'Deleted Successfully.')
+        this.toast.success('Success', 'Attribute Deleted Successfully.')
       }, err => {
         this.toast.error('Error', 'Server error.')
       });
