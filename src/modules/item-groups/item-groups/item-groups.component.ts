@@ -59,7 +59,7 @@ export class ItemGroupsComponent implements OnInit {
     if (confirm('Are you sure you want to delete?')) {
       this.itemGroupService.deleteItemGrpup(id).subscribe(data => {
         this.getItemGroupsData();
-        this.toast.success('Success', 'Deleted Successfully.')
+        this.toast.success('Success', 'Item Group Deleted Successfully.')
       }, err => {
         this.toast.error('Error', 'Server error.')
       });

@@ -58,7 +58,7 @@ export class OutletComponent implements OnInit {
     if (confirm('Are you sure you want to delete?')) {
       this.outletService.deleteOutlet(id).subscribe(data => {
         this.getOutletData();
-        this.toast.success('Success', 'Deleted successfully.');
+        this.toast.success('Success', 'Outlet Deleted successfully.');
       }, err => {
         this.toast.error('Error', 'Server error.');
       });

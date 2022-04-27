@@ -8,14 +8,20 @@ import { Observable } from 'rxjs';
 })
 export class MonthlyExpenseService {
 
-  url = environment.apiUrl + 'expense_reports/totalExpense'
+  url = environment.apiUrl + 'expense_reports'
 
   constructor(
     private http: HttpClient
   ) { }
 
-  getExpenseReport(year: number, month: number): Observable<any> {
-    return this.http.get<any>(this.url + '?year= ' + year + '&month=' + month)
+  getExpenseByGroup(year: number, month: number): Observable<any> {
+    return this.http.get<any>(this.url + '/totalExpense?year= ' + year + '&month=' + month)
   }
+
+  getExpenseByItem(year: number, month: number, page: number): Observable<any> {
+    return this.http.get<any>(this.url + '/showItem?year=' + year + '&month=' + month + '&page=' + page)
+  }
+
+
 
 }

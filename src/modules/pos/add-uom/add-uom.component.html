@@ -9,7 +9,7 @@
                     <div class="col-6 col-sm-4">
                         <div class="form-group required">
                             <label class="required">Name</label>
-                            <input type="text" formControlName="unit_name" class="form-control" autofocus/>
+                            <input type="text" formControlName="unit_name" placeholder="Enter Name" class="form-control" autofocus/>
                             <div *ngIf="name?.touched && name?.invalid" class="alert alert-danger">
                                 <div *ngIf="name?.errors?.required">Name is required.</div>
                             </div>
@@ -19,7 +19,7 @@
                     <div class="col-6 col-sm-4">
                         <div class="form-group required">
                             <label class="required">Unit</label>
-                            <input type="text" formControlName="unit" class="form-control" />
+                            <input type="text" formControlName="unit" placeholder="Enter Unit" class="form-control" />
                             <div *ngIf="unit?.touched && unit?.invalid" class="alert alert-danger">
                                 <div *ngIf="unit?.errors?.required">Unit is required.</div>
                             </div>

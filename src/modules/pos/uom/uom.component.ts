@@ -37,6 +37,7 @@ export class UomComponent implements OnInit {
     this.showloader = true;
     this.uomService.getUOMData().subscribe(data => {
       this.uomData = data.units.data;
+      this.total = data.units.total
       this.length = this.uomData.length
       this.showloader = false;
       console.log(data);
@@ -55,7 +56,7 @@ export class UomComponent implements OnInit {
     if (confirm('Are you sure you want to delete?')) {
       this.uomService.deleteUomData(id).subscribe(data => {
         this.getUOMData();
-        this.toast.success('Success', 'Deleted Successfully.')
+        this.toast.success('Success', 'UOM Deleted Successfully.')
       }, err => {
         this.toast.error('Error', 'Server error.')
       });

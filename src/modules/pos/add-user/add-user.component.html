@@ -58,12 +58,13 @@
                                 <div class="form-group required">
                                     <label>Phone Number</label>
                                     <input type="tel" formControlName="phone_no" placeholder="Enter Phone Number"
-                                        class="form-control"/>
+                                        class="form-control" />
                                     <div *ngIf="phone?.touched && phone?.invalid" class="alert alert-danger">
                                         <div *ngIf="phone?.errors?.required">Phone number is required.</div>
-                                        <div *ngIf="phone?.errors?.maxlength">Phone number must not exceed 10 digits</div>
+                                        <div *ngIf="phone?.errors?.maxlength">Phone number must not exceed 10 digits
+                                        </div>
                                     </div>
-                                    
+
                                 </div>
                             </div>
 
@@ -102,12 +103,16 @@
                             <div class="col">
                                 <div class="form-group required">
                                     <label class="required">Confirm Password</label>
-                                    <input [class.is-invalid]="addUserForm?.errors?.mismatch"
-                                        placeholder="Enter password again" type="password"
+                                    <input placeholder="Enter password again" type="password"
                                         formControlName="confirm_password" class="form-control" />
-                                    <div *ngIf="addUserForm?.errors?.mismatch" class="alert alert-danger">
+                                    <div *ngIf="confirm_password?.touched && confirm_password?.invalid" class="alert alert-danger">
+                                        <div *ngIf="confirm_password?.errors?.required && confirm_password?.invalid">
+                                            Password is required.</div>
+                                    </div>
+                                    <div class="alert alert-danger" *ngIf="addUserForm?.errors?.mismatch && !confirm_password?.invalid">
                                         Passwords do not match.
                                     </div>
+
                                 </div>
                             </div>
                         </div>
