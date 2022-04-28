@@ -19,11 +19,13 @@ export class AddItemComponent implements OnInit {
   public unitData: any = [];
   public unitId: any
   public itemGroupId: any
-  selectedCity:any
+  selectedCity: any
   unit_id_form_set: any
   group_id_form_set: any
+  page = 0
+  pageSize = 100
 
-// For Validations
+  // For Validations
   get item_name() {
     return this.addItemForm.get('item_name');
   }
@@ -60,7 +62,7 @@ export class AddItemComponent implements OnInit {
 
   // For getting Item groups data
   getItemGroupsData() {
-    this.itemGroupService.getItemGroupsData().subscribe(data => {
+    this.itemGroupService.getItemGroupsData(this.page, this.pageSize).subscribe(data => {
       this.itemGroupsData = data.item_groups.data;
       console.log(data);
       this.addItemForm.patchValue({
@@ -73,11 +75,11 @@ export class AddItemComponent implements OnInit {
 
   // For getting Units of Measurement data
   getUOMData() {
-    this.unitService.getUOMData().subscribe(data => {
+    this.unitService.getUOMData(this.page).subscribe(data => {
       this.unitData = data.units.data;
       console.log();
       this.addItemForm.patchValue({
-        unit_id : this.unitData[0].id
+        unit_id: this.unitData[0].id
       })
     })
   }

@@ -9,13 +9,15 @@
                     <div class="card-header">
                         Select Year
                     </div>
+                    <!-- <form [formGroup]="yearForm"> -->
                     <div class="card-body">
                         <select name="year" class="form-control" placeholder="Select Year" [(ngModel)]="year">
-                            <option *ngFor="let item of years" value="{{item}}">
+                            <option *ngFor="let item of years" value="{{item}}" [selected]="item == start_year">
                                 {{item}}
                             </option>
                         </select>
                     </div>
+                    <!-- </form> -->
                 </div>
 
                 <div class="card-deck mt-3 row" *ngIf="!showData && !showItem">
@@ -33,76 +35,168 @@
 
 
                 <div *ngIf="showData" class="container">
-                    <div class="row mt-4">
-                        <div class="col">
-
-                            <div class="d-flex mb-4 justify-content-between">
-                                <div class="mr-3">
-                                    <button ngbTooltip="Select Another Month" class="btn btn-secondary" (click)="showData = false"><i
-                                            class="fa fa-angle-left"></i></button>
-                                </div>
-                                <div>
-                                    <h2 class="text-secondary">{{ selectedMonth }} Expenses
-                                    </h2>
-                                </div>
-                                <div class="ml-3 float-right">
-                                    <button class="btn btn-secondary float-right"
-                                        (click)="showItem = true; showData=false">View
-                                        Expense By
-                                        Item</button>
-                                </div>
-                            </div>
-
-                            <div class="">
-
-                                <table class="table table-bordered table-striped table-sm table-hover">
-                                    <thead class="head">
-                                        <th>No.</th>
-                                        <th>Item Group Name</th>
-                                        <th>Total Amount</th>
-                                    </thead>
-                                    <tbody>
-                                        <tr *ngFor="let data of monthlyExpenseData; index as i">
-                                            <td><b>{{ i+1 }}</b></td>
-                                            <td>{{ data.item_group_name }}</td>
-                                            <td>₹{{ data.total.toFixed(2) }}</td>
-                                        </tr>
-                                        <tr *ngIf="!length && !showloader">
-                                            <td colspan="3" class="text-center">
-                                                No records found.
-                                            </td>
-                                        </tr>
-                                        <tr *ngIf="length">
-                                            <td colspan="2" class="text-right">
-                                                <b>Total expense</b>
-                                            </td>
-                                            <td><b>₹{{ totalExpense| number }}</b></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-
-                                <div *ngIf="showloader" class="d-flex justify-content-center pt-5">
-                                    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;"
-                                        role="status">
-                                        <!-- <img src="src\image\Infinity-1s-200px.svg"> -->
-                                        <span class="sr-only">Loading...</span>
-                                    </div>
-                                </div>
-
-                            </div>
-
+                    <div class="d-flex mt-3 mb-1 justify-content-between">
+                        <div class="mr-3 flex-fill">
+                            <button ngbTooltip="Select Another Month" class="btn btn-secondary"
+                                (click)="showData = false"><i class="fa fa-angle-left"></i></button>
+                        </div>
+                        <div class="flex-fill">
+                            <h2 class="text-secondary">{{ selectedMonth }} Expenses
+                            </h2>
                         </div>
                     </div>
 
-                </div>
+                    <ul ngbNav [(activeId)]="activeId" #nav="ngbNav" class="nav-tabs mt-5 font-weight-bold">
+                        <li [ngbNavItem]="1">
+                            <a ngbNavLink>Expense By Group</a>
+                            <ng-template ngbNavContent>
+                                <div class="row mt-4">
+                                    <div class="col">
 
+                                        <!-- <div class="d-flex mb-4 justify-content-between">
+                                            <div class="mr-3">
+                                                <button ngbTooltip="Select Another Month" class="btn btn-secondary"
+                                                    (click)="showData = false"><i class="fa fa-angle-left"></i></button>
+                                            </div>
+                                           <div>
+                                                <h2 class="text-secondary">{{ selectedMonth }} Expenses
+                                                </h2>
+                                            </div>
+                                            <div class="ml-3 float-right">
+                                                <button class="btn btn-secondary float-right"
+                                                    (click)="showItem = true; showData=false">View
+                                                    Expense By
+                                                    Item</button>
+                                            </div>
+                                        </div> -->
+
+                                        <div class="">
+
+                                            <table class="table table-bordered table-striped table-sm table-hover">
+                                                <thead class="head">
+                                                    <th>No.</th>
+                                                    <th>Item Group Name</th>
+                                                    <th>Total Amount</th>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let data of monthlyExpenseData; index as i">
+                                                        <td><b>{{ i+1 }}</b></td>
+                                                        <td>{{ data.item_group_name }}</td>
+                                                        <td>₹{{ data.total.toFixed(2) }}</td>
+                                                    </tr>
+                                                    <tr *ngIf="!length && !showloader">
+                                                        <td colspan="3" class="text-center">
+                                                            No records found.
+                                                        </td>
+                                                    </tr>
+                                                    <tr *ngIf="length">
+                                                        <td colspan="2" class="text-right">
+                                                            <b>Total expense</b>
+                                                        </td>
+                                                        <td><b>₹{{ totalExpense| number }}</b></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                            <div *ngIf="showloader" class="d-flex justify-content-center pt-5">
+                                                <div class="spinner-border text-primary"
+                                                    style="width: 3rem; height: 3rem;" role="status">
+                                                    <!-- <img src="src\image\Infinity-1s-200px.svg"> -->
+                                                    <span class="sr-only">Loading...</span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </li>
+
+                        <li [ngbNavItem]="2">
+                            <a ngbNavLink>Expense By Items</a>
+                            <ng-template ngbNavContent>
+                                <div class="row mt-4">
+                                    <div class="col">
+
+                                        <!-- <div class="d-flex justify-content-md-between mb-4">
+                                            <div class="mr-3 flex-fill">
+                                                <button ngbTooltip="Expense By Group" class="btn btn-secondary"
+                                                    (click)="showData = true; showItem = false"><i
+                                                        class="fa fa-angle-left"></i></button>
+                                            </div>
+                                             <div class="flex-fill">
+                                                <h2 class="text-secondary">{{ selectedMonth }} Expenses By Item
+                                                </h2>
+                                            </div>
+                                        </div> -->
+
+                                        <div class="">
+
+                                            <table class="table table-bordered table-striped table-sm table-hover">
+                                                <thead class="head">
+                                                    <!-- <th>No.</th> -->
+                                                    <th>Item Name</th>
+                                                    <th>Total Amount</th>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let data of expenseByItemData; index as i">
+                                                        <!-- <td><b>{{ data.from }}</b></td> -->
+                                                        <td>{{ data.item_name }}</td>
+                                                        <td>₹{{ data.subtotal.toFixed(2) }}</td>
+                                                    </tr>
+                                                    <tr *ngIf="!length && !showloader">
+                                                        <td colspan="2" class="text-center">
+                                                            No records found.
+                                                        </td>
+                                                    </tr>
+                                                    <tr *ngIf="length">
+                                                        <td colspan="1" class="text-right">
+                                                            <b>Total expense</b>
+                                                        </td>
+                                                        <td><b>₹{{ totalExpenseForItem| number }}</b></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                            <div *ngIf="showloader" class="d-flex justify-content-center pt-5">
+                                                <div class="spinner-border text-primary"
+                                                    style="width: 3rem; height: 3rem;" role="status">
+                                                    <!-- <img src="src\image\Infinity-1s-200px.svg"> -->
+                                                    <span class="sr-only">Loading...</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="justify-content-between row">
+                                                <div class="col">
+                                                    <ngb-pagination class="text-secondary bg-secondary"
+                                                        (pageChange)="onPageChange($event)" [(page)]="page"
+                                                        [pageSize]="pageSize" [collectionSize]="total"
+                                                        [boundaryLinks]="true" [maxSize]="total">
+                                                    </ngb-pagination>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </li>
+
+                    </ul>
+                    <div [ngbNavOutlet]="nav"></div>
+
+                </div>
+                <!-- 
                 <div *ngIf="showItem" class="container">
                     <div class="row mt-4">
                         <div class="col">
 
                             <div class="d-flex justify-content-md-between mb-4">
                                 <div class="mr-3 flex-fill">
-                                    <button ngbTooltip="Expense By Group" class="btn btn-secondary" (click)="showData = true; showItem = false"><i
+                                    <button ngbTooltip="Expense By Group" class="btn btn-secondary"
+                                        (click)="showData = true; showItem = false"><i
                                             class="fa fa-angle-left"></i></button>
                                 </div>
                                 <div class="flex-fill">
@@ -115,13 +209,13 @@
 
                                 <table class="table table-bordered table-striped table-sm table-hover">
                                     <thead class="head">
-                                        <!-- <th>No.</th> -->
+                                       <th>No.</th> 
                                         <th>Item Name</th>
                                         <th>Total Amount</th>
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let data of expenseByItemData; index as i">
-                                            <!-- <td><b>{{ data.from }}</b></td> -->
+                                            <td><b>{{ data.from }}</b></td>
                                             <td>{{ data.item_name }}</td>
                                             <td>₹{{ data.subtotal.toFixed(2) }}</td>
                                         </tr>
@@ -142,7 +236,7 @@
                                 <div *ngIf="showloader" class="d-flex justify-content-center pt-5">
                                     <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;"
                                         role="status">
-                                        <!-- <img src="src\image\Infinity-1s-200px.svg"> -->
+                                        <img src="src\image\Infinity-1s-200px.svg"> 
                                         <span class="sr-only">Loading...</span>
                                     </div>
                                 </div>
@@ -160,7 +254,7 @@
 
                         </div>
                     </div>
-                </div>
+                </div> -->
 
 
             </div>

@@ -34,7 +34,7 @@
 
                                     <!-- <ng-select formControlName="customer_id" [items]="customerData.first_name" bindLabel="name" placeholder="Select Customer" [(ngModel)]="selectedCity">
                                     </ng-select> -->
-                                    <ng-select formControlName="customer_id" (search)="search($event)"
+                                    <ng-select formControlName="customer_id" (search)="searchCustomer($event)"
                                         placeholder="Select Customer">
                                         <ng-option class="border" *ngFor="let item of customerData; index as i"
                                             value="{{item.id}}">{{ i+1

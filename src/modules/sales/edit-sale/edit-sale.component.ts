@@ -62,6 +62,7 @@ export class EditSaleComponent implements OnInit {
   month = 0
   day = 0
   date = ''
+  pageSize = 100
 
   constructor(
     private productService: ProductService,
@@ -136,12 +137,12 @@ export class EditSaleComponent implements OnInit {
   }
 
   getCustomerData() {
-    this.customerService.getCustomerData(this.page).subscribe(data => {
-      this.customerData = data.customers
+    this.saleService.getCustomerData(this.pageSize).subscribe((result: any) => {
+      this.customerData = result.data
     })
   }
 
-  search(event: any) {
+  searchCustomer(event: any) {
     console.log(event.term);
     this.customerService.searchCustomer(event.term).subscribe((res: any) => {
       this.customerData = res.customers.data
@@ -260,6 +261,9 @@ export class EditSaleComponent implements OnInit {
     console.log('Final: ', addedProductSubmit)
 
     console.log('addedProductSubmit: ', addedProductSubmit);
+    if(this.date == '') {
+      this.date = this.curr_date.year + '-' + this.curr_date.month + '-' + this.curr_date.day
+    }
 
     const obj = {
       shipping_charge: data.shipping_charge,

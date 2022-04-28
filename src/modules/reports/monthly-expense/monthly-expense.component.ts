@@ -15,15 +15,16 @@ export class MonthlyExpenseComponent implements OnInit {
 
   chosenMonth: any;
   monthForm!: FormGroup
+  yearForm!: FormGroup
   selectedMonth: any;
   monthSelected = false
   monthlyExpenseData: any = []
   expenseByItemData: any = []
   length = 0
-  // start_year = 2022
+  start_year: any
   years: any = []
   value: any
-  year: any
+  year = 2022
   showloader: any
   totalExpense = 0
   totalExpenseForItem = 0
@@ -33,6 +34,7 @@ export class MonthlyExpenseComponent implements OnInit {
   pageSize = 10
   showData = false
   showItem = false
+  activeId = 1
 
   month = [
     { name: 'January', value: '01' },
@@ -56,8 +58,8 @@ export class MonthlyExpenseComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.monthForm = this.fb.group({
-      year: [0]
+    this.yearForm = this.fb.group({
+      year: [2022]
     })
 
     const date = new Date()
@@ -65,6 +67,7 @@ export class MonthlyExpenseComponent implements OnInit {
     for (let i = 2022; i <= year; i++) {
       this.years.push(i)
     }
+    this.start_year = this.years[0]
     console.log(this.years);
 
   }
@@ -114,7 +117,7 @@ export class MonthlyExpenseComponent implements OnInit {
 
       this.expenseByItemData.forEach((g: any) => {
         this.totalExpenseForItem += g.subtotal
-          g.number = result.data.from
+        g.number = result.data.from
         console.log(g);
       });
 
@@ -135,7 +138,9 @@ export class MonthlyExpenseComponent implements OnInit {
   //   console.log(this.chosenMonth);
   // }
 
-  currentYear() {
+  onSelectYear(year: any) {
+    this.year = year
+    console.log(year);
 
   }
 

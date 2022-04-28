@@ -21,7 +21,7 @@
                                             <span class="custom-day" [class.focused]="focused"
                                                 [class.range]="isRange(date)"
                                                 [class.faded]="isHovered(date) || isInside(date)"
-                                                (mouseenter)="hoveredDate = date" (mouseleave)="hoveredDate = null" >
+                                                (mouseenter)="hoveredDate = date" (mouseleave)="hoveredDate = null">
                                                 {{ date.day }}
                                             </span>
                                         </ng-template>
@@ -53,6 +53,32 @@
                                     </div>
                                 </div>
                                 <hr />
+
+                                <div class="row row-cols-sm-auto mt-2">
+
+                                    <div class="col">
+                                        <button type="button" class="btn btn-secondary" (click)="showDate=true">
+                                            View Expense of Particular Date
+                                        </button>
+                                    </div>
+                                    <div class="col">
+
+                                        <div *ngIf="showDate == true">
+                                            <form>
+                                                <div class="input-group">
+                                                    <input class="form-control" placeholder="Select Date" name="dp"
+                                                        [(ngModel)]="model" ngbDatepicker
+                                                        (dateSelect)="onDateSelect($event)" #d="ngbDatepicker">
+                                                    <button class="btn btn-outline-secondary calendar text-dark"
+                                                        (click)="d.toggle()" type="button"><i
+                                                            class="fa fa-calendar fa-lg mx-auto"></i>
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
                     </div>

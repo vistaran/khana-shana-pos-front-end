@@ -180,8 +180,8 @@ export class AddPurchaseOrderComponent implements OnInit {
 
   // To get Item groups data
   getItemGroupsData() {
-    this.itemGroupService.getItemGroupsData().subscribe(data => {
-      this.itemGroupsData = data.item_groups.data
+    this.purchaseOrderService.getItemGroupsData(this.pageSize).subscribe((result: any) => {
+      this.itemGroupsData = result.data
     })
   }
 
@@ -234,7 +234,7 @@ export class AddPurchaseOrderComponent implements OnInit {
 
   // To get Units of Measurement Data
   getUnitsData() {
-    this.unitService.getUOMData().subscribe(data => {
+    this.unitService.getUOMData(this.page).subscribe(data => {
       this.unitsData = data.units.data
     })
   }

@@ -10,7 +10,8 @@ import { Data, OrderDetails, Orders } from './sales';
 })
 export class SalesService {
 
-  url = environment.apiUrl + 'orders/';
+  url = environment.apiUrl + 'orders';
+  customerUrl = environment.apiUrl + 'customer';
 
   constructor(
     private http: HttpClient
@@ -25,8 +26,8 @@ export class SalesService {
     return headers;
   }
 
-  getOrderData(): Observable<Orders> {
-    return this.http.get<Orders>(this.url)
+  getOrderData(page: number): Observable<Orders> {
+    return this.http.get<Orders>(this.url + '?page=' + page)
   }
 
   postOrder(data: any) {
@@ -37,17 +38,20 @@ export class SalesService {
   editOrder(id: number,data: any) {
     const headers = this.createAuthrorizationHeader();
     console.log(headers);
-    return this.http.put(this.url + id, data, { headers })
+    return this.http.put(this.url + '/' + id, data, { headers })
   }
 
   deleteOrder(id: number) {
-    return this.http.delete(this.url + id)
+    return this.http.delete(this.url + '/' + id)
   }
 
   orderDetailData(id: number):Observable<OrderDetails> {
-    return this.http.get<OrderDetails>(this.url + id)
+    return this.http.get<OrderDetails>(this.url + '/' + id)
   }
 
-
+  // For Customer Data
+  getCustomerData(limit: number) {
+    return this.http.get(this.customerUrl + '?limit=' + limit)
+  }
 
 }

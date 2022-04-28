@@ -22,6 +22,7 @@ export class ExpenseByGroupComponent implements OnInit {
 
   from: any
   to: any
+  showDate = false
 
   month = [
     { name: 'January' },
@@ -83,6 +84,12 @@ export class ExpenseByGroupComponent implements OnInit {
       this.getExpenseByGroupData()
     }
 
+  }
+
+  onDateSelect(date: NgbDate) {
+    this.from = date.year + '-' + date.month + '-' + date.day
+    this.to = date.year + '-' + date.month + '-' + date.day
+    this.getExpenseByGroupData()
   }
 
   isHovered(date: NgbDate) {

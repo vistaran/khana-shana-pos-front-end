@@ -10,14 +10,14 @@ import { Data, ItemGroups } from './itemGroups';
 })
 export class ItemGroupsService {
 
-  private url = environment.apiUrl + 'item_groups/';
+  private url = environment.apiUrl + 'item_groups';
 
   constructor(
     private http: HttpClient
   ) { }
 
-  getItemGroupsData(): Observable<ItemGroups> {
-    return this.http.get<ItemGroups>(this.url);
+  getItemGroupsData(page: number, limit: number): Observable<ItemGroups> {
+    return this.http.get<ItemGroups>(this.url + '?page=' + page + '&limit=' + limit);
   }
 
   postItemGroupsData(data: any) {

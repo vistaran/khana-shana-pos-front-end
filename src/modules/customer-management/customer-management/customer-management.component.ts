@@ -16,7 +16,7 @@ export class CustomerManagementComponent implements OnInit {
   public total = 0;
   public id = 0;
   page = 1;
-  pageSize = 10;
+  pageSize = 100;
   itemsPerPage: any;
   searchValue: any
   showloader: any
@@ -32,8 +32,9 @@ export class CustomerManagementComponent implements OnInit {
   }
 
   getCustomerData() {
-    this.customerService.getCustomerData(this.page).subscribe(data=> {
-      this.customerData = data.customers
+    this.customerService.getCustomerData(this.page, this.pageSize).subscribe((result: any)=> {
+      this.customerData = result.data
+      this.total = result.total
       this.length = this.customerData.length
     }, err => {
       this.toast.error('Error', 'Server error.')
@@ -52,6 +53,11 @@ export class CustomerManagementComponent implements OnInit {
     console.log('Here >>>', this.page, this.customerData);
   }
 
+  refreshItemsData(limit: any) {
+    this.pageSize = limit
+    this.getCustomerData()
+  }
+
   // For deleting product
   deleteRow(id: number) {
     if (confirm('Are you sure you want to delete?')) {
@@ -67,8 +73,9 @@ export class CustomerManagementComponent implements OnInit {
   search(event: any) {
     this.showloader = true
     this.customerService.searchCustomer(this.searchValue).subscribe((res: any) => {
-      this.customerData = res.customers.data
+      this.customerData = res.data
       this.length = this.customerData.length;
+      this.total = res.total
       this.showloader = false
     }, err => {
       this.toast.error('Error', 'Server error.')

@@ -10,18 +10,18 @@ import { Data, UOM } from './uom';
 })
 export class UomService {
 
-  private url = environment.apiUrl + 'units/';
+  private url = environment.apiUrl + 'units';
 
   constructor(
     private http: HttpClient
   ) { }
 
-  getUOMData(): Observable<UOM> {
-    return this.http.get<UOM>(this.url);
+  getUOMData(page: number): Observable<UOM> {
+    return this.http.get<UOM>(this.url + '?page=' + page);
   }
 
   deleteUomData(id: number) {
-    return this.http.delete(this.url + id)
+    return this.http.delete(this.url + '/' + id)
   }
 
   postUomData(data: any) {
@@ -29,10 +29,10 @@ export class UomService {
   }
 
   editUomData(id: number, data: any) {
-    return this.http.put(this.url + id, data)
+    return this.http.put(this.url + '/' + id, data)
   }
 
   patchUomData(id: number): Observable<Data> {
-    return this.http.get<Data>(this.url + id);
+    return this.http.get<Data>(this.url + '/' + id);
   }
 }

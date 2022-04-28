@@ -16,7 +16,7 @@ export class ItemGroupsComponent implements OnInit {
   public total = 0;
   public id = 0;
   page = 1;
-  pageSize = 10;
+  pageSize = 100;
   itemsPerPage: any;
   searchValue: any
   showloader: any
@@ -33,14 +33,19 @@ export class ItemGroupsComponent implements OnInit {
 
   // For getting Item group data for listing
   getItemGroupsData() {
-    this.itemGroupService.getItemGroupsData().subscribe(data => {
-      this.itemGroupsData = data.item_groups.data;
-      this.total = data.item_groups.total
+    this.itemGroupService.getItemGroupsData(this.page, this.pageSize).subscribe((result: any) => {
+      this.itemGroupsData = result.data;
+      this.total = result.total
       this.length = this.itemGroupsData.length
-      console.log(data);
+      // console.log(result);
     }, err => {
       this.toast.error('Error', 'Server error.')
     });
+  }
+
+  refreshItemsData(limit: any) {
+    this.pageSize = limit
+    this.getItemGroupsData()
   }
 
   // For navigating to add item group form on click
