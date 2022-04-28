@@ -13,7 +13,8 @@ export class PurchaseOrdersService {
   // token = localStorage.getItem('token');
 
   private url = environment.apiUrl + 'purchase_order';
-  private itemUrl = environment.apiUrl + 'purchase_items'
+  private itemUrl = environment.apiUrl + 'purchase_items';
+  private groupUrl = environment.apiUrl + 'item_groups'
 
   constructor(
     private http: HttpClient
@@ -62,6 +63,11 @@ export class PurchaseOrdersService {
 
   searchItems(data: any): Observable<any> {
     return this.http.get<any>(this.itemUrl + '?query=' + data)
+  }
+
+  // For Item Group data
+  getItemGroupsData(limit: number) {
+    return this.http.get(this.groupUrl + '?limit=' + limit)
   }
 
 }

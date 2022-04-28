@@ -23,6 +23,7 @@ export class AddSaleComponent implements OnInit {
   qtyForm!: FormGroup
   customerForm!: FormGroup
   selectedCity: any
+  pageSize = 100
 
   payment_mode: any
 
@@ -90,6 +91,7 @@ export class AddSaleComponent implements OnInit {
     })
     this.getProductsData()
     this.getCustomerData()
+
   }
 
   getProductsData() {
@@ -100,12 +102,12 @@ export class AddSaleComponent implements OnInit {
   }
 
   getCustomerData() {
-    this.customerService.getCustomerData(this.page).subscribe(data => {
-      this.customerData = data.customers
+    this.saleService.getCustomerData(this.pageSize).subscribe((result: any) => {
+      this.customerData = result.data
     })
   }
 
-  search(event: any) {
+  searchCustomer(event: any) {
     console.log(event.term);
     this.customerService.searchCustomer(event.term).subscribe((res: any) => {
       this.customerData = res.customers.data
@@ -120,7 +122,6 @@ export class AddSaleComponent implements OnInit {
     console.log(date);
     this.date = date.year + '-' + date.month + '-' + date.day
     console.log(this.date);
-
   }
 
   onSelectProduct(data: any, qty: any) {
@@ -204,14 +205,16 @@ export class AddSaleComponent implements OnInit {
     });
     console.log('addedProductSubmit: ', addedProductSubmit);
 
-
-
     // this.payment_mode_array.forEach((g: any) => {
     //   // console.log(g);
     //   if (g.id == data.payment_mode) {
     //     this.payment_mode = g.name
     //   }
     // });
+    if(this.date == '') {
+      this.date = this.curr_date.year + '-' + this.curr_date.month + '-' + this.curr_date.day
+    }
+
 
     const obj = {
       shipping_charge: data.shipping_charge,

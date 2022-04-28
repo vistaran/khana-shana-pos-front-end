@@ -20,6 +20,8 @@ export class EditItemComponent implements OnInit {
   public unitId: any
   public itemGroupId: any
   id: any
+  page = 0
+  pageSize = 100
 
 
   get item_name() {
@@ -68,14 +70,14 @@ export class EditItemComponent implements OnInit {
   }
 
   getItemGroupsData() {
-    this.itemGroupService.getItemGroupsData().subscribe(data => {
+    this.itemGroupService.getItemGroupsData(this.page, this.pageSize).subscribe(data => {
       this.itemGroupsData = data.item_groups.data;
       console.log(data);
     })
   }
 
   getUOMData() {
-    this.unitService.getUOMData().subscribe(data => {
+    this.unitService.getUOMData(this.page).subscribe(data => {
       this.unitData = data.units.data;
       console.log(data);
     })

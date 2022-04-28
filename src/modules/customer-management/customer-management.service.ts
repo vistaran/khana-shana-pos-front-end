@@ -19,8 +19,8 @@ export class CustomerManagementService {
     private http: HttpClient
   ) { }
 
-  getCustomerData(page: number): Observable<CustomerData> {
-    return this.http.get<CustomerData>(this.url + '?page=' + page);
+  getCustomerData(page: number, limit: number): Observable<CustomerData> {
+    return this.http.get<CustomerData>(this.url + '?page=' + page + '&limit=' + limit);
   }
 
   // For deleting user data
@@ -69,7 +69,7 @@ export class CustomerManagementService {
   }
 
   searchCustomer(data: any): Observable<CustomerData> {
-    return this.http.get<CustomerData>(this.searchUrl + data)
+    return this.http.get<CustomerData>(this.url + '?query=' + data)
   }
 
 }

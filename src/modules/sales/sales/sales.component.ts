@@ -15,6 +15,10 @@ export class SalesComponent implements OnInit {
   orderData: any = [];
   orderDetail: any = [];
   itemDetail: any = [];
+  total = 0
+  pageSize = 10
+  page = 1
+  showloader: any
 
 
   constructor(
@@ -29,15 +33,25 @@ export class SalesComponent implements OnInit {
   }
 
   getOrderData() {
-    this.saleService.getOrderData().subscribe(data => {
+    this.showloader = true
+    this.saleService.getOrderData(this.page).subscribe((data: any) => {
       this.orderData = data.orders.data
+      this.total = data.orders.total
       console.log(this.orderData);
+      this.showloader = false
+    }, err => {
+      this.toast.error('Error', 'Server error.')
+      this.showloader = false
+    });
+  }
 
-    })
+  onPageChange(event: number) {
+    this.page = event;
+    this.getOrderData();
   }
 
   getOrderDetail(id: number) {
-    this.saleService.orderDetailData(id).subscribe((data) => {
+    this.saleService.orderDetailData(id).subscribe((data: any) => {
       this.orderDetail = data.order
       this.itemDetail = data.items
       console.log(this.orderDetail);

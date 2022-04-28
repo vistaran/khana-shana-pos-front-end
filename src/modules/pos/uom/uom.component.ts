@@ -35,7 +35,7 @@ export class UomComponent implements OnInit {
 
   getUOMData() {
     this.showloader = true;
-    this.uomService.getUOMData().subscribe(data => {
+    this.uomService.getUOMData(this.page).subscribe(data => {
       this.uomData = data.units.data;
       this.total = data.units.total
       this.length = this.uomData.length

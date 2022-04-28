@@ -32,7 +32,7 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label class="required">Select Customer</label><br />
-                                    <ng-select formControlName="customer_id" (search)="search($event)" placeholder="Select Customer">
+                                    <ng-select formControlName="customer_id" (search)="searchCustomer($event)" placeholder="Select Customer">
                                         <ng-option *ngFor="let item of customerData; index as i" value="{{item.id}}">{{ i+1
                                             }}. {{
                                             item.first_name }} {{ item.last_name}}</ng-option>
