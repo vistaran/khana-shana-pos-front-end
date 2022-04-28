@@ -38,7 +38,7 @@ export class AddCustomerComponent implements OnInit {
     this.addCustomerForm = this.fb.group({
       first_name: ['', [Validators.required]],
       last_name: ['', [Validators.required]],
-      phone_number: ['', [Validators.required]]
+      phone_number: ['', [Validators.required, Validators.maxLength(10)]]
     })
   }
 
