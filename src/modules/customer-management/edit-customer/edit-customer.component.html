@@ -35,6 +35,7 @@
                                 class="form-control" />
                             <div *ngIf="phone?.touched && phone?.invalid" class="alert alert-danger">
                                 <div *ngIf="phone?.errors?.required">Phone Number is required.</div>
+                                <div *ngIf="phone?.errors?.maxlength">Phone number must not exceed 10 digits</div>
                             </div>
                         </div>
                     </div>
