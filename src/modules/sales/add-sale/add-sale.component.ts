@@ -205,12 +205,6 @@ export class AddSaleComponent implements OnInit {
     });
     console.log('addedProductSubmit: ', addedProductSubmit);
 
-    // this.payment_mode_array.forEach((g: any) => {
-    //   // console.log(g);
-    //   if (g.id == data.payment_mode) {
-    //     this.payment_mode = g.name
-    //   }
-    // });
     if(this.date == '') {
       this.date = this.curr_date.year + '-' + this.curr_date.month + '-' + this.curr_date.day
     }
@@ -237,17 +231,6 @@ export class AddSaleComponent implements OnInit {
     });
   }
 
-  // search(event: any) {
-  //   this.showloader = true
-  //   this.customerService.searchCustomer(this.searchValue).subscribe(res => {
-  //     this.customerData = res.customers
-  //     this.showloader = false
-  //     // console.log(this.outletData.length)
-  //   }, err => {
-  //     this.toast.error('Error', 'Server error.')
-  //     this.showloader = false
-  //   });
-  // }
 
 
 }

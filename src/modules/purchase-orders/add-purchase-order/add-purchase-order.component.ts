@@ -21,6 +21,7 @@ export class AddPurchaseOrderComponent implements OnInit {
 
   addOrderForm!: FormGroup
   itemsForm!: FormGroup
+  editItemsForm!: FormGroup
 
   public vendorData: any = [];
   public outletData: any = [];
@@ -31,7 +32,7 @@ export class AddPurchaseOrderComponent implements OnInit {
 
   today = new Date()
   dd = this.today.getDate();
-  mm = this.today.getMonth()+1; // January is 0!
+  mm = this.today.getMonth() + 1; // January is 0!
   yyyy = this.today.getFullYear();
 
   curr_date: NgbDate = new NgbDate(this.yyyy, this.mm, this.dd);
@@ -104,6 +105,28 @@ export class AddPurchaseOrderComponent implements OnInit {
     return this.itemsForm.get('price');
   }
 
+  // Edit Item Form
+
+  get item_id2() {
+    return this.editItemsForm.get('item_id');
+  }
+
+  get item_group_id2() {
+    return this.editItemsForm.get('item_group_id');
+  }
+
+  get qty2() {
+    return this.editItemsForm.get('qty');
+  }
+
+  get unit_id2() {
+    return this.editItemsForm.get('unit_id');
+  }
+
+  get price2() {
+    return this.editItemsForm.get('price');
+  }
+
   constructor(
     private fb: FormBuilder,
     private purchaseOrderService: PurchaseOrdersService,
@@ -121,7 +144,6 @@ export class AddPurchaseOrderComponent implements OnInit {
   ngOnInit(): void {
     this.addOrderForm = this.fb.group({
       vendor_id: [0, Validators.required],
-      // user_id: ['', [Validators.required]],
       outlet_id: [0, Validators.required],
       purchase_date: [this.curr_date],
       notes: [''],
@@ -129,16 +151,21 @@ export class AddPurchaseOrderComponent implements OnInit {
     })
 
     this.itemsForm = this.fb.group({
-      notes: ['', Validators.required],
+      notes: [''],
       item_id: [null, Validators.required],
-      // item_name: ['', Validators.required],
       item_group_id: [null, Validators.required],
-      // item_group_name: ['', Validators.required],
       qty: ['', Validators.required],
       unit_id: [{ value: null, disabled: true }, Validators.required],
-      // unit_name: ['', Validators.required],
       price: ['', Validators.required],
-      // subtotal: ['', Validators.required]
+    })
+
+    this.editItemsForm = this.fb.group({
+      notes: [''],
+      item_id: [null, Validators.required],
+      item_group_id: [null, Validators.required],
+      qty: ['', Validators.required],
+      unit_id: [{ value: null, disabled: true }, Validators.required],
+      price: ['', Validators.required],
     })
 
     this.getVendorsData();
@@ -156,7 +183,7 @@ export class AddPurchaseOrderComponent implements OnInit {
     this.vendorService.getVendorsData(this.page).subscribe(data => {
       this.vendorData = data.vendors.data;
       this.addOrderForm.patchValue({
-        vendor_id : this.vendorData[0].id
+        vendor_id: this.vendorData[0].id
       })
     })
   }
@@ -186,17 +213,17 @@ export class AddPurchaseOrderComponent implements OnInit {
   }
 
   onSelectGroup(id: number) {
-    console.log(id);
+    // console.log(id);
     this.isInputShown = true
     this.group_id = id
-    console.log('Group id:', this.group_id);
+    // console.log('Group id:', this.group_id);
     this.getItemsData();
   }
 
   onSelectDate(date: any) {
-    console.log(date);
+    // console.log(date);
     this.date = date.year + '-' + date.month + '-' + date.day
-    console.log(this.date);
+    // console.log(this.date);
   }
 
   // TO get Item group data
@@ -205,12 +232,12 @@ export class AddPurchaseOrderComponent implements OnInit {
     this.purchaseOrderService.getItemData(this.group_id, this.pageSize).subscribe((data: any) => {
       this.itemsData = data.data
       this.unit_name = this.itemsData.unit_name
-      console.log(this.itemsData, this.unit_name);
+      // console.log(this.itemsData, this.unit_name);
     })
   }
 
   searchItem(event: any) {
-    console.log(event.term);
+    // console.log(event.term);
     this.purchaseOrderService.searchItems(event.term).subscribe((res: any) => {
       this.itemsData = res.data
       // console.log(this.customerData);
@@ -223,8 +250,7 @@ export class AddPurchaseOrderComponent implements OnInit {
   onSelectNameItem(id: any) {
     this.isInputShown2 = true
     this.itemsData.forEach((g: any) => {
-      console.log(g);
-
+      // console.log(g);
       if (g.id == id) {
         this.unit_name = g.unit_name
         this.unitId = g.unit_id
@@ -247,7 +273,6 @@ export class AddPurchaseOrderComponent implements OnInit {
   // For shipping charges value
   onKey(event: any) {
     this.shippingCharge = Number(event.target.value);
-    console.log(typeof (this.shippingCharge));
     this.calculateTotal();
   }
 
@@ -266,11 +291,11 @@ export class AddPurchaseOrderComponent implements OnInit {
     });
 
     const obj = [{
-      item_group_id: data.item_group_id,
+      item_group_id: Number(data.item_group_id),
       item_group_name: this.name,
-      item_id: data.item_id,
+      item_id: Number(data.item_id),
       item_name: this.itemName,
-      unit_id: this.unitId,
+      unit_id: Number(this.unitId),
       unit_name: this.unit_name,
       qty: data.qty,
       notes: data.notes,
@@ -278,16 +303,84 @@ export class AddPurchaseOrderComponent implements OnInit {
       subtotal: data.price * data.qty
     }]
     this.orderItemData = this.orderItemData.concat(obj);
-    console.log(this.orderItemData);
 
     this.semitotal = this.orderItemData.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
       return a + b;
     })
-    console.log(this.total);
     // this.toast.success('Success', 'Item Added Successfully.')
 
     this.calculateTotal();
+  }
 
+  editItemData(data: any) {
+    console.log('DAta', data);
+
+    let group_name = '';
+    let item_name = '';
+    let unit_name = '';
+
+    this.itemGroupsData.forEach((g: any) => {
+      if (g.id == data.item_group_id) {
+        group_name = g.group_name
+      }
+    });
+
+    this.itemsData.forEach((g: any) => {
+      if (g.id == Number(data.item_id)) {
+        item_name = g.item_name
+        unit_name = g.unit_name
+      }
+    });
+    this.orderItemData.forEach((g: any) => {
+      if (data.item_id == g.item_id) {
+        g.item_group_id = data.item_group_id,
+          g.item_group_name = group_name,
+          g.item_id = data.item_id,
+          g.item_name = item_name,
+          g.unit_id = data.unit_id,
+          g.unit_name = unit_name,
+          g.qty = data.qty,
+          g.notes = data.notes,
+          g.price = data.price,
+          g.subtotal = data.price * data.qty
+      }
+    })
+    console.log(this.orderItemData);
+    this.semitotal = this.orderItemData.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
+      return a + b;
+    })
+    // this.toast.success('Success', 'Item Added Successfully.')
+    this.calculateTotal();
+
+  }
+
+  EditOrderPatchValue(id: any) {
+    this.orderItemData.forEach((g: any) => {
+      if (id == g.item_id) {
+        console.log('G', g);
+        this.unit_name = g.unit_name
+        this.editItemsForm.patchValue({
+          notes: g.notes,
+          item_id: g.item_id,
+          item_group_id: g.item_group_id,
+          qty: g.qty,
+          unit_id: g.unit_name,
+          price: g.price
+        })
+      }
+    })
+
+  }
+
+  RemoveOrder(id: any) {
+    if (confirm('Are you sure you want to delete?')) {
+      this.orderItemData = this.orderItemData.filter((item: any) => {
+        console.log('Item', item);
+
+        item.item_id !== id
+      });
+      console.log('afterdelete', this.orderItemData);
+    }
   }
 
   calculateTotal() {
@@ -296,6 +389,10 @@ export class AddPurchaseOrderComponent implements OnInit {
 
   // For submitting add purchase form data
   onSubmit(data: any) {
+
+    if (this.date == '') {
+      this.date = this.curr_date.year + '-' + this.curr_date.month + '-' + this.curr_date.day
+    }
 
 
     const obj = {
@@ -310,7 +407,7 @@ export class AddPurchaseOrderComponent implements OnInit {
     }
     this.purchaseOrderService.postPurchaseOrderData(obj)
       .subscribe((result: any) => {
-        console.log(result)
+        // console.log(result)
         this.toast.success('Success', 'Added Successfully.')
         this.router.navigate(['/purchase_orders']);
       }, err => {
