@@ -8,9 +8,9 @@
                 <!-- <h2 class="card-header mt-4 pb-2">General</h2> -->
                 <div class="row card-body justify-content-around">
                     <div class="col-6 col-sm-4">
-                        <div class="form-group">
+                        <div class="form-group required">
                             <label class="required">Item Group Name</label>
-                            <input type="text" formControlName="group_name" class="form-control" autofocus/>
+                            <input type="text" formControlName="group_name" placeholder="Item Group Name" class="form-control" autofocus/>
                             <div *ngIf="group_name?.touched && group_name?.invalid" class="alert alert-danger">
                                 <div *ngIf="group_name?.errors?.required">Item Group Name is required.</div>
                             </div>

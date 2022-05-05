@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/dashboard']);
             this.userData = result.user
         }, error => {
-            this.toast.show('Error', 'Invalid credentials', { className: 'bg-danger text-light'});
+            this.toast.show('Error', 'Username or password is incorrect', { className: 'bg-danger text-light'});
         });
 
         // prepare parameter

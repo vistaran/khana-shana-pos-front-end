@@ -170,10 +170,10 @@ export class AddPurchaseOrderComponent implements OnInit {
 
     this.getVendorsData();
     this.getOutletsData();
-    this.getUserData();
+    // this.getUserData();
     this.getItemGroupsData();
 
-    this.getUnitsData();
+    // this.getUnitsData();
 
 
   }
@@ -181,7 +181,18 @@ export class AddPurchaseOrderComponent implements OnInit {
   // To get Vendors Data
   getVendorsData() {
     this.vendorService.getVendorsData(this.page).subscribe(data => {
-      this.vendorData = data.vendors.data;
+      this.vendorData = data.vendors.data.sort(function (a: any, b: any) {
+        const nameA = a.name.toUpperCase(); // ignore upper and lowercase
+        const nameB = b.name.toUpperCase(); // ignore upper and lowercase
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+        // names must be equal
+        return 0;
+      })
       this.addOrderForm.patchValue({
         vendor_id: this.vendorData[0].id
       })
@@ -191,7 +202,19 @@ export class AddPurchaseOrderComponent implements OnInit {
   // To get Outlets Data
   getOutletsData() {
     this.outletService.getOutletData(this.page).subscribe(data => {
-      this.outletData = data.outlets.data;
+      this.outletData = data.outlets.data.sort(function (a: any, b: any) {
+        const nameA = a.outlet_name.toUpperCase(); // ignore upper and lowercase
+        const nameB = b.outlet_name.toUpperCase(); // ignore upper and lowercase
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+
+        // names must be equal
+        return 0;
+      });
       this.addOrderForm.patchValue({
         outlet_id: this.outletData[0].id
       })
@@ -199,16 +222,28 @@ export class AddPurchaseOrderComponent implements OnInit {
   }
 
   // To get User Data
-  getUserData() {
-    this.userService.getUserData(this.page).subscribe(data => {
-      this.userData = data.user.data
-    })
-  }
+  // getUserData() {
+  //   this.userService.getUserData(this.page).subscribe(data => {
+  //     this.userData = data.user.data
+  //   })
+  // }
 
   // To get Item groups data
   getItemGroupsData() {
     this.purchaseOrderService.getItemGroupsData(this.pageSize).subscribe((result: any) => {
-      this.itemGroupsData = result.data
+      this.itemGroupsData = result.data.sort(function (a: any, b: any) {
+        const nameA = a.group_name.toUpperCase(); // ignore upper and lowercase
+        const nameB = b.group_name.toUpperCase(); // ignore upper and lowercase
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+
+        // names must be equal
+        return 0;
+      })
     })
   }
 
@@ -259,11 +294,11 @@ export class AddPurchaseOrderComponent implements OnInit {
   }
 
   // To get Units of Measurement Data
-  getUnitsData() {
-    this.unitService.getUOMData(this.page).subscribe(data => {
-      this.unitsData = data.units.data
-    })
-  }
+  // getUnitsData() {
+  //   this.unitService.getUOMData(this.page).subscribe(data => {
+  //     this.unitsData = data.units.data
+  //   })
+  // }
 
   // For modal
   openVerticallyCentered(content: any) {
@@ -355,6 +390,7 @@ export class AddPurchaseOrderComponent implements OnInit {
   }
 
   EditOrderPatchValue(id: any) {
+
     this.orderItemData.forEach((g: any) => {
       if (id == g.item_id) {
         console.log('G', g);
@@ -376,8 +412,7 @@ export class AddPurchaseOrderComponent implements OnInit {
     if (confirm('Are you sure you want to delete?')) {
       this.orderItemData = this.orderItemData.filter((item: any) => {
         console.log('Item', item);
-
-        item.item_id !== id
+        return item.item_id !== id
       });
       console.log('afterdelete', this.orderItemData);
     }
@@ -408,10 +443,10 @@ export class AddPurchaseOrderComponent implements OnInit {
     this.purchaseOrderService.postPurchaseOrderData(obj)
       .subscribe((result: any) => {
         // console.log(result)
-        this.toast.success('Success', 'Added Successfully.')
+        this.toast.success('Success', 'Purchase Order Added Successfully.')
         this.router.navigate(['/purchase_orders']);
       }, err => {
-        this.toast.error('Error', 'Server error.')
+        this.toast.error('Error', 'Token has expired. Please login again.')
       });
 
     console.log('Form Submitted', (obj));

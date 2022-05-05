@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Form, FormBuilder, FormGroup } from '@angular/forms';
+import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ProductService } from '@modules/catalog/product.service';
 import { CustomerManagementService } from '@modules/customer-management/customer-management.service';
@@ -40,16 +40,16 @@ export class AddSaleComponent implements OnInit {
       id: 1, name: 'Cash', alternate_name: 'cash'
     },
     {
-      id: 2, name: 'UPI', alternate_name: 'upi'
-    },
-    {
-      id: 3, name: 'Netbanking', alternate_name: 'net_banking'
+      id: 2, name: 'Credit card', alternate_name: 'credit_card'
     },
     {
       id: 3, name: 'Debit card', alternate_name: 'debit_card'
     },
     {
-      id: 4, name: 'Credit card', alternate_name: 'credit_card'
+      id: 4, name: 'Netbanking', alternate_name: 'net_banking'
+    },
+    {
+      id: 5, name: 'UPI', alternate_name: 'upi'
     }
   ]
 
@@ -63,6 +63,10 @@ export class AddSaleComponent implements OnInit {
   customerName: any
   customerNumber: any
   customer_id: any
+
+  get customer() {
+    return this.customerForm.get('customer_id');
+  }
 
   constructor(
     private productService: ProductService,
@@ -87,7 +91,7 @@ export class AddSaleComponent implements OnInit {
     })
 
     this.customerForm = this.fb.group({
-      customer_id: [null]
+      customer_id: [null, [Validators.required]]
     })
     this.getProductsData()
     this.getCustomerData()
@@ -125,7 +129,16 @@ export class AddSaleComponent implements OnInit {
   }
 
   onSelectProduct(data: any, qty: any) {
-
+    let invalid;
+    this.addedProduct.forEach((g: any) => {
+      if (data.product_name == g.product_name) {
+        invalid = true
+      }
+    })
+    if (invalid) {
+      this.toast.warning('Warning', 'Product is already added.')
+      return;
+    }
     console.log('Quantity', qty.quantity);
 
     this.productData.forEach((g: any) => {
@@ -139,6 +152,8 @@ export class AddSaleComponent implements OnInit {
 
         this.ngOnInit()
       }
+      console.log(this.addedProduct);
+
     });
 
     this.semitotal = this.addedProduct.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
@@ -224,7 +239,7 @@ export class AddSaleComponent implements OnInit {
 
     this.saleService.postOrder(obj).subscribe((result: any) => {
       console.log(result)
-      this.toast.success('Success', 'Added Successfully.')
+      this.toast.success('Success', 'Sales Order Added Successfully.')
       this.router.navigate(['/sales']);
     }, err => {
       this.toast.error('Error', 'Server error.')

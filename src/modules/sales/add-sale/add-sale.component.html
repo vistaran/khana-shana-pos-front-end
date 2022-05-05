@@ -41,6 +41,10 @@
                                             }}. {{
                                             item.first_name }} {{ item.last_name}}</ng-option>
                                     </ng-select>
+                                    <div *ngIf="customer?.touched && customer?.invalid" class="alert alert-danger">
+                                        <div *ngIf="customer?.errors?.required">Customer is required.</div>
+                                    </div>
+
                                 </div>
                             </div>
                         </form>
@@ -68,7 +72,9 @@
                                             <h5 class="card-title text-info">{{ data.product_name }}</h5>
                                             <small class="card-text"><b>Category: </b> {{ data.category_name }}
                                             </small><br>
-                                            <small class="card-text"><b>Description: </b> {{ data.description }}
+                                            <small class="card-text" *ngIf="data.description != null"><b>Description: </b> {{ data.description }}
+                                            </small>
+                                            <small class="card-text" *ngIf="data.description == null"><b>Description: </b> None
                                             </small><br>
                                             <small class="card-text"><b>Price: </b> ₹ {{ data.price }}
                                             </small>
@@ -144,7 +150,7 @@
                                     <td>{{ data.quantity * data.price}}</td>
                                     <td>
 
-                                        <button id="remove" class="btn btn-danger btn-sm"
+                                        <button id="remove" ngbTooltip="Delete" class="btn btn-danger btn-sm"
                                             (click)="RemoveProduct(data.id)"><i
                                                 class="fa fa-trash-o fa-lg mx-auto"></i></button>
                                     </td>
@@ -169,33 +175,6 @@
                             </tbody>
                         </table>
 
-                        <!-- <div class="card shadow">
-                                    <button class="bg-transparent" type="button">
-                                        <div class="card-body">
-                                            <h5 class="card-title">{{ data.product_name }}</h5>
-                                            <p class="card-text"><b>Category:</b> {{ data.category_name }}
-                                            </p>
-                                            <p class="card-text"><b>Description:</b> {{ data.description }}
-                                            </p>
-                                            <p class="card-text"><b>₹ Price:</b> {{ data.price }}
-                                            </p>
-                                            <p class="card-text"><b>Quantity:</b> {{ data.quantity }}
-                                            </p>
-                                        </div> -->
-                        <!-- <div class="align-items-end mb-2 ml-2">
-                                        <button class="btn btn-info mr-2 btn-sm"
-                                            (click)="openVerticallyCentered2(content2, data.id)"><i
-                                                class="fa fa-pencil-square-o fa-lg"></i></button>
-        
-                                        <button id="remove" class="btn btn-danger btn-sm"
-                                            (click)="deleteAddress(data.id)"><i
-                                                class="fa fa-trash-o fa-lg mx-auto"></i></button>
-                                    </div> -->
-                        <!-- </button>
-                                </div>
-                            </div> -->
-
-                        <!-- </div> -->
                     </div>
                 </div>
 
@@ -203,7 +182,7 @@
 
                     <div class="col">
                         <div class="form-group">
-                            <label class="required">Purchase Date</label>
+                            <label class="required">Order Date</label>
                             <div class="input-group">
                                 <input class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker
                                     #d="ngbDatepicker" formControlName="order_date"

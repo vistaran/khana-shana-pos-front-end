@@ -119,9 +119,9 @@
                                     </div>
                                 </div>
 
-                                <div [hidden]="!isInputShown">
+                                <!-- <div > -->
 
-                                    <div class="col">
+                                    <div [hidden]="!isInputShown" class="col">
                                         <div class="form-group">
                                             <label class="required">Select Item Name</label>
                                             <ng-select name="item_id" formControlName="item_id"
@@ -141,7 +141,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                <!-- </div> -->
 
                                 <div [hidden]="!isInputShown2">
                                     <div class="row card-body">
@@ -224,7 +224,7 @@
                             <td>{{ data.unit_name }}</td>
                             <td>{{ data.qty }}</td>
                             <td>₹{{ data.price }}</td>
-                            <td>₹{{ data.qty * data.price }}</td>
+                            <td>₹{{ (data.qty * data.price)?.toFixed(2) }}</td>
                             <td>
                                 <button ngbTooltip="Edit" class="btn btn-info btn-sm mr-2"
                                     (click)="openVerticallyCentered(content2)" (click)="EditOrderPatchValue(data.item_id)"><i
@@ -239,7 +239,7 @@
                         <tr class="table-sm">
                             <td colspan="6" class="text-right"><b>Shipping Charges</b></td>
                             <td>
-                                <div class="input-group input-group-sm mb-3">
+                                <div class="input-group input-group-sm">
                                     <input type="number" formControlName="shipping_charge" class="form-control"
                                         aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
                                         (keyup)="onKey($event)">
@@ -249,7 +249,7 @@
 
                         <tr class="table-sm">
                             <td colspan="6" class="text-right"><b>Total Amount:</b></td>
-                            <td>₹{{ total }}</td>
+                            <td>₹{{ total?.toFixed(2) }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -297,28 +297,28 @@
                                 </div>
                             </div>
 
-                            <div [hidden]="!isInputShown">
+                            <!-- <div > -->
 
-                                <div class="col">
+                                <div [hidden]="!isInputShown" class="col">
                                     <div class="form-group">
                                         <label class="required">Select Item Name</label>
-                                        <ng-select name="item_id" formControlName="item_id"
-                                            (search)="searchItem($event)" (ngModelChange)="onSelectNameItem($event)"
+                                        <select name="item_id" formControlName="item_id"
+                                            (search)="searchItem($event)" class="form-control" (ngModelChange)="onSelectNameItem($event)"
                                             placeholder="Select Item Name">
 
                                             <ng-container *ngFor="let list of itemsData">
-                                                <ng-option value="{{ list.id }}">
+                                                <option value="{{ list.id }}">
                                                     {{list.item_name
                                                     }}
-                                                </ng-option>
+                                                </option>
                                             </ng-container>
-                                        </ng-select>
+                                        </select>
                                         <div *ngIf="item_id?.touched && item_id?.invalid" class="alert alert-danger">
                                             <div *ngIf="item_id?.errors?.required">Item name is required.</div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            <!-- </div> -->
 
                             <div [hidden]="!isInputShown2">
                                 <div class="row card-body">
@@ -333,7 +333,7 @@
                                     <div class="col">
                                         <div class="form-group">
                                             <label class="required">Quantity</label>
-                                            <input type="number" formControlName="qty" class="form-control" />
+                                            <input type="number" formControlName="qty" placeholder="Enter Quantity" class="form-control" />
                                             <div *ngIf="qty?.touched && qty?.invalid" class="alert alert-danger">
                                                 <div *ngIf="qty?.errors?.required">Quantity is required.
                                                 </div>

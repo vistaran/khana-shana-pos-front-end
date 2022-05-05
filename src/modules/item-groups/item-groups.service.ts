@@ -25,15 +25,15 @@ export class ItemGroupsService {
   }
 
   deleteItemGrpup(id: number) {
-    return this.http.delete(this.url + id)
+    return this.http.delete(this.url + '/' + id)
   }
 
   editItemGroup(id: number, data: any) {
-    return this.http.put(this.url + id, data)
+    return this.http.put(this.url + '/' + id, data)
   }
 
   patchItemGroupData(id: number): Observable<Data> {
-    return this.http.get<Data>(this.url + id);
+    return this.http.get<Data>(this.url + '/' + id);
   }
 
 }

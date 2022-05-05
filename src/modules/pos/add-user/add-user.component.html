@@ -63,6 +63,7 @@
                                         <div *ngIf="phone?.errors?.required">Phone number is required.</div>
                                         <div *ngIf="phone?.errors?.maxlength">Phone number must not exceed 10 digits
                                         </div>
+                                        <div *ngIf="phone?.errors?.pattern">Only Numbers are allowed</div>
                                     </div>
 
                                 </div>
@@ -103,7 +104,7 @@
                             <div class="col">
                                 <div class="form-group required">
                                     <label class="required">Confirm Password</label>
-                                    <input placeholder="Enter password again" type="password"
+                                    <input placeholder="Confirm Password" type="password"
                                         formControlName="confirm_password" class="form-control" />
                                     <div *ngIf="confirm_password?.touched && confirm_password?.invalid" class="alert alert-danger">
                                         <div *ngIf="confirm_password?.errors?.required && confirm_password?.invalid">

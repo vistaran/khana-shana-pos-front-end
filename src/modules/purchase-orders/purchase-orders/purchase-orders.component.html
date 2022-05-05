@@ -18,7 +18,7 @@
                 </div>
 
                 <button (click)="onClick()" class="btn btn-primary float-right">
-                    Add Order
+                    Add Purchase Order
                 </button>
 
             </div>
@@ -38,7 +38,7 @@
                         <td>{{ data.name }}</td>
                         <td>{{ data.outlet_name }}</td>
                         <td>{{ data.purchase_date | date: 'dd/MM/yyyy' }}</td>
-                        <td>₹{{ data.total_amount.toFixed(2) }}</td>
+                        <td>₹{{ data.total_amount?.toFixed(2) }}</td>
                         <td>
                             <button class="btn btn-dark mr-2" ngbTooltip="View Details" (click)="openXl(content)"
                                 (click)="getOrderDetail(data.id)"><i class="fa fa-eye fa-lg"></i></button>
@@ -106,23 +106,23 @@
                     <th>Price</th>
                     <th>Subtotal</th>
                 </thead>
-                <tbody>
+                <tbody *ngIf="!showloader">
                     <tr *ngFor="let data of itemDetail">
                         <td>{{ data.item_group_name }}</td>
                         <td>{{ data.item_name }}</td>
                         <td>{{ data.unit_name }}</td>
                         <td>{{ data.notes }}</td>
                         <td>{{ data.qty }}</td>
-                        <td>₹ {{ data.price.toFixed(2) }}</td>
-                        <td>₹ {{ data.subtotal.toFixed(2) }}</td>
+                        <td>₹ {{ data.price?.toFixed(2) }}</td>
+                        <td>₹ {{ data.subtotal?.toFixed(2) }}</td>
                     </tr>
                     <tr class="table-sm">
-                        <td colspan="6" class="text-right"><b>Shipping Cahrges:</b></td>
-                        <td>₹{{ orderDetail.shipping_charge }}</td>
+                        <td colspan="6" class="text-right"><b>Shipping Charges:</b></td>
+                        <td>₹{{ orderDetail.shipping_charge?.toFixed(2) }}</td>
                     </tr>
                     <tr class="table-sm">
                         <td colspan="6" class="text-right"><b>Total Amount:</b></td>
-                        <td>₹{{ orderDetail.total_amount.toFixed(2) }}</td>
+                        <td>₹{{ orderDetail.total_amount?.toFixed(2) }}</td>
                     </tr>
                 </tbody>
             </table>
