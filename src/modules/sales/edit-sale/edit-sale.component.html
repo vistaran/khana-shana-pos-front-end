@@ -32,8 +32,10 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label class="required">Select Customer</label><br />
-                                    <ng-select formControlName="customer_id" (search)="searchCustomer($event)" placeholder="Select Customer">
-                                        <ng-option *ngFor="let item of customerData; index as i" value="{{item.id}}">{{ i+1
+                                    <ng-select formControlName="customer_id" (search)="searchCustomer($event)"
+                                        placeholder="Select Customer">
+                                        <ng-option *ngFor="let item of customerData; index as i" value="{{item.id}}">{{
+                                            i+1
                                             }}. {{
                                             item.first_name }} {{ item.last_name}}</ng-option>
                                     </ng-select>
@@ -57,14 +59,18 @@
                             <div class="col-5 mb-3" *ngFor="let data of productData">
 
 
-                                <div class="card shadow">
-                                    <button class="bg-transparent" type="button"
+                                <div class="card shadow h-100">
+                                    <button class="bg-transparent h-100 border border-info" type="button"
                                         (click)="openVerticallyCentered(content)">
                                         <div class="card-body">
                                             <h5 class="card-title">{{ data.product_name }}</h5>
                                             <small class="card-text"><b>Category: </b> {{ data.category_name }}
                                             </small><br>
-                                            <small class="card-text"><b>Description: </b> {{ data.description }}
+                                            <small class="card-text" *ngIf="data.description != null"><b>Description:
+                                                </b> {{ data.description }}
+                                            </small>
+                                            <small class="card-text" *ngIf="data.description == null"><b>Description:
+                                                </b> None
                                             </small><br>
                                             <small class="card-text"><b>Price: </b> ₹ {{ data.price }}
                                             </small>
@@ -138,19 +144,19 @@
                                     <td>{{ data.name }}</td>
                                     <td>{{ data.quantity }}</td>
                                     <td>₹{{ data.price }}</td>
-                                    <td>{{ data.quantity * data.price}}</td>
+                                    <td>₹{{ data.quantity * data.price}}</td>
                                     <td>
 
-                                        <button id="remove" class="btn btn-danger btn-sm"
+                                        <button id="remove" ngbTooltip="Delete" class="btn btn-danger btn-sm"
                                             (click)="RemoveProduct(data.id)"><i
                                                 class="fa fa-trash-o fa-lg mx-auto"></i></button>
                                     </td>
                                 </tr>
 
                                 <tr class="table-sm">
-                                    <td colspan="5" class="text-right"><b>Shipping Charges</b></td>
+                                    <td colspan="4" class="text-right"><b>Shipping Charges: </b></td>
                                     <td>
-                                        <div class="input-group input-group-sm mb-3">
+                                        <div class="input-group input-group-sm">
                                             <input type="number" formControlName="shipping_charge" class="form-control"
                                                 aria-label="Sizing example input"
                                                 aria-describedby="inputGroup-sizing-sm" (keyup)="onKey($event)">
@@ -159,7 +165,7 @@
                                 </tr>
 
                                 <tr class="table-sm">
-                                    <td colspan="5" class="text-right"><b>Total Amount:</b></td>
+                                    <td colspan="4" class="text-right"><b>Total Amount:</b></td>
                                     <td>₹{{ total }}</td>
                                 </tr>
 
@@ -170,39 +176,43 @@
                 </div>
 
                 <div class="row">
+
+                    <div class="col">
+                        <div class="form-group required">
+                            <label class="required">Order Date</label>
+                            <div class="input-group">
+                                <input class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker
+                                    #d="ngbDatepicker" formControlName="order_date" (dateSelect)="onSelectDate($event)">
+                                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+                                    <i class="fa fa-calendar fa-lg mx-auto"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group required">
+                            <label>Payment Mode</label>
+                            <select formControlName="payment_mode" class="form-control">
+                                <option *ngFor="let item of payment_mode_array" value="{{item.alternate_name}}">{{
+                                    item.name
+                                    }}</option>
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="col">
                         <div class="form-group">
                             <label class="required">Add a Note</label>
-                            <textarea type="text" formControlName="notes" class="form-control"></textarea>
+                            <textarea type="text" formControlName="notes" placeholder="Add a note"
+                                class="form-control"></textarea>
                         </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="form-group">
-                            <label class="required">Order Date</label>
-                            <div class="input-group">
-                                <input class="form-control" placeholder="yyyy-mm-dd"
-                                       name="dp" ngbDatepicker #d="ngbDatepicker" formControlName="order_date" (dateSelect)="onSelectDate($event)">
-                                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
-                                    <i class="fa fa-calendar fa-lg mx-auto"></i>
-                                </button>   
-                              </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <label>Payment Mode</label>
-                        <select formControlName="payment_mode" class="form-control">
-                            <option value="default">--Select Payment Mode--</option>
-                            <option *ngFor="let item of payment_mode_array" value="{{item.alternate_name}}">{{ item.name
-                                }}</option>
-                        </select>
                     </div>
                 </div>
 
                 <button [disabled]="!editSaleForm.valid" type="submit" (click)="onSubmit(editSaleForm.value)"
                     class="btn btn-primary mb-4 float-right">
-                    Submit
+                    Update
                 </button>
 
             </div>

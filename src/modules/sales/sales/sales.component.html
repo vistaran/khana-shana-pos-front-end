@@ -17,7 +17,7 @@
                         </span>
                     </div>
                     <button (click)="onClick()" class="btn btn-primary float-right">
-                        Add Order
+                        Add Sales Order
                     </button>
 
                 </div>
@@ -31,7 +31,7 @@
                         <th>Total Amount</th>
                         <th>Actions</th>
                     </thead>
-                    <tbody class="justify-content-end">
+                    <tbody *ngIf="!showloader" class="justify-content-end">
                         <tr *ngFor="let data of orderData">
                             <td>{{ data.id }}</td>
                             <td>{{ data.first_name }} {{data.last_name}}</td>
@@ -50,7 +50,7 @@
                                     class="btn btn-danger"><i class="fa fa-trash-o fa-lg mx-auto"></i></button>
                             </td>
                         </tr>
-                        <tr *ngIf="!orderData.length">
+                        <tr *ngIf="!orderData.length && !showloader">
                             <td colspan="5" class="text-center">
                                 No records found.
                             </td>
@@ -83,9 +83,9 @@
         </div>
 
         <ng-template #content let-modal>
-            <div class="modal-header">
-                <h4 class="modal-title">Order Details</h4>
-                <button type="button" class="btn-close" aria-label="Close"
+            <div class="modal-header bg-primary">
+                <h4 class="modal-title text-white">Order Details</h4>
+                <button type="button" class="btn btn-light" aria-label="Close"
                     (click)="modal.dismiss('Cross click')">X</button>
             </div>
             <div class="modal-body">
@@ -97,7 +97,7 @@
                 </p>
 
                 <p class="mb-2"><b>Product Details:</b></p>
-                <table class="table table-bordered table-striped table-sm table-hover">
+                <table class="table table-bordered table-striped table-sm table-hover table-success">
                     <thead class="head">
                         <th>Product</th>
                         <th>Category</th>
@@ -105,7 +105,7 @@
                         <th>Price</th>
                         <th>Subtotal</th>
                     </thead>
-                    <tbody>
+                    <tbody *ngIf="!showloader">
                         <tr *ngFor="let data of itemDetail">
                             <td>{{ data.product_name }}</td>
                             <td>{{ data.name }}</td>
@@ -114,7 +114,7 @@
                             <td>{{ data.subtotal }}</td>
                         </tr>
                         <tr class="table-sm">
-                            <td colspan="4" class="text-right"><b>Shipping Cahrges:</b></td>
+                            <td colspan="4" class="text-right"><b>Shipping Charges:</b></td>
                             <td>₹{{ orderDetail.shipping_charge }}</td>
                         </tr>
                         <tr class="table-sm">
@@ -126,7 +126,7 @@
 
                 <p><b>Payment Mode: </b> {{ orderDetail.payment_mode }}</p>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer bg-dark">
                 <button type="button" class="btn btn-info" (click)="modal.close('Close click')">Close</button>
             </div>
         </ng-template>

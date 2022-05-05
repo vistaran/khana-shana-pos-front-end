@@ -5,7 +5,7 @@
                 <li ngbNavItem> -->
             <!-- <a ngbNavLink>Items</a>
                     <ng-template ngbNavContent> -->
-            <h2 class="mt-3 mb-4">Purchase Item List</h2>
+            <h2 class="mt-3 mb-4">Item List</h2>
             <!-- search button -->
             <div class="d-flex justify-content-between mb-4">
 
@@ -21,9 +21,9 @@
                 <div class="col">
                     <select class="btn btn-secondary" [(ngModel)]="pageSize" (ngModelChange)="refreshItemsData($event)">
                         <option default value="{{100}}">100 items per page</option>
-                        <option value="{{5}}">5 items per page</option>
-                        <option value="{{10}}">10 items per page</option>
                         <option value="{{15}}">15 items per page</option>
+                        <option value="{{10}}">10 items per page</option>
+                        <option value="{{5}}">5 items per page</option>
                     </select>
                 </div>
 

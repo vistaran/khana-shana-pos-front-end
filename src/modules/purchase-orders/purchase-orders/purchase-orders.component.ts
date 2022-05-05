@@ -37,12 +37,17 @@ export class PurchaseOrdersComponent implements OnInit {
 
   // For getting Item group data for listing
   getPurchaseOrdersData() {
+    this.showloader = true
     this.purchaseOrderService.getPurchaseOrdersData(this.page).subscribe(data => {
+      this.showloader = false
       this.purchaseOrdersData = data.orders.data;
       this.length = this.purchaseOrdersData.length
       this.total = data.orders.total
       console.log(this.purchaseOrdersData);
-    })
+    }, err => {
+      this.showloader = false
+      this.toast.error('Error', 'Server error.')
+    });
   }
 
   // For navigating to add purchase order form on click

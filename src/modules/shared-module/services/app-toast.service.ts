@@ -19,6 +19,10 @@ export class AppToastService {
     this.toasts.push({ header, body, ...options });
   }
 
+  warning(header: string, body: string, options: any = {className: 'bg-warning text-light'}) {
+    this.toasts.push({ header, body, ...options });
+  }
+
   remove(toast: any) {
     this.toasts = this.toasts.filter(t => t != toast);
   }

@@ -39,11 +39,15 @@ export class ItemsComponent implements OnInit {
 
   // For getting Item data for listing
   getItemsData() {
+    this.showloader = true
     this.itemService.getItemsData(this.page, this.pageSize).subscribe((data: any) => {
+      this.showloader = false
       this.itemsData = data.data;
       this.length = this.itemsData.length
       this.total = data.total
+
     }, err => {
+      this.showloader = false
       this.toast.error('Error', 'Server error.')
     });
   }

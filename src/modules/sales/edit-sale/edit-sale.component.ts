@@ -33,16 +33,16 @@ export class EditSaleComponent implements OnInit {
       id: 1, name: 'Cash', alternate_name: 'cash'
     },
     {
-      id: 2, name: 'UPI', alternate_name: 'upi'
-    },
-    {
-      id: 3, name: 'Netbanking', alternate_name: 'net_banking'
+      id: 2, name: 'Credit card', alternate_name: 'credit_card'
     },
     {
       id: 3, name: 'Debit card', alternate_name: 'debit_card'
     },
     {
-      id: 4, name: 'Credit card', alternate_name: 'credit_card'
+      id: 4, name: 'Netbanking', alternate_name: 'net_banking'
+    },
+    {
+      id: 5, name: 'UPI', alternate_name: 'upi'
     }
   ]
 
@@ -123,6 +123,9 @@ export class EditSaleComponent implements OnInit {
       this.addedProduct = data.items
       this.total = data.order.total_amount
       this.shipping_charge = data.order.shipping_charge
+      this.semitotal = this.addedProduct.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
+        return a + b;
+      })
       this.customerName = data.order.first_name + ' ' + data.order.last_name
       this.customerNumber = data.order.phone_number
       console.log(data)
@@ -160,17 +163,27 @@ export class EditSaleComponent implements OnInit {
 
 
   onSelectProduct(data: any, qty: any) {
+    let invalid;
+    this.addedProduct.forEach((g: any) => {
+      if (data.product_name == g.product_name) {
+        invalid = true
+      }
+    })
+    if (invalid) {
+      this.toast.warning('Warning', 'Product is already added.')
+      return;
+    }
     console.log('Quantity', qty.quantity);
     this.productData.forEach((g: any) => {
-      g.quantity = 0;
-      g.subtotal = 0;
+      // g.quantity = 0;
+      // g.subtotal = 0;
       if (g.id == data.id) {
-        g.quantity += qty.quantity
-        g.subtotal += (data.price * qty.quantity)
+        g.quantity = qty.quantity
+        g.subtotal = (data.price * qty.quantity)
+        g.name = g.category_name
         this.addedProduct.push(g)
         this.newProduct.push(g)
       }
-
     });
 
     console.log('Added Product ', this.addedProduct);
@@ -181,6 +194,7 @@ export class EditSaleComponent implements OnInit {
 
     this.total += (data.quantity * data.price)
     this.calculateTotal()
+
   }
 
 
@@ -207,7 +221,6 @@ export class EditSaleComponent implements OnInit {
   }
 
   RemoveProduct(id: any) {
-
     this.deletedProduct = this.addedProduct.filter((item: any) => item.id == id);
 
     if (confirm('Are you sure you want to delete?')) {
@@ -245,7 +258,7 @@ export class EditSaleComponent implements OnInit {
       });
     }
 
-    if (this.addedProduct.length ) {
+    if (this.addedProduct.length) {
       this.newProduct.forEach((g: any) => {
         addedProductSubmit.push({
           order_id: this.id,
@@ -261,7 +274,7 @@ export class EditSaleComponent implements OnInit {
     console.log('Final: ', addedProductSubmit)
 
     console.log('addedProductSubmit: ', addedProductSubmit);
-    if(this.date == '') {
+    if (this.date == '') {
       this.date = this.curr_date.year + '-' + this.curr_date.month + '-' + this.curr_date.day
     }
 
@@ -279,7 +292,7 @@ export class EditSaleComponent implements OnInit {
 
     this.saleService.editOrder(this.id, obj).subscribe((result: any) => {
       console.log(result)
-      this.toast.success('Success', 'Edited Successfully.')
+      this.toast.success('Success', 'Sales Order Edited Successfully.')
       this.router.navigate(['/sales']);
     }, err => {
       this.toast.error('Error', 'Server error.')

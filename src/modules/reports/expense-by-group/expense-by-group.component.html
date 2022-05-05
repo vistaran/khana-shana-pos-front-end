@@ -96,7 +96,7 @@
                         <tr *ngFor="let data of expenseGroupData; index as i">
                             <td>{{ i+1 }}</td>
                             <td>{{ data.item_group_name }}</td>
-                            <td>₹{{ data.subtotal }}</td>
+                            <td>₹{{ data.subtotal?.toFixed(2) }}</td>
                         </tr>
                         <tr *ngIf="!length && !showloader">
                             <td colspan="3" class="text-center">
@@ -104,10 +104,10 @@
                             </td>
                         </tr>
                         <tr *ngIf="length">
-                            <td colspan="2" class="text-right">
+                            <td colspan="2" class="">
                                 <b>Total Expense in selected Range</b>
                             </td>
-                            <td><b>₹{{ totalExpense }}</b></td>
+                            <td><b>₹{{ totalExpense?.toFixed(2) }}</b></td>
                         </tr>
                     </tbody>
                 </table>

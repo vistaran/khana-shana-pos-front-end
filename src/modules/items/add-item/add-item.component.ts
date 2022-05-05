@@ -22,7 +22,7 @@ export class AddItemComponent implements OnInit {
   selectedCity: any
   unit_id_form_set: any
   group_id_form_set: any
-  page = 0
+  page = 1
   pageSize = 100
 
   // For Validations
@@ -62,9 +62,21 @@ export class AddItemComponent implements OnInit {
 
   // For getting Item groups data
   getItemGroupsData() {
-    this.itemGroupService.getItemGroupsData(this.page, this.pageSize).subscribe(data => {
-      this.itemGroupsData = data.item_groups.data;
-      console.log(data);
+    this.itemGroupService.getItemGroupsData(this.page, this.pageSize).subscribe((result: any) => {
+      this.itemGroupsData = result.data.sort(function (a: any, b: any) {
+        const nameA = a.group_name.toUpperCase(); // ignore upper and lowercase
+        const nameB = b.group_name.toUpperCase(); // ignore upper and lowercase
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+
+        // names must be equal
+        return 0;
+      });
+      // console.log(result);
       this.addItemForm.patchValue({
         item_group_id: this.itemGroupsData[0].id
       })
@@ -76,7 +88,19 @@ export class AddItemComponent implements OnInit {
   // For getting Units of Measurement data
   getUOMData() {
     this.unitService.getUOMData(this.page).subscribe(data => {
-      this.unitData = data.units.data;
+      this.unitData = data.units.data.sort(function (a, b) {
+        const nameA = a.unit_name.toUpperCase(); // ignore upper and lowercase
+        const nameB = b.unit_name.toUpperCase(); // ignore upper and lowercase
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+
+        // names must be equal
+        return 0;
+      });;
       console.log();
       this.addItemForm.patchValue({
         unit_id: this.unitData[0].id

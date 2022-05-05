@@ -1,9 +1,9 @@
-import { CustomerManagementService } from './../customer-management.service';
-import { AppToastService } from './../../shared-module/services/app-toast.service';
-import { AppToastsComponentComponent } from './../../../app/app-toasts-component/app-toasts-component.component';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+
+import { AppToastService } from './../../shared-module/services/app-toast.service';
+import { CustomerManagementService } from './../customer-management.service';
 
 @Component({
   selector: 'sb-add-customer',
@@ -13,7 +13,6 @@ import { Router } from '@angular/router';
 export class AddCustomerComponent implements OnInit {
 
   addCustomerForm!: FormGroup
-
 
   get firstname() {
     return this.addCustomerForm.get('first_name');
@@ -38,7 +37,7 @@ export class AddCustomerComponent implements OnInit {
     this.addCustomerForm = this.fb.group({
       first_name: ['', [Validators.required]],
       last_name: ['', [Validators.required]],
-      phone_number: ['', [Validators.required, Validators.maxLength(10)]]
+      phone_number: ['', [Validators.required, Validators.maxLength(10), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]]
     })
   }
 

@@ -11,7 +11,7 @@
                                 <div class="form-group required">
                                     <label class="required">Username</label>
                                     <input type="text" formControlName="username" placeholder="Enter Username"
-                                        class="form-control" placeholder="" autofocus />
+                                        class="form-control" placeholder="Enter Username" autofocus />
                                     <div *ngIf="userName?.touched && userName?.invalid" class="alert alert-danger">
                                         <div *ngIf="userName?.errors?.required">Username is required.</div>
                                     </div>
@@ -45,9 +45,10 @@
                                     <label>Email</label>
                                     <input type="text" formControlName="email" placeholder="Enter email"
                                         class="form-control" />
-                                        <div *ngIf="email?.touched && email?.invalid" class="alert alert-danger">
-                                            <div *ngIf="email?.errors?.required">Email is required.</div>
-                                        </div>
+                                    <div *ngIf="email?.touched && email?.invalid" class="alert alert-danger">
+                                        <div *ngIf="email?.errors?.required">Email is required.</div>
+                                        <div *ngIf="email?.errors?.email">Email is invalid</div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -58,6 +59,9 @@
                                         class="form-control" />
                                     <div *ngIf="phone?.touched && phone?.invalid" class="alert alert-danger">
                                         <div *ngIf="phone?.errors?.required">Phone number is required.</div>
+                                        <div *ngIf="phone?.errors?.maxlength">Phone number must not exceed 10 digits
+                                        </div>
+                                        <div *ngIf="phone?.errors?.pattern">Only Numbers are allowed</div>
                                     </div>
                                 </div>
                             </div>
@@ -80,7 +84,7 @@
                             <div class="col">
                                 <div class="form-group required">
                                     <label class="required">Password</label>
-                                    <input type="text" formControlName="password" placeholder="Enter Password"
+                                    <input type="password" formControlName="password" placeholder="Enter Password"
                                         class="form-control" />
                                     <div *ngIf="password?.touched && password?.invalid" class="alert alert-danger">
                                         <div *ngIf="password?.errors?.required">Password is required.</div>
@@ -92,7 +96,7 @@
                                 <div class="form-group required">
                                     <label class="required">Confirm Password</label>
                                     <input [class.is-invalid]="editUserForm?.errors?.mismatch"
-                                        placeholder="Enter password again" type="text"
+                                        placeholder="Confirm Password" type="password"
                                         formControlName="confirm_password" class="form-control" />
                                     <div *ngIf="editUserForm?.errors?.mismatch" class="alert alert-danger">
                                         Passwords do not match.
@@ -106,7 +110,8 @@
                             <div class="col">
                                 <div class="form-group required">
                                     <label class="required">Select Outlet</label><br />
-                                    <select name="outlet" formControlName="outlet_name" class="form-control" placeholder="Select Outlet">
+                                    <select name="outlet" formControlName="outlet_name" class="form-control"
+                                        placeholder="Select Outlet">
                                         <option *ngFor="let item of outletData" value="{{item.id}}">{{ item.outlet_name
                                             }}</option>
                                     </select>
@@ -120,7 +125,8 @@
                                 <div class="form-group required">
                                     <label class="required">Select User Account Status</label><br />
                                     <select name="status" formControlName="status" class="form-control">
-                                        <option *ngFor="let item of status; index as i" value="{{i}}">{{ item }}</option>
+                                        <option *ngFor="let item of status; index as i" value="{{i}}">{{ item }}
+                                        </option>
                                     </select>
                                     <div *ngIf="stat?.touched && stat?.invalid" class="alert alert-danger">
                                         <div *ngIf="stat?.errors?.required">User Account Status is required.</div>

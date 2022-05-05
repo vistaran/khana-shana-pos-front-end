@@ -20,7 +20,7 @@ export class EditItemComponent implements OnInit {
   public unitId: any
   public itemGroupId: any
   id: any
-  page = 0
+  page = 1
   pageSize = 100
 
 
@@ -70,15 +70,39 @@ export class EditItemComponent implements OnInit {
   }
 
   getItemGroupsData() {
-    this.itemGroupService.getItemGroupsData(this.page, this.pageSize).subscribe(data => {
-      this.itemGroupsData = data.item_groups.data;
-      console.log(data);
+    this.itemGroupService.getItemGroupsData(this.page, this.pageSize).subscribe((result: any) => {
+      this.itemGroupsData = result.data.sort(function (a: any, b: any) {
+        const nameA = a.group_name.toUpperCase(); // ignore upper and lowercase
+        const nameB = b.group_name.toUpperCase(); // ignore upper and lowercase
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+
+        // names must be equal
+        return 0;
+      });
+      // console.log(data);
     })
   }
 
   getUOMData() {
     this.unitService.getUOMData(this.page).subscribe(data => {
-      this.unitData = data.units.data;
+      this.unitData = data.units.data.sort(function (a, b) {
+        const nameA = a.unit_name.toUpperCase(); // ignore upper and lowercase
+        const nameB = b.unit_name.toUpperCase(); // ignore upper and lowercase
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+
+        // names must be equal
+        return 0;
+      });
       console.log(data);
     })
   }
