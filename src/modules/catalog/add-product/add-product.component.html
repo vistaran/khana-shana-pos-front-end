@@ -55,8 +55,8 @@
 
                         <div class="col-6 col-sm-4">
                             <div class="form-group">
-                                <label class="required">Description</label><br />
-                                <input type="text" placeholder="Add Description" rows="6" formControlName="description" class="form-control" />
+                                <label class="required">Description<span class="text-secondary">(optional)</span></label><br />
+                                <textarea type="text" placeholder="Add Description" formControlName="description" class="form-control"></textarea>
                                 <!-- <div *ngIf="description?.touched && description?.invalid" class="alert alert-danger">
                                     <div *ngIf="description?.errors?.required">Description is required.</div>
                                 </div> -->

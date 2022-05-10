@@ -19,7 +19,8 @@ export class SalesComponent implements OnInit {
   pageSize = 10
   page = 1
   showloader: any
-
+  length = 0
+  searchValue: any
 
   constructor(
     private router: Router,
@@ -73,6 +74,20 @@ export class SalesComponent implements OnInit {
         this.toast.error('Error', 'Server error.')
       });
     }
+  }
+
+  search() {
+    this.showloader = true
+    this.page = 1
+    this.saleService.searchSales(this.page, this.searchValue).subscribe((data: any) => {
+      this.orderData = data.orders.data
+      this.total = data.orders.total
+      this.length = this.orderData.length
+      this.showloader = false
+    }, err => {
+      this.toast.error('Error', 'Server error.')
+      this.showloader = false
+    });
   }
 
   openXl(content: any) {

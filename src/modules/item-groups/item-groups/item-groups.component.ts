@@ -71,4 +71,18 @@ export class ItemGroupsComponent implements OnInit {
     }
   }
 
+  search(event: any) {
+    this.showloader = true
+    this.page = 1
+    this.itemGroupService.searchItemGroup(this.page, this.searchValue).subscribe((result: any) => {
+      this.itemGroupsData = result.data;
+      this.total = result.total
+      this.length = this.itemGroupsData.length
+      this.showloader = false
+    }, err => {
+      this.toast.error('Error', 'Server error.')
+      this.showloader = false
+    });
+  }
+
 }

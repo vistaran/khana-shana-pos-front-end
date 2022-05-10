@@ -68,4 +68,18 @@ export class VendorsComponent implements OnInit {
     }
   }
 
+  search() {
+    this.showloader = true
+    this.page = 1
+    this.vendorService.searchVendor(this.page, this.searchValue).subscribe((data: any) => {
+      this.vendorData = data.vendors.data;
+      this.length = this.vendorData.length
+      this.total = data.vendors.total
+      this.showloader = false
+    }, err => {
+      this.toast.error('Error', 'Server error.')
+      this.showloader = false
+    });
+  }
+
 }

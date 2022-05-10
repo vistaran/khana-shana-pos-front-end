@@ -11,7 +11,8 @@
 
                             <div class="input-group rounded w-25">
                                 <input type="search" class="form-control rounded" placeholder="Search"
-                                    aria-label="Search" aria-describedby="search-addon" />
+                                    aria-label="Search" aria-describedby="search-addon" (keyup)="search()"
+                                    placeholder="Search" [(ngModel)]="searchValue" />
                                 <span class="input-group-text border-0" id="search-addon">
                                     <i class="fas fa-search"></i>
                                 </span>
@@ -28,7 +29,7 @@
                                 <th>Unit</th>
                                 <th>Actions</th>
                             </thead>
-                            <tbody>
+                            <tbody *ngIf="!showloader">
                                 <tr *ngFor="let data of uomData">
                                     <td>{{ data.id }}</td>
                                     <td>{{ data.unit_name }}</td>
@@ -59,8 +60,9 @@
 
                         <div class="justify-content-between row">
                             <div class="col">
-                                <ngb-pagination (pageChange)="onPageChange($event)" [(page)]="page" [pageSize]="pageSize"
-                                    [collectionSize]="total" [boundaryLinks]="true" [maxSize]="total">
+                                <ngb-pagination (pageChange)="onPageChange($event)" [(page)]="page"
+                                    [pageSize]="pageSize" [collectionSize]="total" [boundaryLinks]="true"
+                                    [maxSize]="total">
                                 </ngb-pagination>
                             </div>
                         </div>

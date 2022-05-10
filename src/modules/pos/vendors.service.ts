@@ -36,4 +36,8 @@ export class VendorsService {
     return this.http.get<Data>(this.url + '/' + id);
   }
 
+  searchVendor(page: any, data: any) {
+    return this.http.get(this.url + '?page=' + page + '&&query=' + data);
+  }
+
 }

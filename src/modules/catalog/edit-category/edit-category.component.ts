@@ -21,7 +21,7 @@ export class EditCategoryComponent implements OnInit {
   id: any;
   status = ['active', 'inactive'];
   visibleInMenu = ['Yes', 'No'];
-  displayMode = ['Products and Descrition'];
+  displayMode = ['Products and Descrpition'];
   parentCategory = ['Yoga', 'Badminton'];
   parentCategroryData: any
   parentCategoryId: any
@@ -125,8 +125,8 @@ export class EditCategoryComponent implements OnInit {
   updateData(data: any) {
     this.categoryService.editCategory(this.id, data).subscribe(data => {
       console.log('Data updated successfully! ', data)
-      this.router.navigate(['/catalog/products']);
-      this.toast.success('Success', 'Edited successfully.')
+      this.router.navigate(['/catalog/categories']);
+      this.toast.success('Success', 'Category Edited successfully.')
     }, err => {
       this.toast.error('Error', 'Server error.')
     })

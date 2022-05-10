@@ -71,7 +71,7 @@
                         <h2 class="card-header pt-2 pb-2">Use Avatar</h2>
                         <div class="card-body row">
                             <div class="col">
-                                <!-- <label for="img">Add Avatar</label> -->
+                                <label for="img">Edit Avatar</label><br>
                                 <input type="file" id="img" name="img" accept="image/*" formControlName="user_avatar" />
                                 <div *ngIf="user_avatar?.touched && user_avatar?.invalid" class="alert alert-danger">
                                     <div *ngIf="user_avatar?.errors?.required">User Avatar is required.</div>
