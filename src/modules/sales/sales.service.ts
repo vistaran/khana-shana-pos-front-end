@@ -49,6 +49,10 @@ export class SalesService {
     return this.http.get<OrderDetails>(this.url + '/' + id)
   }
 
+  searchSales(page: any, data: any) {
+    return this.http.get(this.url + '?page=' + page + '&&query=' + data)
+  }
+
   // For Customer Data
   getCustomerData(limit: number) {
     return this.http.get(this.customerUrl + '?limit=' + limit)

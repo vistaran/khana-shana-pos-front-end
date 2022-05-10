@@ -150,7 +150,7 @@ export class AddSaleComponent implements OnInit {
         g.subtotal += (data.price * qty.quantity)
         this.addedProduct.push(g)
 
-        this.ngOnInit()
+        // this.ngOnInit()
       }
       console.log(this.addedProduct);
 
@@ -193,7 +193,15 @@ export class AddSaleComponent implements OnInit {
   RemoveProduct(id: any) {
     if (confirm('Are you sure you want to delete?')) {
       this.addedProduct = this.addedProduct.filter((item: any) => item.id !== id);
-      console.log('afterdelete', this.addedProduct);
+      // console.log('afterdelete', this.addedProduct);
+      if(this.addedProduct.length == 0) {
+        this.semitotal = 0
+      } else {
+        this.semitotal = this.addedProduct.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
+          return a + b;
+        })
+      }
+      this.calculateTotal()
     }
   }
 
@@ -242,7 +250,8 @@ export class AddSaleComponent implements OnInit {
       this.toast.success('Success', 'Sales Order Added Successfully.')
       this.router.navigate(['/sales']);
     }, err => {
-      this.toast.error('Error', 'Server error.')
+      this.toast.error('Error', 'Your session has timed out. Please login again')
+      this.router.navigate(['/auth/login'])
     });
   }
 

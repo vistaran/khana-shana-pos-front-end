@@ -194,10 +194,12 @@ export class EditPurchaseOrderComponent implements OnInit {
         g.flag = 'update';
       })
       console.log('Order data', this.orderItemData);
+      this.shippingCharge = data.order[0].shipping_charge
       this.total = data.order[0].total_amount
       this.semitotal = this.orderItemData.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
         return a + b;
       })
+      this.calculateTotal()
     })
 
     this.purchaseOrderService.patchOrderData(this.curr_id).subscribe((data: any) => {
@@ -479,6 +481,14 @@ export class EditPurchaseOrderComponent implements OnInit {
         }
         return item.item_id !== itemId
       });
+      if (this.orderItemData.length == 0) {
+        this.semitotal = 0
+      } else {
+        this.semitotal = this.orderItemData.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
+          return a + b;
+        })
+      }
+      this.calculateTotal()
       console.log('afterdelete', this.orderItemData);
     }
   }

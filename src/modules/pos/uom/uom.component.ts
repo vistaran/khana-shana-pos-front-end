@@ -68,4 +68,18 @@ export class UomComponent implements OnInit {
     this.getUOMData();
   }
 
+  search() {
+    this.showloader = true
+    this.page = 1
+    this.uomService.searchUomData(this.page, this.searchValue).subscribe((data: any) => {
+      this.uomData = data.units.data;
+      this.total = data.units.total
+      this.length = this.uomData.length
+      this.showloader = false
+    }, err => {
+      this.toast.error('Error', 'Server error.')
+      this.showloader = false
+    });
+  }
+
 }

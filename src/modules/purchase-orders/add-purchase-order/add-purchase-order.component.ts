@@ -414,6 +414,16 @@ export class AddPurchaseOrderComponent implements OnInit {
         console.log('Item', item);
         return item.item_id !== id
       });
+      console.log('len', this.orderItemData.length);
+
+      if(this.orderItemData.length == 0) {
+        this.semitotal = 0
+      } else {
+        this.semitotal = this.orderItemData.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
+          return a + b;
+        })
+      }
+      this.calculateTotal()
       console.log('afterdelete', this.orderItemData);
     }
   }

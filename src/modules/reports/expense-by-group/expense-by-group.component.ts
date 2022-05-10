@@ -56,6 +56,7 @@ export class ExpenseByGroupComponent implements OnInit {
   getExpenseByGroupData() {
     this.showloader = true
     this.expenseByGroupService.getExpenseByGroupData(this.from, this.to).subscribe(data => {
+      this.totalExpense = 0
       this.expenseGroupData = data.data
       this.length = this.expenseGroupData.length
       console.log(this.expenseGroupData);

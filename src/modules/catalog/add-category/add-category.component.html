@@ -7,9 +7,9 @@
 
                 <div class="row card-body">
                     <div class="col">
-                        <div class="form-group">
+                        <div class="form-group required">
                             <label class="required">Name</label>
-                            <input type="text" formControlName="name" class="form-control" autofocus/>
+                            <input type="text" formControlName="name" placeholder="Enter Name" class="form-control" autofocus/>
                             <div *ngIf="name?.touched && name?.invalid" class="alert alert-danger">
                                 <div *ngIf="name?.errors?.required">Name is required.</div>
                             </div>
@@ -30,9 +30,9 @@
                     </div>
 
                     <div class="col">
-                        <div class="form-group">
+                        <div class="form-group required">
                             <label class="required">Position</label>
-                            <input type="text" formControlName="position" class="form-control" />
+                            <input type="text" formControlName="position" placeholder="Enter Position" class="form-control" />
                             <div *ngIf="position?.touched && position?.invalid" class="alert alert-danger">
                                 <div *ngIf="position?.errors?.required">Position is required.</div>
                             </div>

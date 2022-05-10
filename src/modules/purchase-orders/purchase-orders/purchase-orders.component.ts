@@ -83,6 +83,20 @@ export class PurchaseOrdersComponent implements OnInit {
     })
   }
 
+  search() {
+    this.showloader = true
+    this.page = 1
+    this.purchaseOrderService.searchPurchaseOrder(this.searchValue, this.page).subscribe((data: any) => {
+      this.purchaseOrdersData = data.orders.data;
+      this.length = this.purchaseOrdersData.length
+      this.total = data.orders.total
+      this.showloader = false
+    }, err => {
+      this.toast.error('Error', 'Server error.')
+      this.showloader = false
+    });
+  }
+
   openXl(content: any) {
     this.modalService.open(content, { size: 'xl' });
   }

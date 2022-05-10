@@ -56,6 +56,10 @@ export class PurchaseOrdersService {
     return this.http.get<PatchOrder>(this.url + '/' + id);
   }
 
+  searchPurchaseOrder(data: any, page: any) {
+    return this.http.get(this.url + '?query=' + data + '&&page=' + page)
+  }
+
   // For purchase order forms
   getItemData(id: number, pageSize: number): Observable<ItemsData> {
     return this.http.get<ItemsData>(this.itemUrl + '?group_id=' + id + '&limit=' + pageSize)

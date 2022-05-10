@@ -88,6 +88,7 @@ export class MonthlyExpenseComponent implements OnInit {
   monthlyExpense() {
     this.showloader = true
     this.expenseService.getExpenseByGroup(this.year, this.value).subscribe(data => {
+      this.totalExpense = 0
 
       this.showloader = false
       this.showData = true

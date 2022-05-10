@@ -97,6 +97,37 @@ export class AddUserComponent implements OnInit {
         })
     }
 
+    // onUploadCoverPic() {
+    //     const coverPicFormData = new FormData();
+    //     coverPicFormData.append('cover_photo', this.coverPicFile);
+    //     coverPicFormData.append('user_id', this.user_id);
+
+    //     // Make http post request over api
+    //     // with formData as req
+    //     this.loadingCoverPic = !this.loadingCoverPic;
+
+    //     console.log('this.file1', this.file);
+    //     this.usersServices.uploadUserCoverPic(coverPicFormData).subscribe(
+    //       (event: any) => {
+    //         console.log(event);
+
+    //         if (typeof event === 'object') {
+    //           // Short link via api response
+    //           this.shortLink = event.link;
+    //           this.loadingCoverPic = false; // Flag variable
+    //           // window.location.reload();
+    //           this.SpinnerService.show();
+    //           this.initialDetails();
+    //           this.SpinnerService.hide();
+    //         }
+    //       },
+    //       (err) => {
+    //         this.toastr.error(JSON.stringify(err.error.message));
+    //       }
+    //     );
+    //     this.ngOnInit();
+    //   }
+
     // For submitting add user form data
     onSubmit(data: any) {
         this.userService

@@ -36,4 +36,8 @@ export class ItemGroupsService {
     return this.http.get<Data>(this.url + '/' + id);
   }
 
+  searchItemGroup(page: any, data: any) {
+    return this.http.get(this.url + '?page=' + page + '&&query=' + data)
+  }
+
 }

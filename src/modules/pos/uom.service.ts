@@ -35,4 +35,8 @@ export class UomService {
   patchUomData(id: number): Observable<Data> {
     return this.http.get<Data>(this.url + '/' + id);
   }
+
+  searchUomData(page: any, data: any) {
+    return this.http.get(this.url + '?page=' + page + '&&query=' + data)
+  }
 }

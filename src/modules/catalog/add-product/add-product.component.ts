@@ -90,7 +90,7 @@ export class AddProductComponent implements OnInit {
       .postProducts(obj)
       .subscribe((result: any) => {
         console.log(result)
-        this.toast.success('Success', 'Added successfully.')
+        this.toast.success('Success', 'Product Added successfully.')
         this.router.navigate(['catalog/products'])
       }, err => {
         this.toast.error('Error', 'Server error.')

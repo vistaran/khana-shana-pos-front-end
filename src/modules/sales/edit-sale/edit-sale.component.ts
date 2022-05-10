@@ -226,14 +226,15 @@ export class EditSaleComponent implements OnInit {
     if (confirm('Are you sure you want to delete?')) {
       this.addedProduct = this.addedProduct.filter((item: any) => item.id !== id);
       console.log('afterdelete', this.deletedProduct);
+      if (this.addedProduct.length == 0) {
+        this.semitotal = 0
+      } else {
+        this.semitotal = this.addedProduct.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
+          return a + b;
+        })
+      }
+      this.calculateTotal()
     }
-
-    if (this.addedProduct.length) {
-      this.semitotal = this.addedProduct.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
-        return a + b;
-      })
-    }
-    this.calculateTotal()
   }
 
   calculateTotal() {

@@ -101,8 +101,8 @@ export class AddCategoryComponent implements OnInit {
       .postCategory(data)
       .subscribe((result: any) => {
         console.log(result)
-        this.toast.success('Success', 'Added successfully.')
-        this.router.navigate(['catalog/products'])
+        this.toast.success('Success', 'Category Added successfully.')
+        this.router.navigate(['catalog/categories'])
       }, err => {
         this.toast.error('Error', 'Server error.')
       });
