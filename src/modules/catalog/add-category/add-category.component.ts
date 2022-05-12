@@ -20,7 +20,9 @@ export class AddCategoryComponent implements OnInit {
   parentCategroryData: any;
 
   visibleInMenu = ['Yes', 'No'];
-  displayMode = ['Products and Description'];
+  displayMode = [
+    {name: 'Products and Descrpition'}
+  ];
   parentCategory = ['Yoga', 'Badminton'];
   status = ['active', 'inactive'];
   attribut = ['price', 'brand'];
@@ -65,6 +67,18 @@ export class AddCategoryComponent implements OnInit {
     return this.addCategoryForm.get('meta_keyword');
   }
 
+  get meta_title() {
+    return this.addCategoryForm.get('meta_title');
+  }
+
+  get image() {
+    return this.addCategoryForm.get('image');
+  }
+
+  get category_logo() {
+    return this.addCategoryForm.get('category_logo');
+  }
+
 
   constructor(
     private fb: FormBuilder,
@@ -77,15 +91,15 @@ export class AddCategoryComponent implements OnInit {
   ngOnInit(): void {
     this.addCategoryForm = this.fb.group({
       name: ['', [Validators.required]],
-      visible_in_menu: ['', [Validators.required]],
+      visible_in_menu: [0, [Validators.required]],
       position: ['', [Validators.required]],
-      display_mode: ['', [Validators.required]],
+      display_mode: [0, [Validators.required]],
       decription: ['', [Validators.required]],
-      attri: ['', [Validators.required]],
-      image: [''],
-      category_logo: [''],
-      parent_category: [''],
-      meta_title: [''],
+      attri: [0, [Validators.required]],
+      image: ['', [Validators.required]],
+      category_logo: ['', [Validators.required]],
+      // parent_category: [''],
+      meta_title: ['', [Validators.required]],
       slug: ['', [Validators.required]],
       meta_description: [''],
       meta_keyword: ['', [Validators.required]],
@@ -120,7 +134,7 @@ export class AddCategoryComponent implements OnInit {
 
   // For attributes dropdown
   getAttributesData() {
-    this.attributeService.getAttributesData(this.page).subscribe(data =>{
+    this.attributeService.getAttributesData(this.page).subscribe(data => {
       this.attributesData = data.Attributes.data
     })
   }
