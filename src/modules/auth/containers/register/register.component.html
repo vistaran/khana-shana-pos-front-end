@@ -66,7 +66,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group required"><label class="small mb-1"
                                             for="password">Password</label>
-                                        <input type="text" formControlName="password" placeholder="Enter Password"
+                                        <input type="password" formControlName="password" placeholder="Enter Password"
                                             class="form-control"
                                             [class.is-invalid]="password?.touched && password?.invalid" />
                                         <div *ngIf="password?.touched && password?.invalid" class="text-danger">
@@ -78,11 +78,12 @@
                                 <div class="col-md-6">
                                     <div class="form-group required"><label class="small mb-1"
                                             for="confirm_password">Confirm Password</label>
-                                        <input type="text" formControlName="confirm_password"
+                                        <input type="password" formControlName="confirm_password"
                                             placeholder="Enter Confirm Password" class="form-control"
                                             [class.is-invalid]="confirm_password?.touched && confirm_password?.invalid" />
                                         <div *ngIf="confirm_password?.touched && confirm_password?.invalid"
                                             class="text-danger">
+                                            <small *ngIf="confirm_password?.errors?.required">Confirm Password is required.</small>
                                         </div>
                                         <small *ngIf="createAccountForm?.errors?.mismatch" class="text-danger">
                                             Passwords do not match.
@@ -91,10 +92,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- <div class="mt-4"> -->
-                            <button [disabled]="!createAccountForm.valid" class="btn btn-primary float-right">Create
+                            <div class="text-center">
+                            <button [disabled]="!createAccountForm.valid" class="btn btn-primary">Create
                                 Account</button>
-                            <!-- </div> -->
+                            </div>
                         </form>
                     </div>
                     <div class="card-footer text-center">

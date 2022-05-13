@@ -59,7 +59,7 @@
 
                     <div class="col">
                         <div class="form-group">
-                            <label class="required">Description</label>
+                            <label class="required">Description<span class="text-secondary">(optional)</span></label>
                             <textarea type="text" formControlName="decription" placeholder="Add Description"
                                 class="form-control"></textarea>
                             <!-- <div *ngIf="description?.touched && description?.invalid" class="alert alert-danger">
@@ -189,17 +189,16 @@
 
                     <div class="col">
                         <div class="form-group">
-                            <label>Meta Description</label>
+                            <label>Meta Description<span class="text-secondary">(optional)</span></label>
                             <textarea type="text" formControlName="meta_description" placeholder="Add Meta Description"
                                 class="form-control"></textarea>
                         </div>
                     </div>
-
                 </div>
 
                 <button [disabled]="!editCategoryForm.valid" type="submit" class="btn btn-primary mb-4 float-right"
                     (click)="updateData(editCategoryForm.value)">
-                    Submit
+                    Update
                 </button>
             </div>
 

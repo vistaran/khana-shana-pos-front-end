@@ -114,14 +114,11 @@ export class EditCategoryComponent implements OnInit {
     this.categoryService.getEditCategoryData(this.id).subscribe((data: any) => {
       this.editCategoryForm.patchValue({
         name: data.show_data.name,
-      visible_in_menu: data.show_data.visible_in_menu,
+      visible_in_menu: Number(data.show_data.visible_in_menu),
       position: data.show_data.position,
-      display_mode: data.show_data.display_mode,
+      display_mode: Number(data.show_data.display_mode),
       decription: data.show_data.decription,
       attributes: Number(data.show_data.attributes),
-      // image: data.show_data.image,
-      // category_logo: data.show_data.category_logo,
-      // parent_category: [''],
       meta_title: data.show_data.meta_title,
       slug: data.show_data.slug,
       meta_description: data.show_data.meta_description,

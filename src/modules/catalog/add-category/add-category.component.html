@@ -40,6 +40,17 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="col">
+                        <div class="form-group required">
+                            <label class="required">Number of Products</label>
+                            <input type="text" formControlName="number_of_products" placeholder="Enter Number of Products"
+                                class="form-control" />
+                            <div *ngIf="number_of_products?.touched && number_of_products?.invalid" class="alert alert-danger">
+                                <div *ngIf="number_of_products?.errors?.required">Number of Products is required.</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <h2 class="card-header pt-4 pb-2">Description and Images</h2>
@@ -48,7 +59,7 @@
                         <div class="form-group required">
                             <label class="required">Display Mode</label><br />
                             <select name="display_mode" formControlName="display_mode" class="form-control">
-                                <option *ngFor="let item of displayMode" value="{{item.name}}">{{ item.name }}</option>
+                                <option *ngFor="let item of displayMode">{{ item }}</option>
                             </select>
                             <div *ngIf="displayMod?.touched && displayMod?.invalid" class="alert alert-danger">
                                 <div *ngIf="displayMod?.errors?.required">Display Mode is required.</div>
@@ -58,7 +69,7 @@
 
                     <div class="col">
                         <div class="form-group">
-                            <label class="required">Description</label>
+                            <label class="required">Description<span class="text-secondary">(optional)</span></label>
                             <textarea type="text" formControlName="decription" placeholder="Add Description"
                                 class="form-control"></textarea>
                             <!-- <div *ngIf="description?.touched && description?.invalid" class="alert alert-danger">
@@ -190,7 +201,7 @@
 
                     <div class="col">
                         <div class="form-group">
-                            <label>Meta Description</label>
+                            <label>Meta Description<span class="text-secondary">(optional)</span></label>
                             <textarea type="text" formControlName="meta_description" placeholder="Add Meta Description"
                                 class="form-control"></textarea>
                         </div>

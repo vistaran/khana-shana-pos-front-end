@@ -100,7 +100,7 @@ export class EditUserComponent implements OnInit {
                 lastname: data.show_data.lastname,
                 username: data.show_data.username,
                 email: data.show_data.email,
-                password: data.show_data.password,
+                password: data.show_data.confirm_password,
                 confirm_password: data.show_data.confirm_password,
                 outlet_name: data.show_data.outlet_name,
                 // outlet_status: data.show_data.outlet_status,

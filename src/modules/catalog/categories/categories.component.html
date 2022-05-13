@@ -46,6 +46,8 @@
                             <td>{{ data.position }}</td>
                             <td *ngIf="data.status == 0">active</td>
                             <td *ngIf="data.status == 1">inactive</td>
+                            <td *ngIf="data.status == 'active'">active</td>
+                            <td *ngIf="data.status == 'inactive'">inactive</td>
                             <td>{{ data.number_of_products }}</td>
                             <td>
                                 <button ngbTooltip="Edit" class="btn btn-info mr-2"
