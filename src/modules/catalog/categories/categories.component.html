@@ -48,7 +48,7 @@
                             <td *ngIf="data.status == 1">inactive</td>
                             <td *ngIf="data.status == 'active'">active</td>
                             <td *ngIf="data.status == 'inactive'">inactive</td>
-                            <td>{{ data.number_of_products }}</td>
+                            <td>{{ data.number_of_products - 1 }}</td>
                             <td>
                                 <button ngbTooltip="Edit" class="btn btn-info mr-2"
                                     [routerLink]="['/catalog/editcategory/'+data.id]"><i

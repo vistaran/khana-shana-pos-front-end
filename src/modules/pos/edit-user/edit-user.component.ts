@@ -96,16 +96,16 @@ export class EditUserComponent implements OnInit {
 
         this.userService.editUserForm(this.id).subscribe((data: any) => {
             this.editUserForm.patchValue({
-                first_name: data.show_data.first_name,
-                lastname: data.show_data.lastname,
-                username: data.show_data.username,
-                email: data.show_data.email,
-                password: data.show_data.confirm_password,
-                confirm_password: data.show_data.confirm_password,
-                outlet_name: data.show_data.outlet_name,
-                // outlet_status: data.show_data.outlet_status,
-                phone_no: data.show_data.phone_no,
-                status: Number(data.show_data.status),
+                first_name: data.show_data[0].first_name,
+                lastname: data.show_data[0].lastname,
+                username: data.show_data[0].username,
+                email: data.show_data[0].email,
+                password: data.show_data[0].confirm_password,
+                confirm_password: data.show_data[0].confirm_password,
+                outlet_name: Number(data.show_data[0].outletid),
+                // outlet_status: data.show_data[0].outlet_status,
+                phone_no: data.show_data[0].phone_no,
+                status: Number(data.show_data[0].status),
             })
             console.log(data)
         })
