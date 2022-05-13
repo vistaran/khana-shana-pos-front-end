@@ -74,14 +74,7 @@ export class AddOutletComponent implements OnInit {
       inventory_source: ['', [Validators.required]],
     });
 
-    this.countries.getCountryList().subscribe((resp: any) => {
-      const countries = [];
-      for (let i = 0; i < resp.length; ++i) {
-          const country = resp[i];
-          countries.push({ text: country.text, value: country.value });
-      }
-      this.myData = countries;
-  })
+    this.getCountryList()
   }
 
 
@@ -90,12 +83,25 @@ export class AddOutletComponent implements OnInit {
     this.outletService
       .postOutletData(data)
       .subscribe((result: any) => {
-        this.router.navigate(['/pos/users'], {queryParams: {outlet: true}});
+        this.router.navigate(['/pos/users'], { queryParams: { outlet: true } });
         this.toast.success('Success', 'Added Successfully.')
-      }, err =>  {
+      }, err => {
         this.toast.error('Error', 'Server error.')
       });
     console.log('Form Submitted', (data));
+  }
+
+  getCountryList() {
+    this.countries.getCountryList().subscribe((resp: any) => {
+      console.log(resp);
+      
+      const countries = [];
+      for (let i = 0; i < resp.length; ++i) {
+        const country = resp[i];
+        countries.push({ text: country.text, value: country.value });
+      }
+      this.myData = countries;
+    })
   }
 
 }

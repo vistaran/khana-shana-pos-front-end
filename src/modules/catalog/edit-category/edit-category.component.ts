@@ -21,7 +21,9 @@ export class EditCategoryComponent implements OnInit {
   id: any;
   status = ['active', 'inactive'];
   visibleInMenu = ['Yes', 'No'];
-  displayMode = ['Products and Descrpition'];
+  displayMode = [
+    {name: 'Products and Descrpition'}
+  ];
   parentCategory = ['Yoga', 'Badminton'];
   parentCategroryData: any
   parentCategoryId: any
@@ -65,6 +67,19 @@ export class EditCategoryComponent implements OnInit {
     return this.editCategoryForm.get('meta_keyword');
   }
 
+  get meta_title() {
+    return this.editCategoryForm.get('meta_title');
+  }
+
+  get image() {
+    return this.editCategoryForm.get('image');
+  }
+
+  get category_logo() {
+    return this.editCategoryForm.get('category_logo');
+  }
+
+
   constructor(
     private fb: FormBuilder,
     private categoryService: CategoriesService,
@@ -77,27 +92,39 @@ export class EditCategoryComponent implements OnInit {
   ngOnInit(): void {
 
     this.editCategoryForm = this.fb.group({
-      attri: ['', [Validators.required]],
-      category_logo: ['', [Validators.required]],
-      decription: ['', [Validators.required]],
-      display_mode: ['', [Validators.required]],
+      name: [''],
+      visible_in_menu: [0],
+      position: [''],
+      display_mode: [0],
+      decription: [''],
+      attributes: [0,[Validators.required]],
       image: ['', [Validators.required]],
-      meta_description: ['', [Validators.required]],
-      meta_keyword: [''],
-      meta_title: [''],
-      name: ['', [Validators.required]],
-      // parent_category: ['', [Validators.required]],
-      position: ['', [Validators.required]],
+      category_logo: ['', [Validators.required]],
+      // parent_category: [''],
+      meta_title: ['', [Validators.required]],
       slug: ['', [Validators.required]],
-      status: ['', [Validators.required]],
-      visible_in_menu: ['', [Validators.required]],
+      meta_description: ['', [Validators.required]],
+      meta_keyword: ['', [Validators.required]],
+      status: [0, [Validators.required]],
     });
 
     this.id = this.route.snapshot.params.id
 
     // To get Field values
     this.categoryService.getEditCategoryData(this.id).subscribe((data: any) => {
-      this.editCategoryForm.patchValue(data.show_data)
+      this.editCategoryForm.patchValue({
+        name: data.show_data.name,
+      visible_in_menu: Number(data.show_data.visible_in_menu),
+      position: data.show_data.position,
+      display_mode: Number(data.show_data.display_mode),
+      decription: data.show_data.decription,
+      attributes: Number(data.show_data.attributes),
+      meta_title: data.show_data.meta_title,
+      slug: data.show_data.slug,
+      meta_description: data.show_data.meta_description,
+      meta_keyword: data.show_data.meta_keyword,
+      status: Number(data.show_data.status),
+      })
       console.log(data)
     })
     this.getParentCategrory()

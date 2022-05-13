@@ -10,7 +10,7 @@
                             <div class="col">
                                 <div class="form-group required">
                                     <label class="required">Outlet Name</label>
-                                    <input type="text" formControlName="outlet_name" class="form-control" autofocus />
+                                    <input type="text" formControlName="outlet_name" placeholder="Enter Outlet Name" class="form-control" autofocus />
                                     <div *ngIf="name?.touched && name?.invalid" class="alert alert-danger">
                                         <div *ngIf="name?.errors?.required">Outlet Name is required.</div>
                                     </div>
@@ -36,7 +36,7 @@
                             <div class="col-6">
                                 <div class="form-group required">
                                     <label class="required">Outlet Address</label>
-                                    <input type="text" rows="6" formControlName="outlet_Address" class="form-control" />
+                                    <input type="text" rows="6" formControlName="outlet_Address" placeholder="Enter Outlet Address" class="form-control" />
                                     <div *ngIf="outletAddress?.touched && outletAddress?.invalid"
                                         class="alert alert-danger">
                                         <div *ngIf="outletAddress?.errors?.required">
@@ -64,7 +64,7 @@
                             <div class="col-6">
                                 <div class="form-group required">
                                     <label class="required">State</label>
-                                    <input type="text" formControlName="state" class="form-control" />
+                                    <input type="text" formControlName="state" placeholder="Enter State" class="form-control" />
                                     <div *ngIf="state?.touched && state?.invalid" class="alert alert-danger">
                                         <div *ngIf="state?.errors?.required">State is required.</div>
                                     </div>
@@ -74,7 +74,7 @@
                             <div class="col-6">
                                 <div class="form-group required">
                                     <label class="required">City</label>
-                                    <input type="text" formControlName="city" class="form-control" />
+                                    <input type="text" formControlName="city" placeholder="Enter City" class="form-control" />
                                     <div *ngIf="city?.touched && city?.invalid" class="alert alert-danger">
                                         <div *ngIf="city?.errors?.required">City is required.</div>
                                     </div>
@@ -84,7 +84,7 @@
                             <div class="col-6">
                                 <div class="form-group required">
                                     <label class="required">Postcode</label>
-                                    <input type="text" formControlName="postcode" class="form-control" />
+                                    <input type="text" formControlName="postcode" placeholder="Enter Postcode" class="form-control" />
                                     <div *ngIf="postCode?.touched && postCode?.invalid" class="alert alert-danger">
                                         <div *ngIf="postCode?.errors?.required">Postcode is required.</div>
                                     </div>

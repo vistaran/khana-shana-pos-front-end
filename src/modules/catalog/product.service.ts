@@ -37,7 +37,7 @@ export class ProductService {
 
   // For searching products data
   searchProducts(data: any): Observable<ProductData> {
-    return this.http.get<ProductData>(this.url + 'search?query=' + data)
+    return this.http.get<ProductData>(this.url + '?query=' + data)
   }
 
   editPatchData(id: any):Observable<Data> {
