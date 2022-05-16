@@ -14,8 +14,9 @@
                                     <input type="text" formControlName="first_name" class="form-control"
                                         placeholder="Enter First Name" autofocus />
 
-                                    <div *ngIf="firstName?.touched && firstName?.invalid" class="alert alert-danger">
-                                        <div *ngIf="firstName?.errors?.required">First name is required.</div>
+                                    <div *ngIf="firstName?.touched && firstName?.invalid || showValidations">
+                                        <div class="alert alert-danger" *ngIf="firstName?.errors?.required">First name
+                                            is required.</div>
                                     </div>
                                 </div>
                             </div>
@@ -25,8 +26,9 @@
                                     <label class="required">Last name</label>
                                     <input type="text" formControlName="lastname" placeholder="Enter Last Name"
                                         class="form-control" />
-                                    <div *ngIf="lastName?.touched && lastName?.invalid" class="alert alert-danger">
-                                        <div *ngIf="lastName?.errors?.required">Last name is required.</div>
+                                    <div *ngIf="lastName?.touched && lastName?.invalid || showValidations">
+                                        <div class="alert alert-danger" *ngIf="lastName?.errors?.required">Last name is
+                                            required.</div>
                                     </div>
                                 </div>
                             </div>
@@ -36,8 +38,9 @@
                                     <label class="required">Username</label>
                                     <input type="text" formControlName="username" placeholder="Enter Username"
                                         class="form-control" />
-                                    <div *ngIf="userName?.touched && userName?.invalid" class="alert alert-danger">
-                                        <div *ngIf="userName?.errors?.required">Username is required.</div>
+                                    <div *ngIf="userName?.touched && userName?.invalid || showValidations">
+                                        <div class="alert alert-danger" *ngIf="userName?.errors?.required">Username is
+                                            required.</div>
                                     </div>
                                 </div>
                             </div>
@@ -47,9 +50,12 @@
                                     <label>Email</label>
                                     <input type="text" formControlName="email" placeholder="Enter Email"
                                         class="form-control" />
-                                    <div *ngIf="email?.touched && email?.invalid" class="alert alert-danger">
-                                        <div *ngIf="email?.errors?.required">Email is required.</div>
-                                        <div *ngIf="email?.errors?.email">Email is invalid</div>
+                                    <div *ngIf="email?.touched && email?.invalid || showValidations">
+                                        <div class="alert alert-danger" *ngIf="email?.errors?.required">Email is
+                                            required.</div>
+                                        <div class="alert alert-danger"
+                                            *ngIf="email?.errors?.email && !email?.errors?.required">Email is invalid
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -59,11 +65,14 @@
                                     <label>Phone Number</label>
                                     <input type="tel" formControlName="phone_no" placeholder="Enter Phone Number"
                                         class="form-control" />
-                                    <div *ngIf="phone?.touched && phone?.invalid" class="alert alert-danger">
-                                        <div *ngIf="phone?.errors?.required">Phone number is required.</div>
-                                        <div *ngIf="phone?.errors?.maxlength">Phone number must not exceed 10 digits
+                                    <div *ngIf="phone?.touched && phone?.invalid || showValidations">
+                                        <div *ngIf="phone?.errors?.required" class="alert alert-danger">Phone number is
+                                            required.</div>
+                                        <div *ngIf="phone?.errors?.maxlength" class="alert alert-danger">Phone number
+                                            must not exceed 10 digits
                                         </div>
-                                        <div *ngIf="phone?.errors?.pattern">Only Numbers are allowed</div>
+                                        <div *ngIf="phone?.errors?.pattern" class="alert alert-danger">Only Numbers are
+                                            allowed</div>
                                     </div>
 
                                 </div>
@@ -72,16 +81,16 @@
                         </div>
 
 
-                        <h2 class="card-header pt-2 pb-2">Use Avatar</h2>
+                        <h2 class="card-header pt-2 pb-2">User Avatar</h2>
                         <div class="card-body row">
-                            <div class="col">
+                            <div class="col-6">
                                 <div class="form-group required">
                                     <label for="img">Add Avatar</label><br>
                                     <input type="file" id="img" name="img" accept="image/*"
                                         formControlName="user_avatar" />
-                                    <div *ngIf="user_avatar?.touched && user_avatar?.invalid"
-                                        class="alert alert-danger">
-                                        <div *ngIf="user_avatar?.errors?.required">User Avatar is required.</div>
+                                    <div *ngIf="user_avatar?.touched && user_avatar?.invalid || showValidations">
+                                        <div class="alert alert-danger" *ngIf="user_avatar?.errors?.required">User
+                                            Avatar is required.</div>
                                     </div>
                                 </div>
                             </div>
@@ -95,8 +104,9 @@
                                     <label class="required">Password</label>
                                     <input type="password" formControlName="password" placeholder="Enter Password"
                                         class="form-control" />
-                                    <div *ngIf="password?.touched && password?.invalid" class="alert alert-danger">
-                                        <div *ngIf="password?.errors?.required">Password is required.</div>
+                                    <div *ngIf="password?.touched && password?.invalid || showValidations">
+                                        <div class="alert alert-danger" *ngIf="password?.errors?.required">Password is
+                                            required.</div>
                                     </div>
                                 </div>
                             </div>
@@ -106,11 +116,14 @@
                                     <label class="required">Confirm Password</label>
                                     <input placeholder="Confirm Password" type="password"
                                         formControlName="confirm_password" class="form-control" />
-                                    <div *ngIf="confirm_password?.touched && confirm_password?.invalid" class="alert alert-danger">
-                                        <div *ngIf="confirm_password?.errors?.required && confirm_password?.invalid">
+                                    <div
+                                        *ngIf="confirm_password?.touched && confirm_password?.invalid || showValidations">
+                                        <div class="alert alert-danger"
+                                            *ngIf="confirm_password?.errors?.required && confirm_password?.invalid">
                                             Password is required.</div>
                                     </div>
-                                    <div class="alert alert-danger" *ngIf="addUserForm?.errors?.mismatch && !confirm_password?.invalid">
+                                    <div class="alert alert-danger"
+                                        *ngIf="addUserForm?.errors?.mismatch && !confirm_password?.invalid">
                                         Passwords do not match.
                                     </div>
 
@@ -129,8 +142,9 @@
                                             item.outlet_name }}</option>
                                     </select>
 
-                                    <div *ngIf="outl?.touched && outl?.invalid" class="alert alert-danger">
-                                        <div *ngIf="outl?.errors?.required">Outlet name is required.</div>
+                                    <div *ngIf="outl?.touched && outl?.invalid || showValidations">
+                                        <div class="alert alert-danger" *ngIf="outl?.errors?.required ">Outlet name is
+                                            required.</div>
                                     </div>
                                 </div>
                             </div>
@@ -141,15 +155,17 @@
                                     <select name="status" formControlName="status" class="form-control">
                                         <option *ngFor="let item of status">{{ item }}</option>
                                     </select>
-                                    <div *ngIf="stat?.touched && stat?.invalid" class="alert alert-danger">
-                                        <div *ngIf="stat?.errors?.required">User Account Status is required.</div>
+                                    <div *ngIf="stat?.touched && stat?.invalid || showValidations">
+                                        <div class="alert alert-danger" *ngIf="stat?.errors?.required">User Account
+                                            Status is
+                                            required.</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
 
-                        <button [disabled]="!addUserForm.valid" type="submit" (click)="onSubmit(addUserForm.value)"
+                        <button (click)="showValidations = true" type="submit" (click)="onSubmit(addUserForm.value)"
                             class="btn btn-primary mb-4 float-right">
                             Submit
                         </button>

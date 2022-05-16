@@ -14,6 +14,7 @@ export class EditUomComponent implements OnInit {
 
   editUomForm!: FormGroup
   id: any
+  showValidations = false;
 
   // For Validations
   get name() {
@@ -48,6 +49,12 @@ export class EditUomComponent implements OnInit {
   }
 
   updateData(data: any) {
+
+    if(this.editUomForm.invalid) {
+      alert('Please fill all the required fields!');
+      return;
+    }
+
     this.uomService.editUomData(this.id, data).subscribe(data => {
       console.log('Data updated successfully! ', data);
       this.router.navigate(['/pos/uom']);

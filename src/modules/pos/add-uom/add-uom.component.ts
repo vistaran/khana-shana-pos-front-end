@@ -13,6 +13,7 @@ import { UomService } from '../uom.service';
 export class AddUomComponent implements OnInit {
 
   addUomForm!: FormGroup
+  showValidations = false;
 
   // For Validations
   get name() {
@@ -39,6 +40,12 @@ export class AddUomComponent implements OnInit {
 
   // For submitting add uom form data
   onSubmit(data: any) {
+
+    if(this.addUomForm.invalid) {
+      alert('Please fill all the required fields!');
+      return;
+    }
+
     this.uomService
       .postUomData(data)
       .subscribe((result: any) => {

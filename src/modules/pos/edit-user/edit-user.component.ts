@@ -16,6 +16,7 @@ export class EditUserComponent implements OnInit {
     editUserForm!: FormGroup;
     id: any
     data: any
+    showValidations = false;
 
     outletData: any = []
     page = 1
@@ -84,8 +85,7 @@ export class EditUserComponent implements OnInit {
                 password: ['', [Validators.required]],
                 confirm_password: ['', [Validators.required]],
                 outlet_name: ['', [Validators.required]],
-                outlet_status: ['', [Validators.required]],
-                phone_no: ['', [Validators.required,Validators.maxLength(10),Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
+                phone_no: ['', [Validators.required, Validators.maxLength(10), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
                 user_avatar: ['', [Validators.required]],
                 status: ['', [Validators.required]],
             },
@@ -114,13 +114,23 @@ export class EditUserComponent implements OnInit {
     }
 
     getOutletData() {
-        this.outletService.getOutletData(this.page).subscribe(data=> {
+        this.outletService.getOutletData(this.page).subscribe(data => {
             this.outletData = data.outlets.data;
         })
     }
 
     // For submitting edit user form data
     updateData(data: any) {
+
+        if(this.editUserForm.invalid) {
+            alert('Please fill all the required fields!');
+            return;
+          }
+
+        if (this.editUserForm.invalid) {
+            alert('Please Fill the required Fields.')
+            return;
+        }
         this.userService.editUser(this.id, data).subscribe(data => {
             console.log('Data updated successfully! ', data);
             this.router.navigate(['/pos/users']);

@@ -15,6 +15,7 @@ import { UserDataService } from '../user-data.service';
 export class AddUserComponent implements OnInit {
     addUserForm!: FormGroup;
     outletList: any;
+    showValidations = false;
 
     // For Validations
     get userName() {
@@ -130,6 +131,12 @@ export class AddUserComponent implements OnInit {
 
     // For submitting add user form data
     onSubmit(data: any) {
+
+        if(this.addUserForm.invalid) {
+            alert('Please fill the required fileds!');
+            return;
+        }
+
         this.userService
             .postUserData(data)
             .subscribe((result: any) => {

@@ -16,6 +16,7 @@ export class AddOutletComponent implements OnInit {
 
   addOutletForm!: FormGroup;
   myData: any = []
+  showValidations = false;
 
   inventorySource = ['default'];
   status = ['active', 'inactive'];
@@ -69,7 +70,7 @@ export class AddOutletComponent implements OnInit {
       country: ['India', [Validators.required]],
       state: ['', [Validators.required]],
       city: ['', [Validators.required]],
-      status: ['', [Validators.required]],
+      status: [0, [Validators.required]],
       postcode: ['', [Validators.required]],
       inventory_source: ['', [Validators.required]],
     });
@@ -80,6 +81,12 @@ export class AddOutletComponent implements OnInit {
 
   // For submitting add outlet form data
   onSubmit(data: any) {
+
+    if(this.addOutletForm.invalid) {
+      alert('Please fill all the required fields!');
+      return;
+    }
+
     this.outletService
       .postOutletData(data)
       .subscribe((result: any) => {

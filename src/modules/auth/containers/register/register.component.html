@@ -40,11 +40,11 @@
                                 <div class="col-md-6">
                                     <div class="form-group required"><label class="small mb-1" for="username">User
                                             Name</label>
-                                        <input type="text" formControlName="username" placeholder="Enter Username"
+                                        <input type="text" formControlName="username" placeholder="Enter User name"
                                             class="form-control"
                                             [class.is-invalid]="username?.touched && username?.invalid" />
                                         <div *ngIf="username?.touched && username?.invalid" class="text-danger">
-                                            <small *ngIf="username?.errors?.required">Username is required.</small>
+                                            <small *ngIf="username?.errors?.required">User name is required.</small>
                                         </div>
                                     </div>
                                 </div>
@@ -57,6 +57,7 @@
                                             [class.is-invalid]="email?.touched && email?.invalid" />
                                         <div *ngIf="email?.touched && email?.invalid" class="text-danger">
                                             <small *ngIf="email?.errors?.required">Email is required.</small>
+                                            <small *ngIf="email?.errors?.email">Email is invalid</small>
                                         </div>
                                     </div>
                                 </div>
@@ -80,12 +81,15 @@
                                             for="confirm_password">Confirm Password</label>
                                         <input type="password" formControlName="confirm_password"
                                             placeholder="Enter Confirm Password" class="form-control"
-                                            [class.is-invalid]="confirm_password?.touched && confirm_password?.invalid" />
+                                            [class.is-invalid]="confirm_password?.touched && confirm_password?.invalid " />
                                         <div *ngIf="confirm_password?.touched && confirm_password?.invalid"
                                             class="text-danger">
-                                            <small *ngIf="confirm_password?.errors?.required">Confirm Password is required.</small>
+                                            <small *ngIf="confirm_password?.errors?.required">Confirm Password is
+                                                required.</small>
                                         </div>
-                                        <small *ngIf="createAccountForm?.errors?.mismatch" class="text-danger">
+                                        <small
+                                            *ngIf="createAccountForm?.errors?.mismatch && !confirm_password?.errors?.required"
+                                            class="text-danger">
                                             Passwords do not match.
                                         </small>
 
@@ -93,8 +97,9 @@
                                 </div>
                             </div>
                             <div class="text-center">
-                            <button [disabled]="!createAccountForm.valid" class="btn btn-primary">Create
-                                Account</button>
+                                <button [disabled]="!createAccountForm.valid" type="submit"
+                                    class="btn btn-primary">Create
+                                    Account</button>
                             </div>
                         </form>
                     </div>
