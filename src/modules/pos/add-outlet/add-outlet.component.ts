@@ -71,7 +71,7 @@ export class AddOutletComponent implements OnInit {
       state: ['', [Validators.required]],
       city: ['', [Validators.required]],
       status: [0, [Validators.required]],
-      postcode: ['', [Validators.required]],
+      postcode: ['', [Validators.required, Validators.maxLength(6), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
       inventory_source: ['', [Validators.required]],
     });
 
@@ -82,7 +82,7 @@ export class AddOutletComponent implements OnInit {
   // For submitting add outlet form data
   onSubmit(data: any) {
 
-    if(this.addOutletForm.invalid) {
+    if (this.addOutletForm.invalid) {
       alert('Please fill all the required fields!');
       return;
     }
@@ -101,7 +101,7 @@ export class AddOutletComponent implements OnInit {
   getCountryList() {
     this.countries.getCountryList().subscribe((resp: any) => {
       console.log(resp);
-      
+
       const countries = [];
       for (let i = 0; i < resp.length; ++i) {
         const country = resp[i];

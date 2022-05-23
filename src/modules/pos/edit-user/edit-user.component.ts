@@ -17,6 +17,8 @@ export class EditUserComponent implements OnInit {
     id: any
     data: any
     showValidations = false;
+    file: any
+    outlet_id: any;
 
     outletData: any = []
     page = 1
@@ -84,7 +86,7 @@ export class EditUserComponent implements OnInit {
                 email: ['', [Validators.required, Validators.email]],
                 password: ['', [Validators.required]],
                 confirm_password: ['', [Validators.required]],
-                outlet_name: ['', [Validators.required]],
+                outlet_id: [0, [Validators.required]],
                 phone_no: ['', [Validators.required, Validators.maxLength(10), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
                 user_avatar: ['', [Validators.required]],
                 status: ['', [Validators.required]],
@@ -95,6 +97,8 @@ export class EditUserComponent implements OnInit {
         this.id = this.route.snapshot.params.id
 
         this.userService.editUserForm(this.id).subscribe((data: any) => {
+
+            this.outlet_id = data.show_data[0].outletid;
             this.editUserForm.patchValue({
                 first_name: data.show_data[0].first_name,
                 lastname: data.show_data[0].lastname,
@@ -102,7 +106,7 @@ export class EditUserComponent implements OnInit {
                 email: data.show_data[0].email,
                 password: data.show_data[0].confirm_password,
                 confirm_password: data.show_data[0].confirm_password,
-                outlet_name: Number(data.show_data[0].outletid),
+                outlet_id: Number(data.show_data[0].outletid),
                 // outlet_status: data.show_data[0].outlet_status,
                 phone_no: data.show_data[0].phone_no,
                 status: Number(data.show_data[0].status),
@@ -115,25 +119,99 @@ export class EditUserComponent implements OnInit {
 
     getOutletData() {
         this.outletService.getOutletData(this.page).subscribe(data => {
-            this.outletData = data.outlets.data;
+            this.outletData = data.outlets.data.sort(function (a: any, b: any) {
+                const nameA = a.outlet_name.toUpperCase(); // ignore upper and lowercase
+                const nameB = b.outlet_name.toUpperCase(); // ignore upper and lowercase
+                if (nameA < nameB) {
+                  return -1;
+                }
+                if (nameA > nameB) {
+                  return 1;
+                }
+
+                // names must be equal
+                return 0;
+              });;
         })
+    }
+
+    onChange(event: any) {
+        if (event.target && event.target.files && event.target.files.length > 0) {
+            this.file = event.target.files[0];
+            const img = new Image();
+            img.src = window.URL.createObjectURL(event.target.files[0]);
+
+            //   img.onload = () => {
+            //     // To calculate Aspect ratio
+            //     function gcd(a, b) {
+            //       return b == 0 ? a : gcd(b, a % b);
+            //     }
+            //     var r = gcd(img.width, img.height);
+            //     this.aspectRatio = img.height / r == 9 && img.width / r == 16;
+            //     console.log('Aspect     = ', img.height / r, ':', img.width / r);
+            //     console.log('Aspect allowed  = ', this.aspectRatio);
+
+            //     if (!this.aspectRatio) {
+            //       this.file = null;
+            //     } else {
+            //       this.onUpload();
+            //     }
+            //   };
+
+            console.log('HERE IF');
+            console.table(this.file);
+        } else {
+            console.log('HERE ELSE');
+            this.file = event[0].file;
+        }
     }
 
     // For submitting edit user form data
     updateData(data: any) {
 
-        if(this.editUserForm.invalid) {
+        if (this.editUserForm.invalid) {
             alert('Please fill all the required fields!');
             return;
-          }
-
-        if (this.editUserForm.invalid) {
-            alert('Please Fill the required Fields.')
-            return;
         }
-        this.userService.editUser(this.id, data).subscribe(data => {
+
+        console.log('id',data.outlet_id);
+
+        if(data.outlet_id == null) {
+            data.outlet_id = this.outlet_id;
+        }
+
+        let outletName = '';
+
+        this.outletData.forEach((ele: any) => {
+            console.log(ele);
+
+            if(data.outlet_id == ele.id) {
+                outletName = ele.outlet_name;
+            }
+            console.log('name', outletName);
+        })
+
+        data.outlet_id = Number(data.outlet_id);
+
+        const formData = new FormData();
+        formData.append('first_name', data.first_name);
+        formData.append('lastname', data.lastname);
+        formData.append('username', data.username);
+        formData.append('email', data.email);
+        formData.append('password', data.password);
+        formData.append('confirm_password', data.confirm_password);
+        formData.append('outlet_id', data.outlet_id);
+        formData.append('outlet_name', outletName);
+        formData.append('phone_no', data.phone_no);
+        formData.append('user_avatar', this.file);
+        formData.append('status', data.status);
+
+        console.log(formData.getAll('outlet_id'));
+
+        this.userService.editUser(this.id, formData).subscribe(data => {
             console.log('Data updated successfully! ', data);
             this.router.navigate(['/pos/users']);
+            this.toast.success('Succes', 'User Edited Successfully.')
         }, err => {
             this.toast.error('Error', 'Server error.')
         });

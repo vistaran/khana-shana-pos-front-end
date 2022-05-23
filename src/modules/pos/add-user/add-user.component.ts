@@ -16,6 +16,8 @@ export class AddUserComponent implements OnInit {
     addUserForm!: FormGroup;
     outletList: any;
     showValidations = false;
+    file: any;
+    imageURL: string | undefined;
 
     // For Validations
     get userName() {
@@ -92,59 +94,85 @@ export class AddUserComponent implements OnInit {
 
     getOutletData() {
         this.outletService.getOutletData(1).subscribe(result => {
-            this.outletList = result.outlets.data;
+            this.outletList = result.outlets.data.sort(function (a: any, b: any) {
+                const nameA = a.outlet_name.toUpperCase(); // ignore upper and lowercase
+                const nameB = b.outlet_name.toUpperCase(); // ignore upper and lowercase
+                if (nameA < nameB) {
+                    return -1;
+                }
+                if (nameA > nameB) {
+                    return 1;
+                }
+
+                // names must be equal
+                return 0;
+            });;
 
             this.addUserForm.get('outlet')?.setValue(this.outletList[0].id)
         })
     }
 
-    // onUploadCoverPic() {
-    //     const coverPicFormData = new FormData();
-    //     coverPicFormData.append('cover_photo', this.coverPicFile);
-    //     coverPicFormData.append('user_id', this.user_id);
+    onChange(event: any) {
+        if (event.target && event.target.files && event.target.files.length > 0) {
+            this.file = event.target.files[0];
+            const img = new Image();
+            img.src = window.URL.createObjectURL(event.target.files[0]);
 
-    //     // Make http post request over api
-    //     // with formData as req
-    //     this.loadingCoverPic = !this.loadingCoverPic;
+            //   img.onload = () => {
+            //     // To calculate Aspect ratio
+            //     function gcd(a, b) {
+            //       return b == 0 ? a : gcd(b, a % b);
+            //     }
+            //     var r = gcd(img.width, img.height);
+            //     this.aspectRatio = img.height / r == 9 && img.width / r == 16;
+            //     console.log('Aspect     = ', img.height / r, ':', img.width / r);
+            //     console.log('Aspect allowed  = ', this.aspectRatio);
 
-    //     console.log('this.file1', this.file);
-    //     this.usersServices.uploadUserCoverPic(coverPicFormData).subscribe(
-    //       (event: any) => {
-    //         console.log(event);
+            //     if (!this.aspectRatio) {
+            //       this.file = null;
+            //     } else {
+            //       this.onUpload();
+            //     }
+            //   };
 
-    //         if (typeof event === 'object') {
-    //           // Short link via api response
-    //           this.shortLink = event.link;
-    //           this.loadingCoverPic = false; // Flag variable
-    //           // window.location.reload();
-    //           this.SpinnerService.show();
-    //           this.initialDetails();
-    //           this.SpinnerService.hide();
-    //         }
-    //       },
-    //       (err) => {
-    //         this.toastr.error(JSON.stringify(err.error.message));
-    //       }
-    //     );
-    //     this.ngOnInit();
-    //   }
+            console.log('HERE IF');
+            console.table(this.file);
+        } else {
+            console.log('HERE ELSE');
+            this.file = event[0].file;
+        }
+    }
 
     // For submitting add user form data
     onSubmit(data: any) {
 
-        if(this.addUserForm.invalid) {
+
+        if (this.addUserForm.invalid) {
             alert('Please fill the required fileds!');
             return;
         }
 
+        const formData = new FormData();
+        formData.append('first_name', data.first_name);
+        formData.append('lastname', data.lastname);
+        formData.append('username', data.username);
+        formData.append('email', data.email);
+        formData.append('password', data.password);
+        formData.append('confirm_password', data.confirm_password);
+        formData.append('outlet', data.outlet);
+        // formData.append('outlet_name', data.outlet_name);
+        formData.append('phone_no', data.phone_no);
+        formData.append('user_avatar', this.file);
+        formData.append('status', data.status);
+
         this.userService
-            .postUserData(data)
+            .postUserData(formData)
             .subscribe((result: any) => {
                 console.log(result)
-                this.toast.success('Success', 'Added Successfully.')
+                this.toast.success('Success', 'Added Successfully.');
                 this.route.navigate(['/pos/users'])
             }, err => {
-                this.toast.error('Error', 'Server error.')
+                this.toast.error('Error', 'Server error.');
             });
         console.log('Form Submitted', (data));
     }

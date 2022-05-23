@@ -115,7 +115,7 @@ export class AddItemComponent implements OnInit {
     this.itemService.postItemsData(data)
       .subscribe((result: any) => {
         console.log(result)
-        this.toast.success('Success', 'Added Successfully.')
+        this.toast.success('Success', 'Item Added Successfully.')
         this.router.navigate(['/items']);
       }, err => {
         this.toast.error('Error', 'Server error.')

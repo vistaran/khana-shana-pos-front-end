@@ -72,7 +72,7 @@ export class EditVendorComponent implements OnInit {
     this.vendorService.editVendor(this.id, data).subscribe(data => {
       console.log('Data updated successfully! ', data);
       this.router.navigate(['/pos/vendors']);
-      this.toast.success('Success', 'Edited successfully.')
+      this.toast.success('Success', 'Vendor Edited successfully.')
     }, err => {
       this.toast.error('Error', 'Server error.')
     });

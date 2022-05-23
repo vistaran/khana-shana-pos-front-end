@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 // import { Subject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppToastService } from '@modules/shared-module/services/app-toast.service';
@@ -30,7 +31,8 @@ export class UsersListComponent implements OnInit {
         private outletData: OutletDataService,
         private router: Router,
         private activatedRoute: ActivatedRoute,
-        private toast: AppToastService
+        private toast: AppToastService,
+        private sanitizer: DomSanitizer
     ) {
         if (this.activatedRoute.snapshot.queryParams.outlet) {
             this.activeId = 2
@@ -49,8 +51,15 @@ export class UsersListComponent implements OnInit {
             this.userData = result.user.data
             this.length = this.userData.length;
             this.total = result.user.total;
-            this.showloader = false
-            console.log(result);
+            this.showloader = false;
+
+            this.userData.forEach((ele: any) => {
+                let temp = '';
+                temp = 'data:image/jpeg;base64,' + ele.user_avatar;
+                ele.image = this.sanitizer.bypassSecurityTrustUrl(temp);
+            })
+
+            console.log(this.userData);
 
         }, err => {
             this.showloader = false

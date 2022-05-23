@@ -71,7 +71,7 @@ export class EditOutletComponent implements OnInit {
             country: [null, [Validators.required]],
             state: ['', [Validators.required]],
             city: ['', [Validators.required]],
-            postcode: ['', [Validators.required]],
+            postcode: ['', [Validators.required, Validators.maxLength(6), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
             inventory_source: ['', [Validators.required]],
             status: ['', [Validators.required]]
         });
@@ -116,7 +116,7 @@ export class EditOutletComponent implements OnInit {
         this.outletService.editOutlet(this.id, obj).subscribe((data: any) => {
             // console.log('Data updated successfully! ', data);
             this.router.navigate(['/pos/users'], { queryParams: { outlet: true } });
-            this.toast.success('Success', 'Edited successfully.');
+            this.toast.success('Success', 'Outlet Edited successfully.');
         },
             err => {
                 this.toast.error('Error', 'Server error.');

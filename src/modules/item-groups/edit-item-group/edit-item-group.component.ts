@@ -54,7 +54,7 @@ export class EditItemGroupComponent implements OnInit {
 
     this.itemGroupService.editItemGroup(this.id, data).subscribe(data => {
       console.log('Data updated successfully! ', data);
-      this.toast.success('Success', 'Edited successfully.')
+      this.toast.success('Success', 'Item Group Edited successfully.')
       this.router.navigate(['/item_groups']);
     }, err => {
       this.toast.error('Error', 'Server error.')

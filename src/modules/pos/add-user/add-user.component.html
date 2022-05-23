@@ -87,7 +87,7 @@
                                 <div class="form-group required">
                                     <label for="img">Add Avatar</label><br>
                                     <input type="file" id="img" name="img" accept="image/*"
-                                        formControlName="user_avatar" />
+                                        formControlName="user_avatar" (change)="onChange($event)" />
                                     <div *ngIf="user_avatar?.touched && user_avatar?.invalid || showValidations">
                                         <div class="alert alert-danger" *ngIf="user_avatar?.errors?.required">User
                                             Avatar is required.</div>
@@ -120,7 +120,7 @@
                                         *ngIf="confirm_password?.touched && confirm_password?.invalid || showValidations">
                                         <div class="alert alert-danger"
                                             *ngIf="confirm_password?.errors?.required && confirm_password?.invalid">
-                                            Password is required.</div>
+                                            Confirm Password is required.</div>
                                     </div>
                                     <div class="alert alert-danger"
                                         *ngIf="addUserForm?.errors?.mismatch && !confirm_password?.invalid">

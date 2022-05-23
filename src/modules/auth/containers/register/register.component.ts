@@ -18,7 +18,9 @@ import { AuthService } from './../../services/auth.service';
 export class RegisterComponent implements OnInit {
 
   user2: User[] = [];
-  createAccountForm!: FormGroup
+  createAccountForm!: FormGroup;
+  showValidations = false;
+  file: any;
   // user = new User();
 
   constructor(
@@ -64,6 +66,8 @@ export class RegisterComponent implements OnInit {
     },
       { validators: PasswordValidator }
     )
+
+    this.onChange();
   }
 
   // username: ['', [Validators.required]],
@@ -85,7 +89,42 @@ export class RegisterComponent implements OnInit {
       })
   }
 
+  onChange() {
+    this.file = 'https://cdn.icon-icons.com/icons2/1378/PNG/128/avatardefault_92824.png';
+    if (this.file.length > 0) {
+        const img = new Image();
+        img.src = window.URL.createObjectURL(this.file);
+
+        //   img.onload = () => {
+        //     // To calculate Aspect ratio
+        //     function gcd(a, b) {
+        //       return b == 0 ? a : gcd(b, a % b);
+        //     }
+        //     var r = gcd(img.width, img.height);
+        //     this.aspectRatio = img.height / r == 9 && img.width / r == 16;
+        //     console.log('Aspect     = ', img.height / r, ':', img.width / r);
+        //     console.log('Aspect allowed  = ', this.aspectRatio);
+
+        //     if (!this.aspectRatio) {
+        //       this.file = null;
+        //     } else {
+        //       this.onUpload();
+        //     }
+        //   };
+
+        console.log('HERE IF');
+        console.table(this.file);
+    } else {
+        console.log('HERE ELSE');
+    }
+}
+
   onSubmit(data: any) {
+
+    if(this.createAccountForm.invalid) {
+      alert('Please fill all the required fields!');
+      return;
+    }
 
     const obj = {
       username: data.username,

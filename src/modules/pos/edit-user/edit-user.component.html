@@ -7,17 +7,6 @@
                     <div class="container-fluid">
                         <h2 class="card-header mt-4 pb-2">General</h2>
                         <div class="card-body row">
-                            <div class="col-6">
-                                <div class="form-group required">
-                                    <label class="required">Username</label>
-                                    <input type="text" formControlName="username" placeholder="Enter Username"
-                                        class="form-control" placeholder="Enter Username" autofocus />
-                                    <div *ngIf="userName?.touched && userName?.invalid || showValidations">
-                                        <div class="alert alert-danger" *ngIf="userName?.errors?.required">Username is
-                                            required.</div>
-                                    </div>
-                                </div>
-                            </div>
 
                             <div class="col-6">
                                 <div class="form-group required">
@@ -38,6 +27,18 @@
                                         class="form-control" />
                                     <div *ngIf="lastName?.touched && lastName?.invalid || showValidations">
                                         <div class="alert alert-danger" *ngIf="lastName?.errors?.required">Last name is
+                                            required.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="form-group required">
+                                    <label class="required">Username</label>
+                                    <input type="text" formControlName="username" placeholder="Enter Username"
+                                        class="form-control" placeholder="Enter Username" autofocus />
+                                    <div *ngIf="userName?.touched && userName?.invalid || showValidations">
+                                        <div class="alert alert-danger" *ngIf="userName?.errors?.required">Username is
                                             required.</div>
                                     </div>
                                 </div>
@@ -80,7 +81,7 @@
                         <div class="card-body row">
                             <div class="col-6">
                                 <label for="img">Edit Avatar</label><br>
-                                <input type="file" id="img" name="img" accept="image/*" formControlName="user_avatar" />
+                                <input type="file" id="img" name="img" accept="image/*" (change)="onChange($event)" formControlName="user_avatar" />
                                 <div *ngIf="user_avatar?.touched && user_avatar?.invalid || showValidations">
                                     <div class="alert alert-danger" *ngIf="user_avatar?.errors?.required">User Avatar is
                                         required.</div>
@@ -112,7 +113,7 @@
                                         *ngIf="confirmPassword?.touched && confirmPassword?.invalid || showValidations">
                                         <div class="alert alert-danger"
                                             *ngIf="confirmPassword?.errors?.required && confirmPassword?.invalid">
-                                            Password is required.</div>
+                                            Confirm Password is required.</div>
                                     </div>
                                     <div class="alert alert-danger"
                                         *ngIf="editUserForm?.errors?.mismatch && !confirmPassword?.invalid">
@@ -127,7 +128,7 @@
                             <div class="col">
                                 <div class="form-group required">
                                     <label class="required">Select Outlet</label><br />
-                                    <select name="outlet" formControlName="outlet_name" class="form-control"
+                                    <select name="outlet" formControlName="outlet_id" class="form-control"
                                         placeholder="Select Outlet">
                                         <option *ngFor="let item of outletData" value="{{item.id}}">{{ item.outlet_name
                                             }}</option>

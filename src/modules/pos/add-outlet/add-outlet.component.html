@@ -13,7 +13,8 @@
                                     <input type="text" formControlName="name" placeholder="Enter Outlet Name"
                                         class="form-control" autofocus />
                                     <div *ngIf="outletName?.touched && outletName?.invalid || showValidations">
-                                        <div class="alert alert-danger" *ngIf="outletName?.errors?.required">Outlet Name is required.</div>
+                                        <div class="alert alert-danger" *ngIf="outletName?.errors?.required">Outlet Name
+                                            is required.</div>
                                     </div>
                                 </div>
                             </div>
@@ -25,7 +26,8 @@
                                         <option *ngFor="let item of status">{{ item }}</option>
                                     </select>
                                     <div *ngIf="stat?.touched && showValidations || stat?.invalid ">
-                                        <div class="alert alert-danger" *ngIf="stat?.errors?.required">Status is required.</div>
+                                        <div class="alert alert-danger" *ngIf="stat?.errors?.required">Status is
+                                            required.</div>
                                     </div>
                                 </div>
                             </div>
@@ -58,7 +60,8 @@
                                     </ng-select>
 
                                     <div *ngIf="showValidations || country?.invalid && country?.touched">
-                                        <div class="alert alert-danger" *ngIf="country?.errors?.required">Country is required.</div>
+                                        <div class="alert alert-danger" *ngIf="country?.errors?.required">Country is
+                                            required.</div>
                                     </div>
                                 </div>
                             </div>
@@ -69,7 +72,8 @@
                                     <input type="text" formControlName="state" placeholder="Enter State"
                                         class="form-control" />
                                     <div *ngIf="showValidations || state?.invalid && state?.touched">
-                                        <div class="alert alert-danger" *ngIf="state?.errors?.required">State is required.</div>
+                                        <div class="alert alert-danger" *ngIf="state?.errors?.required">State is
+                                            required.</div>
                                     </div>
                                 </div>
                             </div>
@@ -80,7 +84,8 @@
                                     <input type="text" formControlName="city" placeholder="Enter City"
                                         class="form-control" />
                                     <div *ngIf="showValidations || city?.invalid && city?.touched">
-                                        <div class="alert alert-danger" *ngIf="city?.errors?.required">City is required.</div>
+                                        <div class="alert alert-danger" *ngIf="city?.errors?.required">City is required.
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -93,6 +98,12 @@
                                     <div *ngIf="showValidations || postCode?.invalid && postCode?.touched">
                                         <div *ngIf="postCode?.errors?.required" class="alert alert-danger">Postcode is
                                             required.</div>
+                                        <div *ngIf="postCode?.errors?.maxlength" class="alert alert-danger">Postcode
+                                            must not exceed 6 digits
+                                        </div>
+                                        <div *ngIf="postCode?.errors?.pattern" class="alert alert-danger">Only Numbers
+                                            are
+                                            allowed</div>
                                     </div>
                                 </div>
                             </div>
@@ -105,7 +116,6 @@
                                     <label class="required">Inventory Source</label><br />
                                     <select name="inventory_source" formControlName="inventory_source"
                                         class="form-control">
-                                        <option value="default">--Select Inventory Source--</option>
                                         <option *ngFor="let item of inventorySource">{{ item }}</option>
                                     </select>
                                     <div *ngIf="showValidations || inventory?.invalid && inventory?.touched">

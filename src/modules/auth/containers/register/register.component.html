@@ -16,8 +16,9 @@
                                         <input type="text" formControlName="first_Name" placeholder="Enter First Name"
                                             class="form-control" required
                                             [class.is-invalid]="first_Name?.touched && first_Name?.invalid" />
-                                        <div *ngIf="first_Name?.touched && first_Name?.invalid" class="text-danger">
-                                            <small *ngIf="first_Name?.errors?.required">First Name is required.</small>
+                                        <div *ngIf="first_Name?.touched && first_Name?.invalid || showValidations">
+                                            <small class="text-danger" *ngIf="first_Name?.errors?.required">First Name
+                                                is required.</small>
                                         </div>
                                     </div>
 
@@ -29,8 +30,9 @@
                                         <input type="text" formControlName="lastname" placeholder="Enter Last Name"
                                             class="form-control"
                                             [class.is-invalid]="lastname?.touched && lastname?.invalid" />
-                                        <div *ngIf="lastname?.touched && lastname?.invalid" class="text-danger">
-                                            <small *ngIf="lastname?.errors?.required">Last Name is required.</small>
+                                        <div *ngIf="lastname?.touched && lastname?.invalid || showValidations">
+                                            <small class="text-danger" *ngIf="lastname?.errors?.required">Last Name is
+                                                required.</small>
                                         </div>
                                     </div>
                                 </div>
@@ -43,8 +45,9 @@
                                         <input type="text" formControlName="username" placeholder="Enter User name"
                                             class="form-control"
                                             [class.is-invalid]="username?.touched && username?.invalid" />
-                                        <div *ngIf="username?.touched && username?.invalid" class="text-danger">
-                                            <small *ngIf="username?.errors?.required">User name is required.</small>
+                                        <div *ngIf="username?.touched && username?.invalid || showValidations">
+                                            <small class="text-danger" *ngIf="username?.errors?.required">User name is
+                                                required.</small>
                                         </div>
                                     </div>
                                 </div>
@@ -55,9 +58,11 @@
                                         <input type="text" formControlName="email" placeholder="Enter Email"
                                             class="form-control"
                                             [class.is-invalid]="email?.touched && email?.invalid" />
-                                        <div *ngIf="email?.touched && email?.invalid" class="text-danger">
-                                            <small *ngIf="email?.errors?.required">Email is required.</small>
-                                            <small *ngIf="email?.errors?.email">Email is invalid</small>
+                                        <div *ngIf="email?.touched && email?.invalid || showValidations">
+                                            <small class="text-danger" *ngIf="email?.errors?.required">Email is
+                                                required.</small>
+                                            <small class="text-danger" *ngIf="email?.errors?.email">Email is
+                                                invalid</small>
                                         </div>
                                     </div>
                                 </div>
@@ -70,8 +75,9 @@
                                         <input type="password" formControlName="password" placeholder="Enter Password"
                                             class="form-control"
                                             [class.is-invalid]="password?.touched && password?.invalid" />
-                                        <div *ngIf="password?.touched && password?.invalid" class="text-danger">
-                                            <small *ngIf="password?.errors?.required">Password is required.</small>
+                                        <div *ngIf="password?.touched && password?.invalid || showValidations">
+                                            <small class="text-danger" *ngIf="password?.errors?.required">Password is
+                                                required.</small>
                                         </div>
 
                                     </div>
@@ -82,12 +88,13 @@
                                         <input type="password" formControlName="confirm_password"
                                             placeholder="Enter Confirm Password" class="form-control"
                                             [class.is-invalid]="confirm_password?.touched && confirm_password?.invalid " />
-                                        <div *ngIf="confirm_password?.touched && confirm_password?.invalid"
-                                            class="text-danger">
-                                            <small *ngIf="confirm_password?.errors?.required">Confirm Password is
+                                        <div
+                                            *ngIf="confirm_password?.touched && confirm_password?.invalid || showValidations">
+                                            <small class="text-danger"
+                                                *ngIf="confirm_password?.errors?.required">Confirm Password is
                                                 required.</small>
                                         </div>
-                                        <small
+                                        <small class="text-danger"
                                             *ngIf="createAccountForm?.errors?.mismatch && !confirm_password?.errors?.required"
                                             class="text-danger">
                                             Passwords do not match.
@@ -97,7 +104,7 @@
                                 </div>
                             </div>
                             <div class="text-center">
-                                <button [disabled]="!createAccountForm.valid" type="submit"
+                                <button (click)="showValidations = true" type="submit"
                                     class="btn btn-primary">Create
                                     Account</button>
                             </div>
