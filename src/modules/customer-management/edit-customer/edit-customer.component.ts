@@ -175,7 +175,7 @@ export class EditCustomerComponent implements OnInit {
     this.customerService.editCustomer(this.id, data)
       .subscribe((result: any) => {
         console.log(result)
-        this.toast.success('Success', 'Edited Successfully.')
+        this.toast.success('Success', 'Customer Edited Successfully.')
         this.router.navigate(['/customer_management']);
       }, err => {
         this.toast.error('Error', 'Server error.')

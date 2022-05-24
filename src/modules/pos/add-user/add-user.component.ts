@@ -113,8 +113,14 @@ export class AddUserComponent implements OnInit {
     }
 
     onChange(event: any) {
+
+        console.log('event', event);
+
+
         if (event.target && event.target.files && event.target.files.length > 0) {
             this.file = event.target.files[0];
+            console.log(this.file);
+
             const img = new Image();
             img.src = window.URL.createObjectURL(event.target.files[0]);
 

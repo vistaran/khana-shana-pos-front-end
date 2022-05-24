@@ -57,7 +57,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.createAccountForm = this.fb.group({
-      first_Name: ['', [Validators.required]],
+      first_name: ['', [Validators.required]],
       lastname: ['', [Validators.required]],
       username: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
@@ -67,7 +67,6 @@ export class RegisterComponent implements OnInit {
       { validators: PasswordValidator }
     )
 
-    this.onChange();
   }
 
   // username: ['', [Validators.required]],
@@ -89,58 +88,87 @@ export class RegisterComponent implements OnInit {
       })
   }
 
-  onChange() {
-    this.file = 'https://cdn.icon-icons.com/icons2/1378/PNG/128/avatardefault_92824.png';
-    if (this.file.length > 0) {
-        const img = new Image();
-        img.src = window.URL.createObjectURL(this.file);
+  onChange(event: any) {
 
-        //   img.onload = () => {
-        //     // To calculate Aspect ratio
-        //     function gcd(a, b) {
-        //       return b == 0 ? a : gcd(b, a % b);
-        //     }
-        //     var r = gcd(img.width, img.height);
-        //     this.aspectRatio = img.height / r == 9 && img.width / r == 16;
-        //     console.log('Aspect     = ', img.height / r, ':', img.width / r);
-        //     console.log('Aspect allowed  = ', this.aspectRatio);
+    if (event.target && event.target.files && event.target.files.length > 0) {
+      this.file = event.target.files[0];
+      console.log(this.file);
 
-        //     if (!this.aspectRatio) {
-        //       this.file = null;
-        //     } else {
-        //       this.onUpload();
-        //     }
-        //   };
+      const img = new Image();
+      img.src = window.URL.createObjectURL(event.target.files[0]);
 
-        console.log('HERE IF');
-        console.table(this.file);
+      //   img.onload = () => {
+      //     // To calculate Aspect ratio
+      //     function gcd(a, b) {
+      //       return b == 0 ? a : gcd(b, a % b);
+      //     }
+      //     var r = gcd(img.width, img.height);
+      //     this.aspectRatio = img.height / r == 9 && img.width / r == 16;
+      //     console.log('Aspect     = ', img.height / r, ':', img.width / r);
+      //     console.log('Aspect allowed  = ', this.aspectRatio);
+
+      //     if (!this.aspectRatio) {
+      //       this.file = null;
+      //     } else {
+      //       this.onUpload();
+      //     }
+      //   };
+
+      console.log('HERE IF');
+      console.table(this.file);
+      // this.ngOnInit();
     } else {
-        console.log('HERE ELSE');
+      console.log('HERE ELSE');
+      this.file = event[0].file;
     }
-}
+  }
+
+  dataURItoBlob(dataURI: any) {
+    const byteString = window.atob(dataURI);
+    const arrayBuffer = new ArrayBuffer(byteString.length);
+    const int8Array = new Uint8Array(arrayBuffer);
+    for (let i = 0; i < byteString.length; i++) {
+      int8Array[i] = byteString.charCodeAt(i);
+    }
+    const blob = new Blob([int8Array], { type: 'image/png' });
+    return blob;
+  }
 
   onSubmit(data: any) {
 
-    if(this.createAccountForm.invalid) {
+    if (this.createAccountForm.invalid) {
       alert('Please fill all the required fields!');
       return;
     }
 
-    const obj = {
-      username: data.username,
-      first_name: data.first_name,
-      lastname: data.lastname,
-      email: data.email,
-      phone_no: ' ',
-      user_avatar: ' ',
-      password: data.password,
-      confirm_password: data.confirm_password,
-      outlet: 'Default',
-      status: 'active',
-    }
+    const formData = new FormData();
+    formData.append('first_name', data.first_name);
+    formData.append('lastname', data.lastname);
+    formData.append('username', data.username);
+    formData.append('email', data.email);
+    formData.append('password', data.password);
+    formData.append('confirm_password', data.confirm_password);
+    formData.append('outlet', '4');
+    // formData.append('outlet_name', data.outlet_name);
+    formData.append('phone_no', data.phone_no);
+    formData.append('user_avatar', this.file);
+    formData.append('status', 'active');
+
+    // const obj = {
+    //   username: data.username,
+    //   first_name: data.first_name,
+    //   lastname: data.lastname,
+    //   email: data.email,
+    //   phone_no: ' ',
+    //   user_avatar: this.file,
+    //   password: data.password,
+    //   confirm_password: data.confirm_password,
+    //   outlet: ,
+    //   status: ,
+    // }
 
     this.userService
-      .postUserData(obj)
+      .postUserData(formData)
       .subscribe((result: any) => {
         console.log(result)
         this.toast.success('Success', 'Account Created Successfully.')

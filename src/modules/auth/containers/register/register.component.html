@@ -7,13 +7,24 @@
                         <h3 class="text-center font-weight-light my-4">Create Account</h3>
                     </div>
                     <div class="card-body">
+
+                        <div class="row justify-content-center">
+                            <img [src]="file"
+                                onerror="this.src='https://cdn.icon-icons.com/icons2/1378/PNG/128/avatardefault_92824.png'"
+                                alt="Image" class="rounded-circle">
+                        </div>
+                        <div class="row justify-content-center mb-2">
+                            <input type="file" id="img" class="rounded btn btn-primary font-bold" name="img"
+                                accept="image/*" (change)="onChange($event)" value="Add Avatar" />
+                        </div>
+
                         <form [formGroup]="createAccountForm" (ngSubmit)="onSubmit(createAccountForm.value)">
                             <div class="form-row">
                                 <div class="col-md-6">
                                     <div class="form-group required">
                                         <label class="small mb-1">First
                                             Name</label>
-                                        <input type="text" formControlName="first_Name" placeholder="Enter First Name"
+                                        <input type="text" formControlName="first_name" placeholder="Enter First Name"
                                             class="form-control" required
                                             [class.is-invalid]="first_Name?.touched && first_Name?.invalid" />
                                         <div *ngIf="first_Name?.touched && first_Name?.invalid || showValidations">
@@ -104,8 +115,7 @@
                                 </div>
                             </div>
                             <div class="text-center">
-                                <button (click)="showValidations = true" type="submit"
-                                    class="btn btn-primary">Create
+                                <button (click)="showValidations = true" type="submit" class="btn btn-primary">Create
                                     Account</button>
                             </div>
                         </form>
