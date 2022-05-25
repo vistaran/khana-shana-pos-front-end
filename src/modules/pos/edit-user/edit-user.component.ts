@@ -22,6 +22,7 @@ export class EditUserComponent implements OnInit {
 
     outletData: any = []
     page = 1
+    image: any;
 
     get userName() {
         return this.editUserForm.get('username');
@@ -99,6 +100,7 @@ export class EditUserComponent implements OnInit {
         this.userService.editUserForm(this.id).subscribe((data: any) => {
 
             this.outlet_id = data.show_data[0].outletid;
+            this.image = data.show_data[0].user_avatar
             this.editUserForm.patchValue({
                 first_name: data.show_data[0].first_name,
                 lastname: data.show_data[0].lastname,
@@ -109,7 +111,12 @@ export class EditUserComponent implements OnInit {
                 outlet_id: Number(data.show_data[0].outletid),
                 // outlet_status: data.show_data[0].outlet_status,
                 phone_no: data.show_data[0].phone_no,
+                user_avatar: data.show_data[0].user_avatar,
                 status: Number(data.show_data[0].status),
+            })
+
+            this.editUserForm.setValue({
+                user_avatar: data.show_data[0].user_avatar
             })
             console.log(data)
         })
@@ -123,15 +130,15 @@ export class EditUserComponent implements OnInit {
                 const nameA = a.outlet_name.toUpperCase(); // ignore upper and lowercase
                 const nameB = b.outlet_name.toUpperCase(); // ignore upper and lowercase
                 if (nameA < nameB) {
-                  return -1;
+                    return -1;
                 }
                 if (nameA > nameB) {
-                  return 1;
+                    return 1;
                 }
 
                 // names must be equal
                 return 0;
-              });;
+            });;
         })
     }
 
@@ -174,9 +181,9 @@ export class EditUserComponent implements OnInit {
             return;
         }
 
-        console.log('id',data.outlet_id);
+        console.log('id', data.outlet_id);
 
-        if(data.outlet_id == null) {
+        if (data.outlet_id == null) {
             data.outlet_id = this.outlet_id;
         }
 
@@ -185,7 +192,7 @@ export class EditUserComponent implements OnInit {
         this.outletData.forEach((ele: any) => {
             console.log(ele);
 
-            if(data.outlet_id == ele.id) {
+            if (data.outlet_id == ele.id) {
                 outletName = ele.outlet_name;
             }
             console.log('name', outletName);

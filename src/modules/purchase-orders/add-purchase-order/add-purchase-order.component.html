@@ -88,7 +88,7 @@
 
                         <div class="modal-header">
                             <h4 class="modal-title">Add Item</h4>
-                            <button type="button" class="btn-close btn-sm btn-primary" aria-label="Close"
+                            <button type="button" style="size: 15px;" class="btn-close btn-xs btn-primary" aria-label="Close"
                                 (click)="modal.dismiss('Cross click')">X
                             </button>
                         </div>
@@ -206,10 +206,10 @@
 
                 </ng-template>
 
-                <table class="table table-bordered table-striped">
+                <table class="table table-bordered table-sm table-striped">
                     <thead class="head">
                         <th>Item Group</th>
-                        <th>Item Name</th>
+                        <th>Item Name</th>  
                         <th>Unit Name</th>
                         <th>Quantity</th>
                         <th>Price</th>
@@ -242,7 +242,7 @@
                                 <div class="input-group input-group-sm">
                                     <input type="number" formControlName="shipping_charge" class="form-control"
                                         aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                                        (keyup)="onKey($event)">
+                                        (change)="onKey($event)">
                                 </div>
                             </td>
                         </tr>

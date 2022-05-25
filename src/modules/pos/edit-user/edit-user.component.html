@@ -81,7 +81,7 @@
                         <div class="card-body row">
                             <div class="col-6">
                                 <label for="img">Edit Avatar</label><br>
-                                <input type="file" id="img" name="img" accept="image/*" (change)="onChange($event)" formControlName="user_avatar" />
+                                <input type="file" id="img" name="img" accept="image/*" (change)="onChange($event)" formControlName="user_avatar" value="{{image}}" [src]="image" />
                                 <div *ngIf="user_avatar?.touched && user_avatar?.invalid || showValidations">
                                     <div class="alert alert-danger" *ngIf="user_avatar?.errors?.required">User Avatar is
                                         required.</div>

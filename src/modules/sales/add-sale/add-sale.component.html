@@ -157,18 +157,18 @@
                                 </tr>
 
                                 <tr class="table-sm">
-                                    <td colspan="5" class="text-right"><b>Shipping Charges</b></td>
+                                    <td colspan="4" class="text-right"><b>Shipping Charges</b></td>
                                     <td>
                                         <div class="input-group input-group-sm mb-3">
                                             <input type="number" formControlName="shipping_charge" class="form-control"
                                                 aria-label="Sizing example input"
-                                                aria-describedby="inputGroup-sizing-sm" (keyup)="onKey($event)">
+                                                aria-describedby="inputGroup-sizing-sm" (change)="onKey($event)">
                                         </div>
                                     </td>
                                 </tr>
 
                                 <tr class="table-sm">
-                                    <td colspan="5" class="text-right"><b>Total Amount:</b></td>
+                                    <td colspan="4" class="text-right"><b>Total Amount:</b></td>
                                     <td>₹{{ total }}</td>
                                 </tr>
 

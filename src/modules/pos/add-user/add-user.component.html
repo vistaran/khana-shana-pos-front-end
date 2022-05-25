@@ -68,7 +68,7 @@
                                     <div *ngIf="phone?.touched && phone?.invalid || showValidations">
                                         <div *ngIf="phone?.errors?.required" class="alert alert-danger">Phone number is
                                             required.</div>
-                                        <div *ngIf="phone?.errors?.maxlength" class="alert alert-danger">Phone number
+                                        <div *ngIf="phone?.errors?.maxlength && !phone?.errors?.pattern" class="alert alert-danger">Phone number
                                             must not exceed 10 digits
                                         </div>
                                         <div *ngIf="phone?.errors?.pattern" class="alert alert-danger">Only Numbers are

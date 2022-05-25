@@ -62,6 +62,67 @@ export class EditCustomerComponent implements OnInit {
     return this.editCustomerForm.get('office_address');
   }
 
+  // add address form validations
+
+  get addressType() {
+    return this.addressForm.get('address_type');
+  }
+
+  get address_line_1() {
+    return this.addressForm.get('address_line_1');
+  }
+
+  get address_line_2() {
+    return this.addressForm.get('address_line_2');
+  }
+
+  get city() {
+    return this.addressForm.get('city');
+  }
+
+  get state() {
+    return this.addressForm.get('state');
+  }
+
+  get contry() {
+    return this.addressForm.get('contry');
+  }
+
+  get postalcode() {
+    return this.addressForm.get('postalcode');
+  }
+
+  // edit address form
+
+  get addressType_edit() {
+    return this.editAddressForm.get('address_type');
+  }
+
+  get address_line_1_edit() {
+    return this.editAddressForm.get('address_line_1');
+  }
+
+  get address_line_2_edit() {
+    return this.editAddressForm.get('address_line_2');
+  }
+
+  get city_edit() {
+    return this.editAddressForm.get('city');
+  }
+
+  get state_edit() {
+    return this.editAddressForm.get('state');
+  }
+
+  get contry_edit() {
+    return this.editAddressForm.get('contry');
+  }
+
+  get postalcode_edit() {
+    return this.editAddressForm.get('postalcode');
+  }
+
+
 
   constructor(
     private fb: FormBuilder,
@@ -84,29 +145,29 @@ export class EditCustomerComponent implements OnInit {
     })
 
     this.addressForm = this.fb.group({
-      address_type: [''],
-      address_line_1: [''],
-      address_line_2: [''],
+      address_type: [0, [Validators.required]],
+      address_line_1: ['', [Validators.required]],
+      address_line_2: ['', [Validators.required]],
       address_line_3: [''],
       // landmark: [''],
-      city: [''],
-      state: [''],
-      contry: [''],
-      postalcode: [''],
+      city: ['', [Validators.required]],
+      state: ['', [Validators.required]],
+      contry: ['', [Validators.required]],
+      postalcode: ['', [Validators.required, Validators.maxLength(6)]],
       latitude: [''],
       longitude: ['']
     })
 
     this.editAddressForm = this.fb.group({
-      address_type: [''],
-      address_line_1: [''],
-      address_line_2: [''],
+      address_type: [0, [Validators.required]],
+      address_line_1: ['', [Validators.required]],
+      address_line_2: ['', [Validators.required]],
       address_line_3: [''],
       // landmark: [''],
-      city: [''],
-      state: [''],
-      contry: [''],
-      postalcode: [''],
+      city: ['', [Validators.required]],
+      state: ['', [Validators.required]],
+      contry: ['', [Validators.required]],
+      postalcode: ['', [Validators.required, Validators.maxLength(6)]],
       latitude: [''],
       longitude: ['']
     })

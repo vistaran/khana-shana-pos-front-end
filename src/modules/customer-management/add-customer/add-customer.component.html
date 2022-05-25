@@ -34,7 +34,7 @@
                             <input type="tel" placeholder="Enter Phone Number" formControlName="phone_number" class="form-control" />
                             <div *ngIf="phone?.touched && phone?.invalid" class="alert alert-danger">
                                 <div *ngIf="phone?.errors?.required">Phone Number is required.</div>
-                                <div *ngIf="phone?.errors?.maxlength">Phone number must not exceed 10 digits
+                                <div *ngIf="phone?.errors?.maxlength && !phone?.errors?.pattern">Phone number must not exceed 10 digits
                                 </div>
                                 <div *ngIf="phone?.errors?.pattern">Only Numbers are allowed</div>
                             </div>
