@@ -68,7 +68,8 @@
                                     <div *ngIf="phone?.touched && phone?.invalid || showValidations">
                                         <div *ngIf="phone?.errors?.required" class="alert alert-danger">Phone number is
                                             required.</div>
-                                        <div *ngIf="phone?.errors?.maxlength && !phone?.errors?.pattern" class="alert alert-danger">Phone number
+                                        <div *ngIf="phone?.errors?.maxlength && !phone?.errors?.pattern"
+                                            class="alert alert-danger">Phone number
                                             must not exceed 10 digits
                                         </div>
                                         <div *ngIf="phone?.errors?.pattern" class="alert alert-danger">Only Numbers are
@@ -86,8 +87,11 @@
                             <div class="col-6">
                                 <div class="form-group required">
                                     <label for="img">Add Avatar</label><br>
+                                    <img [src]="imageUrl" class="rounded-circle"
+                                        onerror="this.src='https://cdn.icon-icons.com/icons2/1378/PNG/128/avatardefault_92824.png'">
                                     <input type="file" id="img" name="img" accept="image/*"
-                                        formControlName="user_avatar" (change)="onChange($event)" />
+                                        formControlName="user_avatar" (change)="handleFileInput($event.target.files)"
+                                        (change)="onChange($event)" />
                                     <div *ngIf="user_avatar?.touched && user_avatar?.invalid || showValidations">
                                         <div class="alert alert-danger" *ngIf="user_avatar?.errors?.required">User
                                             Avatar is required.</div>

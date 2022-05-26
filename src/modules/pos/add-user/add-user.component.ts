@@ -17,7 +17,9 @@ export class AddUserComponent implements OnInit {
     outletList: any;
     showValidations = false;
     file: any;
-    imageURL: string | undefined;
+
+    imageUrl = 'image\avatardefault_92824.png';
+    fileToUpload!: File;
 
     // For Validations
     get userName() {
@@ -110,6 +112,20 @@ export class AddUserComponent implements OnInit {
 
             this.addUserForm.get('outlet')?.setValue(this.outletList[0].id)
         })
+    }
+
+    handleFileInput(file: FileList) {
+        this.fileToUpload = file.item(0) as File;
+
+        const reader = new FileReader()
+        // reader.readAsDataURL(this.imgData)
+        reader.onload = (event: any) => {
+            this.imageUrl = event.target.result;
+            // console.log(reader.result);
+        }
+        reader.readAsDataURL(this.fileToUpload)
+        console.log('imageUrl', this.imageUrl);
+
     }
 
     onChange(event: any) {

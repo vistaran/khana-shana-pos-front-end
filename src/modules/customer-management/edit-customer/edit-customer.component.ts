@@ -312,7 +312,7 @@ export class EditCustomerComponent implements OnInit {
     });
 
     const obj = {
-      user_id: this.id,
+      customer_id: this.id,
       address_type_id: data.address_type,
       address_type: this.address_type,
       address_line_1: data.address_line_1,

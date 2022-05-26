@@ -24,6 +24,14 @@ export class EditUserComponent implements OnInit {
     page = 1
     image: any;
 
+    imgLink: any;
+
+    imgData: any;
+    reader!: FileReader;
+
+    imageUrl = 'image\avatardefault_92824.png';
+    fileToUpload!: File;
+
     get userName() {
         return this.editUserForm.get('username');
     }
@@ -142,6 +150,20 @@ export class EditUserComponent implements OnInit {
         })
     }
 
+    handleFileInput(file: FileList) {
+        this.fileToUpload = file.item(0) as File;
+
+        const reader = new FileReader()
+        // reader.readAsDataURL(this.imgData)
+        reader.onload = (event: any) => {
+            this.imageUrl = event.target.result;
+            // console.log(reader.result);
+        }
+        reader.readAsDataURL(this.fileToUpload)
+        console.log('imageUrl', this.imageUrl);
+
+    }
+
     onChange(event: any) {
         if (event.target && event.target.files && event.target.files.length > 0) {
             this.file = event.target.files[0];
@@ -167,17 +189,45 @@ export class EditUserComponent implements OnInit {
 
             console.log('HERE IF');
             console.table(this.file);
+
         } else {
             console.log('HERE ELSE');
             this.file = event[0].file;
         }
+
+        // this.imgLink = ''
+
+        // this.imgData = event.target.files[0]
+
+        // In your case
+        // this.logo = this.imgData
+
+        // const mimeType = this.imgData.type
+
+        // if (mimeType.match(/image\/*/) == null) {
+        //     const message = 'This file type is not supported, Please upload in image format'
+        //     return
+        // }
+
+        // this.reader = new FileReader()
+        // this.reader.readAsDataURL(this.imgData)
+        // this.reader.onload = (event) => {
+        //     this.imgLink = this.reader.result
+        //     // console.log(reader.result);
+
+        // }
+
+        // console.log('reader', this.reader);
+        // console.log('imgLink', this.imgLink);
+
+
     }
 
     // For submitting edit user form data
     updateData(data: any) {
 
         if (this.editUserForm.invalid) {
-            alert('Please fill all the required fields!');
+            alert('Please check the validations!');
             return;
         }
 
@@ -200,27 +250,45 @@ export class EditUserComponent implements OnInit {
 
         data.outlet_id = Number(data.outlet_id);
 
-        const formData = new FormData();
-        formData.append('first_name', data.first_name);
-        formData.append('lastname', data.lastname);
-        formData.append('username', data.username);
-        formData.append('email', data.email);
-        formData.append('password', data.password);
-        formData.append('confirm_password', data.confirm_password);
-        formData.append('outlet_id', data.outlet_id);
-        formData.append('outlet_name', outletName);
-        formData.append('phone_no', data.phone_no);
-        formData.append('user_avatar', this.file);
-        formData.append('status', data.status);
+        // const formData = new FormData();
+        // formData.append('user_avatar', this.file);
+        // formData.append('first_name', data.first_name);
+        // formData.append('lastname', data.lastname);
+        // formData.append('username', data.username);
+        // formData.append('email', data.email);
+        // formData.append('password', data.password);
+        // formData.append('confirm_password', data.confirm_password);
+        // formData.append('outlet_id', data.outlet_id);
+        // formData.append('outlet_name', outletName);
+        // formData.append('phone_no', data.phone_no);
+        // formData.append('status', data.status);
 
-        console.log(formData.getAll('outlet_id'));
+        const obj = {
+            first_name: data.first_name,
+            lastname: data.lastname,
+            username: data.username,
+            email: data.email,
+            password: data.password,
+            confirm_password: data.confirm_password,
+            outlet_id: data.outlet_id,
+            outlet_name: outletName,
+            phone_no: data.phone_no,
+            user_avatar: this.reader,
+            status: data.status,
+        }
 
-        this.userService.editUser(this.id, formData).subscribe(data => {
+        // obj.user_avatar = formData;
+
+        console.log(obj);
+
+        // console.log(formData.getAll('outlet_id'));
+
+        this.userService.editUser(this.id, obj).subscribe(data => {
             console.log('Data updated successfully! ', data);
             this.router.navigate(['/pos/users']);
             this.toast.success('Succes', 'User Edited Successfully.')
         }, err => {
-            this.toast.error('Error', 'Server error.')
+            this.toast.error('Error', 'Server error.');
         });
     }
 }
