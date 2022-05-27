@@ -99,7 +99,7 @@ export class UsersListComponent implements OnInit {
             this.length = this.userData.length;
             this.total = res.users.total;
             this.showloader = false
-            console.log(this.userData)
+            console.log('search',this.userData)
         }, err => {
             this.showloader = false
             this.toast.error('Error', 'Server error.')

@@ -32,7 +32,7 @@ export class RegisterComponent implements OnInit {
   ) { }
 
   get first_Name() {
-    return this.createAccountForm.get('first_Name');
+    return this.createAccountForm.get('first_name');
   }
 
   get lastname() {

@@ -55,7 +55,6 @@ export class AddPurchaseOrderComponent implements OnInit {
   unit_name: any
   unitId: any
 
-
   // For Validations
 
   // Add order form
@@ -313,6 +312,13 @@ export class AddPurchaseOrderComponent implements OnInit {
 
   addItemData(data: any) {
 
+    if(this.itemsForm.invalid) {
+      this.itemsForm.markAllAsTouched();
+      alert('Please fill all the required fields.');
+      return;
+    }
+
+    this.modalService.dismissAll();
     this.itemGroupsData.forEach((g: any) => {
       if (g.id == data.item_group_id) {
         this.name = g.group_name
@@ -342,12 +348,20 @@ export class AddPurchaseOrderComponent implements OnInit {
     this.semitotal = this.orderItemData.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
       return a + b;
     })
-    // this.toast.success('Success', 'Item Added Successfully.')
+    this.toast.success('Success', 'Item Added Successfully.')
 
     this.calculateTotal();
   }
 
   editItemData(data: any) {
+
+    if(this.editItemsForm.invalid) {
+      this.editItemsForm.markAllAsTouched();
+      alert('Please fill all the required fields.');
+      return;
+    }
+
+    this.modalService.dismissAll();
     console.log('DAta', data);
 
     let group_name = '';
@@ -384,7 +398,7 @@ export class AddPurchaseOrderComponent implements OnInit {
     this.semitotal = this.orderItemData.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
       return a + b;
     })
-    // this.toast.success('Success', 'Item Added Successfully.')
+    this.toast.success('Success', 'Item Edited Successfully.')
     this.calculateTotal();
 
   }
@@ -425,6 +439,8 @@ export class AddPurchaseOrderComponent implements OnInit {
       }
       this.calculateTotal()
       console.log('afterdelete', this.orderItemData);
+
+      this.toast.success('Success', 'Item Deleted Successfully.');
     }
   }
 
@@ -434,6 +450,11 @@ export class AddPurchaseOrderComponent implements OnInit {
 
   // For submitting add purchase form data
   onSubmit(data: any) {
+
+    if(this.orderItemData.length == 0) {
+      alert('Please add atleast one item.');
+      return;
+    }
 
     if (this.date == '') {
       this.date = this.curr_date.year + '-' + this.curr_date.month + '-' + this.curr_date.day

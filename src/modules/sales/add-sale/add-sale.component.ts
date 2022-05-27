@@ -63,9 +63,15 @@ export class AddSaleComponent implements OnInit {
   customerName: any
   customerNumber: any
   customer_id: any
+  showValidations = false;
+  showCustomerValidation = false;
 
   get customer() {
     return this.customerForm.get('customer_id');
+  }
+
+  get quantity() {
+    return this.qtyForm.get('quantity');
   }
 
   constructor(
@@ -87,7 +93,7 @@ export class AddSaleComponent implements OnInit {
     })
 
     this.qtyForm = this.fb.group({
-      quantity: ['']
+      quantity: ['', [Validators.required]]
     })
 
     this.customerForm = this.fb.group({
@@ -129,14 +135,24 @@ export class AddSaleComponent implements OnInit {
   }
 
   onSelectProduct(data: any, qty: any) {
+
+    if(this.qtyForm.invalid) {
+      this.showValidations = true;
+      alert('Please enter quantity');
+      return;
+    }
+
     let invalid;
+
+    this.modalService.dismissAll();
+
     this.addedProduct.forEach((g: any) => {
       if (data.product_name == g.product_name) {
         invalid = true
       }
     })
     if (invalid) {
-      this.toast.warning('Warning', 'Product is already added.')
+      this.toast.warning('Warning', data.product_name + ' is already added.')
       return;
     }
     console.log('Quantity', qty.quantity);
@@ -167,8 +183,17 @@ export class AddSaleComponent implements OnInit {
 
   onSelectCustomer(data: any) {
     // console.log(data.value.customer_id);
+
+    if(this.customerForm.invalid) {
+      this.showCustomerValidation = true;
+      alert('Please select customer');
+      return;
+    }
+
     this.customer_id = data.value.customer_id
     console.log('Customer id: ', this.customer_id);
+
+    this.modalService.dismissAll();
 
     this.customerData.forEach((g: any) => {
 
@@ -202,6 +227,7 @@ export class AddSaleComponent implements OnInit {
         })
       }
       this.calculateTotal()
+      this.toast.success('Success', 'Product deleted successfully.');
     }
   }
 

@@ -1,19 +1,19 @@
 <sb-layout-dashboard>
     <div class="row">
         <div class="col">
-            <ul ngbNav #nav="ngbNav" class="nav-tabs mt-5 font-weight-bold">
+            <!-- <ul ngbNav #nav="ngbNav" class="nav-tabs mt-5 font-weight-bold">
                 <li ngbNavItem>
                     <a ngbNavLink>Item Groups</a>
-                    <ng-template ngbNavContent>
+                    <ng-template ngbNavContent> -->
                         <h2 class="mt-3 mb-4">Item Group List</h2>
                         <!-- search button -->
                         <div class="d-flex justify-content-between mb-4">
 
                             <div class="input-group rounded w-25">
                                 <input type="search" class="form-control rounded" placeholder="Search"
-                                    aria-label="Search" aria-describedby="search-addon" (keyup)="search($event)"
+                                    aria-label="Search" aria-describedby="search-addon" (change)="search($event)"
                                     placeholder="Search" [(ngModel)]="searchValue" />
-                                <span class="input-group-text border-0" id="search-addon">
+                                <span class="input-group-text border-0" id="search-addon" (click)="search($event)">
                                     <i class="fas fa-search"></i>
                                 </span>
                             </div>
@@ -75,10 +75,10 @@
                                 </ngb-pagination>
                             </div>
                         </div>
-                    </ng-template>
+                    <!-- </ng-template>
                 </li>
             </ul>
-            <div [ngbNavOutlet]="nav"></div>
+            <div [ngbNavOutlet]="nav"></div> -->
         </div>
     </div>
 </sb-layout-dashboard>

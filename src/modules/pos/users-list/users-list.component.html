@@ -11,11 +11,14 @@
                         <div class="d-flex justify-content-between mb-4">
 
                             <div class="input-group rounded w-25">
-                                <input type="search" class="form-control rounded" aria-label="Search"
-                                    (keyup)="search($event)" placeholder="Search" [(ngModel)]="searchValue" />
-                                <span class="input-group-text border-0" id="search-addon">
-                                    <i class="fas fa-search" aria-hidden="true" (click)="search($event)"></i>
-                                </span>
+                                <input class="form-control amber-border" class="form-control" type="text"
+                                    aria-label="Search" (keyup)="search($event)" placeholder="Search"
+                                    [(ngModel)]="searchValue">
+                                <div class="input-group-append">
+                                    <button class="btn input-group-text amber lighten-3" id="basic-text1"><i
+                                            class="fa fa-search" aria-hidden="true"
+                                            (click)="search($event)"></i></button>
+                                </div>
                             </div>
                             <button (click)="onClick()" class="btn btn-primary float-right">
                                 Add User
@@ -37,7 +40,7 @@
                                 <tr *ngFor="let data of userData">
                                     <td>{{ data.user_id }}</td>
                                     <td class="justify-content-center"><img class="img-xs rounded-circle"
-                                            [src]="data.image.changingThisBreaksApplicationSecurity"
+                                            [src]="data.user_avatar"
                                             onerror="this.src='https://cdn.icon-icons.com/icons2/1378/PNG/128/avatardefault_92824.png'">
                                     </td>
                                     <td>{{ data.username }}</td>

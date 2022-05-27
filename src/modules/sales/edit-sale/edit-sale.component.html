@@ -19,9 +19,9 @@
 
                 <ng-template #content3 let-modal>
 
-                    <div class="modal-header">
-                        <h4 class="modal-title">Select Customer</h4>
-                        <button type="button" class="btn-close btn-primary btn-sm" aria-label="Close"
+                    <div class="modal-header bg-primary">
+                        <h4 class="modal-title text-light">Select Customer</h4>
+                        <button type="button" class="btn-light btn-xs" aria-label="Close"
                             (click)="modal.dismiss('Cross click')">X
                         </button>
                     </div>
@@ -39,14 +39,17 @@
                                             }}. {{
                                             item.first_name }} {{ item.last_name}}</ng-option>
                                     </ng-select>
+                                    <div *ngIf="customer?.touched && customer?.invalid || showCustomerValidation">
+                                        <div *ngIf="customer?.errors?.required" class="alert alert-danger">Customer is
+                                            required.</div>
+                                    </div>
                                 </div>
                             </div>
                         </form>
                     </div>
 
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" (click)="onSelectCustomer(customerForm)"
-                            (click)="modal.close('Close click')">Add
+                    <div class="modal-footer bg-dark">
+                        <button type="submit" class="btn btn-sm btn-info" (click)="onSelectCustomer(customerForm)">Add
                             Customer</button>
                     </div>
 
@@ -89,9 +92,9 @@
 
                                 <ng-template #content let-modal>
 
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">Product Quantity</h4>
-                                        <button type="button" class="btn-close btn-primary btn-sm" aria-label="Close"
+                                    <div class="modal-header bg-primary">
+                                        <h4 class="modal-title text-light">Product Quantity</h4>
+                                        <button type="button" class="btn-light btn-xs" aria-label="Close"
                                             (click)="modal.dismiss('Cross click')">X
                                         </button>
                                     </div>
@@ -104,6 +107,12 @@
                                                     <label class="required">Quantity</label>
                                                     <input type="number" formControlName="quantity" class="form-control"
                                                         autofocus />
+                                                    <div
+                                                        *ngIf="quantity?.touched && quantity?.invalid || showValidations">
+                                                        <div class="alert alert-danger"
+                                                            *ngIf="quantity?.errors?.required">Quantity is required.
+                                                        </div>
+                                                    </div>
 
                                                 </div>
                                             </div>
@@ -111,10 +120,9 @@
                                         </form>
                                     </div>
 
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary"
-                                            (click)="onSelectProduct(data, qtyForm.value)"
-                                            (click)="modal.close('Close click')">Save
+                                    <div class="modal-footer bg-dark">
+                                        <button type="submit" class="btn btn-info btn-sm"
+                                            (click)="onSelectProduct(data, qtyForm.value)">Save
                                             Order</button>
                                     </div>
                                 </ng-template>
@@ -159,7 +167,7 @@
                                         <div class="input-group input-group-sm">
                                             <input type="number" formControlName="shipping_charge" class="form-control"
                                                 aria-label="Sizing example input"
-                                                aria-describedby="inputGroup-sizing-sm" (change)="onKey($event)">
+                                                aria-describedby="inputGroup-sizing-sm" (keyup)="onKey($event)" (change)="onKey($event)">
                                         </div>
                                     </td>
                                 </tr>

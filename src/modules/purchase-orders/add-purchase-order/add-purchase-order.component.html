@@ -7,7 +7,7 @@
                 <div class="row card-body">
 
                     <div class="col">
-                        <div class="form-group">
+                        <div class="form-group required">
                             <label class="required">Select Vendor</label>
                             <select name="vendor_id" class="form-control" placeholder="Select Vendor"
                                 formControlName="vendor_id" autofocus>
@@ -27,7 +27,7 @@
 
 
                     <div class="col">
-                        <div class="form-group">
+                        <div class="form-group required">
                             <label class="required">Select Outlet</label>
                             <select name="outlet_id" class="form-control" formControlName="outlet_id"
                                 placeholder="Select Outlet">
@@ -48,7 +48,7 @@
 
 
                     <div class="col">
-                        <div class="form-group">
+                        <div class="form-group required">
                             <label class="required">Purchase Date</label>
                             <div class="input-group">
                                 <input class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker
@@ -86,9 +86,9 @@
                 <ng-template #content let-modal>
                     <form [formGroup]="itemsForm">
 
-                        <div class="modal-header">
-                            <h4 class="modal-title">Add Item</h4>
-                            <button type="button" style="size: 15px;" class="btn-close btn-xs btn-primary" aria-label="Close"
+                        <div class="modal-header bg-primary">
+                            <h4 class="modal-title text-light">Add Item</h4>
+                            <button type="button" class="btn-xs btn-light" aria-label="Close"
                                 (click)="modal.dismiss('Cross click')">X
                             </button>
                         </div>
@@ -98,7 +98,7 @@
                             <div class="row card-body">
 
                                 <div class="col">
-                                    <div class="form-group">
+                                    <div class="form-group required">
                                         <label class="required">Select Item Group Name</label>
                                         <select name="item_group_id" formControlName="item_group_id"
                                             (ngModelChange)="onSelectGroup($event)" class="form-control" autofocus
@@ -122,7 +122,7 @@
                                 <!-- <div > -->
 
                                     <div [hidden]="!isInputShown" class="col">
-                                        <div class="form-group">
+                                        <div class="form-group required">
                                             <label class="required">Select Item Name</label>
                                             <ng-select name="item_id" formControlName="item_id"
                                                 (search)="searchItem($event)" (ngModelChange)="onSelectNameItem($event)"
@@ -147,14 +147,14 @@
                                     <div class="row card-body">
 
                                         <div class="col">
-                                            <div class="form-group">
+                                            <div class="form-group required">
                                                 <label class="required">Select Unit Name</label>
                                                 <input type="text" formControlName="unit_id" value="{{ unit_name }}" />
                                             </div>
                                         </div>
 
                                         <div class="col">
-                                            <div class="form-group">
+                                            <div class="form-group required">
                                                 <label class="required">Quantity</label>
                                                 <input type="number" formControlName="qty" class="form-control" />
                                                 <div *ngIf="qty?.touched && qty?.invalid" class="alert alert-danger">
@@ -180,7 +180,7 @@
                                         </div>
 
                                         <div class="col">
-                                            <div class="form-group">
+                                            <div class="form-group required">
                                                 <label class="required">Price</label>
                                                 <input type="number" formControlName="price" class="form-control" />
                                                 <div *ngIf="price?.touched && price?.invalid"
@@ -197,9 +197,9 @@
 
                         </div>
 
-                        <div class="modal-footer">
-                            <button type="submit" [disabled]="!itemsForm.valid" class="btn btn-primary"
-                                (click)=" addItemData(itemsForm.value)" (click)="modal.close('Close click')">Save
+                        <div class="modal-footer bg-dark">
+                            <button type="submit" class="btn btn-sm btn-info"
+                                (click)=" addItemData(itemsForm.value)">Save
                                 Item</button>
                         </div>
                     </form>
@@ -264,9 +264,9 @@
             <ng-template #content2 let-modal>
                 <form [formGroup]="editItemsForm">
 
-                    <div class="modal-header">
-                        <h4 class="modal-title">Edit Item</h4>
-                        <button type="button" class="btn-close btn-sm btn-primary" aria-label="Close"
+                    <div class="modal-header bg-primary">
+                        <h4 class="modal-title text-light">Edit Item</h4>
+                        <button type="button" class="btn-close btn-xs btn-light" aria-label="Close"
                             (click)="modal.dismiss('Cross click')">X
                         </button>
                     </div>
@@ -276,7 +276,7 @@
                         <div class="row card-body">
 
                             <div class="col">
-                                <div class="form-group">
+                                <div class="form-group required">
                                     <label class="required">Select Item Group Name</label>
                                     <select name="item_group_id" formControlName="item_group_id"
                                         (ngModelChange)="onSelectGroup($event)" class="form-control" autofocus
@@ -300,7 +300,7 @@
                             <!-- <div > -->
 
                                 <div [hidden]="!isInputShown" class="col">
-                                    <div class="form-group">
+                                    <div class="form-group required">
                                         <label class="required">Select Item Name</label>
                                         <select name="item_id" formControlName="item_id"
                                             (search)="searchItem($event)" class="form-control" (ngModelChange)="onSelectNameItem($event)"
@@ -324,18 +324,18 @@
                                 <div class="row card-body">
 
                                     <div class="col">
-                                        <div class="form-group">
+                                        <div class="form-group required">
                                             <label class="required">Select Unit Name</label>
                                             <input type="text" formControlName="unit_id" value="{{ unit_name }}" />
                                         </div>
                                     </div>
 
                                     <div class="col">
-                                        <div class="form-group">
+                                        <div class="form-group required">
                                             <label class="required">Quantity</label>
                                             <input type="number" formControlName="qty" placeholder="Enter Quantity" class="form-control" />
-                                            <div *ngIf="qty?.touched && qty?.invalid" class="alert alert-danger">
-                                                <div *ngIf="qty?.errors?.required">Quantity is required.
+                                            <div *ngIf="qty2?.touched && qty2?.invalid" class="alert alert-danger">
+                                                <div *ngIf="qty2?.errors?.required">Quantity is required.
                                                 </div>
                                             </div>
                                         </div>
@@ -357,7 +357,7 @@
                                     </div>
 
                                     <div class="col">
-                                        <div class="form-group">
+                                        <div class="form-group required">
                                             <label class="required">Price</label>
                                             <input type="number" formControlName="price" class="form-control" />
                                             <div *ngIf="price?.touched && price?.invalid" class="alert alert-danger">
@@ -373,9 +373,9 @@
 
                     </div>
 
-                    <div class="modal-footer">
-                        <button type="submit" [disabled]="!editItemsForm.valid" class="btn btn-primary"
-                            (click)=" editItemData(editItemsForm.value)" (click)="modal.close('Close click')">Save
+                    <div class="modal-footer bg-dark">
+                        <button type="submit" class="btn btn-sm btn-info"
+                            (click)=" editItemData(editItemsForm.value)">Save
                             Item</button>
                     </div>
                 </form>

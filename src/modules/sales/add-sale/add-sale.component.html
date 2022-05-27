@@ -18,9 +18,9 @@
 
                 <ng-template #content3 let-modal>
 
-                    <div class="modal-header">
-                        <h4 class="modal-title">Select Customer</h4>
-                        <button type="button" class="btn-close btn-primary btn-sm" aria-label="Close"
+                    <div class="modal-header bg-primary">
+                        <h4 class="text-light modal-title">Select Customer</h4>
+                        <button type="button" class="btn-close btn-light btn-sm" aria-label="Close"
                             (click)="modal.dismiss('Cross click')">X
                         </button>
                     </div>
@@ -29,7 +29,7 @@
 
                         <form [formGroup]="customerForm">
                             <div class="col">
-                                <div class="form-group">
+                                <div class="form-group required">
                                     <label class="required">Select Customer</label><br />
 
                                     <!-- <ng-select formControlName="customer_id" [items]="customerData.first_name" bindLabel="name" placeholder="Select Customer" [(ngModel)]="selectedCity">
@@ -41,18 +41,17 @@
                                             }}. {{
                                             item.first_name }} {{ item.last_name}}</ng-option>
                                     </ng-select>
-                                    <div *ngIf="customer?.touched && customer?.invalid" class="alert alert-danger">
-                                        <div *ngIf="customer?.errors?.required">Customer is required.</div>
+                                    <div *ngIf="customer?.touched && customer?.invalid || showCustomerValidation">
+                                        <div *ngIf="customer?.errors?.required" class="alert alert-danger">Customer is
+                                            required.</div>
                                     </div>
-
                                 </div>
                             </div>
                         </form>
                     </div>
 
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" (click)="onSelectCustomer(customerForm)"
-                            (click)="modal.close('Close click')">Add
+                    <div class="modal-footer bg-dark">
+                        <button type="submit" class="btn btn-info btn-sm" (click)="onSelectCustomer(customerForm)">Add
                             Customer</button>
                     </div>
 
@@ -72,9 +71,11 @@
                                             <h5 class="card-title text-info">{{ data.product_name }}</h5>
                                             <small class="card-text"><b>Category: </b> {{ data.category_name }}
                                             </small><br>
-                                            <small class="card-text" *ngIf="data.description != null"><b>Description: </b> {{ data.description }}
+                                            <small class="card-text" *ngIf="data.description != null"><b>Description:
+                                                </b> {{ data.description }}
                                             </small>
-                                            <small class="card-text" *ngIf="data.description == null"><b>Description: </b> None
+                                            <small class="card-text" *ngIf="data.description == null"><b>Description:
+                                                </b> None
                                             </small><br>
                                             <small class="card-text"><b>Price: </b> ₹ {{ data.price }}
                                             </small>
@@ -85,9 +86,9 @@
 
                                 <ng-template #content let-modal>
 
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">Product Quantity</h4>
-                                        <button type="button" class="btn-close btn-primary btn-sm" aria-label="Close"
+                                    <div class="modal-header bg-primary">
+                                        <h4 class="text-light modal-title">Product Quantity</h4>
+                                        <button type="button" class="btn-light btn-xs" aria-label="Close"
                                             (click)="modal.dismiss('Cross click')">X
                                         </button>
                                     </div>
@@ -96,24 +97,26 @@
                                         <form [formGroup]="qtyForm">
 
                                             <div class="col">
-                                                <div class="form-group">
+                                                <div class="form-group required">
                                                     <label class="required">Quantity</label>
-                                                    <input type="number" formControlName="quantity" class="form-control"
-                                                        autofocus />
+                                                    <input type="number" formControlName="quantity"
+                                                        class="form-control" />
 
-                                                    <!-- <div *ngIf="unit_id?.touched && unit_id?.invalid" class="alert alert-danger">
-                                                        <div *ngIf="unit_id?.errors?.required">Unit is required.</div>
-                                                    </div> -->
+                                                    <div
+                                                        *ngIf="quantity?.touched && quantity?.invalid || showValidations">
+                                                        <div class="alert alert-danger"
+                                                            *ngIf="quantity?.errors?.required">Quantity is required.
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
 
                                         </form>
                                     </div>
 
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary"
-                                            (click)="onSelectProduct(data, qtyForm.value)"
-                                            (click)="modal.close('Close click')">Save
+                                    <div class="bg-dark modal-footer">
+                                        <button type="submit" class="btn btn-info btn-sm"
+                                            (click)="onSelectProduct(data, qtyForm.value)">Save
                                             Order</button>
                                     </div>
 
@@ -162,7 +165,8 @@
                                         <div class="input-group input-group-sm mb-3">
                                             <input type="number" formControlName="shipping_charge" class="form-control"
                                                 aria-label="Sizing example input"
-                                                aria-describedby="inputGroup-sizing-sm" (change)="onKey($event)">
+                                                aria-describedby="inputGroup-sizing-sm" (keyup)="onKey($event)"
+                                                (change)="onKey($event)">
                                         </div>
                                     </td>
                                 </tr>
@@ -181,12 +185,11 @@
                 <div class="row">
 
                     <div class="col">
-                        <div class="form-group">
+                        <div class="form-group required">
                             <label class="required">Order Date</label>
                             <div class="input-group">
                                 <input class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker
-                                    #d="ngbDatepicker" formControlName="order_date"
-                                    (dateSelect)="onSelectDate($event)">
+                                    #d="ngbDatepicker" formControlName="order_date" (dateSelect)="onSelectDate($event)">
                                 <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
                                     <i class="fa fa-calendar fa-lg mx-auto"></i>
                                 </button>
@@ -195,11 +198,14 @@
                     </div>
 
                     <div class="col">
-                        <label>Payment Mode</label>
-                        <select formControlName="payment_mode" class="form-control">
-                            <option *ngFor="let item of payment_mode_copy" value="{{item.alternate_name}}">{{ item.name
-                                }}</option>
-                        </select>
+                        <div class="form-group required">
+                            <label>Payment Mode</label>
+                            <select formControlName="payment_mode" class="form-control">
+                                <option *ngFor="let item of payment_mode_copy" value="{{item.alternate_name}}">{{
+                                    item.name
+                                    }}</option>
+                            </select>
+                        </div>
                     </div>
 
                     <div class="col">

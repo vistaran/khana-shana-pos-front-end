@@ -80,12 +80,18 @@
                         <h2 class="card-header pt-2 pb-2">User Avatar</h2>
                         <div class="card-body row">
                             <div class="col-6">
-                                <label for="img">Edit Avatar</label><br>
-                                <img [src]="imageUrl" class="rounded-circle" onerror="this.src='https://cdn.icon-icons.com/icons2/1378/PNG/128/avatardefault_92824.png'">
-                                <input type="file" id="img" name="img" accept="image/*" (change)="handleFileInput($event.target.files)" (change)="onChange($event)" formControlName="user_avatar" value="{{image}}" [src]="image" />
-                                <div *ngIf="user_avatar?.touched && user_avatar?.invalid || showValidations">
-                                    <div class="alert alert-danger" *ngIf="user_avatar?.errors?.required">User Avatar is
-                                        required.</div>
+                                <div class="form-group required">
+                                    <label for="img">Edit Avatar</label><br>
+                                    <img [src]="imageUrl" class="rounded-circle" style="width: 100px; height: 100px;"
+                                        onerror="this.src='https://cdn.icon-icons.com/icons2/1378/PNG/128/avatardefault_92824.png'">
+                                    <input type="file" id="img" name="img" accept="image/*" class="mt-2"
+                                        (change)="handleFileInput($event.target.files)" (change)="onChange($event)"
+                                        formControlName="user_avatar" value="{{image}}" [src]="image" />
+                                    <div *ngIf="user_avatar?.touched && user_avatar?.invalid || showValidations">
+                                        <div class="alert alert-danger" *ngIf="user_avatar?.errors?.required">User
+                                            Avatar is
+                                            required.</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

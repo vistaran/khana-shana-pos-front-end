@@ -77,6 +77,7 @@ export class ItemGroupsComponent implements OnInit {
   }
 
   search(event: any) {
+    console.log(event);
     this.showloader = true
     this.page = 1
     this.itemGroupService.searchItemGroup(this.page, this.searchValue).subscribe((result: any) => {
