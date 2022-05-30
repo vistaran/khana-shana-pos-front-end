@@ -23,7 +23,7 @@
                             <input type="text" placeholder="Enter Last Name" formControlName="last_name"
                                 class="form-control" />
                             <div *ngIf="lastname?.touched && lastname?.invalid" class="alert alert-danger">
-                                <div *ngIf="lastname?.errors?.required">Item Group Name is required.</div>
+                                <div *ngIf="lastname?.errors?.required">Last Name is required.</div>
                             </div>
                         </div>
                     </div>
@@ -43,8 +43,8 @@
 
                     <div class="col">
                         <div class="form-group">
-                            <label class="required">Email</label>
-                            <input type="text" placeholder="Enter Email(optional)" formControlName="email" class="form-control" />
+                            <label class="required">Email<span class="text-secondary"> (optional)</span></label>
+                            <input type="text" placeholder="Enter Email" formControlName="email" class="form-control" />
                         </div>
                     </div>
 
@@ -60,9 +60,9 @@
 
                 <ng-template #content let-modal>
 
-                    <div class="modal-header">
+                    <div class="modal-header align-items-center">
                         <h4 class="modal-title">Add Address</h4>
-                        <button type="button" class="btn-close btn-xs btn-primary" aria-label="Close"
+                        <button type="button" class="btn-xs btn-primary" aria-label="Close"
                             (click)="modal.dismiss('Cross click')">X
                         </button>
                     </div>
@@ -228,11 +228,15 @@
                 </ng-template>
 
 
+                <div class="mt-auto text-center" *ngIf="customerAddressData.length == 0">
+                        <p class="alert alert-info">No Address Added.</p>
+                </div>
 
-                <div class="mt-auto">
+
+                <div class="mt-auto" *ngIf="customerAddressData.length != 0">
                     <ng-container *ngFor="let item of address_type_name">
                         <!-- <div class=""> -->
-                        <h3 class="card-header mb-2">{{ item.name }}</h3>
+                        <h3 *ngIf="item.addresses.length != 0" class="card-header mb-2">{{ item.name }}</h3>
                         <!-- </div> -->
                         <div class="card-deck row">
                             <div class="col-4 mb-3" *ngFor="let data of item.addresses">
@@ -253,12 +257,12 @@
 
                                     </div>
 
-                                    <div class="align-items-end mb-2 ml-2">
-                                        <button class="btn btn-info mr-2 btn-sm"
+                                    <div class="mb-2 mr-3 ml-2 text-right">
+                                        <button class="btn btn-info btn-sm mr-2 btn-sm"
                                             (click)="openVerticallyCentered2(content2, data.id)"><i
                                                 class="fa fa-pencil-square-o fa-lg"></i></button>
 
-                                        <button id="remove" class="btn btn-danger btn-sm"
+                                        <button id="remove" class="btn btn-sm btn-danger btn-sm"
                                             (click)="deleteAddress(data.id)"><i
                                                 class="fa fa-trash-o fa-lg mx-auto"></i></button>
                                     </div>
@@ -273,7 +277,7 @@
                 <!-- Edit Customer Address Form -->
 
                 <ng-template #content2 let-modal>
-                    <div class="modal-header">
+                    <div class="modal-header align-items-center">
                         <h4 class="modal-title">Edit Address</h4>
                         <button type="button" class="btn-close btn-xs btn-primary" aria-label="Close"
                             (click)="modal.dismiss('Cross click')">X

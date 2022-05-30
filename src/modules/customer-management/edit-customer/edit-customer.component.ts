@@ -145,7 +145,7 @@ export class EditCustomerComponent implements OnInit {
     })
 
     this.addressForm = this.fb.group({
-      address_type: [0, [Validators.required]],
+      address_type: [1, [Validators.required]],
       address_line_1: ['', [Validators.required]],
       address_line_2: ['', [Validators.required]],
       address_line_3: [''],
@@ -248,8 +248,8 @@ export class EditCustomerComponent implements OnInit {
   getCustomerAddress() {
     this.customerService.getCustomerAddress(this.id).subscribe(data => {
       this.customerAddressData = data.customerAddress
-      console.log(this.customerAddressData[0].address_type);
-      console.log('length', this.customerAddressData.length);
+      // console.log(this.customerAddressData[0].address_type);
+      // console.log('length', this.customerAddressData.length);
 
       this.address_type_name.forEach((g: any) => {
         g.addresses = [];
