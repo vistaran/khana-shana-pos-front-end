@@ -19,8 +19,13 @@ export class RegisterComponent implements OnInit {
 
   user2: User[] = [];
   createAccountForm!: FormGroup;
+  imageForm!: FormGroup;
   showValidations = false;
   file: any;
+
+  imageUrl = 'image\avatardefault_92824.png';
+  fileToUpload!: File;
+
   // user = new User();
 
   constructor(
@@ -67,6 +72,19 @@ export class RegisterComponent implements OnInit {
       { validators: PasswordValidator }
     )
 
+    this.imageForm = this.fb.group({ image: [''] });
+  }
+
+  handleFileInput(file: FileList) {
+    this.fileToUpload = file.item(0) as File;
+
+    const reader = new FileReader()
+    reader.onload = (event: any) => {
+      this.imageUrl = event.target.result;
+    }
+    reader.readAsDataURL(this.fileToUpload)
+    console.log('imageUrl');
+
   }
 
   // username: ['', [Validators.required]],
@@ -89,6 +107,8 @@ export class RegisterComponent implements OnInit {
   }
 
   onChange(event: any) {
+
+    this.handleFileInput(event.target.files);
 
     if (event.target && event.target.files && event.target.files.length > 0) {
       this.file = event.target.files[0];
@@ -136,8 +156,15 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(data: any) {
 
-    if (this.createAccountForm.invalid) {
-      alert('Please fill all the required fields!');
+    if (this.createAccountForm.invalid || this.file == null) {
+      if (this.createAccountForm.invalid && this.file == null) {
+        alert('Please fill all the required fields and upload an image!');
+      }
+      else if (this.file == null && !this.createAccountForm.invalid) {
+        alert('Please upload an image');
+      } else {
+        alert('Please fill all the required fields!');
+      }
       return;
     }
 

@@ -267,6 +267,15 @@ export class EditCustomerComponent implements OnInit {
   }
 
   addAddress(data: any) {
+
+    if(this.addressForm.invalid) {
+      this.addressForm.markAllAsTouched();
+      alert('Please fill all the required fields');
+      return;
+    }
+
+    this.modalService.dismissAll();
+
     this.address_type_name.forEach((g: any) => {
       console.log('data', data);
 
@@ -294,7 +303,7 @@ export class EditCustomerComponent implements OnInit {
     }
     this.customerService.addCustomerAddress(obj).subscribe(data => {
       console.log(data)
-      this.toast.success('Success', 'Added Successfully.')
+      this.toast.success('Success', 'Address Added Successfully.')
       this.getCustomerAddress()
       // this.router.navigate(['/customer_management']);
     }, err => {
@@ -303,6 +312,15 @@ export class EditCustomerComponent implements OnInit {
   }
 
   editAddress(data: any) {
+
+    if(this.editAddressForm.invalid) {
+      this.editAddressForm.markAllAsTouched();
+      alert('Please fill all the required fields');
+      return;
+    }
+
+    this.modalService.dismissAll();
+
     this.address_type_name.forEach((g: any) => {
       console.log('data', data);
       if (g.id == data.address_type) {
@@ -328,7 +346,7 @@ export class EditCustomerComponent implements OnInit {
     }
     this.customerService.editCustomerAddress(this.address_id, obj).subscribe(data => {
       console.log(data)
-      this.toast.success('Success', 'Edited Successfully.')
+      this.toast.success('Success', 'Address Edited Successfully.')
       this.ngOnInit();
       // this.getCustomerAddress()
 

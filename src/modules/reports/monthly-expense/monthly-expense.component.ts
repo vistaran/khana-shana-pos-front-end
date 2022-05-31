@@ -68,12 +68,12 @@ export class MonthlyExpenseComponent implements OnInit {
       this.years.push(i)
     }
     this.start_year = this.years[0]
-    console.log(this.years);
+    // console.log(this.years);
 
   }
 
   onSelectMonth(value: any) {
-    console.log(this.year);
+    // console.log(this.year);
 
     this.value = value
     this.month.forEach((g: any) => {
@@ -81,7 +81,7 @@ export class MonthlyExpenseComponent implements OnInit {
         this.selectedMonth = g.name
     });
 
-    console.log(this.value);
+    // console.log(this.value);
     this.monthlyExpense()
   }
 
@@ -111,7 +111,7 @@ export class MonthlyExpenseComponent implements OnInit {
     this.expenseService.getExpenseByItem(this.year, this.value, this.page).subscribe(result => {
       this.totalExpenseForItem = 0
       this.expenseByItemData = result.data.data
-      console.log(this.expenseByItemData);
+      // console.log(this.expenseByItemData);
 
       this.lengthItemData = this.expenseByItemData.length
       this.total = result.data.total
@@ -119,7 +119,7 @@ export class MonthlyExpenseComponent implements OnInit {
       this.expenseByItemData.forEach((g: any) => {
         this.totalExpenseForItem += g.subtotal
         g.number = result.data.from
-        console.log(g);
+        // console.log(g);
       });
 
     }, err => {
@@ -141,7 +141,7 @@ export class MonthlyExpenseComponent implements OnInit {
 
   onSelectYear(year: any) {
     this.year = year
-    console.log(year);
+    // console.log(year);
 
   }
 

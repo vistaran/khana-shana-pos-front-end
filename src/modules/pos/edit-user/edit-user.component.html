@@ -86,7 +86,7 @@
                                         onerror="this.src='https://cdn.icon-icons.com/icons2/1378/PNG/128/avatardefault_92824.png'">
                                     <input type="file" id="img" name="img" accept="image/*" class="mt-2"
                                         (change)="handleFileInput($event.target.files)" (change)="onChange($event)"
-                                        formControlName="user_avatar" value="{{image}}" [src]="image" />
+                                        formControlName="user_avatar" />
                                     <div *ngIf="user_avatar?.touched && user_avatar?.invalid || showValidations">
                                         <div class="alert alert-danger" *ngIf="user_avatar?.errors?.required">User
                                             Avatar is

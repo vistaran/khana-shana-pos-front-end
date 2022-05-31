@@ -49,7 +49,7 @@
                         <div class="form-group required">
                             <label class="required">Display Mode</label><br />
                             <select name="display_mode" formControlName="display_mode" class="form-control">
-                                <option *ngFor="let item of displayMode" value="{{item.name}}">{{ item.name }}</option>
+                                <option *ngFor="let item of displayMode">{{ item }}</option>
                             </select>
                             <div *ngIf="displayMod?.touched && displayMod?.invalid" class="alert alert-danger">
                                 <div *ngIf="displayMod?.errors?.required">Display Mode is required.</div>
@@ -59,7 +59,7 @@
 
                     <div class="col">
                         <div class="form-group">
-                            <label class="required">Description<span class="text-secondary">(optional)</span></label>
+                            <label class="required">Description<span class="text-secondary"> (optional)</span></label>
                             <textarea type="text" formControlName="decription" placeholder="Add Description"
                                 class="form-control"></textarea>
                             <!-- <div *ngIf="description?.touched && description?.invalid" class="alert alert-danger">

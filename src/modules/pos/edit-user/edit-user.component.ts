@@ -161,7 +161,6 @@ export class EditUserComponent implements OnInit {
         }
         reader.readAsDataURL(this.fileToUpload)
         console.log('imageUrl', this.imageUrl);
-
     }
 
     onChange(event: any) {

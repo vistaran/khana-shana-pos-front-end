@@ -6,17 +6,30 @@
                     <div class="card-header">
                         <h3 class="text-center font-weight-light my-4">Create Account</h3>
                     </div>
+
+
                     <div class="card-body">
 
-                        <div class="row justify-content-center">
-                            <img [src]="file"
-                                onerror="this.src='https://cdn.icon-icons.com/icons2/1378/PNG/128/avatardefault_92824.png'"
-                                alt="Image" class="rounded-circle">
-                        </div>
-                        <div class="row justify-content-center mb-2">
-                            <input type="file" id="img" class="rounded btn btn-primary font-bold" name="img"
-                                accept="image/*" (change)="onChange($event)" value="Add Avatar" />
-                        </div>
+                        <form [formGroup]="imageForm">
+                            <div class="text-center">
+                                <h4 for="img" class="">Add Avatar</h4>
+                            </div>
+                            <div class="row justify-content-center align-items-end">
+
+                                <div class="col text-right">
+                                    <img [src]="imageUrl" class="rounded-circle" style="width: 100px; height: 100px;"
+                                        onerror="this.src='https://cdn.icon-icons.com/icons2/1378/PNG/128/avatardefault_92824.png'">
+                                </div>
+                                <div class="col text-left">
+                                    <button class="btn btn-info btn-sm">Preview</button>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center mb-2">
+                                <input type="file" id="img" formControlName="image" name="img" accept="image/*"
+                                    class="mt-2" (change)="onChange($event)"
+                                    (change)="handleFileInput($event.target.files)" />
+                            </div>
+                        </form>
 
                         <form [formGroup]="createAccountForm" (ngSubmit)="onSubmit(createAccountForm.value)">
                             <div class="form-row">
