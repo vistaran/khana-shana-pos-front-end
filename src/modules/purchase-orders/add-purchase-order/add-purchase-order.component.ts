@@ -243,6 +243,9 @@ export class AddPurchaseOrderComponent implements OnInit {
         // names must be equal
         return 0;
       })
+      // this.itemsForm.patchValue({
+      //   item_group_id: this.itemGroupsData[0].id
+      // })
     })
   }
 
@@ -351,6 +354,8 @@ export class AddPurchaseOrderComponent implements OnInit {
     this.toast.success('Success', 'Item Added Successfully.')
 
     this.calculateTotal();
+    // this.isInputShown = false;
+    // this.isInputShown2 = false;
   }
 
   editItemData(data: any) {
@@ -367,6 +372,7 @@ export class AddPurchaseOrderComponent implements OnInit {
     let group_name = '';
     let item_name = '';
     let unit_name = '';
+    let unit_id = 0;
 
     this.itemGroupsData.forEach((g: any) => {
       if (g.id == data.item_group_id) {
@@ -378,6 +384,7 @@ export class AddPurchaseOrderComponent implements OnInit {
       if (g.id == Number(data.item_id)) {
         item_name = g.item_name
         unit_name = g.unit_name
+        unit_id = g.unit_id
       }
     });
     this.orderItemData.forEach((g: any) => {
@@ -386,7 +393,7 @@ export class AddPurchaseOrderComponent implements OnInit {
           g.item_group_name = group_name,
           g.item_id = data.item_id,
           g.item_name = item_name,
-          g.unit_id = data.unit_id,
+          g.unit_id = unit_id,
           g.unit_name = unit_name,
           g.qty = data.qty,
           g.notes = data.notes,
