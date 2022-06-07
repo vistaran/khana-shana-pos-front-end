@@ -160,8 +160,8 @@ export class EditPurchaseOrderComponent implements OnInit {
 
     this.editItemsForm = this.fb.group({
       notes: [''],
-      item_id: [null, Validators.required],
-      item_group_id: [null, Validators.required],
+      item_id: [{ value: null, disabled: true }, Validators.required],
+      item_group_id: [{ value: null, disabled: true }, Validators.required],
       qty: ['', Validators.required],
       unit_id: [{ value: null, disabled: true }, Validators.required],
       price: ['', Validators.required],
@@ -423,36 +423,38 @@ export class EditPurchaseOrderComponent implements OnInit {
 
     console.log('DAta', data);
 
+    const editData = data.getRawValue();
+
     let group_name = '';
     let item_name = '';
     let unit_name = '';
     let unit_id = 0;
 
     this.itemGroupsData.forEach((g: any) => {
-      if (g.id == data.item_group_id) {
+      if (g.id == editData.item_group_id) {
         group_name = g.group_name
       }
     });
 
     this.itemsData.forEach((g: any) => {
-      if (g.id == Number(data.item_id)) {
+      if (g.id == Number(editData.item_id)) {
         item_name = g.item_name
         unit_name = g.unit_name
         unit_id = g.unit_id
       }
     });
     this.orderItemData.forEach((g: any) => {
-      if (data.item_id == g.item_id) {
-        g.item_group_id = data.item_group_id,
+      if (editData.item_id == g.item_id) {
+        g.item_group_id = editData.item_group_id,
           g.item_group_name = group_name,
-          g.item_id = data.item_id,
+          g.item_id = editData.item_id,
           g.item_name = item_name,
           g.unit_id = unit_id,
           g.unit_name = unit_name,
-          g.qty = data.qty,
-          g.notes = data.notes,
-          g.price = data.price,
-          g.subtotal = data.price * data.qty
+          g.qty = editData.qty,
+          g.notes = editData.notes,
+          g.price = editData.price,
+          g.subtotal = editData.price * editData.qty
       }
     })
     console.log(this.orderItemData);
