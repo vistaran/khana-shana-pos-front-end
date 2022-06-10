@@ -152,7 +152,7 @@ export class AddPurchaseOrderComponent implements OnInit {
     this.itemsForm = this.fb.group({
       notes: [''],
       item_id: [null, Validators.required],
-      item_group_id: [null, Validators.required],
+      item_group_id: [0, Validators.required],
       qty: ['', Validators.required],
       unit_id: [{ value: null, disabled: true }, Validators.required],
       price: ['', Validators.required],
@@ -267,7 +267,18 @@ export class AddPurchaseOrderComponent implements OnInit {
   getItemsData() {
     console.log('group_id', this.group_id);
     this.purchaseOrderService.getItemData(this.group_id, this.pageSize).subscribe((data: any) => {
-      this.itemsData = data.data
+      this.itemsData = data.data.sort(function (a: any, b: any) {
+        const nameA = a.item_name.toUpperCase(); // ignore upper and lowercase
+        const nameB = b.item_name.toUpperCase(); // ignore upper and lowercase
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+        // names must be equal
+        return 0;
+      })
       this.unit_name = this.itemsData.unit_name
       // console.log(this.itemsData, this.unit_name);
     })
@@ -318,6 +329,8 @@ export class AddPurchaseOrderComponent implements OnInit {
     if(this.itemsForm.invalid) {
       this.itemsForm.markAllAsTouched();
       alert('Please fill all the required fields.');
+      this.isInputShown = true;
+      this.isInputShown2 = true;
       return;
     }
 
@@ -333,6 +346,8 @@ export class AddPurchaseOrderComponent implements OnInit {
         this.itemName = g.item_name
       }
     });
+
+    this.itemsForm.reset();
 
     const obj = [{
       item_group_id: Number(data.item_group_id),

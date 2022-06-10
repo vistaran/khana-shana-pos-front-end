@@ -137,9 +137,11 @@ export class EditSaleComponent implements OnInit {
       this.addedProduct = data.items
       this.total = data.order.total_amount
       this.shipping_charge = data.order.shipping_charge
-      this.semitotal = this.addedProduct.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
-        return a + b;
-      })
+      if (this.addedProduct.length > 0) {
+        this.semitotal = this.addedProduct.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
+          return a + b;
+        })
+      }
       this.customerName = data.order.first_name + ' ' + data.order.last_name
       this.customerNumber = data.order.phone_number
       console.log(data)
@@ -155,7 +157,19 @@ export class EditSaleComponent implements OnInit {
 
   getCustomerData() {
     this.saleService.getCustomerData(this.pageSize).subscribe((result: any) => {
-      this.customerData = result.data
+      this.customerData = result.data.sort(function (a: any, b: any) {
+        const nameA = a.first_name.toUpperCase(); // ignore upper and lowercase
+        const nameB = b.first_name.toUpperCase(); // ignore upper and lowercase
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+
+        // names must be equal
+        return 0;
+      })
     })
   }
 
@@ -212,9 +226,11 @@ export class EditSaleComponent implements OnInit {
 
     console.log('Added Product ', this.addedProduct);
 
-    this.semitotal = this.addedProduct.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
-      return a + b;
-    })
+    if (this.addedProduct.length > 0) {
+      this.semitotal = this.addedProduct.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
+        return a + b;
+      })
+    }
 
     this.total += (data.quantity * data.price)
     this.calculateTotal()
@@ -262,9 +278,11 @@ export class EditSaleComponent implements OnInit {
       if (this.addedProduct.length == 0) {
         this.semitotal = 0
       } else {
-        this.semitotal = this.addedProduct.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
-          return a + b;
-        })
+        if (this.addedProduct.length > 0) {
+          this.semitotal = this.addedProduct.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
+            return a + b;
+          })
+        }
       }
       this.calculateTotal()
       this.toast.success('Success', 'Product deleted successfully.');
@@ -307,6 +325,11 @@ export class EditSaleComponent implements OnInit {
       })
     }
     console.log('Final: ', addedProductSubmit)
+
+    if(this.newProduct.length == 0){
+      alert('Please add atleast one product');
+      return;
+    }
 
     console.log('addedProductSubmit: ', addedProductSubmit);
     if (this.date == '') {

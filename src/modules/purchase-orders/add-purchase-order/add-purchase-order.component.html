@@ -68,7 +68,7 @@
                     <div class="col-4">
                         <div class="form-group">
                             <label class="required">Add a Note</label>
-                            <textarea type="text" formControlName="notes" class="form-control"></textarea>
+                            <textarea type="text" formControlName="notes" placeholder="Add note" class="form-control"></textarea>
                             <!-- <div *ngIf="notes?.touched && notes?.invalid" class="alert alert-danger">
                                 <div *ngIf="notes?.errors?.required">Note is required.</div>
                             </div> -->
@@ -103,7 +103,7 @@
                                         <select name="item_group_id" formControlName="item_group_id"
                                             (ngModelChange)="onSelectGroup($event)" class="form-control" autofocus
                                             placeholder="Select Item Group Name">
-
+                                            <option value="0" disabled>Select Item Group Name</option>
                                             <ng-container *ngFor="let list of itemGroupsData">
                                                 <option value="{{ list.id }}">
                                                     {{list.group_name
@@ -155,7 +155,7 @@
                                         <div class="col">
                                             <div class="form-group required">
                                                 <label class="required">Quantity</label>
-                                                <input type="number" formControlName="qty" class="form-control" />
+                                                <input type="number" formControlName="qty" class="form-control" placeholder="Enter Quantity"/>
                                                 <div *ngIf="qty?.touched && qty?.invalid" class="alert alert-danger">
                                                     <div *ngIf="qty?.errors?.required">Quantity is required.
                                                     </div>
@@ -173,7 +173,7 @@
                                             <div class="form-group">
                                                 <label class="required">Add a Note</label>
                                                 <textarea type="text" formControlName="notes"
-                                                    class="form-control"></textarea>
+                                                    class="form-control" placeholder="Add note"></textarea>
 
                                             </div>
                                         </div>
@@ -181,7 +181,7 @@
                                         <div class="col">
                                             <div class="form-group required">
                                                 <label class="required">Price</label>
-                                                <input type="number" formControlName="price" class="form-control" />
+                                                <input type="number" formControlName="price" class="form-control" placeholder="Enter price"/>
                                                 <div *ngIf="price?.touched && price?.invalid"
                                                     class="alert alert-danger">
                                                     <div *ngIf="price?.errors?.required">Price is required.
@@ -236,7 +236,7 @@
                         </tr>
 
                         <tr class="table-sm">
-                            <td colspan="6" class="text-right"><b>Shipping Charges</b></td>
+                            <td colspan="5" class="text-right"><b>Shipping Charges</b></td>
                             <td>
                                 <div class="input-group input-group-sm">
                                     <input type="number" formControlName="shipping_charge" class="form-control"
@@ -247,7 +247,7 @@
                         </tr>
 
                         <tr class="table-sm">
-                            <td colspan="6" class="text-right"><b>Total Amount:</b></td>
+                            <td colspan="5" class="text-right"><b>Total Amount:</b></td>
                             <td>₹{{ total?.toFixed(2) }}</td>
                         </tr>
                     </tbody>
@@ -312,9 +312,9 @@
                                             </option>
                                         </ng-container>
                                     </select>
-                                    <div *ngIf="item_id2?.touched && item_id2?.invalid" class="alert alert-danger">
+                                    <!-- <div *ngIf="item_id2?.touched && item_id2?.invalid" class="alert alert-danger">
                                         <div *ngIf="item_id2?.errors?.required">Item name is required.</div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                             <!-- </div> -->
@@ -332,7 +332,7 @@
                                     <div class="col">
                                         <div class="form-group required">
                                             <label class="required">Quantity</label>
-                                            <input type="number" formControlName="qty" placeholder="Enter Quantity"
+                                            <input type="number" placeholder="Enter quantity" formControlName="qty" placeholder="Enter Quantity"
                                                 class="form-control" />
                                             <div *ngIf="qty2?.touched && qty2?.invalid" class="alert alert-danger">
                                                 <div *ngIf="qty2?.errors?.required">Quantity is required.
@@ -350,7 +350,7 @@
                                     <div class="col">
                                         <div class="form-group">
                                             <label class="required">Add a Note</label>
-                                            <textarea type="text" formControlName="notes"
+                                            <textarea type="text" placeholder="Add note" formControlName="notes"
                                                 class="form-control"></textarea>
 
                                         </div>
@@ -359,7 +359,7 @@
                                     <div class="col">
                                         <div class="form-group required">
                                             <label class="required">Price</label>
-                                            <input type="number" formControlName="price" class="form-control" />
+                                            <input type="number" formControlName="price" class="form-control" placeholder="Enter price"/>
                                             <div *ngIf="price?.touched && price?.invalid" class="alert alert-danger">
                                                 <div *ngIf="price?.errors?.required">Price is required.
 

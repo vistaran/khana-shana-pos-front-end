@@ -35,7 +35,7 @@
 
                             <div class="col-6">
                                 <div class="form-group required">
-                                    <label class="required">Username</label>
+                                    <label class="required">User name</label>
                                     <input type="text" formControlName="username" placeholder="Enter Username"
                                         class="form-control" />
                                     <div *ngIf="userName?.touched && userName?.invalid || showValidations">
@@ -64,7 +64,7 @@
                                 <div class="form-group required">
                                     <label>Phone Number</label>
                                     <input type="tel" formControlName="phone_no" placeholder="Enter Phone Number"
-                                        class="form-control" />
+                                        class="form-control" (keydown)="validateNumber($event)"/>
                                     <div *ngIf="phone?.touched && phone?.invalid || showValidations">
                                         <div *ngIf="phone?.errors?.required" class="alert alert-danger">Phone number is
                                             required.</div>

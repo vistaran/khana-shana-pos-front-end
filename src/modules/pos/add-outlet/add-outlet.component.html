@@ -94,11 +94,11 @@
                                 <div class="form-group required">
                                     <label class="required">Postcode</label>
                                     <input type="text" formControlName="postcode" placeholder="Enter Postcode"
-                                        class="form-control" />
+                                        class="form-control" (keydown)="validateNumber($event)"/>
                                     <div *ngIf="showValidations || postCode?.invalid && postCode?.touched">
                                         <div *ngIf="postCode?.errors?.required" class="alert alert-danger">Postcode is
                                             required.</div>
-                                        <div *ngIf="postCode?.errors?.maxlength" class="alert alert-danger">Postcode
+                                        <div *ngIf="postCode?.errors?.maxlength && !postCode?.errors?.pattern" class="alert alert-danger">Postcode
                                             must not exceed 6 digits
                                         </div>
                                         <div *ngIf="postCode?.errors?.pattern" class="alert alert-danger">Only Numbers

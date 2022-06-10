@@ -152,7 +152,7 @@ export class EditPurchaseOrderComponent implements OnInit {
     this.itemsForm = this.fb.group({
       notes: [''],
       item_id: [null, Validators.required],
-      item_group_id: [null, Validators.required],
+      item_group_id: [0, Validators.required],
       qty: ['', Validators.required],
       unit_id: [{ value: null, disabled: true }, Validators.required],
       price: ['', Validators.required],
@@ -293,7 +293,6 @@ export class EditPurchaseOrderComponent implements OnInit {
 
   // TO get Item group data
   getItemsData() {
-    console.log('group_id', this.group_id);
     this.purchaseOrderService.getItemData(this.group_id, this.pageSize).subscribe((data: any) => {
       this.itemsData = data.data.sort(function (a: any, b: any) {
         const nameA = a.item_name.toUpperCase(); // ignore upper and lowercase
