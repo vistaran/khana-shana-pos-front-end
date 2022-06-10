@@ -33,13 +33,18 @@ export class ItemGroupsComponent implements OnInit {
 
   // For getting Item group data for listing
   getItemGroupsData() {
+    this.showloader = true;
     this.itemGroupService.getItemGroupsData(this.page, this.pageSize).subscribe((result: any) => {
       this.itemGroupsData = result.data;
       this.total = result.total
       this.length = this.itemGroupsData.length
+      this.showloader = false;
+
       // console.log(result);
     }, err => {
-      this.toast.error('Error', 'Server error.')
+      this.toast.error('Error', 'Server error.');
+      this.showloader = false;
+
     });
   }
 
@@ -72,6 +77,7 @@ export class ItemGroupsComponent implements OnInit {
   }
 
   search(event: any) {
+    console.log(event);
     this.showloader = true
     this.page = 1
     this.itemGroupService.searchItemGroup(this.page, this.searchValue).subscribe((result: any) => {

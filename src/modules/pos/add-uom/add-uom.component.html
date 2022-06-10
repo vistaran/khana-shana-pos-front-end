@@ -1,39 +1,43 @@
 <sb-layout-dashboard>
     <div class="d-flex justify-content-center">
-    <div class="card shadow w-75 mt-3">
-        <h1 class="card-header mb-3 text-center ">Add Unit of Measurement</h1>
-        <form [formGroup]="addUomForm">
-            <div class="container">
-                <!-- <h2 class="card-header mt-4 pb-2">General</h2> -->
-                <div class="row card-body justify-content-around">
-                    <div class="col-6 col-sm-4">
-                        <div class="form-group required">
-                            <label class="required">Name</label>
-                            <input type="text" formControlName="unit_name" placeholder="Enter Name" class="form-control" autofocus/>
-                            <div *ngIf="name?.touched && name?.invalid" class="alert alert-danger">
-                                <div *ngIf="name?.errors?.required">Name is required.</div>
+        <div class="card shadow w-75 mt-3">
+            <h1 class="card-header mb-3 text-center ">Add Unit of Measurement</h1>
+            <form [formGroup]="addUomForm">
+                <div class="container">
+                    <!-- <h2 class="card-header mt-4 pb-2">General</h2> -->
+                    <div class="row card-body justify-content-around">
+                        <div class="col-6 col-sm-4">
+                            <div class="form-group required">
+                                <label class="required">Name</label>
+                                <input type="text" formControlName="unit_name" placeholder="Enter Name"
+                                    class="form-control" autofocus />
+                                <div *ngIf="name?.touched && name?.invalid || showValidations">
+                                    <div class="alert alert-danger" *ngIf="name?.errors?.required">Name is required.
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="col-6 col-sm-4">
-                        <div class="form-group required">
-                            <label class="required">Unit</label>
-                            <input type="text" formControlName="unit" placeholder="Enter Unit" class="form-control" />
-                            <div *ngIf="unit?.touched && unit?.invalid" class="alert alert-danger">
-                                <div *ngIf="unit?.errors?.required">Unit is required.</div>
+                        <div class="col-6 col-sm-4">
+                            <div class="form-group required">
+                                <label class="required">Unit</label>
+                                <input type="text" formControlName="unit" placeholder="Enter Unit"
+                                    class="form-control" />
+                                <div *ngIf="unit?.touched && unit?.invalid || showValidations">
+                                    <div class="alert alert-danger" *ngIf="unit?.errors?.required">Unit is required.
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
                     </div>
 
+                    <button type="submit" (click)="onSubmit(addUomForm.value)" (click)="showValidations = true"
+                        class="btn btn-primary mb-4 float-right">
+                        Submit
+                    </button>
                 </div>
-
-                <button [disabled]="!addUomForm.valid" type="submit" (click)="onSubmit(addUomForm.value)"
-                    class="btn btn-primary mb-4 float-right">
-                    Submit
-                </button>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
-</div>
 </sb-layout-dashboard>

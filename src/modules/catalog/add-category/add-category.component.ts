@@ -77,9 +77,9 @@ export class AddCategoryComponent implements OnInit {
     return this.addCategoryForm.get('category_logo');
   }
 
-  get number_of_products() {
-    return this.addCategoryForm.get('number_of_products');
-  }
+  // get number_of_products() {
+  //   return this.addCategoryForm.get('number_of_products');
+  // }
 
 
   constructor(
@@ -106,7 +106,7 @@ export class AddCategoryComponent implements OnInit {
       meta_description: [''],
       meta_keyword: ['', [Validators.required]],
       status: [0, [Validators.required]],
-      number_of_products: ['', [Validators.required]]
+      // number_of_products: ['', [Validators.required]]
     });
     this.getParentCategrory()
     this.getAttributesData()
@@ -114,10 +114,17 @@ export class AddCategoryComponent implements OnInit {
 
   // For submitting Add category form data
   onSubmit(data: any) {
+
+    if(this.addCategoryForm.invalid) {
+      alert('Please fill all the required fields');
+      this.addCategoryForm.markAllAsTouched();
+      return;
+    }
+
     this.categoryService
       .postCategory(data)
       .subscribe((result: any) => {
-        console.log(result)
+        // console.log(result)
         this.toast.success('Success', 'Category Added successfully.')
         this.router.navigate(['catalog/categories'])
       }, err => {
@@ -129,7 +136,7 @@ export class AddCategoryComponent implements OnInit {
   getParentCategrory() {
     this.categoryService.getCategoriesData(this.page).subscribe(data => {
       this.parentCategroryData = data.category.data
-      console.log(this.parentCategroryData)
+      // console.log(this.parentCategroryData)
     }, err => {
       this.toast.error('Error', 'Server error.')
     });
@@ -149,7 +156,7 @@ export class AddCategoryComponent implements OnInit {
 
   // To get parent categories id
   onItemChange(value: any) {
-    console.log(' Value is : ', value);
+    // console.log(' Value is : ', value);
     this.parentCategoryId = value
   }
 

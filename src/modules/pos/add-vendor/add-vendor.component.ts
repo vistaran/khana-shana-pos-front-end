@@ -13,6 +13,7 @@ import { VendorsService } from '../vendors.service';
 export class AddVendorComponent implements OnInit {
 
   addVendorForm!: FormGroup;
+  showValidations = false;
 
   // For Validations
   get name() {
@@ -43,7 +44,7 @@ export class AddVendorComponent implements OnInit {
     this.addVendorForm = this.fb.group(
       {
         name: ['', [Validators.required]],
-        phone_numbers: ['',[Validators.maxLength(10)]],
+        phone_numbers: ['',[Validators.maxLength(10), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
         address: [''],
         status: [0, [Validators.required]]
       }
@@ -52,6 +53,12 @@ export class AddVendorComponent implements OnInit {
 
   // For submitting add vendor form data
   onSubmit(data: any) {
+
+    if(this.addVendorForm.invalid) {
+      alert('Please fill all the required fileds');
+      return;
+    }
+
     this.vendorService
       .postVendorData(data)
       .subscribe((result: any) => {

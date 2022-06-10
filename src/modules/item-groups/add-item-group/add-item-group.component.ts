@@ -13,6 +13,7 @@ import { ItemGroupsService } from '../item-groups.service';
 export class AddItemGroupComponent implements OnInit {
 
   addItemGroupForm!: FormGroup
+  showValidations = false;
 
   // For Validations
   get group_name() {
@@ -34,6 +35,12 @@ export class AddItemGroupComponent implements OnInit {
 
   // For submitting add item group form data
   onSubmit(data: any) {
+
+    if(this.addItemGroupForm.invalid) {
+      alert('Please fill the required fields!');
+      return;
+    }
+
     this.itemGroupService
       .postItemGroupsData(data)
       .subscribe((result: any) => {

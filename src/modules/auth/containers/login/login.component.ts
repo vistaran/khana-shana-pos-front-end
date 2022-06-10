@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
     loginForm!: FormGroup;
     // regData: any;
     public userData: any = [];
+    showValidations = false;
 
     constructor(
         public auth: AuthService,
@@ -48,6 +49,12 @@ export class LoginComponent implements OnInit {
     }
 
     onSubmit(data: any) {
+
+        if(this.loginForm.invalid) {
+            alert('Please fill all the required fields!');
+            return;
+        }
+
         console.log(data);
         this.auth.login(data).subscribe((result: any) => {
             localStorage.setItem('token', result.access_token)
@@ -57,7 +64,7 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/dashboard']);
             this.userData = result.user
         }, error => {
-            this.toast.show('Error', 'Username or password is incorrect', { className: 'bg-danger text-light'});
+            this.toast.show('Error', 'Email id or password is incorrect', { className: 'bg-danger text-light'});
         });
 
         // prepare parameter

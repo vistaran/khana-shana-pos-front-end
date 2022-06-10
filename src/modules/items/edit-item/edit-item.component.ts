@@ -112,7 +112,7 @@ export class EditItemComponent implements OnInit {
     this.itemService.editItem(this.id, data).subscribe(data => {
       console.log('Data updated successfully! ', data);
       this.router.navigate(['/items']);
-      this.toast.success('Success', 'Edited successfully.')
+      this.toast.success('Success', 'Item Edited successfully.')
     }, err => {
       this.toast.error('Error', 'Server error.')
     });

@@ -41,7 +41,7 @@
                         </div>
                     </div>
 
-                    <div class="col">
+                    <!-- <div class="col">
                         <div class="form-group required">
                             <label class="required">Number of Products</label>
                             <input type="text" formControlName="number_of_products" placeholder="Enter Number of Products"
@@ -50,7 +50,7 @@
                                 <div *ngIf="number_of_products?.errors?.required">Number of Products is required.</div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
 
                 <h2 class="card-header pt-4 pb-2">Description and Images</h2>
@@ -206,10 +206,9 @@
                                 class="form-control"></textarea>
                         </div>
                     </div>
-
                 </div>
 
-                <button [disabled]="!addCategoryForm.valid" type="submit" class="btn btn-primary mb-4 float-right"
+                <button type="submit" class="btn btn-primary mb-4 float-right"
                     (click)="onSubmit(addCategoryForm.value)">
                     Submit
                 </button>

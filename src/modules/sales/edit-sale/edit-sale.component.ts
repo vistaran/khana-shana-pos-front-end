@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '@modules/catalog/product.service';
 import { CustomerManagementService } from '@modules/customer-management/customer-management.service';
@@ -63,6 +63,16 @@ export class EditSaleComponent implements OnInit {
   day = 0
   date = ''
   pageSize = 100
+  showValidations = false;
+  showCustomerValidation = false;
+
+  get customer() {
+    return this.customerForm.get('customer_id');
+  }
+
+  get quantity() {
+    return this.qtyForm.get('quantity');
+  }
 
   constructor(
     private productService: ProductService,
@@ -84,12 +94,13 @@ export class EditSaleComponent implements OnInit {
     })
 
     this.qtyForm = this.fb.group({
-      quantity: ['']
+      quantity: ['', [Validators.required]]
     })
 
     this.customerForm = this.fb.group({
-      customer_id: [null]
+      customer_id: [null, [Validators.required]]
     })
+
     this.getProductsData()
     this.getCustomerData()
 
@@ -114,18 +125,23 @@ export class EditSaleComponent implements OnInit {
         notes: data.order.notes
       })
 
-      this.customerData.forEach((g: any) => {
-        if (g.first_name == data.order.first_name) {
-          this.customer_id = g.id
-        }
-      });
+      this.customer_id = Number(data.order.customer_id);
+
+      // this.customerData.forEach((g: any) => {
+      //   if (g.first_name == data.order.first_name) {
+      //     this.customer_id = g.id
+      //   }
+      // });
+      console.log('customerID', this.customer_id)
 
       this.addedProduct = data.items
       this.total = data.order.total_amount
       this.shipping_charge = data.order.shipping_charge
-      this.semitotal = this.addedProduct.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
-        return a + b;
-      })
+      if (this.addedProduct.length > 0) {
+        this.semitotal = this.addedProduct.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
+          return a + b;
+        })
+      }
       this.customerName = data.order.first_name + ' ' + data.order.last_name
       this.customerNumber = data.order.phone_number
       console.log(data)
@@ -141,7 +157,19 @@ export class EditSaleComponent implements OnInit {
 
   getCustomerData() {
     this.saleService.getCustomerData(this.pageSize).subscribe((result: any) => {
-      this.customerData = result.data
+      this.customerData = result.data.sort(function (a: any, b: any) {
+        const nameA = a.first_name.toUpperCase(); // ignore upper and lowercase
+        const nameB = b.first_name.toUpperCase(); // ignore upper and lowercase
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+
+        // names must be equal
+        return 0;
+      })
     })
   }
 
@@ -163,14 +191,24 @@ export class EditSaleComponent implements OnInit {
 
 
   onSelectProduct(data: any, qty: any) {
+
+    if (this.qtyForm.invalid) {
+      this.showValidations = true;
+      alert('Please enter quantity');
+      return;
+    }
+
     let invalid;
+
+    this.modalService.dismissAll();
+
     this.addedProduct.forEach((g: any) => {
       if (data.product_name == g.product_name) {
         invalid = true
       }
     })
     if (invalid) {
-      this.toast.warning('Warning', 'Product is already added.')
+      this.toast.warning('Warning', data.product_name + ' is already added.')
       return;
     }
     console.log('Quantity', qty.quantity);
@@ -188,9 +226,11 @@ export class EditSaleComponent implements OnInit {
 
     console.log('Added Product ', this.addedProduct);
 
-    this.semitotal = this.addedProduct.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
-      return a + b;
-    })
+    if (this.addedProduct.length > 0) {
+      this.semitotal = this.addedProduct.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
+        return a + b;
+      })
+    }
 
     this.total += (data.quantity * data.price)
     this.calculateTotal()
@@ -200,6 +240,15 @@ export class EditSaleComponent implements OnInit {
 
 
   onSelectCustomer(data: any) {
+
+    if (this.customerForm.invalid) {
+      this.showCustomerValidation = true;
+      alert('Please select customer');
+      return;
+    }
+
+    this.modalService.dismissAll();
+
     this.customer_id = data.value.customer_id
     console.log('Customer id: ', this.customer_id);
     this.customerData.forEach((g: any) => {
@@ -221,19 +270,22 @@ export class EditSaleComponent implements OnInit {
   }
 
   RemoveProduct(id: any) {
-    this.deletedProduct = this.addedProduct.filter((item: any) => item.id == id);
 
     if (confirm('Are you sure you want to delete?')) {
+      this.deletedProduct = this.addedProduct.filter((item: any) => item.id == id);
       this.addedProduct = this.addedProduct.filter((item: any) => item.id !== id);
       console.log('afterdelete', this.deletedProduct);
       if (this.addedProduct.length == 0) {
         this.semitotal = 0
       } else {
-        this.semitotal = this.addedProduct.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
-          return a + b;
-        })
+        if (this.addedProduct.length > 0) {
+          this.semitotal = this.addedProduct.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
+            return a + b;
+          })
+        }
       }
       this.calculateTotal()
+      this.toast.success('Success', 'Product deleted successfully.');
     }
   }
 
@@ -274,10 +326,18 @@ export class EditSaleComponent implements OnInit {
     }
     console.log('Final: ', addedProductSubmit)
 
+    if(this.newProduct.length == 0){
+      alert('Please add atleast one product');
+      return;
+    }
+
     console.log('addedProductSubmit: ', addedProductSubmit);
     if (this.date == '') {
       this.date = this.curr_date.year + '-' + this.curr_date.month + '-' + this.curr_date.day
     }
+
+    console.log('on submit', this.customer_id);
+
 
     const obj = {
       shipping_charge: data.shipping_charge,

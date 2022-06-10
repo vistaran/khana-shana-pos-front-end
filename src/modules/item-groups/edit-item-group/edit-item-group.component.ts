@@ -14,7 +14,7 @@ export class EditItemGroupComponent implements OnInit {
 
   editItemGroupForm!: FormGroup
   id: any
-
+  showValidations = false;
   // For Validations
   get group_name() {
     return this.editItemGroupForm.get('group_name');
@@ -45,9 +45,16 @@ export class EditItemGroupComponent implements OnInit {
 
   // Submit edit item group form
   updateData(data: any) {
+
+    if(this.editItemGroupForm.invalid) {
+      alert('Please fill the required fields!');
+      return;
+    }
+
+
     this.itemGroupService.editItemGroup(this.id, data).subscribe(data => {
       console.log('Data updated successfully! ', data);
-      this.toast.success('Success', 'Edited successfully.')
+      this.toast.success('Success', 'Item Group Edited successfully.')
       this.router.navigate(['/item_groups']);
     }, err => {
       this.toast.error('Error', 'Server error.')

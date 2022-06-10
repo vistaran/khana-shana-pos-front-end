@@ -29,7 +29,7 @@ export class AddSaleComponent implements OnInit {
 
   today = new Date()
   dd = this.today.getDate();
-  mm = this.today.getMonth()+1; // January is 0!
+  mm = this.today.getMonth() + 1; // January is 0!
   yyyy = this.today.getFullYear();
 
   curr_date: NgbDate = new NgbDate(this.yyyy, this.mm, this.dd);
@@ -63,9 +63,15 @@ export class AddSaleComponent implements OnInit {
   customerName: any
   customerNumber: any
   customer_id: any
+  showValidations = false;
+  showCustomerValidation = false;
 
   get customer() {
     return this.customerForm.get('customer_id');
+  }
+
+  get quantity() {
+    return this.qtyForm.get('quantity');
   }
 
   constructor(
@@ -87,7 +93,7 @@ export class AddSaleComponent implements OnInit {
     })
 
     this.qtyForm = this.fb.group({
-      quantity: ['']
+      quantity: ['', [Validators.required]]
     })
 
     this.customerForm = this.fb.group({
@@ -107,7 +113,19 @@ export class AddSaleComponent implements OnInit {
 
   getCustomerData() {
     this.saleService.getCustomerData(this.pageSize).subscribe((result: any) => {
-      this.customerData = result.data
+      this.customerData = result.data.sort(function (a: any, b: any) {
+        const nameA = a.first_name.toUpperCase(); // ignore upper and lowercase
+        const nameB = b.first_name.toUpperCase(); // ignore upper and lowercase
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+
+        // names must be equal
+        return 0;
+      })
     })
   }
 
@@ -129,25 +147,35 @@ export class AddSaleComponent implements OnInit {
   }
 
   onSelectProduct(data: any, qty: any) {
+
+    if (this.qtyForm.invalid) {
+      this.showValidations = true;
+      alert('Please enter quantity');
+      return;
+    }
+
     let invalid;
+
+    this.modalService.dismissAll();
+
     this.addedProduct.forEach((g: any) => {
       if (data.product_name == g.product_name) {
         invalid = true
       }
     })
     if (invalid) {
-      this.toast.warning('Warning', 'Product is already added.')
+      this.toast.warning('Warning', data.product_name + ' is already added.')
       return;
     }
     console.log('Quantity', qty.quantity);
 
     this.productData.forEach((g: any) => {
-      g.quantity = 0;
-      g.subtotal = 0;
+      // g.quantity = 0;
+      // g.subtotal = 0;
       // console.log(g)
       if (g.id == data.id) {
-        g.quantity += qty.quantity
-        g.subtotal += (data.price * qty.quantity)
+        g.quantity = qty.quantity
+        g.subtotal = (data.price * qty.quantity)
         this.addedProduct.push(g)
 
         // this.ngOnInit()
@@ -167,8 +195,17 @@ export class AddSaleComponent implements OnInit {
 
   onSelectCustomer(data: any) {
     // console.log(data.value.customer_id);
+
+    if (this.customerForm.invalid) {
+      this.showCustomerValidation = true;
+      alert('Please select customer');
+      return;
+    }
+
     this.customer_id = data.value.customer_id
     console.log('Customer id: ', this.customer_id);
+
+    this.modalService.dismissAll();
 
     this.customerData.forEach((g: any) => {
 
@@ -194,7 +231,7 @@ export class AddSaleComponent implements OnInit {
     if (confirm('Are you sure you want to delete?')) {
       this.addedProduct = this.addedProduct.filter((item: any) => item.id !== id);
       // console.log('afterdelete', this.addedProduct);
-      if(this.addedProduct.length == 0) {
+      if (this.addedProduct.length == 0) {
         this.semitotal = 0
       } else {
         this.semitotal = this.addedProduct.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
@@ -202,6 +239,7 @@ export class AddSaleComponent implements OnInit {
         })
       }
       this.calculateTotal()
+      this.toast.success('Success', 'Product deleted successfully.');
     }
   }
 
@@ -210,6 +248,21 @@ export class AddSaleComponent implements OnInit {
   }
 
   onSubmit(data: any) {
+
+    if(this.customerForm.invalid){
+      alert('Please select customer!');
+      return;
+    }
+
+    if(this.addSaleForm.invalid){
+      alert('Please fill all the required fields!');
+      return;
+    }
+
+    if(this.addedProduct.length == 0){
+      alert('Please add atleast one product!');
+      return;
+    }
 
     console.log(data);
 
@@ -228,7 +281,7 @@ export class AddSaleComponent implements OnInit {
     });
     console.log('addedProductSubmit: ', addedProductSubmit);
 
-    if(this.date == '') {
+    if (this.date == '') {
       this.date = this.curr_date.year + '-' + this.curr_date.month + '-' + this.curr_date.day
     }
 
@@ -250,8 +303,8 @@ export class AddSaleComponent implements OnInit {
       this.toast.success('Success', 'Sales Order Added Successfully.')
       this.router.navigate(['/sales']);
     }, err => {
-      this.toast.error('Error', 'Your session has timed out. Please login again')
-      this.router.navigate(['/auth/login'])
+      this.toast.error('Error', 'Server Error')
+      // this.router.navigate(['/auth/login'])
     });
   }
 

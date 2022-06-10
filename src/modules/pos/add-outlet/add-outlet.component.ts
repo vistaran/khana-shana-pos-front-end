@@ -16,6 +16,7 @@ export class AddOutletComponent implements OnInit {
 
   addOutletForm!: FormGroup;
   myData: any = []
+  showValidations = false;
 
   inventorySource = ['default'];
   status = ['active', 'inactive'];
@@ -69,17 +70,34 @@ export class AddOutletComponent implements OnInit {
       country: ['India', [Validators.required]],
       state: ['', [Validators.required]],
       city: ['', [Validators.required]],
-      status: ['', [Validators.required]],
-      postcode: ['', [Validators.required]],
+      status: [0, [Validators.required]],
+      postcode: ['', [Validators.required, Validators.maxLength(6), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
       inventory_source: ['', [Validators.required]],
     });
 
     this.getCountryList()
   }
 
+  validateNumber(event: any) {
+    const keyCode = event.keyCode;
+
+    const excludedKeys = [8, 37, 39, 46];
+
+    if (!((keyCode >= 48 && keyCode <= 57) ||
+      (keyCode >= 96 && keyCode <= 105) ||
+      (excludedKeys.includes(keyCode)))) {
+      event.preventDefault();
+    }
+  }
 
   // For submitting add outlet form data
   onSubmit(data: any) {
+
+    if (this.addOutletForm.invalid) {
+      alert('Please fill all the required fields!');
+      return;
+    }
+
     this.outletService
       .postOutletData(data)
       .subscribe((result: any) => {
@@ -94,7 +112,7 @@ export class AddOutletComponent implements OnInit {
   getCountryList() {
     this.countries.getCountryList().subscribe((resp: any) => {
       console.log(resp);
-      
+
       const countries = [];
       for (let i = 0; i < resp.length; ++i) {
         const country = resp[i];
