@@ -153,7 +153,7 @@ export class EditCustomerComponent implements OnInit {
       city: ['', [Validators.required]],
       state: ['', [Validators.required]],
       contry: ['', [Validators.required]],
-      postalcode: ['', [Validators.required, Validators.maxLength(6)]],
+      postalcode: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(6)]],
       latitude: [''],
       longitude: ['']
     })
@@ -230,6 +230,17 @@ export class EditCustomerComponent implements OnInit {
     if (!((keyCode >= 48 && keyCode <= 57) ||
       (keyCode >= 96 && keyCode <= 105) ||
       (excludedKeys.includes(keyCode)))) {
+      event.preventDefault();
+    }
+  }
+
+  validateAlphabet(event: any) {
+    const keyCode = event.keyCode;
+
+    const excludedKeys = [8, 32, 39, 46];
+
+    if (!((keyCode >= 65 && keyCode <= 90) ||
+      (keyCode >= 97 && keyCode <= 122) || (excludedKeys.includes(keyCode)))) {
       event.preventDefault();
     }
   }

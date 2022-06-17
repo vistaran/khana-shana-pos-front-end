@@ -32,7 +32,7 @@
                         <div class="form-group required">
                             <label class="required">Phone Number</label>
                             <input type="text" placeholder="Enter Phone Number" formControlName="phone_number"
-                                class="form-control" (keydown)="validateNumber($event)"/>
+                                class="form-control" (keydown)="validateNumber($event)" />
                             <div *ngIf="phone?.touched && phone?.invalid" class="alert alert-danger">
                                 <div *ngIf="phone?.errors?.required">Phone Number is required.</div>
                                 <div *ngIf="phone?.errors?.maxlength && !phone?.errors?.pattern">Phone number must not
@@ -152,7 +152,7 @@
                                     <div class="form-group required">
                                         <label class="required mt-4">City</label>
                                         <input type="text" formControlName="city" class="form-control"
-                                            placeholder="City" />
+                                            placeholder="City" (keydown)="validateAlphabet($event)" />
                                         <div *ngIf="city?.touched && city?.invalid" class="alert alert-danger">
                                             <div *ngIf="city?.errors?.required">City is required.</div>
                                         </div>
@@ -163,7 +163,7 @@
                                     <div class="form-group required">
                                         <label class="required mt-4">State</label>
                                         <input type="text" formControlName="state" class="form-control"
-                                            placeholder="State" />
+                                            placeholder="State" (keydown)="validateAlphabet($event)" />
                                         <div *ngIf="state?.touched && state?.invalid" class="alert alert-danger">
                                             <div *ngIf="state?.errors?.required">State is required.</div>
                                         </div>
@@ -180,7 +180,7 @@
                                     <div class="form-group required">
                                         <label class="required mt-4">Country</label>
                                         <input type="text" formControlName="contry" class="form-control"
-                                            placeholder="Country" />
+                                            placeholder="Country" (keydown)="validateAlphabet($event)" />
                                         <div *ngIf="contry?.touched && contry?.invalid" class="alert alert-danger">
                                             <div *ngIf="contry?.errors?.required">Country is required.</div>
                                         </div>
@@ -191,7 +191,7 @@
                                     <div class="form-group required">
                                         <label class="required mt-4">Pin Code</label>
                                         <input type="text" formControlName="postalcode" class="form-control"
-                                            placeholder="Pin code" (keydown)="validateNumber($event)"/>
+                                            placeholder="Pin code" (keydown)="validateNumber($event)" />
                                         <div *ngIf="postalcode?.touched && postalcode?.invalid"
                                             class="alert alert-danger">
                                             <div *ngIf="postalcode?.errors?.required">Pin code is required.</div>
@@ -305,9 +305,9 @@
                                         </ng-container>
                                     </select>
                                     <div *ngIf="addressType_edit?.touched && addressType_edit?.invalid"
-                                            class="alert alert-danger">
-                                            <div *ngIf="addressType_edit?.errors?.required">Address type is required.</div>
-                                        </div>
+                                        class="alert alert-danger">
+                                        <div *ngIf="addressType_edit?.errors?.required">Address type is required.</div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -317,9 +317,11 @@
                                         <label class="required mt-4">Address line 1</label>
                                         <input type="text" formControlName="address_line_1" class="form-control"
                                             placeholder="House no./name" />
-                                        <div *ngIf="address_line_1_edit?.touched && address_line_1_edit?.invalid" class="alert alert-danger">
-                                    <div *ngIf="address_line_1_edit?.errors?.required">Address Line 1 is required.</div>
-                                </div>
+                                        <div *ngIf="address_line_1_edit?.touched && address_line_1_edit?.invalid"
+                                            class="alert alert-danger">
+                                            <div *ngIf="address_line_1_edit?.errors?.required">Address Line 1 is
+                                                required.</div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -328,9 +330,11 @@
                                         <label class="required mt-4">Address line 2</label>
                                         <input type="text" formControlName="address_line_2" class="form-control"
                                             placeholder="Street name/number" />
-                                        <div *ngIf="address_line_2_edit?.touched && address_line_2_edit?.invalid" class="alert alert-danger">
-                                    <div *ngIf="address_line_2_edit?.errors?.required">Address Line 2 is required.</div>
-                                </div>
+                                        <div *ngIf="address_line_2_edit?.touched && address_line_2_edit?.invalid"
+                                            class="alert alert-danger">
+                                            <div *ngIf="address_line_2_edit?.errors?.required">Address Line 2 is
+                                                required.</div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -365,10 +369,11 @@
                                     <div class="form-group required">
                                         <label class="required mt-4">City</label>
                                         <input type="text" formControlName="city" class="form-control"
-                                            placeholder="City" />
-                                        <div *ngIf="city_edit?.touched && city_edit?.invalid" class="alert alert-danger">
-                                    <div *ngIf="city_edit?.errors?.required">City is required.</div>
-                                </div>
+                                            placeholder="City" (keydown)="validateAlphabet($event)" />
+                                        <div *ngIf="city_edit?.touched && city_edit?.invalid"
+                                            class="alert alert-danger">
+                                            <div *ngIf="city_edit?.errors?.required">City is required.</div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -376,10 +381,11 @@
                                     <div class="form-group required">
                                         <label class="required mt-4">State</label>
                                         <input type="text" formControlName="state" class="form-control"
-                                            placeholder="State" />
-                                        <div *ngIf="state_edit?.touched && state_edit?.invalid" class="alert alert-danger">
-                                    <div *ngIf="state_edit?.errors?.required">State is required.</div>
-                                </div>
+                                            placeholder="State" (keydown)="validateAlphabet($event)" />
+                                        <div *ngIf="state_edit?.touched && state_edit?.invalid"
+                                            class="alert alert-danger">
+                                            <div *ngIf="state_edit?.errors?.required">State is required.</div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -391,10 +397,11 @@
                                     <div class="form-group required">
                                         <label class="required mt-4">Country</label>
                                         <input type="text" formControlName="contry" class="form-control"
-                                            placeholder="Country" />
-                                        <div *ngIf="contry_edit?.touched && contry_edit?.invalid" class="alert alert-danger">
-                                    <div *ngIf="contry_edit?.errors?.required">Country is required.</div>
-                                </div>
+                                            placeholder="Country" (keydown)="validateAlphabet($event)" />
+                                        <div *ngIf="contry_edit?.touched && contry_edit?.invalid"
+                                            class="alert alert-danger">
+                                            <div *ngIf="contry_edit?.errors?.required">Country is required.</div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -402,10 +409,15 @@
                                     <div class="form-group required">
                                         <label class="required mt-4">Pin code</label>
                                         <input type="text" formControlName="postalcode" class="form-control"
-                                            placeholder="Pin code" (keydown)="validateNumber($event)"/>
-                                        <div *ngIf="postalcode_edit?.touched && postalcode_edit?.invalid" class="alert alert-danger">
-                                    <div *ngIf="postalcode_edit?.errors?.required">Pin Code is required.</div>
-                                </div>
+                                            placeholder="Pin code" (keydown)="validateNumber($event)" />
+                                        <div *ngIf="postalcode_edit?.touched && postalcode_edit?.invalid"
+                                            class="alert alert-danger">
+                                            <div *ngIf="postalcode_edit?.errors?.required">Pin Code is required.</div>
+                                            <div *ngIf="postalcode_edit?.errors?.minlength" class="alert alert-danger">
+                                                Pin code
+                                                must contain atleast 5 digits
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 

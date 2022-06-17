@@ -71,7 +71,7 @@ export class EditOutletComponent implements OnInit {
             country: [null, [Validators.required]],
             state: ['', [Validators.required]],
             city: ['', [Validators.required]],
-            postcode: ['', [Validators.required, Validators.maxLength(6), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
+            postcode: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(6), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
             inventory_source: ['', [Validators.required]],
             status: ['', [Validators.required]]
         });
