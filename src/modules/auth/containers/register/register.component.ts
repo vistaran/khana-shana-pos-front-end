@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { faLayerGroup } from '@fortawesome/free-solid-svg-icons';
 import { User } from '@modules/auth/models/auth.model';
 import { PasswordValidator } from '@modules/pos/password.validator';
 import { UserDataService } from '@modules/pos/user-data.service';
@@ -18,6 +19,7 @@ import { AuthService } from './../../services/auth.service';
 export class RegisterComponent implements OnInit {
 
   user2: User[] = [];
+  userData: any = [];
   createAccountForm!: FormGroup;
   imageForm!: FormGroup;
   showValidations = false;
@@ -33,7 +35,7 @@ export class RegisterComponent implements OnInit {
     private fb: FormBuilder,
     private route: Router,
     private userService: UserDataService,
-    private toast: AppToastService
+    private toast: AppToastService,
   ) { }
 
   get first_Name() {
@@ -73,6 +75,7 @@ export class RegisterComponent implements OnInit {
     )
 
     this.imageForm = this.fb.group({ image: [''] });
+    this.getUserData();
   }
 
   handleFileInput(file: FileList) {
@@ -154,62 +157,92 @@ export class RegisterComponent implements OnInit {
     return blob;
   }
 
+  getUserData() {
+    this.userService.getUserData(1).subscribe(data => {
+      this.userData = data.user.data;
+      console.log(this.userData, 'userData');
+    })
+  }
+
   onSubmit(data: any) {
+
+    let flag = true;
 
     if (this.createAccountForm.invalid || this.file == null) {
       if (this.createAccountForm.invalid && this.file == null) {
         alert('Please fill all the required fields and upload an image!');
+
       }
       else if (this.file == null && !this.createAccountForm.invalid) {
         alert('Please upload an image');
       } else {
         alert('Please fill all the required fields!');
       }
+      flag = false;
       return;
     }
 
-    const formData = new FormData();
-    formData.append('first_name', data.first_name);
-    formData.append('lastname', data.lastname);
-    formData.append('username', data.username);
-    formData.append('email', data.email);
-    formData.append('password', data.password);
-    formData.append('confirm_password', data.confirm_password);
-    formData.append('outlet', '4');
-    // formData.append('outlet_name', data.outlet_name);
-    formData.append('phone_no', data.phone_no);
-    formData.append('user_avatar', this.file);
-    formData.append('status', 'active');
+    this.getUserData();
+    this.userData.forEach((element: any) => {
+      if (element.email == data.email) {
+        flag = false;
+        this.toast.error('Error', 'Email already exists!');
+        return;
+      } else if (element.username == data.username) {
+        flag = false;
+        this.toast.error('Error', 'Username already exists!');
+        return;
+      }
+    });
 
-    // const obj = {
-    //   username: data.username,
-    //   first_name: data.first_name,
-    //   lastname: data.lastname,
-    //   email: data.email,
-    //   phone_no: ' ',
-    //   user_avatar: this.file,
-    //   password: data.password,
-    //   confirm_password: data.confirm_password,
-    //   outlet: ,
-    //   status: ,
-    // }
 
-    this.userService
-      .postUserData(formData)
-      .subscribe((result: any) => {
-        console.log(result)
-        this.toast.success('Success', 'Account Created Successfully.')
-        this.route.navigate(['/auth/login'])
-      }, err => {
-        this.toast.error('Error', 'Server error.')
-      });
-    console.log(data);
+    if (flag) {
+
+      const formData = new FormData();
+      formData.append('first_name', data.first_name);
+      formData.append('lastname', data.lastname);
+      formData.append('username', data.username);
+      formData.append('email', data.email);
+      formData.append('password', data.password);
+      formData.append('confirm_password', data.confirm_password);
+      formData.append('outlet', '4');
+      // formData.append('outlet_name', data.outlet_name);
+      formData.append('phone_no', data.phone_no);
+      formData.append('user_avatar', this.file);
+      formData.append('status', 'active');
+
+      // const obj = {
+      //   username: data.username,
+      //   first_name: data.first_name,
+      //   lastname: data.lastname,
+      //   email: data.email,
+      //   phone_no: ' ',
+      //   user_avatar: this.file,
+      //   password: data.password,
+      //   confirm_password: data.confirm_password,
+      //   outlet: ,
+      //   status: ,
+      // }
+
+      this.userService
+        .postUserData(formData)
+        .subscribe((result: any) => {
+          console.log(result)
+          this.toast.success('Success', 'Account Created Successfully.')
+          this.route.navigate(['/auth/login'])
+        }, err => {
+          this.toast.error('Error', 'Server error.')
+        });
+      console.log(data);
+    } else {
+      return;
+    }
+
+    // onClick() {
+    //        this.regUser.addUser()
+    //         console.log(data)
+    //         this.refreshUser();
+    //       }
+
   }
-
-  // onClick() {
-  //        this.regUser.addUser()
-  //         console.log(data)
-  //         this.refreshUser();
-  //       }
-
 }

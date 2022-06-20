@@ -58,7 +58,7 @@ export class EditUomComponent implements OnInit {
     this.uomService.editUomData(this.id, data).subscribe(data => {
       console.log('Data updated successfully! ', data);
       this.router.navigate(['/pos/uom']);
-      this.toast.success('Success', 'Edited successfully.')
+      this.toast.success('Success', 'UOM Edited successfully.') 
     }, err => {
       this.toast.error('Error', 'Server error.')
     });

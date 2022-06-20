@@ -37,14 +37,14 @@ export class AddCustomerComponent implements OnInit {
     this.addCustomerForm = this.fb.group({
       first_name: ['', [Validators.required]],
       last_name: ['', [Validators.required]],
-      phone_number: ['', [Validators.required, Validators.maxLength(10), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]]
+      phone_number: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]]
     })
   }
 
   validateNumber(event: any) {
     const keyCode = event.keyCode;
 
-    const excludedKeys = [8, 37, 39, 46];
+    const excludedKeys = [8, 9, 37, 39, 46];
 
     if (!((keyCode >= 48 && keyCode <= 57) ||
       (keyCode >= 96 && keyCode <= 105) ||

@@ -24,12 +24,12 @@ export class ForgotPasswordComponent implements OnInit {
 
     ngOnInit() {
         this.forgotPasswordForm = this.fb.group({
-            email: ['', [Validators.required,Validators.email]]
+            email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]]
         })
     }
 
     onSubmit(data: any) {
-        if(this.forgotPasswordForm.invalid) {
+        if (this.forgotPasswordForm.invalid) {
             alert('Please check the validations!');
             return;
         }

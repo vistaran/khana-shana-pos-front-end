@@ -225,7 +225,7 @@ export class EditUserComponent implements OnInit {
     validateNumber(event: any) {
         const keyCode = event.keyCode;
 
-        const excludedKeys = [8, 37, 39, 46];
+        const excludedKeys = [8, 9, 37, 39, 46];
 
         if (!((keyCode >= 48 && keyCode <= 57) ||
             (keyCode >= 96 && keyCode <= 105) ||

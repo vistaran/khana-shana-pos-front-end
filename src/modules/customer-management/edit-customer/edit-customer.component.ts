@@ -137,7 +137,7 @@ export class EditCustomerComponent implements OnInit {
     this.editCustomerForm = this.fb.group({
       first_name: ['', [Validators.required]],
       last_name: ['', [Validators.required]],
-      phone_number: ['', [Validators.required, Validators.maxLength(10), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
+      phone_number: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
       email: [''],
       // home_address: ['', [Validators.required]],
       // office_address: ['', [Validators.required]],
@@ -167,7 +167,7 @@ export class EditCustomerComponent implements OnInit {
       city: ['', [Validators.required]],
       state: ['', [Validators.required]],
       contry: ['', [Validators.required]],
-      postalcode: ['', [Validators.required, Validators.maxLength(6)]],
+      postalcode: ['', [Validators.required,  Validators.minLength(5), Validators.maxLength(6)]],
       latitude: [''],
       longitude: ['']
     })
@@ -195,11 +195,11 @@ export class EditCustomerComponent implements OnInit {
 
   // For modal
   openVerticallyCentered(content: any) {
-    this.modalService.open(content, { centered: true });
+    this.modalService.open(content, { size: 'lg' });
   }
 
   openVerticallyCentered2(content: any, id: number) {
-    this.modalService.open(content, { centered: true });
+    this.modalService.open(content, { size: 'lg' });
     this.address_id = id
     console.log(this.address_id);
 
@@ -225,7 +225,7 @@ export class EditCustomerComponent implements OnInit {
   validateNumber(event: any) {
     const keyCode = event.keyCode;
 
-    const excludedKeys = [8, 37, 39, 46];
+    const excludedKeys = [8, 9, 37, 39, 46];
 
     if (!((keyCode >= 48 && keyCode <= 57) ||
       (keyCode >= 96 && keyCode <= 105) ||

@@ -51,6 +51,18 @@ export class AddVendorComponent implements OnInit {
     );
   }
 
+  validateNumber(event: any) {
+    const keyCode = event.keyCode;
+
+    const excludedKeys = [8, 9, 37, 39, 46];
+
+    if (!((keyCode >= 48 && keyCode <= 57) ||
+        (keyCode >= 96 && keyCode <= 105) ||
+        (excludedKeys.includes(keyCode)))) {
+        event.preventDefault();
+    }
+}
+
   // For submitting add vendor form data
   onSubmit(data: any) {
 

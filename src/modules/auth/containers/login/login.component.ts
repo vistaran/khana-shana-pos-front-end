@@ -52,6 +52,7 @@ export class LoginComponent implements OnInit {
 
         if(this.loginForm.invalid) {
             alert('Please fill all the required fields!');
+            this.loginForm.markAllAsTouched();
             return;
         }
 

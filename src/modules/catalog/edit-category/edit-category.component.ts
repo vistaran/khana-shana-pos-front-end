@@ -101,7 +101,7 @@ export class EditCategoryComponent implements OnInit {
       // parent_category: [''],
       meta_title: ['', [Validators.required]],
       slug: ['', [Validators.required]],
-      meta_description: ['', [Validators.required]],
+      meta_description: [''],
       meta_keyword: ['', [Validators.required]],
       status: [0, [Validators.required]],
     });

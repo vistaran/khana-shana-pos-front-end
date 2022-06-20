@@ -157,7 +157,7 @@
                                 <div class="form-group required">
                                     <label class="required">Select User Account Status</label><br />
                                     <select name="status" formControlName="status" class="form-control">
-                                        <option *ngFor="let item of status">{{ item }}</option>
+                                        <option *ngFor="let item of status; index as i" value="{{i}}">{{ item }}</option>
                                     </select>
                                     <div *ngIf="stat?.touched && stat?.invalid || showValidations">
                                         <div class="alert alert-danger" *ngIf="stat?.errors?.required">User Account

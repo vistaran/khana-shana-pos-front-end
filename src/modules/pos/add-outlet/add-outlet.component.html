@@ -25,7 +25,7 @@
                                     <select name="Status" formControlName="status" class="form-control">
                                         <option *ngFor="let item of status">{{ item }}</option>
                                     </select>
-                                    <div *ngIf="stat?.touched && showValidations || stat?.invalid ">
+                                    <div *ngIf="stat?.touched && stat?.invalid ">
                                         <div class="alert alert-danger" *ngIf="stat?.errors?.required">Status is
                                             required.</div>
                                     </div>
@@ -40,7 +40,7 @@
                                     <label class="required">Outlet Address</label>
                                     <input type="text" rows="6" formControlName="address"
                                         placeholder="Enter Outlet Address" class="form-control" />
-                                    <div *ngIf="showValidations || outletAddress?.invalid && outletAddress?.touched">
+                                    <div *ngIf="outletAddress?.invalid && outletAddress?.touched">
                                         <div class="alert alert-danger" *ngIf="outletAddress?.errors?.required">
                                             Outlet Address is required.
                                         </div>
@@ -54,12 +54,12 @@
                                     <!-- <input type="text" formControlName="country" class="form-control" /> -->
 
                                     <ng-select placeholder="Select Country">
-                                        <ng-option *ngFor="let item of myData">
+                                        <ng-option *ngFor="let item of myData" value="{{item.text}}">
                                             {{ item.text }}
                                         </ng-option>
                                     </ng-select>
 
-                                    <div *ngIf="showValidations || country?.invalid && country?.touched">
+                                    <div *ngIf="country?.invalid && country?.touched">
                                         <div class="alert alert-danger" *ngIf="country?.errors?.required">Country is
                                             required.</div>
                                     </div>
@@ -71,7 +71,7 @@
                                     <label class="required">State</label>
                                     <input type="text" formControlName="state" placeholder="Enter State"
                                         class="form-control" />
-                                    <div *ngIf="showValidations || state?.invalid && state?.touched">
+                                    <div *ngIf="state?.invalid && state?.touched">
                                         <div class="alert alert-danger" *ngIf="state?.errors?.required">State is
                                             required.</div>
                                     </div>
@@ -83,7 +83,7 @@
                                     <label class="required">City</label>
                                     <input type="text" formControlName="city" placeholder="Enter City"
                                         class="form-control" />
-                                    <div *ngIf="showValidations || city?.invalid && city?.touched">
+                                    <div *ngIf="city?.invalid && city?.touched">
                                         <div class="alert alert-danger" *ngIf="city?.errors?.required">City is required.
                                         </div>
                                     </div>
@@ -95,7 +95,7 @@
                                     <label class="required">Postcode</label>
                                     <input type="text" formControlName="postcode" placeholder="Enter Postcode"
                                         class="form-control" (keydown)="validateNumber($event)" />
-                                    <div *ngIf="showValidations || postCode?.invalid && postCode?.touched">
+                                    <div *ngIf="postCode?.invalid && postCode?.touched">
                                         <div *ngIf="postCode?.errors?.required" class="alert alert-danger">Postcode is
                                             required.</div>
                                         <div *ngIf="postCode?.errors?.maxlength && !postCode?.errors?.pattern"
@@ -122,7 +122,7 @@
                                         class="form-control">
                                         <option *ngFor="let item of inventorySource">{{ item }}</option>
                                     </select>
-                                    <div *ngIf="showValidations || inventory?.invalid && inventory?.touched">
+                                    <div *ngIf="inventory?.invalid && inventory?.touched">
                                         <div *ngIf="inventory?.errors?.required" class="alert alert-danger">
                                             Inventory source is required.
                                         </div>

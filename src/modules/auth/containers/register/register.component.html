@@ -3,8 +3,8 @@
         <div class="row justify-content-center">
             <div class="col-lg-7">
                 <div class="card shadow-lg border-0 rounded-lg mt-5">
-                    <div class="card-header">
-                        <h3 class="text-center font-weight-light my-4">Create Account</h3>
+                    <div class="card-header bg-dark text-white">
+                        <h3 class="text-center font-weight-light my-3">Create Account</h3>
                     </div>
 
 
@@ -30,6 +30,8 @@
                                     (change)="handleFileInput($event.target.files)" />
                             </div>
                         </form>
+
+                        <hr />
 
                         <form [formGroup]="createAccountForm" (ngSubmit)="onSubmit(createAccountForm.value)">
                             <div class="form-row">
@@ -127,13 +129,14 @@
                                     </div>
                                 </div>
                             </div>
+                            <hr />
                             <div class="text-center">
                                 <button (click)="showValidations = true" type="submit" class="btn btn-primary">Create
                                     Account</button>
                             </div>
                         </form>
                     </div>
-                    <div class="card-footer text-center">
+                    <div class="card-footer text-center bg-dark">
                         <div class="small"><a routerLink="/auth/login">Have an account? Go to login</a></div>
                     </div>
                 </div>

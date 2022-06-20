@@ -36,6 +36,8 @@
                                 <div *ngIf="phone?.errors?.required">Phone Number is required.</div>
                                 <div *ngIf="phone?.errors?.maxlength">Phone number must not exceed 10 digits
                                 </div>
+                                <div *ngIf="phone?.errors?.minlength">Phone number must contain 10 digits
+                                </div>
                                 <div *ngIf="phone?.errors?.pattern">Only Numbers are allowed</div>
                             </div>
                         </div>

@@ -67,12 +67,12 @@ export class AddOutletComponent implements OnInit {
     this.addOutletForm = this.fb.group({
       name: ['', [Validators.required]],
       address: ['', [Validators.required]],
-      country: ['India', [Validators.required]],
+      country: ['', [Validators.required]],
       state: ['', [Validators.required]],
       city: ['', [Validators.required]],
       status: [0, [Validators.required]],
       postcode: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(6), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
-      inventory_source: ['', [Validators.required]],
+      inventory_source: ['default', [Validators.required]],
     });
 
     this.getCountryList()
@@ -81,7 +81,7 @@ export class AddOutletComponent implements OnInit {
   validateNumber(event: any) {
     const keyCode = event.keyCode;
 
-    const excludedKeys = [8, 37, 39, 46];
+    const excludedKeys = [8, 9, 37, 39, 46];
 
     if (!((keyCode >= 48 && keyCode <= 57) ||
       (keyCode >= 96 && keyCode <= 105) ||
@@ -93,7 +93,11 @@ export class AddOutletComponent implements OnInit {
   // For submitting add outlet form data
   onSubmit(data: any) {
 
+    console.log(data);
+    
+
     if (this.addOutletForm.invalid) {
+      this.addOutletForm.markAllAsTouched();
       alert('Please fill all the required fields!');
       return;
     }
