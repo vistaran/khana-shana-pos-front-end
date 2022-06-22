@@ -89,7 +89,7 @@
                         <div class="modal-header bg-primary">
                             <h4 class="modal-title text-light">Add Item</h4>
                             <button type="button" class="btn-xs btn-light" aria-label="Close"
-                                (click)="modal.dismiss('Cross click')">X
+                                (click)="modal.dismiss('Cross click')" (click)="itemsForm.reset()">X
                             </button>
                         </div>
 
@@ -205,7 +205,7 @@
 
                 </ng-template>
 
-                <table class="table table-bordered table-sm table-striped">
+                <table class="table table-bordered table-sm table-striped shadow">
                     <thead class="head">
                         <th>Item Group</th>
                         <th>Item Name</th>

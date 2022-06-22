@@ -70,7 +70,7 @@
                 <h2 class="card-header mt-4 pb-2">Item Details</h2>
 
                 <button type="button" class="btn btn-primary mt-4 me-2  mb-4 float-right"
-                    (click)="openVerticallyCentered(content)">Add
+                    (click)="openVerticallyCentered(content)" (click)="isInputShown=false;isInputShown2=false">Add
                     Item</button>
 
                 <ng-template #content let-modal>
@@ -79,7 +79,7 @@
                         <div class="modal-header bg-primary">
                             <h4 class="modal-title text-light">Add Item</h4>
                             <button type="button" class="btn-close btn-light btn-xs" aria-label="Close"
-                                (click)="modal.dismiss('Cross click')">X
+                                (click)="modal.dismiss('Cross click')" (click)="itemsForm.reset()">X
                             </button>
                         </div>
 
@@ -90,17 +90,17 @@
                                 <div class="col">
                                     <div class="form-group required">
                                         <label class="required">Select Item Group Name</label>
-                                        <ng-select name="item_group_id" formControlName="item_group_id"
-                                            (ngModelChange)="onSelectGroup($event)" placeholder="Select Item Group Name"
-                                            autofocus>
+                                        <select name="item_group_id" formControlName="item_group_id"
+                                            (ngModelChange)="onSelectGroup($event)" class="form-control" autofocus
+                                            placeholder="Select Item Group Name">
                                             <option value="0" disabled>Select Item Group Name</option>
                                             <ng-container *ngFor="let list of itemGroupsData">
-                                                <ng-option value="{{ list.id }}">
+                                                <option value="{{ list.id }}">
                                                     {{list.group_name
                                                     }}
-                                                </ng-option>
+                                                </option>
                                             </ng-container>
-                                        </ng-select>
+                                        </select>
                                         <div *ngIf="item_group_id?.touched && item_group_id?.invalid"
                                             class="alert alert-danger">
                                             <div *ngIf="item_group_id?.errors?.required">Item Group name is required.
@@ -108,6 +108,7 @@
                                         </div>
                                     </div>
                                 </div>
+
 
                                 <!-- <div > -->
 
@@ -216,7 +217,7 @@
 
                 </ng-template>
 
-                <table class="table table-bordered table-striped">
+                <table class="table table-bordered table-striped shadow">
                     <thead class="head">
                         <th>Item Group</th>
                         <th>Item Name</th>

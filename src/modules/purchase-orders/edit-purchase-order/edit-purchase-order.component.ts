@@ -387,6 +387,15 @@ export class EditPurchaseOrderComponent implements OnInit {
       }
     });
 
+    this.itemsForm = this.fb.group({
+      notes: [''],
+      item_id: [null, [Validators.required]],
+      item_group_id: [0, [Validators.required]],
+      qty: ['', [Validators.required]],
+      unit_id: [{ value: null, disabled: true }],
+      price: ['', [Validators.required]],
+    })
+
     const obj = [{
       item_group_id: Number(data.item_group_id),
       item_group_name: this.name,
