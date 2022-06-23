@@ -51,14 +51,15 @@
                             <div class="col-6">
                                 <div class="form-group required">
                                     <label class="required">Country</label>
+                                    <input type="text" formControlName="country" placeholder="Enter Country"
+                                    class="form-control" />
                                     <!-- <input type="text" formControlName="country" class="form-control" /> -->
 
-                                    <ng-select placeholder="Select Country">
+                                    <!-- <ng-select placeholder="Select Country">
                                         <ng-option *ngFor="let item of myData" value="{{item.text}}">
                                             {{ item.text }}
                                         </ng-option>
-                                    </ng-select>
-
+                                    </ng-select> -->
                                     <div *ngIf="country?.invalid && country?.touched">
                                         <div class="alert alert-danger" *ngIf="country?.errors?.required">Country is
                                             required.</div>

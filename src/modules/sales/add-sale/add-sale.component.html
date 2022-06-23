@@ -100,7 +100,7 @@
                                                 <div class="form-group required">
                                                     <label class="required">Quantity</label>
                                                     <input type="number" formControlName="quantity"
-                                                        class="form-control" />
+                                                        class="form-control" placeholder="Enter Quantity"/>
 
                                                     <div
                                                         *ngIf="quantity?.touched && quantity?.invalid || showValidations">
@@ -163,9 +163,11 @@
                                     <td colspan="4" class="text-right"><b>Shipping Charges</b></td>
                                     <td>
                                         <div class="input-group input-group-sm">
-                                            <input type="number" formControlName="shipping_charge" class="form-control"
+                                            <!-- <input type="number" formControlName="shipping_charge" class="form-control"
                                                 aria-label="Sizing example input"
                                                 aria-describedby="inputGroup-sizing-sm" (keyup)="onKey($event)"
+                                                (change)="onKey($event)"> -->
+                                                <input type="number" [(ngModel)]="shipping_charge" class="form-control" [ngModelOptions]="{standalone: true}"
                                                 (change)="onKey($event)">
                                         </div>
                                     </td>

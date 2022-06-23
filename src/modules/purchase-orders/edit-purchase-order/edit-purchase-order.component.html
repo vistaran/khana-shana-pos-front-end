@@ -79,7 +79,7 @@
                         <div class="modal-header bg-primary">
                             <h4 class="modal-title text-light">Add Item</h4>
                             <button type="button" class="btn-close btn-light btn-xs" aria-label="Close"
-                                (click)="modal.dismiss('Cross click')" (click)="itemsForm.reset()">X
+                                (click)="modal.dismiss('Cross click')">X
                             </button>
                         </div>
 
@@ -251,9 +251,11 @@
                             <td colspan="5" class="text-right"><b>Shipping Charges</b></td>
                             <td>
                                 <div class="input-group input-group-sm">
-                                    <input type="number" formControlName="shipping_charge" class="form-control"
+                                    <!-- <input type="number" formControlName="shipping_charge" class="form-control"
                                         aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                                        (change)="onKey($event)" (keyup)="onKey($event)">
+                                        (change)="onKey($event)" (keyup)="onKey($event)"> -->
+                                        <input type="number" [(ngModel)]="shippingCharge" class="form-control" [ngModelOptions]="{standalone: true}"
+                                        (change)="onKey($event)">
                                 </div>
                                 <!-- <div *ngIf="shipping_charge?.touched && shipping_charge?.invalid"
                                     class="alert alert-danger">

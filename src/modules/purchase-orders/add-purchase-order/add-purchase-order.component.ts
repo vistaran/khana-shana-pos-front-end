@@ -48,7 +48,7 @@ export class AddPurchaseOrderComponent implements OnInit {
   // public unitName = '';
   public itemName = '';
   pageSize = 100
-  shippingCharge = 0
+  public shippingCharge = 0;
   semitotal = 0
   total = 0
   group_id: any
@@ -74,13 +74,13 @@ export class AddPurchaseOrderComponent implements OnInit {
     return this.addOrderForm.get('notes');
   }
 
-  get shipping_charge() {
-    return this.addOrderForm.get('shipping_charge');
-  }
+  // get shipping_charge() {
+  //   return this.addOrderForm.get('shipping_charge');
+  // }
 
-  get total_amount() {
-    return this.addOrderForm.get('shipping_charge');
-  }
+  // get total_amount() {
+  //   return this.addOrderForm.get('shipping_charge');
+  // }
 
   // Add item form
 
@@ -146,7 +146,6 @@ export class AddPurchaseOrderComponent implements OnInit {
       outlet_id: [0, Validators.required],
       purchase_date: [this.curr_date],
       notes: [''],
-      shipping_charge: [0],
     })
 
     this.itemsForm = this.fb.group({
@@ -320,13 +319,48 @@ export class AddPurchaseOrderComponent implements OnInit {
 
   // For shipping charges value
   onKey(event: any) {
-    this.shippingCharge = Number(event.target.value);
-    this.calculateTotal();
+
+    console.log(typeof (event));
+
+
+    let charges = 0;
+    if (typeof (event) == 'object') {
+      charges = event.target.value;
+    } else {
+      charges = event;
+    }
+
+    let showShipping = false;
+    let total = 0;
+    if (this.orderItemData.length != 0) {
+      this.orderItemData.forEach((ele: any) => {
+        total += ele.subtotal;
+      })
+      if (total <= charges) {
+        alert('Shipping Charges cannot be greater than or equal to the total amount!');
+        this.shippingCharge = 0;
+        this.total = total;
+        showShipping = false;
+      }
+      else {
+        showShipping = true;
+      }
+    }
+    else {
+      alert('Please add atleast one item to input shipping charges!');
+      this.shippingCharge = 0;
+      return;
+    }
+
+    if (showShipping) {
+      this.shippingCharge = Number(charges);
+      this.calculateTotal();
+    }
   }
 
   addItemData(data: any) {
 
-    if(this.itemsForm.invalid) {
+    if (this.itemsForm.invalid) {
       this.itemsForm.markAllAsTouched();
       alert('Please fill all the required fields.');
       this.isInputShown = true;
@@ -383,7 +417,7 @@ export class AddPurchaseOrderComponent implements OnInit {
 
   editItemData(data: any) {
 
-    if(this.editItemsForm.invalid) {
+    if (this.editItemsForm.invalid) {
       this.editItemsForm.markAllAsTouched();
       alert('Please fill all the required fields.');
       return;
@@ -432,8 +466,12 @@ export class AddPurchaseOrderComponent implements OnInit {
     this.semitotal = this.orderItemData.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
       return a + b;
     })
-    this.toast.success('Success', 'Item Edited Successfully.')
-    this.calculateTotal();
+    this.toast.success('Success', 'Item Edited Successfully.');
+    setTimeout(() => { this.onKey(this.shippingCharge) }, 500);
+    setTimeout(() => { this.calculateTotal() }, 500);
+
+    // this.onKey(this.shippingCharge);
+    // this.calculateTotal();
 
   }
 
@@ -464,14 +502,15 @@ export class AddPurchaseOrderComponent implements OnInit {
       });
       console.log('len', this.orderItemData.length);
 
-      if(this.orderItemData.length == 0) {
+      if (this.orderItemData.length == 0) {
         this.semitotal = 0
       } else {
         this.semitotal = this.orderItemData.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
           return a + b;
         })
       }
-      this.calculateTotal()
+      setTimeout(() => { this.onKey(this.shippingCharge) }, 500);
+      setTimeout(() => { this.calculateTotal() }, 500);
       console.log('afterdelete', this.orderItemData);
 
       this.toast.success('Success', 'Item Deleted Successfully.');
@@ -485,7 +524,7 @@ export class AddPurchaseOrderComponent implements OnInit {
   // For submitting add purchase form data
   onSubmit(data: any) {
 
-    if(this.orderItemData.length == 0) {
+    if (this.orderItemData.length == 0) {
       alert('Please add atleast one item.');
       return;
     }
@@ -501,7 +540,7 @@ export class AddPurchaseOrderComponent implements OnInit {
       purchase_date: this.date,
       user_id: data.user_id,
       notes: data.notes,
-      shipping_charge: data.shipping_charge,
+      shipping_charge: this.shippingCharge,
       total_amount: this.total,
       items: this.orderItemData
     }

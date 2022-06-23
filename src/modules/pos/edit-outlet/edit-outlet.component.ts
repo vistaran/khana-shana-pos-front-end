@@ -16,7 +16,7 @@ import { OutletDataService } from './../outlet-data.service';
 export class EditOutletComponent implements OnInit {
     editOutletForm!: FormGroup
     id: any
-    myData: any
+    // myData: any
     showValidations = false;
 
     inventory_source = ['default'];
@@ -60,15 +60,15 @@ export class EditOutletComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private toast: AppToastService,
-        private http: HttpClient,
-        private countries: CountryListService
+        private http: HttpClient
+        // private countries: CountryListService
     ) { }
 
     ngOnInit(): void {
         this.editOutletForm = this.fb.group({
             outlet_name: ['', [Validators.required]],
             outlet_Address: ['', [Validators.required]],
-            country: [null, [Validators.required]],
+            country: ['', [Validators.required]],
             state: ['', [Validators.required]],
             city: ['', [Validators.required]],
             postcode: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(6), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
@@ -80,17 +80,17 @@ export class EditOutletComponent implements OnInit {
         this.outletService.editOutletForm(this.id).subscribe((data: any) => {
 
             this.editOutletForm.patchValue(data)
-            this.editOutletForm.get('country')?.setValue(data.country)
+            // this.editOutletForm.get('country')?.setValue(data.country)
         })
 
-        this.countries.getCountryList().subscribe((resp: any) => {
-            const countries = [];
-            for (let i = 0; i < resp.length; ++i) {
-                const country = resp[i];
-                countries.push({ text: country.text, value: country.value });
-            }
-            this.myData = countries;
-        })
+        // this.countries.getCountryList().subscribe((resp: any) => {
+        //     const countries = [];
+        //     for (let i = 0; i < resp.length; ++i) {
+        //         const country = resp[i];
+        //         countries.push({ text: country.text, value: country.value });
+        //     }
+        //     this.myData = countries;
+        // })
     }
 
     validateNumber(event: any) {
@@ -109,6 +109,7 @@ export class EditOutletComponent implements OnInit {
     updateData(data: any) {
 
         if (this.editOutletForm.invalid) {
+            this.editOutletForm.markAllAsTouched();
             alert('Please fill all the required fields!');
             return;
         }

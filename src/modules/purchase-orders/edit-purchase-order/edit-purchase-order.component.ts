@@ -360,14 +360,46 @@ export class EditPurchaseOrderComponent implements OnInit {
 
   // For shipping charges value
   onKey(event: any) {
-    this.shippingCharge = Number(event.target.value);
-    // console.log(typeof (this.shippingCharge));
-    this.calculateTotal();
+    console.log(typeof (event));
+
+    let charges = 0;
+    if (typeof (event) == 'object') {
+      charges = event.target.value;
+    } else {
+      charges = event;
+    }
+
+    let showShipping = false;
+    let total = 0;
+    if (this.orderItemData.length != 0) {
+      this.orderItemData.forEach((ele: any) => {
+        total += ele.subtotal;
+      })
+      if (total <= charges) {
+        alert('Shipping Charges cannot be greater than or equal to the total amount!');
+        this.shippingCharge = 0;
+        this.total = total;
+        showShipping = false;
+      }
+      else {
+        showShipping = true;
+      }
+    }
+    else if(this.shippingCharge != 0){
+      alert('Please add atleast one item to input shipping charges!');
+      this.shippingCharge = 0;
+      return;
+    }
+
+    if (showShipping) {
+      this.shippingCharge = Number(charges);
+      this.calculateTotal();
+    }
   }
 
   addItemData(data: any) {
 
-    if(this.itemsForm.invalid) {
+    if (this.itemsForm.invalid) {
       this.itemsForm.markAllAsTouched();
       alert('Please fill all the required fields.');
       return;
@@ -421,7 +453,7 @@ export class EditPurchaseOrderComponent implements OnInit {
 
   editItemData(data: any) {
 
-    if(this.editItemsForm.invalid) {
+    if (this.editItemsForm.invalid) {
       this.editItemsForm.markAllAsTouched();
       alert('Please fill all the required fields.');
       return;
@@ -470,7 +502,8 @@ export class EditPurchaseOrderComponent implements OnInit {
       return a + b;
     })
     this.toast.success('Success', 'Item Edited Successfully.')
-    this.calculateTotal();
+    setTimeout(() => { this.onKey(this.shippingCharge) }, 500);
+    setTimeout(() => { this.calculateTotal() }, 500);
 
   }
 
@@ -517,7 +550,8 @@ export class EditPurchaseOrderComponent implements OnInit {
       }
 
       this.toast.success('Success', 'Item Deleted Successfully.');
-      this.calculateTotal()
+      setTimeout(() => { this.onKey(this.shippingCharge) }, 500);
+      setTimeout(() => { this.calculateTotal() }, 500);
       console.log('afterdelete', this.orderItemData);
     }
   }
@@ -531,7 +565,7 @@ export class EditPurchaseOrderComponent implements OnInit {
 
     console.log(this.orderItemData.length);
 
-    if(this.orderItemData.length == 0) {
+    if (this.orderItemData.length == 0) {
       alert('Please add atleast one item.');
       return;
     }
@@ -550,7 +584,7 @@ export class EditPurchaseOrderComponent implements OnInit {
       purchase_date: this.date,
       user_id: data.user_id,
       notes: data.notes,
-      shipping_charge: data.shipping_charge,
+      shipping_charge: this.shippingCharge,
       total_amount: this.total,
       items: finalItems
     }

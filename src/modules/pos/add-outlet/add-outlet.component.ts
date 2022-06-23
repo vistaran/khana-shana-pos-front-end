@@ -15,7 +15,7 @@ import { OutletDataService } from './../outlet-data.service';
 export class AddOutletComponent implements OnInit {
 
   addOutletForm!: FormGroup;
-  myData: any = []
+  // myData: any = []
   showValidations = false;
 
   inventorySource = ['default'];
@@ -75,7 +75,7 @@ export class AddOutletComponent implements OnInit {
       inventory_source: ['default', [Validators.required]],
     });
 
-    this.getCountryList()
+    // this.getCountryList()
   }
 
   validateNumber(event: any) {
@@ -113,17 +113,17 @@ export class AddOutletComponent implements OnInit {
     console.log('Form Submitted', (data));
   }
 
-  getCountryList() {
-    this.countries.getCountryList().subscribe((resp: any) => {
-      console.log(resp);
+  // getCountryList() {
+  //   this.countries.getCountryList().subscribe((resp: any) => {
+  //     console.log(resp);
 
-      const countries = [];
-      for (let i = 0; i < resp.length; ++i) {
-        const country = resp[i];
-        countries.push({ text: country.text, value: country.value });
-      }
-      this.myData = countries;
-    })
-  }
+  //     const countries = [];
+  //     for (let i = 0; i < resp.length; ++i) {
+  //       const country = resp[i];
+  //       countries.push({ text: country.text, value: country.value });
+  //     }
+  //     this.myData = countries;
+  //   })
+  // }
 
 }

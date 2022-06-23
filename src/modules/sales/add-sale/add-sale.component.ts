@@ -222,10 +222,44 @@ export class AddSaleComponent implements OnInit {
   }
 
   onKey(event: any) {
-    this.shipping_charge = Number(event.target.value);
-    // console.log(typeof (this.shipping_charge));
-    this.calculateTotal();
+
+    console.log(typeof (event));
+
+    let charges = 0;
+    if (typeof (event) == 'object') {
+      charges = event.target.value;
+    } else {
+      charges = event;
+    }
+
+    let showShipping = false;
+    let total = 0;
+    if (this.addedProduct.length != 0) {
+      this.addedProduct.forEach((ele: any) => {
+        total += ele.subtotal;
+      })
+      if (total <= charges) {
+        alert('Shipping Charges cannot be greater than or equal to the total amount!');
+        this.shipping_charge = 0;
+        this.total = total;
+        showShipping = false;
+      }
+      else {
+        showShipping = true;
+      }
+    }
+    else {
+      alert('Please add atleast one item to input shipping charges!');
+      this.shipping_charge = 0;
+      return;
+    }
+
+    if (showShipping) {
+      this.shipping_charge = Number(charges);
+      this.calculateTotal();
+    }
   }
+
 
   RemoveProduct(id: any) {
     if (confirm('Are you sure you want to delete?')) {
@@ -238,7 +272,8 @@ export class AddSaleComponent implements OnInit {
           return a + b;
         })
       }
-      this.calculateTotal()
+      setTimeout(() => { this.onKey(this.shipping_charge) }, 500);
+      setTimeout(() => { this.calculateTotal() }, 500);
       this.toast.success('Success', 'Product deleted successfully.');
     }
   }
@@ -249,17 +284,17 @@ export class AddSaleComponent implements OnInit {
 
   onSubmit(data: any) {
 
-    if(this.customerForm.invalid){
+    if (this.customerForm.invalid) {
       alert('Please select customer!');
       return;
     }
 
-    if(this.addSaleForm.invalid){
+    if (this.addSaleForm.invalid) {
       alert('Please fill all the required fields!');
       return;
     }
 
-    if(this.addedProduct.length == 0){
+    if (this.addedProduct.length == 0) {
       alert('Please add atleast one product!');
       return;
     }
@@ -287,7 +322,7 @@ export class AddSaleComponent implements OnInit {
 
 
     const obj = {
-      shipping_charge: data.shipping_charge,
+      shipping_charge: this.shipping_charge,
       total_amount: this.total,
       order_date: this.date,
       products: addedProductSubmit,
