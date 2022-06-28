@@ -15,18 +15,18 @@
                                     aria-label="Search" (keyup)="search($event)" placeholder="Search"
                                     [(ngModel)]="searchValue">
                                 <div class="input-group-append">
-                                    <button class="btn input-group-text amber lighten-3" id="basic-text1"><i
+                                    <button class="btn input-group-text bg-white text-dark amber lighten-3" id="basic-text1"><i
                                             class="fa fa-search" aria-hidden="true"
                                             (click)="search($event)"></i></button>
                                 </div>
                             </div>
-                            <button (click)="onClick()" class="btn btn-primary float-right">
+                            <button (click)="onClick()" class="btn btn-success float-right">
                                 Add User
                             </button>
 
                         </div>
-                        <table class="table table-bordered table-striped shadow table-hover">
-                            <thead class="head">
+                        <table class="table table-bordered  table-hover shadow">
+                            <thead class="head bg-gradient text-white">
                                 <th>UserId</th>
                                 <th>Avatar</th>
                                 <th>User Name</th>
@@ -52,12 +52,12 @@
                                     <td *ngIf="data.status == 'inactive'">inactive</td>
                                     <td>{{ data.created_at | date: 'dd/MM/yyyy'}}</td>
                                     <td>
-                                        <button ngbTooltip="Edit" class="btn btn-info mr-2"
+                                        <button ngbTooltip="Edit" class="btn btn-info rounded-circle shadow mr-2"
                                             [routerLink]="['/pos/edit/edituser/' + data.user_id]"><i
                                                 class="fa fa-pencil-square-o fa-lg"></i></button>
 
                                         <button id="remove" ngbTooltip="Delete" (click)="deleteRow(data.user_id)"
-                                            class="btn btn-danger"><i class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                                            class="btn rounded-circle shadow btn-danger"><i class="fa fa-trash-o fa-lg mx-auto"></i></button>
                                     </td>
                                 </tr>
                                 <tr *ngIf="!length && !showloader">

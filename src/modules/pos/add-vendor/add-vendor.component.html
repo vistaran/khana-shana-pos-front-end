@@ -21,7 +21,7 @@
                             <div class="form-group">
                                 <label class="required">Phone Number</label>
                                 <input type="text" formControlName="phone_numbers" placeholder="Enter Phone number"
-                                    class="form-control" (keydown)="validateNumber($event)"/>
+                                    class="form-control" (keydown)="validateNumber($event)" maxlength="10"/>
                                 <div *ngIf="phone?.touched && phone?.invalid || showValidations">
                                     <!-- <div *ngIf="phone?.errors?.required" class="alert alert-danger">Phone number is required.</div> -->
                                     <div *ngIf="phone?.errors?.maxlength" class="alert alert-danger">Phone number must not exceed 10 digits

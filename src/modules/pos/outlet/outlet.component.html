@@ -7,21 +7,21 @@
             <input class="form-control amber-border" class="form-control" type="text" aria-label="Search"
                 (keyup)="search($event)" placeholder="Search" [(ngModel)]="searchValue">
             <div class="input-group-append">
-                <button class="btn input-group-text amber lighten-3" id="basic-text1"><i class="fa fa-search"
+                <button class="btn input-group-text amber lighten-3 bg-white text-dark" id="basic-text1"><i class="fa fa-search"
                         aria-hidden="true" (click)="search($event)"></i></button>
             </div>
         </div>
 
     </div>
     <div>
-        <button [routerLink]="['/pos/addoutlet']" class="btn btn-primary mb-4 float-right">
+        <button [routerLink]="['/pos/addoutlet']" class="btn btn-success mb-4 float-right">
             Add Outlet
         </button>
     </div>
 </div>
 
-<table class="table table-bordered table-striped shadow">
-    <thead class="head">
+<table class="table table-bordered  table-hover shadow">
+    <thead class="head bg-gradient text-white">
         <th>Outlet Id</th>
         <th>Outlet Name</th>
         <th>Inventory source</th>
@@ -37,12 +37,12 @@
             <td>{{ data.created_at | date: 'dd/MM/yyyy' }}</td>
             <td>{{ data.status }}</td>
             <td>
-                <button ngbTooltip="Edit" class="btn btn-info mr-2"
+                <button ngbTooltip="Edit" class="btn rounded-circle shadow btn-info mr-2"
                     [routerLink]="['/pos/edit/editoutlet/' + data.id]"><i
                         class="fa fa-pencil-square-o fa-lg"></i></button>
 
-                <button ngbTooltip="Delete" id="remove" (click)="deleteRow(data.id)" class="btn btn-danger"><i
-                        class="fa fa-trash fa-lg mx-auto "></i></button>
+                <button ngbTooltip="Delete" id="remove" (click)="deleteRow(data.id)" class="btn rounded-circle shadow btn-danger"><i
+                        class="fa fa-trash-o fa-lg mx-auto "></i></button>
             </td>
         </tr>
         <tr *ngIf="!length && !showloader">

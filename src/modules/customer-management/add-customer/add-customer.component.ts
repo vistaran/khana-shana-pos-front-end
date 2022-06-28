@@ -55,6 +55,12 @@ export class AddCustomerComponent implements OnInit {
 
   // For submitting add item group form data
   onSubmit(data: any) {
+
+    if(this.addCustomerForm.invalid) {
+      alert('Please fill all the required fields!');
+      return;
+    }
+
     this.customerService.postCustomerData(data)
       .subscribe((result: any) => {
         console.log(result)

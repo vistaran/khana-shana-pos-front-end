@@ -62,7 +62,7 @@
                                 <div class="form-group required">
                                     <label>Phone Number</label>
                                     <input type="tel" formControlName="phone_no" placeholder="Enter Phone number"
-                                        class="form-control" (keydown)="validateNumber($event)"/>
+                                        class="form-control" (keydown)="validateNumber($event)" maxlength="10"/>
                                     <div *ngIf="phone?.touched && phone?.invalid || showValidations">
                                         <div class="alert alert-danger" *ngIf="phone?.errors?.required">Phone number is
                                             required.</div>

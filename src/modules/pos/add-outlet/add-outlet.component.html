@@ -95,7 +95,7 @@
                                 <div class="form-group required">
                                     <label class="required">Postcode</label>
                                     <input type="text" formControlName="postcode" placeholder="Enter Postcode"
-                                        class="form-control" (keydown)="validateNumber($event)" />
+                                        class="form-control" (keydown)="validateNumber($event)" maxlength="6"/>
                                     <div *ngIf="postCode?.invalid && postCode?.touched">
                                         <div *ngIf="postCode?.errors?.required" class="alert alert-danger">Postcode is
                                             required.</div>

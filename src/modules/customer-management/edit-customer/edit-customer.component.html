@@ -1,6 +1,6 @@
 <sb-layout-dashboard>
     <div class="card shadow mt-4">
-        <h1 class="card-header">Edit Customer</h1>
+        <h1 class="card-header bg-gradient text-white">Edit Customer</h1>
         <form [formGroup]="editCustomerForm">
             <div class="container-fluid">
                 <!-- <h2 class="card-header mt-4 pb-2">General</h2> -->
@@ -32,7 +32,7 @@
                         <div class="form-group required">
                             <label class="required">Phone Number</label>
                             <input type="text" placeholder="Enter Phone Number" formControlName="phone_number"
-                                class="form-control" (keydown)="validateNumber($event)" />
+                                class="form-control" (keydown)="validateNumber($event)" maxlength="10"/>
                             <div *ngIf="phone?.touched && phone?.invalid" class="alert alert-danger">
                                 <div *ngIf="phone?.errors?.required">Phone Number is required.</div>
                                 <div *ngIf="phone?.errors?.maxlength && !phone?.errors?.pattern">Phone number must not
@@ -191,7 +191,7 @@
                                     <div class="form-group required">
                                         <label class="required mt-4">Pin Code</label>
                                         <input type="text" formControlName="postalcode" class="form-control"
-                                            placeholder="Pin code" (keydown)="validateNumber($event)" />
+                                            placeholder="Pin code" (keydown)="validateNumber($event)" maxlength="6"/>
                                         <div *ngIf="postalcode?.touched && postalcode?.invalid">
                                             <div *ngIf="postalcode?.errors?.required" class="alert alert-danger">Pin
                                                 code is required.</div>
@@ -256,7 +256,7 @@
 
                                 <div class="card shadow">
                                     <div class="card-body">
-                                        <h5 class="card-title">{{ data.address_line_1 }}</h5>
+                                        <h5 class="card-title font-weight-bold">{{ data.address_line_1 }}</h5>
                                         <p class="card-text">{{ data.address_line_2 }}
                                         </p>
                                         <p class="card-text">{{ data.address_line_3 }}
@@ -418,7 +418,7 @@
                                     <div class="form-group required">
                                         <label class="required mt-4">Pin code</label>
                                         <input type="text" formControlName="postalcode" class="form-control"
-                                            placeholder="Pin code" (keydown)="validateNumber($event)" />
+                                            placeholder="Pin code" (keydown)="validateNumber($event)" maxlength="6"/>
                                         <div *ngIf="postalcode_edit?.touched && postalcode_edit?.invalid">
                                             <div *ngIf="postalcode_edit?.errors?.required" class="alert alert-danger">
                                                 Pin Code is required.</div>
