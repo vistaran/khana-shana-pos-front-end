@@ -10,16 +10,18 @@
                         <div class="d-flex justify-content-between mb-4">
 
                             <div class="input-group rounded w-25">
-                                <input type="search" class="form-control rounded" placeholder="Search"
-                                    aria-label="Search" aria-describedby="search-addon" (change)="search($event)"
-                                    placeholder="Search" [(ngModel)]="searchValue" />
-                                <span class="input-group-text border-0" id="search-addon" (click)="search($event)">
-                                    <i class="fas fa-search"></i>
-                                </span>
+                                <input class="form-control amber-border" class="form-control" type="text"
+                                    aria-label="Search" (keyup)="search($event)" placeholder="Search"
+                                    [(ngModel)]="searchValue">
+                                <div class="input-group-append">
+                                    <button class="btn input-group-text bg-white text-dark amber lighten-3" id="basic-text1"><i
+                                            class="fa fa-search" aria-hidden="true"
+                                            (click)="search($event)"></i></button>
+                                </div>
                             </div>
 
                             <div class="col">
-                                <select class="btn btn-secondary" [(ngModel)]="pageSize"
+                                <select class="btn btn-outline-success" [(ngModel)]="pageSize"
                                     (ngModelChange)="refreshItemsData($event)">
                                     <option default value="{{100}}">100 items per page</option>
                                     <option value="{{15}}">15 items per page</option>
@@ -33,8 +35,8 @@
                             </button>
 
                         </div>
-                        <table class="table table-bordered table-striped shadow table-hover">
-                            <thead class="head">
+                        <table class="table table-bordered  table-hover shadow">
+                            <thead class="head bg-gradient text-white">
                                 <th>Item Group Id</th>
                                 <th>Name</th>
                                 <th>Actions</th>
@@ -45,12 +47,12 @@
                                     <td>{{ data.id }}</td>
                                     <td>{{ data.group_name }}</td>
                                     <td>
-                                        <button ngbTooltip="Edit" class="btn btn-info mr-2"
+                                        <button ngbTooltip="Edit" class="btn btn-info rounded-circle shadow mr-2"
                                             [routerLink]="['/item_groups/edit_item_group/' + data.id]"><i
                                                 class="fa fa-pencil-square-o fa-lg"></i></button>
 
                                         <button ngbTooltip="Delete" id="remove" (click)="deleteRow(data.id)"
-                                            class="btn btn-danger"><i class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                                            class="btn btn-danger rounded-circle shadow"><i class="fa fa-trash-o fa-lg mx-auto"></i></button>
                                     </td>
                                 </tr>
                                 <tr *ngIf="!length && !showloader">

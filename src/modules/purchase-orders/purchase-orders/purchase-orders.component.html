@@ -10,12 +10,14 @@
             <div class="d-flex justify-content-between mb-4">
 
                 <div class="input-group rounded w-25">
-                    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-                    (keyup)="search()" placeholder="Search" [(ngModel)]="searchValue"
-                    aria-describedby="search-addon"/>
-                    <span class="input-group-text border-0" id="search-addon">
-                        <i class="fas fa-search"></i>
-                    </span>
+                    <input class="form-control amber-border" class="form-control" type="text"
+                        aria-label="Search" (keyup)="search()" placeholder="Search"
+                        [(ngModel)]="searchValue">
+                    <div class="input-group-append">
+                        <button class="btn input-group-text bg-white text-dark amber lighten-3" id="basic-text1"><i
+                                class="fa fa-search" aria-hidden="true"
+                                (click)="search()"></i></button>
+                    </div>
                 </div>
 
                 <button (click)="onClick()" class="btn btn-primary float-right">
@@ -24,8 +26,8 @@
 
             </div>
 
-            <table class="table table-bordered table-striped table-hover shadow">
-                <thead class="head">
+            <table class="table table-bordered  table-hover shadow">
+                <thead class="head bg-gradient text-white">
                     <th>Order Id</th>
                     <th>Vendor</th>
                     <th>Outlet</th>
@@ -41,15 +43,15 @@
                         <td>{{ data.purchase_date | date: 'dd/MM/yyyy' }}</td>
                         <td>₹{{ data.total_amount?.toFixed(2) }}</td>
                         <td>
-                            <button class="btn btn-dark mr-2" ngbTooltip="View Details" (click)="openXl(content)"
+                            <button class="btn btn-dark rounded-circle shadow mr-2" ngbTooltip="View Details" (click)="openXl(content)"
                                 (click)="getOrderDetail(data.id)"><i class="fa fa-eye fa-lg"></i></button>
 
-                            <button ngbTooltip="Edit" class="btn btn-info mr-2"
+                            <button ngbTooltip="Edit" class="btn btn-info rounded-circle shadow mr-2"
                                 [routerLink]="['/purchase_orders/edit_purchase_order/' + data.id]"><i
                                     class="fa fa-pencil-square-o fa-lg"></i></button>
 
                             <button id="remove" ngbTooltip="Delete" (click)="deleteRow(data.id)"
-                                class="btn btn-danger"><i class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                                class="btn btn-danger rounded-circle shadow"><i class="fa fa-trash-o fa-lg mx-auto"></i></button>
                         </td>
                     </tr>
                     <tr *ngIf="!length && !showloader">
