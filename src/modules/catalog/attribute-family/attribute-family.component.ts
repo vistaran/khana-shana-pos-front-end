@@ -53,7 +53,7 @@ export class AttributeFamilyComponent implements OnInit {
 
   // For navigating to add attribute family form on click
   onClick() {
-    this.router.navigate(['/catalog/addAttributeFamily']);
+    this.router.navigate(['/catalog/attributeFamily']);
   }
 
   // For deleting attribute family

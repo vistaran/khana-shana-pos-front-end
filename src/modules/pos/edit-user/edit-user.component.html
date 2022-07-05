@@ -62,7 +62,7 @@
                                 <div class="form-group required">
                                     <label>Phone Number</label>
                                     <input type="tel" formControlName="phone_no" placeholder="Enter Phone number"
-                                        class="form-control" (keydown)="validateNumber($event)" maxlength="10"/>
+                                        class="form-control" (keypress)="validateNumber($event)" maxlength="10"/>
                                     <div *ngIf="phone?.touched && phone?.invalid || showValidations">
                                         <div class="alert alert-danger" *ngIf="phone?.errors?.required">Phone number is
                                             required.</div>
@@ -84,7 +84,7 @@
                                     <label for="img">Edit Avatar</label><br>
                                     <img [src]="imageUrl" class="rounded-circle" style="width: 100px; height: 100px;"
                                         onerror="this.src='https://cdn.icon-icons.com/icons2/1378/PNG/128/avatardefault_92824.png'">
-                                    <input type="file" id="img" name="img" accept="image/*" class="mt-2"
+                                    <input type="file" id="img" name="img" accept="image/*" class="mt-2 p-1"
                                         (change)="handleFileInput($event.target.files)" (change)="onChange($event)"
                                         formControlName="user_avatar" />
                                     <div *ngIf="user_avatar?.touched && user_avatar?.invalid || showValidations">

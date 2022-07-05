@@ -1,9 +1,9 @@
 <sb-layout-dashboard>
     <div class="card mt-4">
-        <h1 class="card-header">Edit Purchase Order</h1>
+        <h1 class="card-header bg-gradient text-white">Edit Purchase Order</h1>
         <form [formGroup]="editOrderForm">
             <div class="container-fluid">
-                <h2 class="card-header mt-4 pb-2">General</h2>
+                <h2 class="card-header bg-light shadow mt-4 pb-2">General</h2>
                 <div class="row card-body">
 
                     <div class="col">
@@ -45,12 +45,15 @@
                         <div class="form-group required">
                             <label class="required">Order Date</label>
                             <div class="input-group">
-                                <input class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker
-                                    #d="ngbDatepicker" formControlName="purchase_date"
+                                <input class="form-control amber-border" placeholder="yyyy-mm-dd" name="dp"
+                                    ngbDatepicker #d="ngbDatepicker" formControlName="purchase_date"
                                     (dateSelect)="onSelectDate($event)">
-                                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
-                                    <i class="fa fa-calendar fa-lg mx-auto"></i>
-                                </button>
+                                <div class="input-group-append">
+                                    <button class="btn input-group-text bg-white text-dark amber lighten-3"
+                                        (click)="d.toggle()" type="button">
+                                        <i class="fa fa-calendar fa-lg mx-auto"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -67,7 +70,7 @@
                 </div>
 
 
-                <h2 class="card-header mt-4 pb-2">Item Details</h2>
+                <h2 class="card-header bg-light shadow mt-4 pb-2">Item Details</h2>
 
                 <button type="button" class="btn btn-primary mt-4 me-2  mb-4 float-right"
                     (click)="openVerticallyCentered(content)" (click)="isInputShown=false;isInputShown2=false">Add
@@ -79,7 +82,7 @@
                         <div class="modal-header bg-primary">
                             <h4 class="modal-title text-light">Add Item</h4>
                             <button type="button" class="btn-close btn-light btn-xs" aria-label="Close"
-                                (click)="modal.dismiss('Cross click')">X
+                                (click)="modal.dismiss('Cross click')" (click)="resetItemForm()">X
                             </button>
                         </div>
 
@@ -217,8 +220,8 @@
 
                 </ng-template>
 
-                <table class="table table-bordered table-striped shadow">
-                    <thead class="head">
+                <table class="table table-bordered table-sm shadow">
+                    <thead class="head bg-dark text-white">
                         <th>Item Group</th>
                         <th>Item Name</th>
                         <th>Unit Name</th>
@@ -237,12 +240,12 @@
                             <td>₹{{ data.price?.toFixed(2) }}</td>
                             <td>₹{{ (data.qty * data.price)?.toFixed(2) }}</td>
                             <td>
-                                <button ngbTooltip="Edit" class="btn btn-info btn-sm mr-2"
+                                <button ngbTooltip="Edit" class="btn btn-info rounded-circle shadow btn-sm mr-2"
                                     (click)="openVerticallyCentered(content2)"
                                     (click)="EditOrderPatchValue(data.item_id)"><i
                                         class="fa fa-pencil-square-o"></i></button>
 
-                                <button id="remove" ngbTooltip="Delete" class="btn btn-danger btn-sm"
+                                <button id="remove" ngbTooltip="Delete" class="btn btn-danger rounded-circle shadow btn-sm"
                                     (click)="RemoveOrder(data.item_id)"><i class="fa fa-trash-o mx-auto"></i></button>
                             </td>
                         </tr>
@@ -254,7 +257,7 @@
                                     <!-- <input type="number" formControlName="shipping_charge" class="form-control"
                                         aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
                                         (change)="onKey($event)" (keyup)="onKey($event)"> -->
-                                        <input type="number" [(ngModel)]="shippingCharge" class="form-control" [ngModelOptions]="{standalone: true}"
+                                        <input type="number" [(ngModel)]="shippingCharge" min="0" oninput="validity.valid||(value='');" class="form-control" [ngModelOptions]="{standalone: true}"
                                         (change)="onKey($event)">
                                 </div>
                                 <!-- <div *ngIf="shipping_charge?.touched && shipping_charge?.invalid"

@@ -223,25 +223,34 @@ export class EditCustomerComponent implements OnInit {
   }
 
   validateNumber(event: any) {
-    const keyCode = event.keyCode;
+    // const keyCode = event.keyCode;
 
-    const excludedKeys = [8, 9, 37, 39, 46];
+    // const excludedKeys = [8, 9, 37, 39, 46];
 
-    if (!((keyCode >= 48 && keyCode <= 57) ||
-      (keyCode >= 96 && keyCode <= 105) ||
-      (excludedKeys.includes(keyCode)))) {
+    // if (!((keyCode >= 48 && keyCode <= 57) ||
+    //   (keyCode >= 96 && keyCode <= 105) ||
+    //   (excludedKeys.includes(keyCode)))) {
+    //   event.preventDefault();
+    // }
+
+    var inp = String.fromCharCode(event.keyCode);
+
+    if (/[0-9]/.test(inp)) {
+      return true;
+    } else {
       event.preventDefault();
+      return false;
     }
   }
 
   validateAlphabet(event: any) {
-    const keyCode = event.keyCode;
+    var inp = String.fromCharCode(event.keyCode);
 
-    const excludedKeys = [8, 9, 32, 39, 46];
-
-    if (!((keyCode >= 65 && keyCode <= 90) ||
-      (keyCode >= 97 && keyCode <= 122) || (excludedKeys.includes(keyCode)))) {
+    if (/[a-zA-Z]/.test(inp)) {
+      return true;
+    } else {
       event.preventDefault();
+      return false;
     }
   }
 

@@ -130,7 +130,7 @@ export class EditAttributeFamilyComponent implements OnInit {
     this.family.editFamily(this.familyId, data).subscribe(data => {
       console.log('Data updated successfully! ', data)
       this.router.navigate(['/catalog/products']);
-      this.toast.success('Success', 'Edited successfully.')
+      this.toast.success('Success', 'Attribute Family Edited successfully.')
     }, err => {
       this.toast.error('Error', 'Server error.')
     })
@@ -141,7 +141,7 @@ export class EditAttributeFamilyComponent implements OnInit {
   updateData2(data: any) {
     this.family.addGroup(data).subscribe(data => {
       console.log('Data added successfully! ', data)
-      this.toast.success('Success', 'Added successfully.')
+      this.toast.success('Success', 'Group Added successfully.')
     }, err => {
       this.toast.error('Error', 'Server error.')
     })
@@ -152,7 +152,7 @@ export class EditAttributeFamilyComponent implements OnInit {
     if (confirm('Are you sure you want to delete?')) {
       this.attribute.deleteAttribute(id).subscribe(data => {
         this.getAttributesGroupData();
-        this.toast.success('Success', 'Deleted successfully.')
+        this.toast.success('Success', 'Attribute Deleted successfully.')
       }, err => {
         this.toast.error('Error', 'Server error.')
       })
@@ -163,7 +163,7 @@ export class EditAttributeFamilyComponent implements OnInit {
   // For deleting group
   deleteGroup(id: number) {
     this.family.deleteGroup(id).subscribe(data => {
-      this.toast.success('Success', 'Deleted successfully.')
+      this.toast.success('Success', 'Group Deleted successfully.')
       this.getGroup();
     }, err => {
       this.toast.error('Error', 'Server error.')
@@ -188,7 +188,7 @@ export class EditAttributeFamilyComponent implements OnInit {
     const attribute_family_id = this.familyId
     const data = { group_id, attribute_family_id }
     this.family.addAttribute(data, this.attributeId).subscribe(result => {
-      this.toast.success('Success', 'Added successfully.')
+      this.toast.success('Success', 'Attribute Added successfully.')
       this.getAttributesGroupData();
       console.log(result);
 

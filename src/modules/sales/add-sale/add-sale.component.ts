@@ -140,6 +140,12 @@ export class AddSaleComponent implements OnInit {
     });
   }
 
+  qtyClose() {
+    this.qtyForm = this.fb.group({
+      quantity: ['', [Validators.required]]
+    })
+  }
+
   onSelectDate(date: any) {
     console.log(date);
     this.date = date.year + '-' + date.month + '-' + date.day
@@ -186,6 +192,11 @@ export class AddSaleComponent implements OnInit {
 
     this.semitotal = this.addedProduct.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
       return a + b;
+    })
+
+    this.toast.success('Success','Product added successfully.');
+    this.qtyForm = this.fb.group({
+      quantity: ['', [Validators.required]]
     })
 
     this.total += (data.quantity * data.price)

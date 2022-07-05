@@ -1,5 +1,5 @@
 <sb-layout-dashboard>
-    <div class="row">
+    <div class="row pr-5 pl-5">
         <div class="col">
             <!-- <ul ngbNav #nav="ngbNav" class="nav-tabs mt-5 font-weight-bold">
                 <li ngbNavItem>
@@ -10,12 +10,14 @@
                         <div class="d-flex justify-content-between mb-4">
 
                             <div class="input-group rounded w-25">
-                                <input type="search" class="form-control rounded" placeholder="Search"
+                                <input class="form-control amber-border" class="form-control" type="text"
                                     aria-label="Search" (keyup)="search($event)" placeholder="Search"
-                                    [(ngModel)]="searchValue" aria-describedby="search-addon" />
-                                <span class="input-group-text border-0" id="search-addon">
-                                    <i class="fas fa-search"></i>
-                                </span>
+                                    [(ngModel)]="searchValue">
+                                <div class="input-group-append">
+                                    <button class="btn input-group-text bg-white text-dark amber lighten-3" id="basic-text1"><i
+                                            class="fa fa-search" aria-hidden="true"
+                                            (click)="search($event)"></i></button>
+                                </div>
                             </div>
 
                             <div class="col">
@@ -27,12 +29,12 @@
                                 </select>
                             </div>
 
-                            <button (click)="onClick()" class="btn btn-success float-right">
+                            <button (click)="onClick()" class="btn btn-primary float-right">
                                 Add Customer
                             </button>
 
                         </div>
-                        <table class="table table-bordered  table-hover shadow ">
+                        <table class="table table-bordered    shadow ">
                             <thead class="head bg-gradient text-white">
                                 <th>Customer Id</th>
                                 <th>Name</th>

@@ -91,8 +91,8 @@ export class EditItemComponent implements OnInit {
   getUOMData() {
     this.unitService.getUOMData(this.page).subscribe(data => {
       this.unitData = data.units.data.sort(function (a, b) {
-        const nameA = a.unit_name.toUpperCase(); // ignore upper and lowercase
-        const nameB = b.unit_name.toUpperCase(); // ignore upper and lowercase
+        const nameA = a.unit.toUpperCase(); // ignore upper and lowercase
+        const nameB = b.unit.toUpperCase(); // ignore upper and lowercase
         if (nameA < nameB) {
           return -1;
         }

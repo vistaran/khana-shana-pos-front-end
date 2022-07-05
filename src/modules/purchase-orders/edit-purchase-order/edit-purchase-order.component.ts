@@ -278,6 +278,17 @@ export class EditPurchaseOrderComponent implements OnInit {
     })
   }
 
+  resetItemForm() {
+    this.itemsForm = this.fb.group({
+      notes: [''],
+      item_id: [null, [Validators.required]],
+      item_group_id: [0, [Validators.required]],
+      qty: ['', [Validators.required]],
+      unit_id: [{ value: null, disabled: true }],
+      price: ['', [Validators.required]],
+    })
+  }
+
   onSelectDate(date: any) {
     this.date = date.year + '-' + date.month + '-' + date.day
     // console.log(this.date);

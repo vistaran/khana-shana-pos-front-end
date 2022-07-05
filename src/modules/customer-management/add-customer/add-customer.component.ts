@@ -42,14 +42,32 @@ export class AddCustomerComponent implements OnInit {
   }
 
   validateNumber(event: any) {
-    const keyCode = event.keyCode;
+    // const keyCode = event.keyCode;
 
-    const excludedKeys = [8, 9, 37, 39, 46];
+    // const excludedKeys = [8, 9, 37, 39, 46];
 
-    if (!((keyCode >= 48 && keyCode <= 57) ||
-      (keyCode >= 96 && keyCode <= 105) ||
-      (excludedKeys.includes(keyCode)))) {
+    // if (!((keyCode >= 48 && keyCode <= 57) ||
+    //   (keyCode >= 96 && keyCode <= 105) ||
+    //   (excludedKeys.includes(keyCode)))) {
+    //   event.preventDefault();
+    //   return false;
+    // } else {
+    //   return true;
+    // }
+
+    // const charCode = (event.which) ? event.which : event.keyCode;
+    // if (charCode > 31 && (charCode < 48 || charCode > 57) && (charCode < 95 || charCode > 105) && (charCode < 37 || charCode > 40)) {
+    //   return false;
+    // }
+    // return true;
+
+    var inp = String.fromCharCode(event.keyCode);
+
+    if (/[0-9]/.test(inp)) {
+      return true;
+    } else {
       event.preventDefault();
+      return false;
     }
   }
 
@@ -64,7 +82,7 @@ export class AddCustomerComponent implements OnInit {
     this.customerService.postCustomerData(data)
       .subscribe((result: any) => {
         console.log(result)
-        this.toast.success('Success', 'Added Successfully.')
+        this.toast.success('Success', 'Customer Added Successfully.')
         this.router.navigate(['/customer_management']);
       }, err => {
         this.toast.error('Error', 'Server error.')

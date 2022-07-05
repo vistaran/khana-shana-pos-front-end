@@ -184,6 +184,14 @@ export class EditSaleComponent implements OnInit {
     });
   }
 
+  
+  qtyClose() {
+    this.qtyForm = this.fb.group({
+      quantity: ['', [Validators.required]]
+    })
+  }
+
+
   onSelectDate(date: any) {
     this.date = date.year + '-' + date.month + '-' + date.day
     console.log(this.date);
@@ -231,7 +239,10 @@ export class EditSaleComponent implements OnInit {
         return a + b;
       })
     }
-
+    this.toast.success('Success','Product added successfully.');
+    this.qtyForm = this.fb.group({
+      quantity: ['', [Validators.required]]
+    })
     this.total += (data.quantity * data.price)
     this.calculateTotal()
 

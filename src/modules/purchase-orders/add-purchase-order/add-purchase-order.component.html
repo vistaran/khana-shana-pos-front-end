@@ -1,9 +1,9 @@
 <sb-layout-dashboard>
     <div class="card mt-4">
-        <h1 class="card-header">Add Purchase Order</h1>
+        <h1 class="card-header bg-gradient text-white">Add Purchase Order</h1>
         <form [formGroup]="addOrderForm">
             <div class="container-fluid">
-                <h2 class="card-header mt-4 pb-2">General</h2>
+                <h2 class="card-header bg-light shadow mt-4 pb-2">General</h2>
                 <div class="row card-body">
 
                     <div class="col">
@@ -51,12 +51,15 @@
                         <div class="form-group required">
                             <label class="required">Purchase Date</label>
                             <div class="input-group">
-                                <input class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker
-                                    #d="ngbDatepicker" formControlName="purchase_date"
+                                <input class="form-control amber-border" placeholder="yyyy-mm-dd" name="dp"
+                                    ngbDatepicker #d="ngbDatepicker" formControlName="purchase_date"
                                     (dateSelect)="onSelectDate($event)">
-                                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
-                                    <i class="fa fa-calendar fa-lg mx-auto"></i>
-                                </button>
+                                <div class="input-group-append">
+                                    <button class="btn input-group-text bg-white text-dark amber lighten-3"
+                                        (click)="d.toggle()" type="button">
+                                        <i class="fa fa-calendar fa-lg mx-auto"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -68,7 +71,8 @@
                     <div class="col-4">
                         <div class="form-group">
                             <label class="required">Add a Note</label>
-                            <textarea type="text" formControlName="notes" placeholder="Add note" class="form-control"></textarea>
+                            <textarea type="text" formControlName="notes" placeholder="Add note"
+                                class="form-control"></textarea>
                             <!-- <div *ngIf="notes?.touched && notes?.invalid" class="alert alert-danger">
                                 <div *ngIf="notes?.errors?.required">Note is required.</div>
                             </div> -->
@@ -77,7 +81,7 @@
                 </div>
 
 
-                <h2 class="card-header mt-4 pb-2">Item Details</h2>
+                <h2 class="card-header bg-light shadow mt-4 pb-2">Item Details</h2>
 
                 <button type="button" class="btn btn-primary mt-4 me-2  mb-4 float-right"
                     (click)="openVerticallyCentered(content)" (click)="isInputShown=false;isInputShown2=false">Add
@@ -89,7 +93,7 @@
                         <div class="modal-header bg-primary">
                             <h4 class="modal-title text-light">Add Item</h4>
                             <button type="button" class="btn-xs btn-light" aria-label="Close"
-                                (click)="modal.dismiss('Cross click')">X
+                                (click)="modal.dismiss('Cross click')" (click)="resetItemForm()">X
                             </button>
                         </div>
 
@@ -155,7 +159,8 @@
                                         <div class="col">
                                             <div class="form-group required">
                                                 <label class="required">Quantity</label>
-                                                <input type="number" formControlName="qty" class="form-control" placeholder="Enter Quantity"/>
+                                                <input type="number" formControlName="qty" class="form-control"
+                                                    placeholder="Enter Quantity" />
                                                 <div *ngIf="qty?.touched && qty?.invalid" class="alert alert-danger">
                                                     <div *ngIf="qty?.errors?.required">Quantity is required.
                                                     </div>
@@ -172,8 +177,8 @@
                                         <div class="col">
                                             <div class="form-group">
                                                 <label class="required">Add a Note</label>
-                                                <textarea type="text" formControlName="notes"
-                                                    class="form-control" placeholder="Add note"></textarea>
+                                                <textarea type="text" formControlName="notes" class="form-control"
+                                                    placeholder="Add note"></textarea>
 
                                             </div>
                                         </div>
@@ -181,7 +186,8 @@
                                         <div class="col">
                                             <div class="form-group required">
                                                 <label class="required">Price</label>
-                                                <input type="number" formControlName="price" class="form-control" placeholder="Enter price"/>
+                                                <input type="number" formControlName="price" class="form-control"
+                                                    placeholder="Enter price" />
                                                 <div *ngIf="price?.touched && price?.invalid"
                                                     class="alert alert-danger">
                                                     <div *ngIf="price?.errors?.required">Price is required.
@@ -205,8 +211,8 @@
 
                 </ng-template>
 
-                <table class="table table-bordered table-sm table-striped shadow">
-                    <thead class="head">
+                <table class="table table-bordered table-sm shadow">
+                    <thead class="head bg-dark text-white">
                         <th>Item Group</th>
                         <th>Item Name</th>
                         <th>Unit Name</th>
@@ -225,12 +231,13 @@
                             <td>₹{{ data.price }}</td>
                             <td>₹{{ (data.qty * data.price)?.toFixed(2) }}</td>
                             <td>
-                                <button ngbTooltip="Edit" class="btn btn-info btn-sm mr-2"
+                                <button ngbTooltip="Edit" class="btn btn-info rounded-circle shadow btn-sm mr-2"
                                     (click)="openVerticallyCentered(content2)"
                                     (click)="EditOrderPatchValue(data.item_id)"><i
                                         class="fa fa-pencil-square-o"></i></button>
 
-                                <button id="remove" ngbTooltip="Delete" class="btn btn-danger btn-sm"
+                                <button id="remove" ngbTooltip="Delete"
+                                    class="btn btn-danger rounded-circle shadow btn-sm"
                                     (click)="RemoveOrder(data.item_id)"><i class="fa fa-trash-o mx-auto"></i></button>
                             </td>
                         </tr>
@@ -242,8 +249,9 @@
                                     <!-- <input type="number" [(ngModel)]="shippingCharge" class="form-control"
                                         aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
                                         (keyup.enter)="onKey($event)"> -->
-                                    <input type="number" [(ngModel)]="shippingCharge" class="form-control" [ngModelOptions]="{standalone: true}"
-                                        (change)="onKey($event)">
+                                    <input type="number" [(ngModel)]="shippingCharge" min="0"
+                                        oninput="validity.valid||(value='');" class="form-control"
+                                        [ngModelOptions]="{standalone: true}" (change)="onKey($event)">
                                 </div>
                             </td>
                         </tr>
@@ -334,8 +342,8 @@
                                     <div class="col">
                                         <div class="form-group required">
                                             <label class="required">Quantity</label>
-                                            <input type="number" placeholder="Enter quantity" formControlName="qty" placeholder="Enter Quantity"
-                                                class="form-control" />
+                                            <input type="number" placeholder="Enter quantity" formControlName="qty"
+                                                placeholder="Enter Quantity" class="form-control" />
                                             <div *ngIf="qty2?.touched && qty2?.invalid" class="alert alert-danger">
                                                 <div *ngIf="qty2?.errors?.required">Quantity is required.
                                                 </div>
@@ -361,7 +369,8 @@
                                     <div class="col">
                                         <div class="form-group required">
                                             <label class="required">Price</label>
-                                            <input type="number" formControlName="price" class="form-control" placeholder="Enter price"/>
+                                            <input type="number" formControlName="price" class="form-control"
+                                                placeholder="Enter price" />
                                             <div *ngIf="price?.touched && price?.invalid" class="alert alert-danger">
                                                 <div *ngIf="price?.errors?.required">Price is required.
 
@@ -376,8 +385,7 @@
                     </div>
 
                     <div class="modal-footer bg-dark">
-                        <button type="submit" class="btn btn-sm btn-info"
-                            (click)=" editItemData(editItemsForm)">Save
+                        <button type="submit" class="btn btn-sm btn-info" (click)=" editItemData(editItemsForm)">Save
                             Item</button>
                     </div>
                 </form>

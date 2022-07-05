@@ -248,6 +248,17 @@ export class AddPurchaseOrderComponent implements OnInit {
     })
   }
 
+  resetItemForm() {
+    this.itemsForm = this.fb.group({
+      notes: [''],
+      item_id: [null, [Validators.required]],
+      item_group_id: [0, [Validators.required]],
+      qty: ['', [Validators.required]],
+      unit_id: [{ value: null, disabled: true }],
+      price: ['', [Validators.required]],
+    })
+  }
+
   onSelectGroup(id: number) {
     // console.log(id);
     this.isInputShown = true

@@ -1,7 +1,7 @@
 <sb-layout-dashboard>
     <div class="d-flex justify-content-center">
         <div class="card shadow w-75 mt-2">
-            <h1 class="card-header mb-3 text-center">Edit Vendor</h1>
+            <h1 class="card-header mb-3 text-center text-white bg-gradient">Edit Vendor</h1>
             <form [formGroup]="editVendorForm">
                 <div class="container">
                     <!-- <h2 class="card-header mt-4 pb-2">General</h2> -->
@@ -20,7 +20,7 @@
                             <div class="form-group">
                                 <label class="required">Phone Number</label>
                                 <input type="tel" formControlName="phone_numbers" placeholder="Enter Phone Number" class="form-control" />
-                                <div *ngIf="phone?.touched && phone?.invalid || showValidations" (keydown)="validateNumber($event)" maxlength="10">
+                                <div *ngIf="phone?.touched && phone?.invalid || showValidations" (keypress)="validateNumber($event)" maxlength="10">
                                     <!-- <div *ngIf="phone?.errors?.required" class="alert alert-danger">Phone number is required.</div> -->
                                     <div *ngIf="phone?.errors?.maxlength" class="alert alert-danger">Phone number must not exceed 10 digits
                                     </div>

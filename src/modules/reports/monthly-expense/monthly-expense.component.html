@@ -6,7 +6,7 @@
                 <h2>Monthly Expense</h2>
 
                 <div class="card bg-light col-3 d-flex mt-3">
-                    <div class="card-header">
+                    <div class="card-header bg-dark text-white">
                         Select Year
                     </div>
                     <!-- <form [formGroup]="yearForm"> -->
@@ -23,10 +23,10 @@
                 <div class="card-deck mt-3 row" *ngIf="!showData && !showItem">
                     <div *ngFor="let item of month" class="col-sm-3 mb-3">
                         <div class="card shadow">
-                            <button type="button" class="btn border border-secondary"
-                                (click)="onSelectMonth(item.value)">
+                            <button type="button" class="btn border border-dark"
+                                (click)="onSelectMonth(item.value)" (click)="activeId = 1">
                                 <div class="card-body">
-                                    <h5 class="card-title text-secondary">{{item.name}}</h5>
+                                    <h5 class="card-title text-dark">{{item.name}}</h5>
                                 </div>
                             </button>
                         </div>
@@ -37,18 +37,18 @@
                 <div *ngIf="showData" class="container">
                     <div class="d-flex mt-3 mb-1 justify-content-between">
                         <div class="mr-3 flex-fill">
-                            <button ngbTooltip="Select Another Month" class="btn btn-secondary"
+                            <button ngbTooltip="Select Another Month" class="btn btn-dark"
                                 (click)="showData = false"><i class="fa fa-angle-left"></i></button>
                         </div>
                         <div class="flex-fill">
-                            <h2 class="text-secondary">{{ selectedMonth }} Expenses
+                            <h2 class="text-dark">{{ selectedMonth }} Expenses
                             </h2>
                         </div>
                     </div>
 
                     <ul ngbNav [(activeId)]="activeId" #nav="ngbNav" class="nav-tabs mt-5 font-weight-bold">
                         <li [ngbNavItem]="1">
-                            <a ngbNavLink>Expense By Group</a>
+                            <a ngbNavLink>Expenses By Group</a>
                             <ng-template ngbNavContent>
                                 <div class="row mt-4">
                                     <div class="col">
@@ -72,8 +72,8 @@
 
                                         <div class="">
 
-                                            <table class="table table-bordered table-striped shadow table-sm table-hover">
-                                                <thead class="head">
+                                            <table class="table table-bordered shadow table-sm  ">
+                                                <thead class="head bg-dark text-white">
                                                     <th>No.</th>
                                                     <th>Item Group Name</th>
                                                     <th>Total Amount</th>
@@ -114,7 +114,7 @@
                         </li>
 
                         <li [ngbNavItem]="2">
-                            <a ngbNavLink>Expense By Items</a>
+                            <a ngbNavLink>Expenses By Items</a>
                             <ng-template ngbNavContent>
                                 <div class="row mt-4">
                                     <div class="col">
@@ -133,8 +133,8 @@
 
                                         <div class="">
 
-                                            <table class="table table-bordered table-striped shadow table-sm table-hover">
-                                                <thead class="head">
+                                            <table class="table table-bordered shadow table-sm  ">
+                                                <thead class="head bg-dark text-white">
                                                     <!-- <th>No.</th> -->
                                                     <th>Item Name</th>
                                                     <th>Total Amount</th>

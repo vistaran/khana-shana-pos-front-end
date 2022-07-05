@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-center">
 
         <div class="card shadow w-75 mt-2">
-            <h1 class="card-header mb-3">Edit Product</h1>
+            <h1 class="card-header bg-gradient text-white mb-3">Edit Product</h1>
             <form [formGroup]="editProductForm">
 
                 <div class="container justify-content-between">
@@ -28,7 +28,8 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text form-control" id="inputGroup">₹</span>
                                     </div>
-                                    <input type="number" placeholder="Enter Price" formControlName="price" class="form-control" />
+                                    <input type="number" placeholder="Enter Price" min="0"
+                                    oninput="validity.valid||(value='');" formControlName="price" class="form-control" />
 
                                 </div>
                                 <div *ngIf="price?.touched && price?.invalid" class="alert alert-danger">
@@ -65,7 +66,7 @@
                         </div>
                     </div>
 
-                    <button [disabled]="!editProductForm.valid" type="submit" class="btn btn-primary mb-4 float-right"
+                    <button type="submit" class="btn btn-primary mb-4 float-right"
                         (click)="updateData(editProductForm.value)">
                         Update
                     </button>

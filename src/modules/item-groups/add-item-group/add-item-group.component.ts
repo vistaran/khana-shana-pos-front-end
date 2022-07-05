@@ -45,7 +45,7 @@ export class AddItemGroupComponent implements OnInit {
       .postItemGroupsData(data)
       .subscribe((result: any) => {
         console.log(result)
-        this.toast.success('Success', 'Added Successfully.')
+        this.toast.success('Success', 'Item Group Added Successfully.')
         this.router.navigate(['/item_groups']);
 
       }, err => {

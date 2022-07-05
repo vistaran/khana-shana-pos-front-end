@@ -30,25 +30,30 @@
                                 <div class="row row-cols-sm-auto">
                                     <div class="col">
                                         <div class="input-group">
-                                            <input #dpFromDate class="form-control" placeholder="yyyy-mm-dd"
-                                                name="dpFromDate" [value]="formatter.format(fromDate)"
+                                            <input #dpFromDate class="form-control amber-border"
+                                                placeholder="yyyy-mm-dd" name="dpFromDate"
+                                                [value]="formatter.format(fromDate)"
                                                 (input)="fromDate = validateInput(fromDate, dpFromDate.value)">
-                                            <button class="btn btn-outline-secondary calendar text-dark"
-                                                (click)="datepicker.toggle()" type="button">
-                                                <i class="fa fa-calendar fa-lg mx-auto bg-info"></i>
-                                            </button>
+                                            <div class="input-group-append">
+                                                <button class="btn input-group-text bg-white text-dark amber lighten-3"
+                                                    (click)="datepicker.toggle()" type="button">
+                                                    <i class="fa fa-calendar fa-lg mx-auto bg-info"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="col">
                                         <div class="input-group">
-                                            <input #dpToDate class="form-control" placeholder="yyyy-mm-dd"
+                                            <input #dpToDate class="form-control amber-border" placeholder="yyyy-mm-dd"
                                                 name="dpToDate" [value]="formatter.format(toDate)"
                                                 (input)="toDate = validateInput(toDate, dpToDate.value)">
-                                            <button class="btn btn-outline-secondary calendar text-dark"
-                                                (click)="datepicker.toggle()" type="button">
-                                                <i class="fa fa-calendar fa-lg mx-auto"></i>
-                                            </button>
+                                            <div class="input-group-append">
+                                                <button class="btn input-group-text bg-white text-dark amber lighten-3"
+                                                    (click)="datepicker.toggle()" type="button">
+                                                    <i class="fa fa-calendar fa-lg mx-auto"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -86,8 +91,8 @@
 
 
 
-                <table class="table table-bordered table-striped shadow table-sm table-hover">
-                    <thead class="head">
+                <table class="table table-bordered shadow table-sm  ">
+                    <thead class="head bg-dark text-white">
                         <th>No.</th>
                         <th>Item Group Name</th>
                         <th>Subtotal</th>

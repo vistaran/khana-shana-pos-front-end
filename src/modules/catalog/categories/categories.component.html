@@ -7,31 +7,27 @@
                         <ng-template ngbNavContent> -->
                 <h2 class="mt-3 mb-4">Categories</h2>
 
-                <div class="row d-flex justify-content-between">
-                    <div class="col-md-6 mb-4">
+                <div class="d-flex justify-content-between mb-4">
 
-                        <div class="input-group w-50">
-                            <input class="form-control amber-border" class="form-control" type="text"
-                                aria-label="Search" (keyup)="search($event)" placeholder="Search"
-                                [(ngModel)]="searchValue">
-                            <div class="input-group-append">
-                                <button class="btn input-group-text amber lighten-3" id="basic-text1"><i
-                                        class="fa fa-search" aria-hidden="true" (click)="search($event)"></i></button>
-                            </div>
+                    <div class="input-group rounded w-25">
+                        <input class="form-control amber-border" class="form-control" type="text"
+                            aria-label="Search" (keyup)="search($event)" placeholder="Search"
+                            [(ngModel)]="searchValue">
+                        <div class="input-group-append">
+                            <button class="btn input-group-text bg-white text-dark amber lighten-3" id="basic-text1"><i
+                                    class="fa fa-search" aria-hidden="true"
+                                    (click)="search($event)"></i></button>
                         </div>
                     </div>
+                    <button (click)="onClick()" class="btn btn-primary float-right">
+                        Add Category
+                    </button>
 
-                    <div class="col">
-                        <button (click)="onClick()" class="btn btn-primary mb-4 float-right">
-                            Add Category
-                        </button>
-                    </div>
                 </div>
 
 
-
-                <table class="table table-bordered table-striped shadow">
-                    <thead class="head">
+                <table class="table table-bordered   shadow">
+                    <thead class="head bg-gradient text-white">
                         <th>ID</th>
                         <th>Name</th>
                         <th>Position</th>
@@ -50,12 +46,12 @@
                             <td *ngIf="data.status == 'inactive'">inactive</td>
                             <td>{{ data.number_of_products - 1 }}</td>
                             <td>
-                                <button ngbTooltip="Edit" class="btn btn-info mr-2"
+                                <button ngbTooltip="Edit" class="btn btn-info rounded-circle shadow mr-2"
                                     [routerLink]="['/catalog/editcategory/'+data.id]"><i
                                         class="fa fa-pencil-square-o"></i></button>
 
                                 <button ngbTooltip="Delete" id="remove" (click)="deleteRow(data.id)"
-                                    class="btn btn-danger"><i class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                                    class="btn btn-danger rounded-circle shadow"><i class="fa fa-trash-o fa-lg mx-auto"></i></button>
                             </td>
                         </tr>
                         <tr *ngIf="!length && !showloader">

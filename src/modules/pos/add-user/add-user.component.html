@@ -36,7 +36,7 @@
                             <div class="col-6">
                                 <div class="form-group required">
                                     <label class="required">User name</label>
-                                    <input type="text" formControlName="username" placeholder="Enter Username"
+                                    <input type="text" formControlName="username" placeholder="Enter User name"
                                         class="form-control" />
                                     <div *ngIf="userName?.touched && userName?.invalid || showValidations">
                                         <div class="alert alert-danger" *ngIf="userName?.errors?.required">Username is
@@ -64,7 +64,7 @@
                                 <div class="form-group required">
                                     <label>Phone Number</label>
                                     <input type="tel" formControlName="phone_no" placeholder="Enter Phone Number"
-                                        class="form-control" (keydown)="validateNumber($event)" maxlength="10"/>
+                                        class="form-control" (keypress)="validateNumber($event)" maxlength="10"/>
                                     <div *ngIf="phone?.touched && phone?.invalid || showValidations">
                                         <div *ngIf="phone?.errors?.required" class="alert alert-danger">Phone number is
                                             required.</div>
@@ -89,7 +89,7 @@
                                     <label for="img">Add Avatar</label><br>
                                     <img [src]="imageUrl" class="rounded-circle"
                                         onerror="this.src='https://cdn.icon-icons.com/icons2/1378/PNG/128/avatardefault_92824.png'">
-                                    <input type="file" id="img" name="img" accept="image/*"
+                                    <input type="file" id="img" name="img" accept="image/*" class="p-1"
                                         formControlName="user_avatar" (change)="handleFileInput($event.target.files)"
                                         (change)="onChange($event)" />
                                     <div *ngIf="user_avatar?.touched && user_avatar?.invalid || showValidations">

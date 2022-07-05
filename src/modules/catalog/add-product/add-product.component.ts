@@ -85,6 +85,12 @@ export class AddProductComponent implements OnInit {
   // For submitting add product form data
   onSubmit(data: any) {
 
+    if(this.addProductForm.invalid) {
+      alert('Please fill all the required fields.');
+      this.addProductForm.markAllAsTouched();
+      return;
+    }
+
     this.categoryData.forEach((g: any) => {
       if (g.id == data.category_id) {
         this.category_name = g.name

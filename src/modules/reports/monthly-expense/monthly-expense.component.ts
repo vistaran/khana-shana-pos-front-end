@@ -93,7 +93,19 @@ export class MonthlyExpenseComponent implements OnInit {
       this.showloader = false
       this.showData = true
 
-      this.monthlyExpenseData = data.amount
+      this.monthlyExpenseData = data.amount.sort(function (a: any, b: any) {
+        const nameA = a.item_group_name.toUpperCase(); // ignore upper and lowercase
+        const nameB = b.item_group_name.toUpperCase(); // ignore upper and lowercase
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+
+        // names must be equal
+        return 0;
+      });
       this.length = this.monthlyExpenseData.length
 
       this.monthlyExpenseData.forEach((g: any) => {
@@ -110,7 +122,19 @@ export class MonthlyExpenseComponent implements OnInit {
   monthlyExpenseByItem() {
     this.expenseService.getExpenseByItem(this.year, this.value, this.page).subscribe(result => {
       this.totalExpenseForItem = 0
-      this.expenseByItemData = result.data.data
+      this.expenseByItemData = result.data.data.sort(function (a: any, b: any) {
+        const nameA = a.item_name.toUpperCase(); // ignore upper and lowercase
+        const nameB = b.item_name.toUpperCase(); // ignore upper and lowercase
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+
+        // names must be equal
+        return 0;
+      });
       // console.log(this.expenseByItemData);
 
       this.lengthItemData = this.expenseByItemData.length

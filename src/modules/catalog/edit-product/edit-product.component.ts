@@ -67,6 +67,14 @@ export class EditProductComponent implements OnInit {
   // For submitting edit product form data
   updateData(data: any) {
 
+    
+    if(this.editProductForm.invalid) {
+      alert('Please fill all the required fields.');
+      this.editProductForm.markAllAsTouched();
+      return;
+    }
+
+
     this.categoryData.forEach((g: any) => {
       if (g.id == data.category_id) {
         this.category_name = g.name
