@@ -10,13 +10,11 @@
             <div class="d-flex justify-content-between mb-4">
 
                 <div class="input-group rounded w-25">
-                    <input class="form-control amber-border" class="form-control" type="text"
-                        aria-label="Search" (keyup)="search()" placeholder="Search"
-                        [(ngModel)]="searchValue">
+                    <input class="form-control amber-border" class="form-control" type="text" aria-label="Search"
+                        (keyup)="search()" placeholder="Search" [(ngModel)]="searchValue">
                     <div class="input-group-append">
                         <button class="btn input-group-text bg-white text-dark amber lighten-3" id="basic-text1"><i
-                                class="fa fa-search" aria-hidden="true"
-                                (click)="search()"></i></button>
+                                class="fa fa-search" aria-hidden="true" (click)="search()"></i></button>
                     </div>
                 </div>
 
@@ -43,15 +41,21 @@
                         <td>{{ data.order_date | date: 'dd/MM/yyyy' }}</td>
                         <td>₹{{ data.total_amount?.toFixed(2) }}</td>
                         <td>
-                            <button class="btn btn-dark rounded-circle shadow mr-2" ngbTooltip="View Details" (click)="openXl(content)"
-                                (click)="getOrderDetail(data.id)"><i class="fa fa-eye fa-lg"></i></button>
+                            <button class="btn btn-white rounded-circle  shadow mr-2" ngbTooltip="Print"
+                                (click)="openInvoice(invoice)" (click)="getOrderDetail(data.id)"><i
+                                    class="fa fa-print fa-lg"></i></button>
+
+                            <button class="btn btn-dark rounded-circle shadow mr-2" ngbTooltip="View Details"
+                                (click)="openXl(content)" (click)="getOrderDetail(data.id)"><i
+                                    class="fa fa-eye fa-lg"></i></button>
 
                             <button class="btn btn-info rounded-circle shadow mr-2" ngbTooltip="Edit"
                                 [routerLink]="['/sales/edit_sale/' + data.id]"><i
                                     class="fa fa-pencil-square-o fa-lg"></i></button>
 
                             <button id="remove" ngbTooltip="Delete" (click)="deleteRow(data.id)"
-                                class="btn btn-danger rounded-circle shadow"><i class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                                class="btn btn-danger rounded-circle shadow"><i
+                                    class="fa fa-trash-o fa-lg mx-auto"></i></button>
                         </td>
                     </tr>
                     <tr *ngIf="!orderData.length && !showloader">
@@ -135,5 +139,73 @@
         </div>
     </ng-template>
 
-    
+    <ng-template #invoice let-modal>
+        <div class="modal-header bg-primary">
+            <h4 class="modal-title text-white">Order Details</h4>
+            <button type="button" class="btn btn-light btn-xs" aria-label="Close"
+                (click)="modal.dismiss('Cross click')">X</button>
+        </div>
+        <div class="modal-body">
+            <div class="text-center">
+                <h4 class="mb-0 font-weight-bold">Jamanvar Kitchen</h4>
+                <p class="font-weight-bold text-center mb-0">{{ orderDetail.first_name}} {{ orderDetail.last_name }}</p>
+                <p class="text-center mb-0">
+                    <span>302,</span>
+                    <span>Shagun 11, Sector 11</span>
+                    <span>Gandhinagar - 382105</span>
+                </p>
+                <p class="mb-0">Mob: {{ orderDetail.phone_number }}</p>
+                <p class="mb-0">Email: monusharma@email.com</p>
+            </div>
+
+            <div class="text-center">
+                <p class="tax">
+                    TAX INVOICE
+                    <!--Padding is optional-->
+                </p>
+            </div>
+
+            <p><b>Order Id:</b> {{orderDetail.id}}</p>
+            <p>
+                <b>Customer name: </b> {{ orderDetail.first_name}} {{ orderDetail.last_name }}
+                <br>
+                <b>Phone Number: </b> {{ orderDetail.phone_number }}
+            </p>
+
+            <p class="mb-2"><b>Product Details:</b></p>
+            <table class="table table-bordered table-sm">
+                <thead class="head">
+                    <th>Product</th>
+                    <th>Category</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Subtotal</th>
+                </thead>
+                <tbody *ngIf="!showloader">
+                    <tr *ngFor="let data of itemDetail">
+                        <td>{{ data.product_name }}</td>
+                        <td>{{ data.name }}</td>
+                        <td>{{ data.quantity }}</td>
+                        <td>₹ {{ data.price }}</td>
+                        <td>{{ data.subtotal }}</td>
+                    </tr>
+                    <tr class="table-sm">
+                        <td colspan="4" class="text-right"><b>Shipping Charges:</b></td>
+                        <td>₹{{ orderDetail.shipping_charge }}</td>
+                    </tr>
+                    <tr class="table-sm">
+                        <td colspan="4" class="text-right"><b>Total Amount:</b></td>
+                        <td>₹{{ orderDetail.total_amount }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p><b>Payment Mode: </b> {{ orderDetail.payment_mode }}</p>
+        </div>
+        <div class="modal-footer bg-dark">
+            <button type="button" class="btn btn-info" (click)="modal.close('Close click')">Close</button>
+        </div>
+    </ng-template>
+
+
 </sb-layout-dashboard>
