@@ -65,6 +65,7 @@ export class EditSaleComponent implements OnInit {
   pageSize = 100
   showValidations = false;
   showCustomerValidation = false;
+  showProducts = false;
 
   get customer() {
     return this.customerForm.get('customer_id');
@@ -149,8 +150,26 @@ export class EditSaleComponent implements OnInit {
   }
 
   getProductsData() {
-    this.productService.getProducts().subscribe(data => {
-      this.productData = data.products.data
+    this.productData = [];
+    this.productService.getProducts(this.page).subscribe((data: any) => {
+      this.productData = data.products.data;
+      console.log(data);
+      if (data.products.last_page > 1) {
+        console.log('greater');
+        for (let i = 2; i <= data.products.last_page; i++) {
+          console.log();
+          this.productService.getProducts(i).subscribe((ele: any) => {
+            this.productData = this.productData.concat(ele.products.data);
+            console.log(ele.products.data);
+          })
+        }
+        this.showProducts = true;
+        console.log(this.productData, 'pro data');
+
+      } else {
+        this.showProducts = true;
+      }
+      // this.productData = data.products.data
       // console.log(this.productData);
     })
   }

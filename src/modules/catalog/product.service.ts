@@ -16,8 +16,8 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
   // For getting products data
-  getProducts(): Observable<ProductData> {
-    return this.http.get<ProductData>(this.url);
+  getProducts(page: number): Observable<ProductData> {
+    return this.http.get<ProductData>(this.url + '?page=' + page);
   }
 
   // For deleting products data

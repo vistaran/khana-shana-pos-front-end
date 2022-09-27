@@ -1,11 +1,11 @@
 <sb-layout-dashboard>
     <div class="card shadow mt-4">
-        <h1 class="card-header mb-3 bg-gradient text-white">Add Order</h1>
-        <form [formGroup]="addSaleForm">
+        <h3 class="card-header mb-3 bg-gradient text-white py-1 px-2">Add Order</h3>
+        <form [formGroup]="addSaleForm" (keydown.shift.s)="onSubmit(addSaleForm.value)">
             <div class="container-fluid">
 
                 <!-- <h3 class="card-header mb-2">Select Customer</h3> -->
-                <button [hidden]="showCustomerDetail" class="btn btn-info mb-2" type="button"
+                <button [hidden]="showCustomerDetail" class="btn btn-info mb-2 btn-sm" type="button"
                     (click)="openVerticallyCentered(content3)" autofocus>Select
                     Customer</button>
                 <div [hidden]="!showCustomerDetail">
@@ -58,18 +58,18 @@
                 </ng-template>
                 <div class="row">
                     <div class="col">
-                        <h3 class="card-header bg-light shadow">Available Products</h3>
+                        <h5 class="p-2">Select Products</h5>
 
-                        <div class="card-deck row mt-2">
-                            <div class="col-4 mb-3" *ngFor="let data of productData">
+                        <div class=" row mt-2" *ngIf="showProducts">
+                            <div class="col-3 mb-3" *ngFor="let data of productData">
 
 
-                                <div class="card shadow h-100">
-                                    <button class="bg-transparent h-100 border border-dark" type="button"
+                                <div class="h-100">
+                                    <button class="shadow bg-transparent h-100 border border-secondary w-100 rounded" type="button"
                                         (click)="openVerticallyCentered(content)">
-                                        <div class="card-body">
-                                            <h5 class="card-title font-weight-bold">{{ data.product_name }}</h5>
-                                            <small class="card-text"><b>Category: </b> {{ data.category_name }}
+                                        <!-- <div class="card-body"> -->
+                                            <span class="text-capitalize">{{ data.product_name }}</span>
+                                            <!-- <small class="card-text"><b>Category: </b> {{ data.category_name }}
                                             </small><br>
                                             <small class="card-text" *ngIf="data.description != null"><b>Description:
                                                 </b> {{ data.description }}
@@ -78,8 +78,8 @@
                                                 </b> None
                                             </small><br>
                                             <small class="card-text"><b>Price: </b> ₹ {{ data.price }}
-                                            </small>
-                                        </div>
+                                            </small> -->
+                                        <!-- </div> -->
 
                                     </button>
                                 </div>
@@ -94,14 +94,14 @@
                                     </div>
 
                                     <div class="modal-body">
-                                        <form [formGroup]="qtyForm">
+                                        <form [formGroup]="qtyForm" (ngSubmit)="onSelectProduct(data, qtyForm.value)">
 
                                             <div class="col">
                                                 <div class="form-group required">
                                                     <label class="required">Quantity</label>
                                                     <input type="number" min="0" oninput="validity.valid||(value='');"
                                                         formControlName="quantity" class="form-control"
-                                                        placeholder="Enter Quantity" />
+                                                        placeholder="Enter Quantity" sbAutoFocus/>
 
                                                     <div
                                                         *ngIf="quantity?.touched && quantity?.invalid || showValidations">
@@ -112,14 +112,13 @@
                                                 </div>
                                             </div>
 
+                                            <div class="">
+                                                <button type="submit" class="btn btn-info btn-sm">Save
+                                                    Order</button>
+                                            </div>
                                         </form>
                                     </div>
 
-                                    <div class="bg-dark modal-footer">
-                                        <button type="submit" class="btn btn-info btn-sm"
-                                            (click)="onSelectProduct(data, qtyForm.value)">Save
-                                            Order</button>
-                                    </div>
 
                                 </ng-template>
 
@@ -131,12 +130,12 @@
                     </div>
 
                     <div class="col">
-                        <h3 class="card-header bg-light shadow mb-2">Added Products</h3>
+                        <h5 class="p-2 mb-2">Cart Summary</h5>
 
                         <!-- <div class="card-deck row mt-2">
                             <div class="col-5 mb-3" *ngFor="let data of addedProduct"> -->
 
-                        <table class="table table-bordered shadow">
+                        <table class="table table-bordered shadow table-sm">
                             <thead class="head bg-dark text-white">
                                 <th>Product</th>
                                 <th>Category</th>

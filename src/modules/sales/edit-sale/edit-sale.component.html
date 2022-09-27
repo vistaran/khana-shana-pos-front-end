@@ -58,7 +58,7 @@
                     <div class="col">
                         <h3 class="card-header bg-light shadow">Available Products</h3>
 
-                        <div class="card-deck row mt-2">
+                        <div class="card-deck row mt-2" *ngIf="showProducts">
                             <div class="col-4 mb-3" *ngFor="let data of productData">
 
 

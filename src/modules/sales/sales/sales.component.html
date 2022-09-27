@@ -42,11 +42,11 @@
                         <td>₹{{ data.total_amount?.toFixed(2) }}</td>
                         <td>
                             <button class="btn btn-white rounded-circle  shadow mr-2" ngbTooltip="Print"
-                                (click)="openInvoice(invoice)" (click)="getOrderDetail(data.id)"><i
+                                (click)="getOrderDetail(data.id, true)"><i
                                     class="fa fa-print fa-lg"></i></button>
 
                             <button class="btn btn-dark rounded-circle shadow mr-2" ngbTooltip="View Details"
-                                (click)="openXl(content)" (click)="getOrderDetail(data.id)"><i
+                                (click)="openXl(content)" (click)="getOrderDetail(data.id, false)"><i
                                     class="fa fa-eye fa-lg"></i></button>
 
                             <button class="btn btn-info rounded-circle shadow mr-2" ngbTooltip="Edit"

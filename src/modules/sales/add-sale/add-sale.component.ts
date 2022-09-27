@@ -24,6 +24,7 @@ export class AddSaleComponent implements OnInit {
   customerForm!: FormGroup
   selectedCity: any
   pageSize = 100
+  showProducts = false;
 
   payment_mode: any
 
@@ -105,8 +106,26 @@ export class AddSaleComponent implements OnInit {
   }
 
   getProductsData() {
-    this.productService.getProducts().subscribe(data => {
-      this.productData = data.products.data
+    this.productData = [];
+    this.productService.getProducts(this.page).subscribe((data: any) => {
+      this.productData = data.products.data;
+      console.log(data);
+      if (data.products.last_page > 1) {
+        console.log('greater');
+        for (let i = 2; i <= data.products.last_page; i++) {
+          console.log();
+          this.productService.getProducts(i).subscribe((ele: any) => {
+            this.productData = this.productData.concat(ele.products.data);
+            console.log(ele.products.data);
+          })
+        }
+        this.showProducts = true;
+        console.log(this.productData, 'pro data');
+
+      } else {
+        this.showProducts = true;
+      }
+      // this.productData = data.products.data
       // console.log(this.productData);
     })
   }
@@ -194,7 +213,7 @@ export class AddSaleComponent implements OnInit {
       return a + b;
     })
 
-    this.toast.success('Success','Product added successfully.');
+    this.toast.success('Success', 'Product added successfully.');
     this.qtyForm = this.fb.group({
       quantity: ['', [Validators.required]]
     })
@@ -295,10 +314,10 @@ export class AddSaleComponent implements OnInit {
 
   onSubmit(data: any) {
 
-    if (this.customerForm.invalid) {
-      alert('Please select customer!');
-      return;
-    }
+    // if (this.customerForm.invalid) {
+    //   alert('Please select customer!');
+    //   return;
+    // }
 
     if (this.addSaleForm.invalid) {
       alert('Please fill all the required fields!');
