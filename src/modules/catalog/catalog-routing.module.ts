@@ -28,6 +28,7 @@ const routes: Routes = [
     component: ProductsComponent,
     data: {
       title: 'Products',
+      activeTopNav: 'Products'
     } as SBRouteData,
   },
   {
@@ -36,6 +37,7 @@ const routes: Routes = [
     component: AddProductComponent,
     data: {
       title: 'Add Product',
+      activeTopNav: 'Products'
     } as SBRouteData,
   },
   {
@@ -44,6 +46,7 @@ const routes: Routes = [
     component: EditProductComponent,
     data: {
       title: 'Edit Product',
+      activeTopNav: 'Products'
     } as SBRouteData,
   },
   {
@@ -52,6 +55,7 @@ const routes: Routes = [
     component: CategoriesComponent,
     data: {
       title: 'Categories',
+      activeTopNav: 'Categories'
     } as SBRouteData,
   },
   {
@@ -60,6 +64,7 @@ const routes: Routes = [
     component: AddCategoryComponent,
     data: {
       title: 'Add Category',
+      activeTopNav: 'Categories'
     } as SBRouteData,
   },
   {
@@ -68,6 +73,7 @@ const routes: Routes = [
     component: EditCategoryComponent,
     data: {
       title: 'Edit Category',
+      activeTopNav: 'Categories'
     } as SBRouteData,
   },
   {
@@ -76,6 +82,7 @@ const routes: Routes = [
     component: AttributesComponent,
     data: {
       title: 'Attributes',
+      activeTopNav: 'Attributes'
     } as SBRouteData,
   },
   {
@@ -84,6 +91,7 @@ const routes: Routes = [
     component: AddAttributeComponent,
     data: {
       title: 'Add Attribute',
+      activeTopNav: 'Attributes'
     } as SBRouteData,
   },
   {
@@ -92,6 +100,7 @@ const routes: Routes = [
     component: EditAttributeComponent,
     data: {
       title: 'Edit Attribute',
+      activeTopNav: 'Attributes'
     } as SBRouteData,
   },
   {
@@ -100,6 +109,7 @@ const routes: Routes = [
     component: AttributeFamilyComponent,
     data: {
       title: 'Attribute Family',
+      activeTopNav: 'Attribute Family'
     } as SBRouteData,
   },
   {
@@ -108,6 +118,7 @@ const routes: Routes = [
     component: AddAttributeFamilyComponent,
     data: {
       title: 'Add Attribute Family',
+      activeTopNav: 'Attribute Family'
     } as SBRouteData,
   },
   {
@@ -116,6 +127,7 @@ const routes: Routes = [
     component: EditAttributeFamilyComponent,
     data: {
       title: 'Edit Attribute Family',
+      activeTopNav: 'Attribute Family'
     } as SBRouteData,
   },
 ];

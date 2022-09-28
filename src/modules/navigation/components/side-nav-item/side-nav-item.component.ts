@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { SBRouteData, SideNavItem } from '@modules/navigation/models';
 
 @Component({
@@ -13,7 +14,12 @@ export class SideNavItemComponent implements OnInit {
 
     expanded = false;
     routeData!: SBRouteData;
+    path: any;
 
-    constructor() {}
-    ngOnInit() {}
+    constructor(
+        private activeRoute: ActivatedRoute
+    ) {}
+    ngOnInit() {
+        this.path = this.activeRoute.snapshot.data?.activeTopNav;
+    }
 }

@@ -20,6 +20,7 @@ const routes: Routes = [
     component: CustomerManagementComponent,
     data: {
       title: 'Customers',
+      activeTopNav: 'Customers'
     } as SBRouteData,
   },
   {
@@ -28,6 +29,7 @@ const routes: Routes = [
     component: AddCustomerComponent,
     data: {
       title: 'Add Customer',
+      activeTopNav: 'Customers'
     } as SBRouteData,
   },
   {
@@ -36,6 +38,7 @@ const routes: Routes = [
     component: EditCustomerComponent,
     data: {
       title: 'Edit Customer',
+      activeTopNav: 'Customers'
     } as SBRouteData,
   },
   // {

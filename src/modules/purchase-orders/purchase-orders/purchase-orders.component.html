@@ -43,15 +43,15 @@
                         <td>{{ data.purchase_date | date: 'dd/MM/yyyy' }}</td>
                         <td>₹{{ data.total_amount?.toFixed(2) }}</td>
                         <td>
-                            <button class="btn btn-dark rounded-circle shadow mr-2" ngbTooltip="View Details" (click)="openXl(content)"
+                            <button class="btn btn-dark rounded-circle shadow mr-2 btn-sm" ngbTooltip="View Details" (click)="openXl(content)"
                                 (click)="getOrderDetail(data.id)"><i class="fa fa-eye fa-lg"></i></button>
 
-                            <button ngbTooltip="Edit" class="btn btn-info rounded-circle shadow mr-2"
+                            <button ngbTooltip="Edit" class="btn btn-info rounded-circle shadow mr-2 btn-sm"
                                 [routerLink]="['/purchase_orders/edit_purchase_order/' + data.id]"><i
                                     class="fa fa-pencil-square-o fa-lg"></i></button>
 
                             <button id="remove" ngbTooltip="Delete" (click)="deleteRow(data.id)"
-                                class="btn btn-danger rounded-circle shadow"><i class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                                class="btn btn-danger rounded-circle shadow btn-sm"><i class="fa fa-trash-o fa-lg mx-auto"></i></button>
                         </td>
                     </tr>
                     <tr *ngIf="!length && !showloader">

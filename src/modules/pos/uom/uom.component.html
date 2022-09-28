@@ -37,12 +37,12 @@
                                     <td>{{ data.unit_name }}</td>
                                     <td>{{ data.unit }}</td>
                                     <td>
-                                        <button ngbTooltip="Edit" class="btn rounded-circle shadow btn-info mr-2"
+                                        <button ngbTooltip="Edit" class="btn rounded-circle shadow btn-info mr-2 btn-sm"
                                             [routerLink]="['/pos/edit/edituom/' + data.id]"><i
                                                 class="fa fa-pencil-square-o fa-lg"></i></button>
 
                                         <button ngbTooltip="Delete" id="remove" (click)="deleteRow(data.id)"
-                                            class="btn rounded-circle shadow btn-danger"><i class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                                            class="btn rounded-circle shadow btn-danger btn-sm"><i class="fa fa-trash-o fa-lg mx-auto"></i></button>
                                     </td>
                                 </tr>
                                 <tr *ngIf="!length && !showloader">

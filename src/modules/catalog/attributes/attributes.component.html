@@ -44,11 +44,11 @@
                             <td>{{ data.value_per_local }}</td>
                             <td>{{ data.value_per_channel }}</td>
                             <td>
-                                <button ngbTooltip="Edit" class="btn btn-info rounded-circle mr-2"
+                                <button ngbTooltip="Edit" class="btn btn-info rounded-circle mr-2 btn-sm"
                                     [routerLink]="['/catalog/editattribute/'+data.id]"><i
                                         class="fa fa-pencil-square-o fa-lg "></i></button>
                                 <button ngbTooltip="Delete" id="remove" (click)="deleteRow(data.id)"
-                                    class="btn btn-danger rounded-circle"><i class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                                    class="btn btn-danger rounded-circle btn-sm"><i class="fa fa-trash-o fa-lg mx-auto"></i></button>
                             </td>
                         </tr>
                         <tr *ngIf="!length && !showloader">

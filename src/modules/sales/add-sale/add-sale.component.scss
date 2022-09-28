@@ -9,3 +9,7 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+ngb-datepicker, .dropdown-menu {
+  font-size: 13px;
+}

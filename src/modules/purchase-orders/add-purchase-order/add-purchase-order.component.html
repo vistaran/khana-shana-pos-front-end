@@ -231,7 +231,7 @@
                             <td>₹{{ data.price }}</td>
                             <td>₹{{ (data.qty * data.price)?.toFixed(2) }}</td>
                             <td>
-                                <button ngbTooltip="Edit" class="btn btn-info rounded-circle shadow btn-sm mr-2"
+                                <button ngbTooltip="Edit" class="btn btn-info rounded-circle shadow btn-sm mr-2 btn-sm"
                                     (click)="openVerticallyCentered(content2)"
                                     (click)="EditOrderPatchValue(data.item_id)"><i
                                         class="fa fa-pencil-square-o"></i></button>

@@ -19,6 +19,7 @@ const routes: Routes = [
     component: PurchaseOrdersComponent,
     data: {
       title: 'Purchase Orders',
+      activeTopNav: '₹ Purchases'
     } as SBRouteData,
   },
   {
@@ -27,6 +28,7 @@ const routes: Routes = [
     component: AddPurchaseOrderComponent,
     data: {
       title: 'Add Purchase Order',
+      activeTopNav: '₹ Purchases'
     } as SBRouteData,
   },
   {
@@ -35,6 +37,7 @@ const routes: Routes = [
     component: EditPurchaseOrderComponent,
     data: {
       title: 'Edit Order',
+      activeTopNav: '₹ Purchases'
     } as SBRouteData,
   },
 ];
