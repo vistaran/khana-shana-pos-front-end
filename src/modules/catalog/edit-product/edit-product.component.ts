@@ -52,6 +52,7 @@ export class EditProductComponent implements OnInit {
     this.editProductForm = this.fb.group({
       product_name: ['', [Validators.required]],
       price: ['', [Validators.required]],
+      item_position: [''],
       category_id: ['', [Validators.required]],
       description: ['']
     });
@@ -60,15 +61,14 @@ export class EditProductComponent implements OnInit {
 
     this.productService.editPatchData(this.id).subscribe((data: any) => {
       this.editProductForm.patchValue(data)
-      console.log(data.products)
     })
   }
 
   // For submitting edit product form data
   updateData(data: any) {
 
-    
-    if(this.editProductForm.invalid) {
+
+    if (this.editProductForm.invalid) {
       alert('Please fill all the required fields.');
       this.editProductForm.markAllAsTouched();
       return;
@@ -84,8 +84,9 @@ export class EditProductComponent implements OnInit {
     const obj = {
       product_name: data.product_name,
       price: data.price,
+      item_position: data.item_position,
       category_id: data.category_id,
-      category_name: this.category_name ,
+      category_name: this.category_name,
       description: data.description,
     }
 
@@ -114,7 +115,6 @@ export class EditProductComponent implements OnInit {
         // names must be equal
         return 0;
       });;
-      console.log(data);
     })
   }
 }

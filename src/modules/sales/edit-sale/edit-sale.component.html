@@ -8,13 +8,27 @@
                 <!-- <button [hidden]="!showCustomerDetail" class="btn btn-info mb-2" type="button"
                     (click)="openVerticallyCentered(content3)">Select
                     Customer</button> -->
-                <div>
-                    <h4>Customer Details: </h4>
-                    <p>Name: {{ customerName }}</p>
-                    <p>Phone number: {{ customerNumber }}</p>
-                    <button class="btn btn-info mb-2" type="button" (click)="openVerticallyCentered(content3)"
-                        autofocus>Select
-                        Another Customer</button>
+                <div class="d-flex">
+                    <button [hidden]="showCustomerDetail" class="btn btn-info mb-2 btn-sm" type="button"
+                        (click)="openVerticallyCentered(content3)" autofocus>Select
+                        Customer</button>
+                    <div [hidden]="!showCustomerDetail">
+                        <h4>Customer Details: </h4>
+                        <p>Name: {{ customerName}}</p>
+                        <p>Phone number: {{ customerNumber}}</p>
+                        <div class="d-flex">
+                            <button class="btn btn-info mb-2 btn-sm" type="button"
+                                (click)="openVerticallyCentered(content3)">Select
+                                Another Customer</button>
+                            <p class="mb-0 mx-2 mt-1">or</p>
+                            <button class="btn btn-info mb-2 btn-sm" type="button" (click)="openModal(content4)">Add
+                                Customer</button>
+                        </div>
+                    </div>
+                    <p [hidden]="showCustomerDetail" class="mb-0 mx-2 mt-1">or</p>
+                    <button [hidden]="showCustomerDetail" class="btn btn-info mb-2 btn-sm" type="button"
+                        (click)="openModal(content4)">Add
+                        Customer</button>
                 </div>
 
                 <ng-template #content3 let-modal>
@@ -54,20 +68,88 @@
                     </div>
 
                 </ng-template>
+
+                <ng-template #content4 let-modal>
+
+                    <div class="modal-header bg-primary align-items-center text-light">
+                        <h4 class=" modal-title">Add Customer</h4>
+                        <i type="button" class="fas fa-xmark fa-xl" aria-label="Close"
+                            (click)="modal.dismiss('Cross click')" (click)="addCustomerClose()">
+                        </i>
+                    </div>
+
+                    <form [formGroup]="addCustomerForm" (ngSubmit)="onSubmitCustomer(addCustomerForm.value)">
+                        <div class="modal-body">
+                            <!-- <h2 class="card-header mt-4 pb-2">General</h2> -->
+                            <div class="row justify-content-around">
+
+                                <div class="col-6 col-sm-4">
+                                    <div class="form-group required">
+                                        <label class="required">First Name</label>
+                                        <input type="text" placeholder="First Name" formControlName="first_name"
+                                            class="form-control" autofocus />
+                                        <div *ngIf="firstname?.touched && firstname?.invalid"
+                                            class="alert alert-danger">
+                                            <div *ngIf="firstname?.errors?.required">First Name is required.</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-6 col-sm-4">
+                                    <div class="form-group required">
+                                        <label class="required">Last Name</label>
+                                        <input type="text" placeholder="Last Name" formControlName="last_name"
+                                            class="form-control" />
+                                        <div *ngIf="lastname?.touched && lastname?.invalid" class="alert alert-danger">
+                                            <div *ngIf="lastname?.errors?.required">Last Name is required.</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-6 col-sm-4">
+                                    <div class="form-group required">
+                                        <label class="required">Phone Number</label>
+                                        <input type="tel" placeholder="Phone Number" formControlName="phone_number"
+                                            class="form-control" (keypress)="validateNumber($event)" maxlength="10" />
+                                        <div *ngIf="phone?.touched && phone?.invalid" class="alert alert-danger"
+                                            maxlength="10">
+                                            <div *ngIf="phone?.errors?.required">Phone Number is required.</div>
+                                            <div *ngIf="phone?.errors?.maxlength">Phone number must not exceed 10 digits
+                                            </div>
+                                            <div *ngIf="phone?.errors?.minlength && !phone?.errors?.pattern">Phone
+                                                number must contain 10 digits
+                                            </div>
+                                            <div *ngIf="phone?.errors?.pattern">Only Numbers are allowed</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary float-right btn-sm m-0">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+
+
+                </ng-template>
+
                 <div class="row">
                     <div class="col">
                         <h3 class="card-header bg-light shadow">Available Products</h3>
 
-                        <div class="card-deck row mt-2" *ngIf="showProducts">
-                            <div class="col-4 mb-3" *ngFor="let data of productData">
+                        <div class=" row mt-2" *ngIf="showProducts">
+                            <div class="col-3 mb-3" *ngFor="let data of productData">
 
 
-                                <div class="card shadow h-100">
-                                    <button class="bg-transparent h-100 border border-dark" type="button"
-                                        (click)="openVerticallyCentered(content)">
-                                        <div class="card-body">
-                                            <h5 class="card-title font-weight-bold">{{ data.product_name }}</h5>
-                                            <small class="card-text"><b>Category: </b> {{ data.category_name }}
+                                <div class="h-100">
+                                    <button class="shadow bg-transparent h-100 border border-secondary w-100 rounded"
+                                        type="button" (click)="openVerticallyCentered(content)">
+                                        <!-- <div class="card-body"> -->
+                                        <span class="text-capitalize">{{ data.product_name }}</span>
+                                        <!-- <small class="card-text"><b>Category: </b> {{ data.category_name }}
                                             </small><br>
                                             <small class="card-text" *ngIf="data.description != null"><b>Description:
                                                 </b> {{ data.description }}
@@ -76,56 +158,51 @@
                                                 </b> None
                                             </small><br>
                                             <small class="card-text"><b>Price: </b> ₹ {{ data.price }}
-                                            </small>
-                                        </div>
-                                        <!-- <div class="align-items-end mb-2 ml-2">
-                                        <button class="btn btn-info mr-2 btn-sm"
-                                            (click)="openVerticallyCentered2(content2, data.id)"><i
-                                                class="fa fa-pencil-square-o fa-lg"></i></button>
-        
-                                        <button id="remove" class="btn btn-danger btn-sm"
-                                            (click)="deleteAddress(data.id)"><i
-                                                class="fa fa-trash-o fa-lg mx-auto"></i></button>
-                                    </div> -->
+                                            </small> -->
+                                        <!-- </div> -->
+
                                     </button>
                                 </div>
 
                                 <ng-template #content let-modal>
 
-                                    <div class="modal-header bg-primary">
-                                        <h4 class="modal-title text-light">Product Quantity</h4>
-                                        <button type="button" class="btn-light btn-xs" aria-label="Close"
-                                            (click)="modal.dismiss('Cross click')" (click)="qtyClose()">X
-                                        </button>
+                                    <div class="modal-header bg-primary align-items-center text-light">
+                                        <h4 class=" modal-title">Product Quantity</h4>
+                                        <i type="button" class="fas fa-xmark fa-xl" aria-label="Close"
+                                            (click)="modal.dismiss('Cross click')" (click)="qtyClose()">
+                                        </i>
                                     </div>
 
-                                    <div class="modal-body">
-                                        <form [formGroup]="qtyForm">
+                                    <form [formGroup]="qtyForm" (ngSubmit)="onSelectProduct(data, qtyForm.value)">
+                                        <div class="modal-body">
 
                                             <div class="col">
-                                                <div class="form-group">
+                                                <div class="form-group required">
                                                     <label class="required">Quantity</label>
-                                                    <input type="number" formControlName="quantity" min="0" oninput="validity.valid||(value='');" placeholder="Enter Quantity" class="form-control"
-                                                        autofocus />
+                                                    <input type="number" min="0" oninput="validity.valid||(value='');"
+                                                        formControlName="quantity" class="form-control"
+                                                        placeholder="Enter Quantity" sbAutoFocus />
+
                                                     <div
                                                         *ngIf="quantity?.touched && quantity?.invalid || showValidations">
                                                         <div class="alert alert-danger"
                                                             *ngIf="quantity?.errors?.required">Quantity is required.
                                                         </div>
                                                     </div>
-
                                                 </div>
                                             </div>
 
-                                        </form>
-                                    </div>
+                                        </div>
+                                        <div class="modal-footer d-flex justify-content-end">
+                                            <button type="submit" class="btn btn-info btn-sm">Save
+                                                Order</button>
+                                        </div>
+                                    </form>
 
-                                    <div class="modal-footer bg-dark">
-                                        <button type="submit" class="btn btn-info btn-sm"
-                                            (click)="onSelectProduct(data, qtyForm.value)">Save
-                                            Order</button>
-                                    </div>
+
                                 </ng-template>
+
+
                             </div>
 
                         </div>
@@ -155,7 +232,8 @@
                                     <td>₹{{ data.quantity * data.price}}</td>
                                     <td>
 
-                                        <button id="remove" ngbTooltip="Delete" class="btn rounded-circle shadow btn-danger btn-sm"
+                                        <button id="remove" ngbTooltip="Delete"
+                                            class="btn rounded-circle shadow btn-danger btn-sm"
                                             (click)="RemoveProduct(data.id)"><i
                                                 class="fa fa-trash-o fa-lg mx-auto"></i></button>
                                     </td>
@@ -168,8 +246,9 @@
                                             <!-- <input type="number" formControlName="shipping_charge" class="form-control"
                                                 aria-label="Sizing example input"
                                                 aria-describedby="inputGroup-sizing-sm" (keyup)="onKey($event)" (change)="onKey($event)"> -->
-                                                <input type="number" [(ngModel)]="shipping_charge" class="form-control" min="0" oninput="validity.valid||(value='');" [ngModelOptions]="{standalone: true}"
-                                                (change)="onKey($event)">
+                                            <input type="number" [(ngModel)]="shipping_charge" class="form-control"
+                                                min="0" oninput="validity.valid||(value='');"
+                                                [ngModelOptions]="{standalone: true}" (change)="onKey($event)">
                                         </div>
                                     </td>
                                 </tr>
@@ -191,11 +270,12 @@
                         <div class="form-group required">
                             <label class="required">Order Date</label>
                             <div class="input-group">
-                                <input class="form-control amber-border" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker
-                                    #d="ngbDatepicker" formControlName="order_date" (dateSelect)="onSelectDate($event)">
+                                <input class="form-control amber-border" placeholder="yyyy-mm-dd" name="dp"
+                                    ngbDatepicker #d="ngbDatepicker" formControlName="order_date"
+                                    (dateSelect)="onSelectDate($event)">
                                 <div class="input-group-append">
-                                    <button class="btn input-group-text bg-white text-dark amber lighten-3" (click)="d.toggle()"
-                                        type="button">
+                                    <button class="btn input-group-text bg-white text-dark amber lighten-3 form-control"
+                                        (click)="d.toggle()" type="button">
                                         <i class="fa fa-calendar fa-lg mx-auto"></i>
                                     </button>
                                 </div>

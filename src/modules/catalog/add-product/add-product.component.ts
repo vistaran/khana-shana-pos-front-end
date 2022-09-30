@@ -54,10 +54,12 @@ export class AddProductComponent implements OnInit {
     this.addProductForm = this.fb.group({
       product_name: ['', [Validators.required]],
       price: ['', [Validators.required]],
+      item_position: [''],
       category_id: [null, [Validators.required]],
       description: ['']
     });
-    this.getCategoryData()
+    this.getCategoryData();
+    this.getLastPosition();
   }
 
   // For Category dropdown
@@ -82,10 +84,19 @@ export class AddProductComponent implements OnInit {
     })
   }
 
+  getLastPosition() {
+    this.products.getLastPosition().subscribe((data: any) => {
+      console.log(data, 'p[os');
+      this.addProductForm.patchValue({
+        item_position: (Number(data.last_position) + 1)
+      })
+    })
+  }
+
   // For submitting add product form data
   onSubmit(data: any) {
 
-    if(this.addProductForm.invalid) {
+    if (this.addProductForm.invalid) {
       alert('Please fill all the required fields.');
       this.addProductForm.markAllAsTouched();
       return;
@@ -100,6 +111,7 @@ export class AddProductComponent implements OnInit {
     const obj = {
       product_name: data.product_name,
       price: data.price,
+      item_position: data.item_position,
       category_id: data.category_id,
       category_name: this.category_name,
       description: data.description,

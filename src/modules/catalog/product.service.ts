@@ -43,4 +43,8 @@ export class ProductService {
   editPatchData(id: any):Observable<Data> {
     return this.http.get<Data>(this.url + '/' + id)
   }
+
+  getLastPosition() {
+    return this.http.get(this.url + '/last_position')
+  }
 }

@@ -13,9 +13,14 @@
                         <h4>Customer Details: </h4>
                         <p>Name: {{ customerName}}</p>
                         <p>Phone number: {{ customerNumber}}</p>
-                        <button class="btn btn-info mb-2 btn-sm" type="button"
-                            (click)="openVerticallyCentered(content3)">Select
-                            Another Customer</button>
+                        <div class="d-flex">
+                            <button class="btn btn-info mb-2 btn-sm" type="button"
+                                (click)="openVerticallyCentered(content3)">Select
+                                Another Customer</button>
+                            <p class="mb-0 mx-2 mt-1">or</p>
+                            <button class="btn btn-info mb-2 btn-sm" type="button" (click)="openModal(content4)">Add
+                                Customer</button>
+                        </div>
                     </div>
                     <p [hidden]="showCustomerDetail" class="mb-0 mx-2 mt-1">or</p>
                     <button [hidden]="showCustomerDetail" class="btn btn-info mb-2 btn-sm" type="button"
@@ -105,9 +110,8 @@
                                 <div class="col-6 col-sm-4">
                                     <div class="form-group required">
                                         <label class="required">Phone Number</label>
-                                        <input type="tel" placeholder="Phone Number"
-                                            formControlName="phone_number" class="form-control"
-                                            (keypress)="validateNumber($event)" maxlength="10"/>
+                                        <input type="tel" placeholder="Phone Number" formControlName="phone_number"
+                                            class="form-control" (keypress)="validateNumber($event)" maxlength="10" />
                                         <div *ngIf="phone?.touched && phone?.invalid" class="alert alert-danger"
                                             maxlength="10">
                                             <div *ngIf="phone?.errors?.required">Phone Number is required.</div>
@@ -171,7 +175,7 @@
                                     </div>
 
                                     <form [formGroup]="qtyForm" (ngSubmit)="onSelectProduct(data, qtyForm.value)">
-                                    <div class="modal-body">
+                                        <div class="modal-body">
 
                                             <div class="col">
                                                 <div class="form-group required">
@@ -269,7 +273,8 @@
                                             ngbDatepicker #d="ngbDatepicker" formControlName="order_date"
                                             (dateSelect)="onSelectDate($event)">
                                         <div class="input-group-append">
-                                            <button class="btn input-group-text bg-white text-dark amber lighten-3"
+                                            <button
+                                                class="btn input-group-text bg-white text-dark amber lighten-3 form-control"
                                                 (click)="d.toggle()" type="button">
                                                 <i class="fa fa-calendar fa-lg mx-auto"></i>
                                             </button>
@@ -301,8 +306,7 @@
                     </div>
                 </div>
 
-                <button type="submit"
-                    class="btn btn-primary mb-4 float-right btn-sm">
+                <button type="submit" class="btn btn-primary mb-4 float-right btn-sm">
                     Submit
                 </button>
 

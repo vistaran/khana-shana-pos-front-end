@@ -15,7 +15,7 @@
                             aria-label="Search" (keyup)="search($event)" placeholder="Search"
                             [(ngModel)]="searchValue">
                         <div class="input-group-append">
-                            <button class="btn input-group-text bg-white text-dark amber lighten-3" id="basic-text1"><i
+                            <button class="btn input-group-text bg-white text-dark amber lighten-3 form-control" id="basic-text1"><i
                                     class="fa fa-search" aria-hidden="true"
                                     (click)="search($event)"></i></button>
                         </div>
@@ -33,6 +33,7 @@
                         <th>ID</th>
                         <th>Name</th>
                         <th>Category</th>
+                        <th>Position</th>
                         <th>Price</th>
                         <th>Actions</th>
                     </thead>
@@ -41,6 +42,7 @@
                             <td>{{ data.id }}</td>
                             <td>{{ data.product_name }}</td>
                             <td>{{ data.category_name }}</td>
+                            <td>{{ data.item_position }}</td>
                             <td>₹{{ data.price?.toFixed(2) }}</td>
                             <td>
                                 <button ngbTooltip="Edit" class="btn btn-info rounded-circle shadow mr-1 btn-sm"

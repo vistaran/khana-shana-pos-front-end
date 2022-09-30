@@ -101,7 +101,7 @@ export class SalesComponent implements OnInit {
 
       this.getItems(this.itemDetail);
 
-      if(print == true) {
+      if (print == true) {
         this.openInvoice();
       }
 
@@ -274,15 +274,18 @@ export class SalesComponent implements OnInit {
       <p class="text-align m-0">Mo.: 6351637510</p>
       <p class="text-align m-0">Email: myjamanvaar@gmail.com</p>
       <p class="text-align">Thank you! Please visit again.</p>
-      <p class="text-align" style="font-size: 15px">&#128578;</p>
+      <p class="text-align" style="font-size: 25px; color: black; filter: grayscale(1);">&#128578;</p>
     </body>
   </html>
   `;
       let invoice = window.open("", "MsgWindow", "");
       invoice?.document.write(htmlContent);
-      invoice?.print();
-      invoice?.focus();
-      invoice?.close();
+      setTimeout(() => {
+        invoice?.print();
+        invoice?.focus();
+        invoice?.close();
+      });
+
     }
   }
 }
