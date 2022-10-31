@@ -1,6 +1,6 @@
 <sb-layout-dashboard>
     <div class="card mt-4">
-        <h1 class="card-header">Edit Category</h1>
+        <h1 class="card-header bg-gradient text-white">Edit Category</h1>
         <form [formGroup]="editCategoryForm">
             <div class="container-fluid">
                 <h2 class="card-header mt-4 pb-2">General</h2>
@@ -49,7 +49,7 @@
                         <div class="form-group required">
                             <label class="required">Display Mode</label><br />
                             <select name="display_mode" formControlName="display_mode" class="form-control">
-                                <option *ngFor="let item of displayMode" value="{{item.name}}">{{ item.name }}</option>
+                                <option *ngFor="let item of displayMode">{{ item }}</option>
                             </select>
                             <div *ngIf="displayMod?.touched && displayMod?.invalid" class="alert alert-danger">
                                 <div *ngIf="displayMod?.errors?.required">Display Mode is required.</div>
@@ -59,7 +59,7 @@
 
                     <div class="col">
                         <div class="form-group">
-                            <label class="required">Description<span class="text-secondary">(optional)</span></label>
+                            <label class="required">Description<span class="text-secondary"> (optional)</span></label>
                             <textarea type="text" formControlName="decription" placeholder="Add Description"
                                 class="form-control"></textarea>
                             <!-- <div *ngIf="description?.touched && description?.invalid" class="alert alert-danger">
@@ -86,7 +86,7 @@
                         <div class="form-group required">
                             <label for="img" class="">Image</label>
                             <input type="file" id="img" name="image" accept="image/*" formControlName="image"
-                                class="form-control" />
+                                class="form-control p-1" />
                                 <div *ngIf="image?.touched && image?.invalid" class="alert alert-danger">
                                     <div *ngIf="image?.errors?.required">Image is required.</div>
                                 </div>
@@ -98,7 +98,7 @@
                         <div class="form-group required">
                             <label for="img2">Category Logo</label>
                             <input type="file" id="img2" name="category_logo" accept="image/*"
-                                formControlName="category_logo" class="form-control" />
+                                formControlName="category_logo" class="form-control p-1" />
                                 <div *ngIf="category_logo?.touched && category_logo?.invalid" class="alert alert-danger">
                                     <div *ngIf="category_logo?.errors?.required">Category Logo is required.</div>
                                 </div>
@@ -196,7 +196,7 @@
                     </div>
                 </div>
 
-                <button [disabled]="!editCategoryForm.valid" type="submit" class="btn btn-primary mb-4 float-right"
+                <button type="submit" class="btn btn-primary mb-4 float-right"
                     (click)="updateData(editCategoryForm.value)">
                     Update
                 </button>

@@ -16,8 +16,8 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
   // For getting products data
-  getProducts(): Observable<ProductData> {
-    return this.http.get<ProductData>(this.url);
+  getProducts(page: number): Observable<ProductData> {
+    return this.http.get<ProductData>(this.url + '?page=' + page);
   }
 
   // For deleting products data
@@ -42,5 +42,9 @@ export class ProductService {
 
   editPatchData(id: any):Observable<Data> {
     return this.http.get<Data>(this.url + '/' + id)
+  }
+
+  getLastPosition() {
+    return this.http.get(this.url + '/last_position')
   }
 }

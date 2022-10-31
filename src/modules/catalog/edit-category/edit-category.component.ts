@@ -21,9 +21,7 @@ export class EditCategoryComponent implements OnInit {
   id: any;
   status = ['active', 'inactive'];
   visibleInMenu = ['Yes', 'No'];
-  displayMode = [
-    {name: 'Products and Descrpition'}
-  ];
+  displayMode = ['Products and Descrpition'];
   parentCategory = ['Yoga', 'Badminton'];
   parentCategroryData: any
   parentCategoryId: any
@@ -92,18 +90,18 @@ export class EditCategoryComponent implements OnInit {
   ngOnInit(): void {
 
     this.editCategoryForm = this.fb.group({
-      name: [''],
+      name: ['', [Validators.required]],
       visible_in_menu: [0],
-      position: [''],
+      position: ['', [Validators.required]],
       display_mode: [0],
       decription: [''],
-      attributes: [0,[Validators.required]],
+      attributes: [0, [Validators.required]],
       image: ['', [Validators.required]],
       category_logo: ['', [Validators.required]],
       // parent_category: [''],
       meta_title: ['', [Validators.required]],
       slug: ['', [Validators.required]],
-      meta_description: ['', [Validators.required]],
+      meta_description: [''],
       meta_keyword: ['', [Validators.required]],
       status: [0, [Validators.required]],
     });
@@ -114,18 +112,47 @@ export class EditCategoryComponent implements OnInit {
     this.categoryService.getEditCategoryData(this.id).subscribe((data: any) => {
       this.editCategoryForm.patchValue({
         name: data.show_data.name,
-      visible_in_menu: Number(data.show_data.visible_in_menu),
-      position: data.show_data.position,
-      display_mode: Number(data.show_data.display_mode),
-      decription: data.show_data.decription,
-      attributes: Number(data.show_data.attributes),
-      meta_title: data.show_data.meta_title,
-      slug: data.show_data.slug,
-      meta_description: data.show_data.meta_description,
-      meta_keyword: data.show_data.meta_keyword,
-      status: Number(data.show_data.status),
+        // visible_in_menu: Number(data.show_data.visible_in_menu),
+        position: data.show_data.position,
+        // display_mode: Number(data.show_data.display_mode),
+        decription: data.show_data.decription,
+        attributes: data.show_data.attributes,
+        meta_title: data.show_data.meta_title,
+        slug: data.show_data.slug,
+        meta_description: data.show_data.meta_description,
+        meta_keyword: data.show_data.meta_keyword,
+        // status: data.show_data.status
       })
-      console.log(data)
+
+      this.visibleInMenu.forEach(element => {
+        if(element == data.show_data.visible_in_menu) {
+          this.editCategoryForm.patchValue({
+            visible_in_menu: element
+          })
+        }
+      })
+
+      this.displayMode.forEach(element => {
+        if(element == data.show_data.display_mode) {
+          this.editCategoryForm.patchValue({
+            display_mode: element
+          })
+        }
+      })
+
+      this.status.forEach(element => {
+        if(element == data.show_data.status) {
+          this.editCategoryForm.patchValue({
+            status: element
+          })
+        }
+      })
+
+      // this.editCategoryForm.get('visible_in_menu')?.setValue(data.show_data.visible_in_menu)
+      // this.editCategoryForm.get('display_mode')?.setValue(data.show_data.display_mode)
+
+
+      // console.log(data)
     })
     this.getParentCategrory()
     this.getAttributesData()
@@ -143,13 +170,20 @@ export class EditCategoryComponent implements OnInit {
 
   // For attributes dropdown
   getAttributesData() {
-    this.attributeService.getAttributesData(this.page).subscribe(data =>{
+    this.attributeService.getAttributesData(this.page).subscribe(data => {
       this.attributesData = data.Attributes.data
     })
   }
 
   // For submitting edit category form data
   updateData(data: any) {
+
+    if(this.editCategoryForm.invalid) {
+      this.editCategoryForm.markAllAsTouched();
+      alert('Please fill all the required fields');
+      return;
+    }
+
     this.categoryService.editCategory(this.id, data).subscribe(data => {
       console.log('Data updated successfully! ', data)
       this.router.navigate(['/catalog/categories']);

@@ -15,6 +15,11 @@ import { UserDataService } from '../user-data.service';
 export class AddUserComponent implements OnInit {
     addUserForm!: FormGroup;
     outletList: any;
+    showValidations = false;
+    file: any;
+
+    imageUrl = 'image\avatardefault_92824.png';
+    fileToUpload!: File;
 
     // For Validations
     get userName() {
@@ -91,53 +96,126 @@ export class AddUserComponent implements OnInit {
 
     getOutletData() {
         this.outletService.getOutletData(1).subscribe(result => {
-            this.outletList = result.outlets.data;
+            this.outletList = result.outlets.data.sort(function (a: any, b: any) {
+                const nameA = a.outlet_name.toUpperCase(); // ignore upper and lowercase
+                const nameB = b.outlet_name.toUpperCase(); // ignore upper and lowercase
+                if (nameA < nameB) {
+                    return -1;
+                }
+                if (nameA > nameB) {
+                    return 1;
+                }
+
+                // names must be equal
+                return 0;
+            });;
 
             this.addUserForm.get('outlet')?.setValue(this.outletList[0].id)
         })
     }
 
-    // onUploadCoverPic() {
-    //     const coverPicFormData = new FormData();
-    //     coverPicFormData.append('cover_photo', this.coverPicFile);
-    //     coverPicFormData.append('user_id', this.user_id);
+    handleFileInput(file: FileList) {
+        this.fileToUpload = file.item(0) as File;
 
-    //     // Make http post request over api
-    //     // with formData as req
-    //     this.loadingCoverPic = !this.loadingCoverPic;
+        const reader = new FileReader()
+        // reader.readAsDataURL(this.imgData)
+        reader.onload = (event: any) => {
+            this.imageUrl = event.target.result;
+            // console.log(reader.result);
+        }
+        reader.readAsDataURL(this.fileToUpload)
+        console.log('imageUrl', this.imageUrl);
 
-    //     console.log('this.file1', this.file);
-    //     this.usersServices.uploadUserCoverPic(coverPicFormData).subscribe(
-    //       (event: any) => {
-    //         console.log(event);
+    }
 
-    //         if (typeof event === 'object') {
-    //           // Short link via api response
-    //           this.shortLink = event.link;
-    //           this.loadingCoverPic = false; // Flag variable
-    //           // window.location.reload();
-    //           this.SpinnerService.show();
-    //           this.initialDetails();
-    //           this.SpinnerService.hide();
-    //         }
-    //       },
-    //       (err) => {
-    //         this.toastr.error(JSON.stringify(err.error.message));
-    //       }
-    //     );
-    //     this.ngOnInit();
-    //   }
+    onChange(event: any) {
+
+        console.log('event', event);
+
+
+        if (event.target && event.target.files && event.target.files.length > 0) {
+            this.file = event.target.files[0];
+            console.log(this.file);
+
+            const img = new Image();
+            img.src = window.URL.createObjectURL(event.target.files[0]);
+
+            //   img.onload = () => {
+            //     // To calculate Aspect ratio
+            //     function gcd(a, b) {
+            //       return b == 0 ? a : gcd(b, a % b);
+            //     }
+            //     var r = gcd(img.width, img.height);
+            //     this.aspectRatio = img.height / r == 9 && img.width / r == 16;
+            //     console.log('Aspect     = ', img.height / r, ':', img.width / r);
+            //     console.log('Aspect allowed  = ', this.aspectRatio);
+
+            //     if (!this.aspectRatio) {
+            //       this.file = null;
+            //     } else {
+            //       this.onUpload();
+            //     }
+            //   };
+
+            console.log('HERE IF');
+            console.table(this.file);
+        } else {
+            console.log('HERE ELSE');
+            this.file = event[0].file;
+        }
+    }
+
+    validateNumber(event: any) {
+        // const keyCode = event.keyCode;
+
+        // const excludedKeys = [8, 9, 37, 39, 46];
+
+        // if (!((keyCode >= 48 && keyCode <= 57) ||
+        //     (keyCode >= 96 && keyCode <= 105) ||
+        //     (excludedKeys.includes(keyCode)))) {
+        //     event.preventDefault();
+        // }
+
+        var inp = String.fromCharCode(event.keyCode);
+
+        if (/[0-9]/.test(inp)) {
+          return true;
+        } else {
+          event.preventDefault();
+          return false;
+        }
+    }
 
     // For submitting add user form data
     onSubmit(data: any) {
+
+
+        if (this.addUserForm.invalid) {
+            alert('Please fill the required fileds!');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('first_name', data.first_name);
+        formData.append('lastname', data.lastname);
+        formData.append('username', data.username);
+        formData.append('email', data.email);
+        formData.append('password', data.password);
+        formData.append('confirm_password', data.confirm_password);
+        formData.append('outlet', data.outlet);
+        // formData.append('outlet_name', data.outlet_name);
+        formData.append('phone_no', data.phone_no);
+        formData.append('user_avatar', this.file);
+        formData.append('status', data.status);
+
         this.userService
-            .postUserData(data)
+            .postUserData(formData)
             .subscribe((result: any) => {
                 console.log(result)
-                this.toast.success('Success', 'Added Successfully.')
+                this.toast.success('Success', 'Added Successfully.');
                 this.route.navigate(['/pos/users'])
             }, err => {
-                this.toast.error('Error', 'Server error.')
+                this.toast.error('Error', 'Server error.');
             });
         console.log('Form Submitted', (data));
     }

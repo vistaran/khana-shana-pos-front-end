@@ -14,8 +14,8 @@
                                 <input class="form-control py-4" id="inputEmailAddress" type="email"
                                     name="email" formControlName="email" placeholder="Enter email address"
                                     [class.is-invalid]="email?.invalid && email?.touched" />
-                                <div *ngIf="email?.touched && email?.invalid" class="text-danger">
-                                    <small *ngIf="email?.errors?.required">Email is required.</small>
+                                <div *ngIf="email?.touched && email?.invalid" >
+                                    <small class="text-danger" *ngIf="email?.errors?.required">Email is required.</small>
                                 </div>
                             </div>
 
@@ -24,14 +24,14 @@
                                 <input class="form-control py-4" id="password" type="password" name="password"
                                     placeholder="Enter password" formControlName="password"
                                     [class.is-invalid]="password?.invalid && password?.touched" />
-                                <div *ngIf="password?.touched && password?.invalid" class="text-danger">
-                                    <small *ngIf="password?.errors?.required">Password is required.</small>
+                                <div *ngIf="password?.touched && password?.invalid">
+                                    <small class="text-danger" *ngIf="password?.errors?.required">Password is required.</small>
                                 </div>
                             </div>
 
                             <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0"><a
                                     class="small" routerLink="/auth/forgot-password">Forgot Password?</a>
-                                <button [disabled]="!loginForm.valid" class="btn btn-primary"
+                                <button (click)="showValidations = true" class="btn btn-primary"
                                     type="submit">Login</button>
                             </div>
                         </form>

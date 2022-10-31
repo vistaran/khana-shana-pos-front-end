@@ -3,17 +3,18 @@
     <div class="d-flex justify-content-center">
 
         <div class="card shadow w-75 mt-2">
-            <h1 class="card-header mb-3">Edit Product</h1>
+            <h1 class="card-header bg-gradient text-white mb-3">Edit Product</h1>
             <form [formGroup]="editProductForm">
 
                 <div class="container justify-content-between">
                     <!-- <h2 class="card-header mt-4 pb-2">General</h2> -->
                     <div class="row  card-body justify-content-around">
 
-                        <div class="col-6 col-sm-4">
+                        <div class="col-4 col-sm-4">
                             <div class="form-group required">
                                 <label class="required">Name</label><br />
-                                <input type="text" placeholder="Enter Name" formControlName="product_name" class="form-control" autofocus/>
+                                <input type="text" placeholder="Enter Name" formControlName="product_name"
+                                    class="form-control" autofocus />
                                 <div *ngIf="name?.touched && name?.invalid" class="alert alert-danger">
                                     <div *ngIf="name?.errors?.required">Name is required.</div>
                                 </div>
@@ -21,14 +22,16 @@
                         </div>
 
 
-                        <div class="col-6 col-sm-4">
+                        <div class="col-4 col-sm-4">
                             <div class="form-group required">
                                 <label class="required">Price</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text form-control" id="inputGroup">₹</span>
                                     </div>
-                                    <input type="number" placeholder="Enter Price" formControlName="price" class="form-control" />
+                                    <input type="number" placeholder="Enter Price" min="0"
+                                        oninput="validity.valid||(value='');" formControlName="price"
+                                        class="form-control" />
 
                                 </div>
                                 <div *ngIf="price?.touched && price?.invalid" class="alert alert-danger">
@@ -37,10 +40,18 @@
                             </div>
                         </div>
 
+                        <div class="col-4 col-sm-4">
+                            <div class="form-group">
+                                <label class="required">Position</label><br />
+                                <input placeholder="Enter Name" type="text" formControlName="item_position"
+                                    class="form-control" />
+                            </div>
+                        </div>
+
                     </div>
 
                     <div class="row  card-body justify-content-around">
-                        <div class="col-6 col-sm-4">
+                        <div class="col-4 col-sm-4">
                             <div class="form-group required">
                                 <label class="required">Category</label>
                                 <select name="status" formControlName="category_id" class="form-control">
@@ -53,19 +64,24 @@
                             </div>
                         </div>
 
-                        <div class="col-6 col-sm-4">
+                        <div class="col-4 col-sm-4">
                             <div class="form-group">
-                                <label class="required">Description<span class="text-secondary">(optional)</span></label><br />
-                                <textarea type="text" placeholder="Add Description" formControlName="description" class="form-control"></textarea>
+                                <label class="required">Description<span
+                                        class="text-secondary">(optional)</span></label><br />
+                                <textarea type="text" placeholder="Add Description" formControlName="description"
+                                    class="form-control"></textarea>
                                 <!-- <div *ngIf="description?.touched && description?.invalid" class="alert alert-danger">
                                     <div *ngIf="description?.errors?.required">Description is required.</div>
                                 </div> -->
                             </div>
 
                         </div>
+
+                        <div class="col-4 col-sm-4"></div>
+
                     </div>
 
-                    <button [disabled]="!editProductForm.valid" type="submit" class="btn btn-primary mb-4 float-right"
+                    <button type="submit" class="btn btn-primary mb-4 float-right"
                         (click)="updateData(editProductForm.value)">
                         Update
                     </button>

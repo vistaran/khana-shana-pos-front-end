@@ -89,8 +89,8 @@ export class AddItemComponent implements OnInit {
   getUOMData() {
     this.unitService.getUOMData(this.page).subscribe(data => {
       this.unitData = data.units.data.sort(function (a, b) {
-        const nameA = a.unit_name.toUpperCase(); // ignore upper and lowercase
-        const nameB = b.unit_name.toUpperCase(); // ignore upper and lowercase
+        const nameA = a.unit.toUpperCase(); // ignore upper and lowercase
+        const nameB = b.unit.toUpperCase(); // ignore upper and lowercase
         if (nameA < nameB) {
           return -1;
         }
@@ -115,7 +115,7 @@ export class AddItemComponent implements OnInit {
     this.itemService.postItemsData(data)
       .subscribe((result: any) => {
         console.log(result)
-        this.toast.success('Success', 'Added Successfully.')
+        this.toast.success('Success', 'Item Added Successfully.')
         this.router.navigate(['/items']);
       }, err => {
         this.toast.error('Error', 'Server error.')

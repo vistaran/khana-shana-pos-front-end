@@ -54,24 +54,53 @@ export class AddProductComponent implements OnInit {
     this.addProductForm = this.fb.group({
       product_name: ['', [Validators.required]],
       price: ['', [Validators.required]],
+      item_position: [''],
       category_id: [null, [Validators.required]],
       description: ['']
     });
-    this.getCategoryData()
+    this.getCategoryData();
+    this.getLastPosition();
   }
 
   // For Category dropdown
   getCategoryData() {
     this.categoryService.getCategoriesData(this.page).subscribe(data => {
-      this.categoryData = data.category.data
+      this.categoryData = data.category.data.sort(function (a, b) {
+        const nameA = a.name.toUpperCase(); // ignore upper and lowercase
+        const nameB = b.name.toUpperCase(); // ignore upper and lowercase
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+
+        // names must be equal
+        return 0;
+      });;
       this.addProductForm.patchValue({
         category_id: this.categoryData[0].id
       })
     })
   }
 
+  getLastPosition() {
+    this.products.getLastPosition().subscribe((data: any) => {
+      console.log(data, 'p[os');
+      this.addProductForm.patchValue({
+        item_position: (Number(data.last_position) + 1)
+      })
+    })
+  }
+
   // For submitting add product form data
   onSubmit(data: any) {
+
+    if (this.addProductForm.invalid) {
+      alert('Please fill all the required fields.');
+      this.addProductForm.markAllAsTouched();
+      return;
+    }
 
     this.categoryData.forEach((g: any) => {
       if (g.id == data.category_id) {
@@ -82,6 +111,7 @@ export class AddProductComponent implements OnInit {
     const obj = {
       product_name: data.product_name,
       price: data.price,
+      item_position: data.item_position,
       category_id: data.category_id,
       category_name: this.category_name,
       description: data.description,

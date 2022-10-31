@@ -2,7 +2,7 @@
     <div class="d-flex justify-content-center">
 
         <div class="card shadow w-75 mt-3">
-            <h1 class="card-header mb-3 text-center ">Edit Unit of Measurement</h1>
+            <h1 class="card-header bg-gradient text-white mb-3 text-center ">Edit Unit of Measurement</h1>
             <form [formGroup]="editUomForm">
                 <div class="container">
                     <!-- <h2 class="card-header mt-4 pb-2">General</h2> -->
@@ -10,9 +10,11 @@
                         <div class="col-6 col-sm-4">
                             <div class="form-group required">
                                 <label class="required">Name</label>
-                                <input type="text" formControlName="unit_name" placeholder="Enter Name" class="form-control" autofocus/>
-                                <div *ngIf="name?.touched && name?.invalid" class="alert alert-danger">
-                                    <div *ngIf="name?.errors?.required">Name is required.</div>
+                                <input type="text" formControlName="unit_name" placeholder="Enter Name"
+                                    class="form-control" autofocus />
+                                <div *ngIf="showValidations || name?.invalid && name?.touched">
+                                    <div class="alert alert-danger" *ngIf="name?.errors?.required">Name is required.
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -20,16 +22,18 @@
                         <div class="col-6 col-sm-4">
                             <div class="form-group required">
                                 <label class="required">Unit</label>
-                                <input type="text" formControlName="unit" placeholder="Enter Unit" class="form-control" />
-                                <div *ngIf="unit?.touched && unit?.invalid" class="alert alert-danger">
-                                    <div *ngIf="unit?.errors?.required">Unit is required.</div>
+                                <input type="text" formControlName="unit" placeholder="Enter Unit"
+                                    class="form-control" />
+                                <div *ngIf="showValidations || unit?.invalid && unit?.touched">
+                                    <div class="alert alert-danger" *ngIf="unit?.errors?.required">Unit is required.
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                     </div>
 
-                    <button [disabled]="!editUomForm.valid" type="submit" (click)="updateData(editUomForm.value)"
+                    <button (click)="showValidations = true" type="submit" (click)="updateData(editUomForm.value)"
                         class="btn btn-primary mb-4 float-right">
                         Update
                     </button>

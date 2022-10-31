@@ -11,57 +11,64 @@
                         <div class="d-flex justify-content-between mb-4">
 
                             <div class="input-group rounded w-25">
-                                <input type="search" class="form-control rounded" aria-label="Search"
-                                    (keyup)="search($event)" placeholder="Search" [(ngModel)]="searchValue" />
-                                <span class="input-group-text border-0" id="search-addon">
-                                    <i class="fas fa-search" aria-hidden="true" (click)="search($event)"></i>
-                                </span>
+                                <input class="form-control amber-border" class="form-control" type="text"
+                                    aria-label="Search" (keyup)="search($event)" placeholder="Search"
+                                    [(ngModel)]="searchValue">
+                                <div class="input-group-append">
+                                    <button class="btn input-group-text bg-white text-dark amber lighten-3 form-control" id="basic-text1"><i
+                                            class="fa fa-search" aria-hidden="true"
+                                            (click)="search($event)"></i></button>
+                                </div>
                             </div>
                             <button (click)="onClick()" class="btn btn-primary float-right">
                                 Add User
                             </button>
 
                         </div>
-                        <table class="table table-bordered table-striped">
-                            <thead class="head">
-                                <th>UserId</th>
-                                <th>Avatar</th>
-                                <th>User Name</th>
-                                <th>Email</th>
-                                <th>Outlet Name</th>
-                                <th>Status</th>
-                                <th>Created At</th>
-                                <th>Actions</th>
-                            </thead>
-                            <tbody *ngIf="!showloader">
-                                <tr *ngFor="let data of userData">
-                                    <td>{{ data.user_id }}</td>
-                                    <td class="justify-content-center"><img class="img-xs rounded-circle"
-                                            src="{{data.user_avatar}}"
-                                            onerror="this.src='https://cdn.icon-icons.com/icons2/1378/PNG/128/avatardefault_92824.png'">
-                                    </td>
-                                    <td>{{ data.username }}</td>
-                                    <td>{{ data.email }}</td>
-                                    <td>{{ data.Outlet_name }}</td>
-                                    <td *ngIf="data.status == 0">active</td>
-                                    <td *ngIf="data.status == 1">inactive</td>
-                                    <td>{{ data.created_at | date: 'dd/MM/yyyy'}}</td>
-                                    <td>
-                                        <button ngbTooltip="Edit" class="btn btn-info mr-2"
-                                            [routerLink]="['/pos/edit/edituser/' + data.user_id]"><i
-                                                class="fa fa-pencil-square-o fa-lg"></i></button>
-
-                                        <button id="remove" ngbTooltip="Delete" (click)="deleteRow(data.user_id)"
-                                            class="btn btn-danger"><i class="fa fa-trash-o fa-lg mx-auto"></i></button>
-                                    </td>
-                                </tr>
-                                <tr *ngIf="!length && !showloader">
-                                    <td colspan="8" class="text-center">
-                                        No records found.
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <!-- <div > -->
+                            <table class="table table-bordered    shadow">
+                                <thead class="head bg-gradient text-white">
+                                    <th>UserId</th>
+                                    <th>Avatar</th>
+                                    <th>User Name</th>
+                                    <th>Email</th>
+                                    <th>Outlet Name</th>
+                                    <th>Status</th>
+                                    <th>Created At</th>
+                                    <th>Actions</th>
+                                </thead>
+                                <tbody *ngIf="!showloader">
+                                    <tr *ngFor="let data of userData">
+                                        <td>{{ data.user_id }}</td>
+                                        <td class="justify-content-center"><img class="img-xs rounded-circle"
+                                                [src]="data.user_avatar"
+                                                onerror="this.src='https://cdn.icon-icons.com/icons2/1378/PNG/128/avatardefault_92824.png'">
+                                        </td>
+                                        <td>{{ data.username }}</td>
+                                        <td>{{ data.email }}</td>
+                                        <td>{{ data.Outlet_name }}</td>
+                                        <td *ngIf="data.status == 0">active</td>
+                                        <td *ngIf="data.status == 1">inactive</td>
+                                        <td *ngIf="data.status == 'active'">active</td>
+                                        <td *ngIf="data.status == 'inactive'">inactive</td>
+                                        <td>{{ data.created_at | date: 'dd/MM/yyyy'}}</td>
+                                        <td>
+                                            <button ngbTooltip="Edit" class="btn btn-info rounded-circle shadow mr-2 btn-sm"
+                                                [routerLink]="['/pos/edit/edituser/' + data.user_id]"><i
+                                                    class="fa fa-pencil-square-o fa-lg"></i></button>
+    
+                                            <button id="remove" ngbTooltip="Delete" (click)="deleteRow(data.user_id)"
+                                                class="btn rounded-circle shadow btn-danger btn-sm"><i class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="!length && !showloader">
+                                        <td colspan="8" class="text-center">
+                                            No records found.
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        <!-- </div> -->
 
                         <div *ngIf="showloader" class="d-flex justify-content-center pt-5">
                             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">

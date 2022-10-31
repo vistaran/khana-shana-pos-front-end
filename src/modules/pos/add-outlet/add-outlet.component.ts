@@ -15,7 +15,8 @@ import { OutletDataService } from './../outlet-data.service';
 export class AddOutletComponent implements OnInit {
 
   addOutletForm!: FormGroup;
-  myData: any = []
+  // myData: any = []
+  showValidations = false;
 
   inventorySource = ['default'];
   status = ['active', 'inactive'];
@@ -66,20 +67,50 @@ export class AddOutletComponent implements OnInit {
     this.addOutletForm = this.fb.group({
       name: ['', [Validators.required]],
       address: ['', [Validators.required]],
-      country: ['India', [Validators.required]],
+      country: ['', [Validators.required]],
       state: ['', [Validators.required]],
       city: ['', [Validators.required]],
-      status: ['', [Validators.required]],
-      postcode: ['', [Validators.required]],
-      inventory_source: ['', [Validators.required]],
+      status: [0, [Validators.required]],
+      postcode: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(6), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
+      inventory_source: ['default', [Validators.required]],
     });
 
-    this.getCountryList()
+    // this.getCountryList()
   }
 
+  validateNumber(event: any) {
+    // const keyCode = event.keyCode;
+
+    // const excludedKeys = [8, 9, 37, 39, 46];
+
+    // if (!((keyCode >= 48 && keyCode <= 57) ||
+    //   (keyCode >= 96 && keyCode <= 105) ||
+    //   (excludedKeys.includes(keyCode)))) {
+    //   event.preventDefault();
+    // }
+
+    var inp = String.fromCharCode(event.keyCode);
+
+    if (/[0-9]/.test(inp)) {
+      return true;
+    } else {
+      event.preventDefault();
+      return false;
+    }
+  }
 
   // For submitting add outlet form data
   onSubmit(data: any) {
+
+    console.log(data);
+    
+
+    if (this.addOutletForm.invalid) {
+      this.addOutletForm.markAllAsTouched();
+      alert('Please fill all the required fields!');
+      return;
+    }
+
     this.outletService
       .postOutletData(data)
       .subscribe((result: any) => {
@@ -91,17 +122,17 @@ export class AddOutletComponent implements OnInit {
     console.log('Form Submitted', (data));
   }
 
-  getCountryList() {
-    this.countries.getCountryList().subscribe((resp: any) => {
-      console.log(resp);
-      
-      const countries = [];
-      for (let i = 0; i < resp.length; ++i) {
-        const country = resp[i];
-        countries.push({ text: country.text, value: country.value });
-      }
-      this.myData = countries;
-    })
-  }
+  // getCountryList() {
+  //   this.countries.getCountryList().subscribe((resp: any) => {
+  //     console.log(resp);
+
+  //     const countries = [];
+  //     for (let i = 0; i < resp.length; ++i) {
+  //       const country = resp[i];
+  //       countries.push({ text: country.text, value: country.value });
+  //     }
+  //     this.myData = countries;
+  //   })
+  // }
 
 }

@@ -1,6 +1,6 @@
 <sb-layout-dashboard>
     <div class="container">
-        <div class="row">
+        <div class="row pt-3">
             <div class="col">
                 <h2>Expense By Item Group</h2>
 
@@ -9,7 +9,7 @@
                     <div class="col d-flex">
 
                         <div class="card mt-2 ">
-                            <div class="card-header text-center">Fliter By Date</div>
+                            <div class="card-header text-center bg-dark text-white">Fliter By Date</div>
                             <div class="card-body">
                                 <div class="dp-hidden position-absolute">
                                     <div class="input-group">
@@ -30,31 +30,36 @@
                                 <div class="row row-cols-sm-auto">
                                     <div class="col">
                                         <div class="input-group">
-                                            <input #dpFromDate class="form-control" placeholder="yyyy-mm-dd"
-                                                name="dpFromDate" [value]="formatter.format(fromDate)"
+                                            <input #dpFromDate class="form-control amber-border"
+                                                placeholder="yyyy-mm-dd" name="dpFromDate"
+                                                [value]="formatter.format(fromDate)"
                                                 (input)="fromDate = validateInput(fromDate, dpFromDate.value)">
-                                            <button class="btn btn-outline-secondary calendar text-dark"
-                                                (click)="datepicker.toggle()" type="button">
-                                                <i class="fa fa-calendar fa-lg mx-auto bg-info"></i>
-                                            </button>
+                                            <div class="input-group-append">
+                                                <button class="btn input-group-text bg-white text-dark amber lighten-3 form-control"
+                                                    (click)="datepicker.toggle()" type="button">
+                                                    <i class="fa fa-calendar fa-lg mx-auto bg-info"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="col">
                                         <div class="input-group">
-                                            <input #dpToDate class="form-control" placeholder="yyyy-mm-dd"
+                                            <input #dpToDate class="form-control amber-border" placeholder="yyyy-mm-dd"
                                                 name="dpToDate" [value]="formatter.format(toDate)"
                                                 (input)="toDate = validateInput(toDate, dpToDate.value)">
-                                            <button class="btn btn-outline-secondary calendar text-dark"
-                                                (click)="datepicker.toggle()" type="button">
-                                                <i class="fa fa-calendar fa-lg mx-auto"></i>
-                                            </button>
+                                            <div class="input-group-append">
+                                                <button class="btn input-group-text bg-white text-dark amber lighten-3 form-control"
+                                                    (click)="datepicker.toggle()" type="button">
+                                                    <i class="fa fa-calendar fa-lg mx-auto"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <hr />
 
-                                <div class="row row-cols-sm-auto mt-2">
+                                <!-- <div class="row row-cols-sm-auto mt-2">
 
                                     <div class="col">
                                         <button type="button" class="btn btn-secondary" (click)="showDate=true">
@@ -78,7 +83,7 @@
                                         </div>
                                     </div>
 
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -86,8 +91,8 @@
 
 
 
-                <table class="table table-bordered table-striped table-sm table-hover">
-                    <thead class="head">
+                <table class="table table-bordered shadow table-sm  ">
+                    <thead class="head bg-dark text-white">
                         <th>No.</th>
                         <th>Item Group Name</th>
                         <th>Subtotal</th>

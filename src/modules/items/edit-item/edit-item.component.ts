@@ -91,8 +91,8 @@ export class EditItemComponent implements OnInit {
   getUOMData() {
     this.unitService.getUOMData(this.page).subscribe(data => {
       this.unitData = data.units.data.sort(function (a, b) {
-        const nameA = a.unit_name.toUpperCase(); // ignore upper and lowercase
-        const nameB = b.unit_name.toUpperCase(); // ignore upper and lowercase
+        const nameA = a.unit.toUpperCase(); // ignore upper and lowercase
+        const nameB = b.unit.toUpperCase(); // ignore upper and lowercase
         if (nameA < nameB) {
           return -1;
         }
@@ -112,7 +112,7 @@ export class EditItemComponent implements OnInit {
     this.itemService.editItem(this.id, data).subscribe(data => {
       console.log('Data updated successfully! ', data);
       this.router.navigate(['/items']);
-      this.toast.success('Success', 'Edited successfully.')
+      this.toast.success('Success', 'Item Edited successfully.')
     }, err => {
       this.toast.error('Error', 'Server error.')
     });

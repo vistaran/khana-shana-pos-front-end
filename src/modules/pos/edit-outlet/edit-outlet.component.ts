@@ -16,7 +16,8 @@ import { OutletDataService } from './../outlet-data.service';
 export class EditOutletComponent implements OnInit {
     editOutletForm!: FormGroup
     id: any
-    myData: any
+    // myData: any
+    showValidations = false;
 
     inventory_source = ['default'];
     status = ['active', 'inactive'];
@@ -59,42 +60,69 @@ export class EditOutletComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private toast: AppToastService,
-        private http: HttpClient,
-        private countries: CountryListService
+        private http: HttpClient
+        // private countries: CountryListService
     ) { }
 
     ngOnInit(): void {
         this.editOutletForm = this.fb.group({
             outlet_name: ['', [Validators.required]],
             outlet_Address: ['', [Validators.required]],
-            country: [null, [Validators.required]],
+            country: ['', [Validators.required]],
             state: ['', [Validators.required]],
             city: ['', [Validators.required]],
-            postcode: ['', [Validators.required]],
+            postcode: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(6), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
             inventory_source: ['', [Validators.required]],
             status: ['', [Validators.required]]
         });
         this.id = this.route.snapshot.params.id
 
         this.outletService.editOutletForm(this.id).subscribe((data: any) => {
-            console.log(data);
 
             this.editOutletForm.patchValue(data)
-            this.editOutletForm.get('country')?.setValue(data.country)
+            // this.editOutletForm.get('country')?.setValue(data.country)
         })
 
-        this.countries.getCountryList().subscribe((resp: any) => {
-            const countries = [];
-            for (let i = 0; i < resp.length; ++i) {
-                const country = resp[i];
-                countries.push({ text: country.text, value: country.value });
-            }
-            this.myData = countries;
-        })
+        // this.countries.getCountryList().subscribe((resp: any) => {
+        //     const countries = [];
+        //     for (let i = 0; i < resp.length; ++i) {
+        //         const country = resp[i];
+        //         countries.push({ text: country.text, value: country.value });
+        //     }
+        //     this.myData = countries;
+        // })
     }
+
+    validateNumber(event: any) {
+        // const keyCode = event.keyCode;
+
+        // const excludedKeys = [8, 9, 37, 39, 46];
+
+        // if (!((keyCode >= 48 && keyCode <= 57) ||
+        //   (keyCode >= 96 && keyCode <= 105) ||
+        //   (excludedKeys.includes(keyCode)))) {
+        //   event.preventDefault();
+        // }
+
+        var inp = String.fromCharCode(event.keyCode);
+
+        if (/[0-9]/.test(inp)) {
+          return true;
+        } else {
+          event.preventDefault();
+          return false;
+        }
+      }
 
     // For submitting edit outlet form data
     updateData(data: any) {
+
+        if (this.editOutletForm.invalid) {
+            this.editOutletForm.markAllAsTouched();
+            alert('Please fill all the required fields!');
+            return;
+        }
+
         const obj = {
             name: data.outlet_name,
             address: data.outlet_Address,
@@ -105,12 +133,12 @@ export class EditOutletComponent implements OnInit {
             inventory_source: data.inventory_source,
             status: data.status
         }
-        console.log(obj);
+        // console.log(obj);
 
         this.outletService.editOutlet(this.id, obj).subscribe((data: any) => {
-            console.log('Data updated successfully! ', data);
+            // console.log('Data updated successfully! ', data);
             this.router.navigate(['/pos/users'], { queryParams: { outlet: true } });
-            this.toast.success('Success', 'Edited successfully.');
+            this.toast.success('Success', 'Outlet Edited successfully.');
         },
             err => {
                 this.toast.error('Error', 'Server error.');

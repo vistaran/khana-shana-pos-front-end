@@ -1,13 +1,13 @@
 <sb-layout-dashboard>
     <div class="card mt-4">
-        <h1 class="card-header">Edit Purchase Order</h1>
+        <h1 class="card-header bg-gradient text-white">Edit Purchase Order</h1>
         <form [formGroup]="editOrderForm">
             <div class="container-fluid">
-                <h2 class="card-header mt-4 pb-2">General</h2>
+                <h2 class="card-header bg-light shadow mt-4 pb-2">General</h2>
                 <div class="row card-body">
 
                     <div class="col">
-                        <div class="form-group">
+                        <div class="form-group required">
                             <label class="required">Select Vendor</label>
                             <select name="vendor_id" formControlName="vendor_id" class="form-control" autofocus>
                                 <ng-container *ngFor="let list of vendorData">
@@ -25,7 +25,7 @@
 
 
                     <div class="col">
-                        <div class="form-group">
+                        <div class="form-group required">
                             <label class="required">Select Outlet</label>
                             <select name="outlet_id" formControlName="outlet_id" class="form-control">
                                 <ng-container *ngFor="let list of outletData">
@@ -42,15 +42,18 @@
                     </div>
 
                     <div class="col">
-                        <div class="form-group">
+                        <div class="form-group required">
                             <label class="required">Order Date</label>
                             <div class="input-group">
-                                <input class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker
-                                    #d="ngbDatepicker" formControlName="purchase_date"
+                                <input class="form-control amber-border" placeholder="yyyy-mm-dd" name="dp"
+                                    ngbDatepicker #d="ngbDatepicker" formControlName="purchase_date"
                                     (dateSelect)="onSelectDate($event)">
-                                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
-                                    <i class="fa fa-calendar fa-lg mx-auto"></i>
-                                </button>
+                                <div class="input-group-append">
+                                    <button class="btn input-group-text bg-white text-dark amber lighten-3 form-control"
+                                        (click)="d.toggle()" type="button">
+                                        <i class="fa fa-calendar fa-lg mx-auto"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -61,25 +64,25 @@
                     <div class="col-4">
                         <div class="form-group">
                             <label class="required">Add a Note</label>
-                            <textarea type="text" formControlName="notes" class="form-control"></textarea>
+                            <textarea type="text" formControlName="notes" placeholder="Add note" class="form-control"></textarea>
                         </div>
                     </div>
                 </div>
 
 
-                <h2 class="card-header mt-4 pb-2">Item Details</h2>
+                <h2 class="card-header bg-light shadow mt-4 pb-2">Item Details</h2>
 
                 <button type="button" class="btn btn-primary mt-4 me-2  mb-4 float-right"
-                    (click)="openVerticallyCentered(content)">Add
+                    (click)="openVerticallyCentered(content)" (click)="isInputShown=false;isInputShown2=false">Add
                     Item</button>
 
                 <ng-template #content let-modal>
                     <form [formGroup]="itemsForm">
 
-                        <div class="modal-header">
-                            <h4 class="modal-title">Add Item</h4>
-                            <button type="button" class="btn-close btn-primary" aria-label="Close"
-                                (click)="modal.dismiss('Cross click')">X
+                        <div class="modal-header bg-primary">
+                            <h4 class="modal-title text-light">Add Item</h4>
+                            <button type="button" class="btn-close btn-light btn-xs" aria-label="Close"
+                                (click)="modal.dismiss('Cross click')" (click)="resetItemForm()">X
                             </button>
                         </div>
 
@@ -88,19 +91,19 @@
                             <div class="row card-body">
 
                                 <div class="col">
-                                    <div class="form-group">
+                                    <div class="form-group required">
                                         <label class="required">Select Item Group Name</label>
-                                        <ng-select name="item_group_id" formControlName="item_group_id"
-                                            (ngModelChange)="onSelectGroup($event)" placeholder="Select Item Group Name"
-                                            autofocus>
-
+                                        <select name="item_group_id" formControlName="item_group_id"
+                                            (ngModelChange)="onSelectGroup($event)" class="form-control" autofocus
+                                            placeholder="Select Item Group Name">
+                                            <option value="0" disabled>Select Item Group Name</option>
                                             <ng-container *ngFor="let list of itemGroupsData">
-                                                <ng-option value="{{ list.id }}">
+                                                <option value="{{ list.id }}">
                                                     {{list.group_name
                                                     }}
-                                                </ng-option>
+                                                </option>
                                             </ng-container>
-                                        </ng-select>
+                                        </select>
                                         <div *ngIf="item_group_id?.touched && item_group_id?.invalid"
                                             class="alert alert-danger">
                                             <div *ngIf="item_group_id?.errors?.required">Item Group name is required.
@@ -109,28 +112,28 @@
                                     </div>
                                 </div>
 
+
                                 <!-- <div > -->
 
-                                    <div class="col" [hidden]="!isInputShown">
-                                        <div class="form-group">
-                                            <label class="required">Select Item Name</label>
-                                            <ng-select name="item_id" formControlName="item_id"
-                                                (search)="searchItem($event)" (ngModelChange)="onSelectNameItem($event)"
-                                                placeholder="Select Item Name">
+                                <div class="col" [hidden]="!isInputShown">
+                                    <div class="form-group required">
+                                        <label class="required">Select Item Name</label>
+                                        <ng-select name="item_id" formControlName="item_id"
+                                            (search)="searchItem($event)" (ngModelChange)="onSelectNameItem($event)"
+                                            placeholder="Select Item Name">
 
-                                                <ng-container *ngFor="let list of itemsData">
-                                                    <ng-option value="{{ list.id }}">
-                                                        {{list.item_name
-                                                        }}
-                                                    </ng-option>
-                                                </ng-container>
-                                            </ng-select>
-                                            <div *ngIf="item_id?.touched && item_id?.invalid"
-                                                class="alert alert-danger">
-                                                <div *ngIf="item_id?.errors?.required">Item name is required.</div>
-                                            </div>
+                                            <ng-container *ngFor="let list of itemsData">
+                                                <ng-option value="{{ list.id }}">
+                                                    {{list.item_name
+                                                    }}
+                                                </ng-option>
+                                            </ng-container>
+                                        </ng-select>
+                                        <div *ngIf="item_id?.touched && item_id?.invalid" class="alert alert-danger">
+                                            <div *ngIf="item_id?.errors?.required">Item name is required.</div>
                                         </div>
                                     </div>
+                                </div>
                                 <!-- </div> -->
 
 
@@ -139,7 +142,7 @@
                                     <div class="row card-body">
 
                                         <div class="col">
-                                            <div class="form-group">
+                                            <div class="form-group required">
                                                 <label class="required">Select Unit Name</label>
                                                 <input type="text" formControlName="unit_id" class="form-control"
                                                     value="{{ unit_name }}" />
@@ -162,9 +165,9 @@
                                         </div>
 
                                         <div class="col">
-                                            <div class="form-group">
+                                            <div class="form-group required ">
                                                 <label class="required">Quantity</label>
-                                                <input type="number" formControlName="qty" class="form-control" />
+                                                <input type="number" formControlName="qty" class="form-control" placeholder="Enter quantity"/>
                                                 <div *ngIf="qty?.touched && qty?.invalid" class="alert alert-danger">
                                                     <div *ngIf="qty?.errors?.required">Quantity is required.
 
@@ -182,7 +185,7 @@
                                         <div class="col">
                                             <div class="form-group">
                                                 <label class="required">Add a Note</label>
-                                                <textarea type="text" formControlName="notes"
+                                                <textarea type="text" placeholder="Add note" formControlName="notes"
                                                     class="form-control"></textarea>
                                                 <!-- <div *ngIf="notes?.touched && notes?.invalid" class="alert alert-danger">
                                     <div *ngIf="notes?.errors?.required">Note is required.</div>
@@ -191,9 +194,9 @@
                                         </div>
 
                                         <div class="col">
-                                            <div class="form-group">
+                                            <div class="form-group required">
                                                 <label class="required">Price</label>
-                                                <input type="number" formControlName="price" class="form-control" />
+                                                <input type="number" formControlName="price" class="form-control" placeholder="Enter price"/>
                                                 <div *ngIf="price?.touched && price?.invalid"
                                                     class="alert alert-danger">
                                                     <div *ngIf="price?.errors?.required">Price is required.
@@ -209,17 +212,16 @@
 
                         </div>
 
-                        <div class="modal-footer">
-                            <button type="submit" [disabled]="!itemsForm.valid" class="btn btn-primary"
-                                (click)=" addItemData(itemsForm.value)" (click)="modal.close('Close click')">Save
+                        <div class="modal-footer bg-dark">
+                            <button type="submit" class="btn btn-info btn-sm" (click)=" addItemData(itemsForm.value)">Save
                                 Item</button>
                         </div>
                     </form>
 
                 </ng-template>
 
-                <table class="table table-bordered table-striped">
-                    <thead class="head">
+                <table class="table table-bordered table-sm shadow">
+                    <thead class="head bg-dark text-white">
                         <th>Item Group</th>
                         <th>Item Name</th>
                         <th>Unit Name</th>
@@ -237,23 +239,26 @@
                             <td>{{ data.qty }}</td>
                             <td>₹{{ data.price?.toFixed(2) }}</td>
                             <td>₹{{ (data.qty * data.price)?.toFixed(2) }}</td>
-                            <td>    
-                                <button ngbTooltip="Edit" class="btn btn-info btn-sm mr-2"
-                                    (click)="openVerticallyCentered(content2)" (click)="EditOrderPatchValue(data.item_id)"><i
+                            <td>
+                                <button ngbTooltip="Edit" class="btn btn-info rounded-circle shadow btn-sm mr-2"
+                                    (click)="openVerticallyCentered(content2)"
+                                    (click)="EditOrderPatchValue(data.item_id)"><i
                                         class="fa fa-pencil-square-o"></i></button>
 
-                                <button id="remove" ngbTooltip="Delete" class="btn btn-danger btn-sm"
+                                <button id="remove" ngbTooltip="Delete" class="btn btn-danger rounded-circle shadow btn-sm"
                                     (click)="RemoveOrder(data.item_id)"><i class="fa fa-trash-o mx-auto"></i></button>
                             </td>
                         </tr>
 
                         <tr class="table-sm">
-                            <td colspan="6" class="text-right"><b>Shipping Charges</b></td>
+                            <td colspan="5" class="text-right"><b>Shipping Charges</b></td>
                             <td>
                                 <div class="input-group input-group-sm">
-                                    <input type="number" formControlName="shipping_charge" class="form-control"
+                                    <!-- <input type="number" formControlName="shipping_charge" class="form-control"
                                         aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                                        (keyup)="onKey($event)">
+                                        (change)="onKey($event)" (keyup)="onKey($event)"> -->
+                                        <input type="number" [(ngModel)]="shippingCharge" min="0" oninput="validity.valid||(value='');" class="form-control" [ngModelOptions]="{standalone: true}"
+                                        (change)="onKey($event)">
                                 </div>
                                 <!-- <div *ngIf="shipping_charge?.touched && shipping_charge?.invalid"
                                     class="alert alert-danger">
@@ -263,7 +268,7 @@
                         </tr>
 
                         <tr class="table-sm">
-                            <td colspan="6" class="text-right"><b>Total Amount:</b></td>
+                            <td colspan="5" class="text-right"><b>Total Amount:</b></td>
                             <td>₹{{ total?.toFixed(2) }}</td>
                         </tr>
                     </tbody>
@@ -279,9 +284,9 @@
             <ng-template #content2 let-modal>
                 <form [formGroup]="editItemsForm">
 
-                    <div class="modal-header">
-                        <h4 class="modal-title">Edit Item</h4>
-                        <button type="button" class="btn-close btn-primary" aria-label="Close"
+                    <div class="modal-header bg-primary">
+                        <h4 class="modal-title text-white">Edit Item</h4>
+                        <button type="button" class="btn-light btn-xs" aria-label="Close"
                             (click)="modal.dismiss('Cross click')">X
                         </button>
                     </div>
@@ -291,7 +296,7 @@
                         <div class="row card-body">
 
                             <div class="col">
-                                <div class="form-group">
+                                <div class="form-group required">
                                     <label class="required">Select Item Group Name</label>
                                     <select name="item_group_id" formControlName="item_group_id"
                                         (ngModelChange)="onSelectGroup($event)" class="form-control" autofocus
@@ -314,83 +319,81 @@
 
                             <!-- <div [hidden]="!isInputShown"> -->
 
+                            <div class="col">
+                                <div class="form-group required">
+                                    <label class="required">Select Item Name</label>
+                                    <select name="item_id" formControlName="item_id" (search)="searchItem($event)"
+                                        class="form-control" (ngModelChange)="onSelectNameItem($event)"
+                                        placeholder="Select Item Name">
+
+                                        <ng-container *ngFor="let list of itemsData">
+                                            <option value="{{ list.id }}">
+                                                {{list.item_name
+                                                }}
+                                            </option>
+                                        </ng-container>
+                                    </select>
+                                    <div *ngIf="item_id?.touched && item_id?.invalid" class="alert alert-danger">
+                                        <div *ngIf="item_id?.errors?.required">Item name is required.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- </div> -->
+
+                            <!-- <div [hidden]="!isInputShown2"> -->
+                            <div class="row card-body">
+
+                                <div class="col">
+                                    <div class="form-group required">
+                                        <label class="required">Select Unit Name</label>
+                                        <input type="text" formControlName="unit_id" value="{{ unit_name }}" />
+                                    </div>
+                                </div>
+
+                                <div class="col">
+                                    <div class="form-group required">
+                                        <label class="required">Quantity</label>
+                                        <input type="number" formControlName="qty" placeholder="Enter quantity" class="form-control" />
+                                        <div *ngIf="qty2?.touched && qty2?.invalid" class="alert alert-danger">
+                                            <div *ngIf="qty2?.errors?.required">Quantity is required.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- </div> -->
+
+                            <!-- <div [hidden]="!isInputShown2"> -->
+
+                            <div class="row card-body">
+
                                 <div class="col">
                                     <div class="form-group">
-                                        <label class="required">Select Item Name</label>
-                                        <select name="item_id" formControlName="item_id"
-                                            (search)="searchItem($event)" class="form-control" (ngModelChange)="onSelectNameItem($event)"
-                                            placeholder="Select Item Name">
+                                        <label class="required">Add a Note</label>
+                                        <textarea type="text" formControlName="notes" placeholder="Add note" class="form-control"></textarea>
 
-                                            <ng-container *ngFor="let list of itemsData">
-                                                <option value="{{ list.id }}">
-                                                    {{list.item_name
-                                                    }}
-                                                </option>
-                                            </ng-container>
-                                        </select>
-                                        <div *ngIf="item_id?.touched && item_id?.invalid" class="alert alert-danger">
-                                            <div *ngIf="item_id?.errors?.required">Item name is required.</div>
-                                        </div>
                                     </div>
                                 </div>
-                            <!-- </div> -->
 
-                            <!-- <div [hidden]="!isInputShown2"> -->
-                                <div class="row card-body">
+                                <div class="col">
+                                    <div class="form-group required">
+                                        <label class="required">Price</label>
+                                        <input type="number" formControlName="price" placeholder="Enter price" class="form-control" />
+                                        <div *ngIf="price2?.touched && price2?.invalid" class="alert alert-danger">
+                                            <div *ngIf="price2?.errors?.required">Price is required.
 
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <label class="required">Select Unit Name</label>
-                                            <input type="text" formControlName="unit_id" value="{{ unit_name }}" />
-                                        </div>
-                                    </div>
-
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <label class="required">Quantity</label>
-                                            <input type="number" formControlName="qty" class="form-control" />
-                                            <div *ngIf="qty2?.touched && qty2?.invalid" class="alert alert-danger">
-                                                <div *ngIf="qty2?.errors?.required">Quantity is required.
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            <!-- </div> -->
-
-                            <!-- <div [hidden]="!isInputShown2"> -->
-
-                                <div class="row card-body">
-
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <label class="required">Add a Note</label>
-                                            <textarea type="text" formControlName="notes"
-                                                class="form-control"></textarea>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <label class="required">Price</label>
-                                            <input type="number" formControlName="price" class="form-control" />
-                                            <div *ngIf="price2?.touched && price2?.invalid" class="alert alert-danger">
-                                                <div *ngIf="price2?.errors?.required">Price is required.
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            </div>
                             <!-- </div> -->
                         </div>
 
                     </div>
 
-                    <div class="modal-footer">
-                        <button type="submit" [disabled]="!editItemsForm.valid" class="btn btn-primary"
-                            (click)=" editItemData(editItemsForm.value)" (click)="modal.close('Close click')">Save
+                    <div class="modal-footer bg-dark">
+                        <button type="submit" class="btn btn-info btn-sm" (click)=" editItemData(editItemsForm)">Save
                             Item</button>
                     </div>
                 </form>

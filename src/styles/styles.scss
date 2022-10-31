@@ -18,6 +18,10 @@
 
 @import '~@ng-select/ng-select/themes/default.theme.css';
 
+body, .form-control, ngb-datepicker {
+    font-size: 13px;
+}
+
 .bg-primary {
     background-color: #44b276 !important;
 }
@@ -48,4 +52,26 @@
     color: #e32;
     content: ' *';
     display: inline;
+}
+
+.bg-gradient {
+    background-image: linear-gradient(#44b276, #28a7459e);
+}
+
+table {
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.shadow {
+    box-shadow: 0 0.1rem 0.1rem rgb(0 0 0 / 15%) !important;
+}
+
+card {
+    border-radius: 5px;
+}
+
+.sb-sidenav .sb-sidenav-menu .nav .nav-link {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
 }

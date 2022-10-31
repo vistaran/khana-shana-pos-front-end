@@ -48,13 +48,12 @@ export class AddPurchaseOrderComponent implements OnInit {
   // public unitName = '';
   public itemName = '';
   pageSize = 100
-  shippingCharge = 0
+  public shippingCharge = 0;
   semitotal = 0
   total = 0
   group_id: any
   unit_name: any
   unitId: any
-
 
   // For Validations
 
@@ -75,13 +74,13 @@ export class AddPurchaseOrderComponent implements OnInit {
     return this.addOrderForm.get('notes');
   }
 
-  get shipping_charge() {
-    return this.addOrderForm.get('shipping_charge');
-  }
+  // get shipping_charge() {
+  //   return this.addOrderForm.get('shipping_charge');
+  // }
 
-  get total_amount() {
-    return this.addOrderForm.get('shipping_charge');
-  }
+  // get total_amount() {
+  //   return this.addOrderForm.get('shipping_charge');
+  // }
 
   // Add item form
 
@@ -147,13 +146,12 @@ export class AddPurchaseOrderComponent implements OnInit {
       outlet_id: [0, Validators.required],
       purchase_date: [this.curr_date],
       notes: [''],
-      shipping_charge: [0],
     })
 
     this.itemsForm = this.fb.group({
       notes: [''],
       item_id: [null, Validators.required],
-      item_group_id: [null, Validators.required],
+      item_group_id: [0, Validators.required],
       qty: ['', Validators.required],
       unit_id: [{ value: null, disabled: true }, Validators.required],
       price: ['', Validators.required],
@@ -161,8 +159,8 @@ export class AddPurchaseOrderComponent implements OnInit {
 
     this.editItemsForm = this.fb.group({
       notes: [''],
-      item_id: [null, Validators.required],
-      item_group_id: [null, Validators.required],
+      item_id: [{ value: null, disabled: true }, Validators.required],
+      item_group_id: [{ value: null, disabled: true }, Validators.required],
       qty: ['', Validators.required],
       unit_id: [{ value: null, disabled: true }, Validators.required],
       price: ['', Validators.required],
@@ -244,6 +242,20 @@ export class AddPurchaseOrderComponent implements OnInit {
         // names must be equal
         return 0;
       })
+      // this.itemsForm.patchValue({
+      //   item_group_id: this.itemGroupsData[0].id
+      // })
+    })
+  }
+
+  resetItemForm() {
+    this.itemsForm = this.fb.group({
+      notes: [''],
+      item_id: [null, [Validators.required]],
+      item_group_id: [0, [Validators.required]],
+      qty: ['', [Validators.required]],
+      unit_id: [{ value: null, disabled: true }],
+      price: ['', [Validators.required]],
     })
   }
 
@@ -265,7 +277,18 @@ export class AddPurchaseOrderComponent implements OnInit {
   getItemsData() {
     console.log('group_id', this.group_id);
     this.purchaseOrderService.getItemData(this.group_id, this.pageSize).subscribe((data: any) => {
-      this.itemsData = data.data
+      this.itemsData = data.data.sort(function (a: any, b: any) {
+        const nameA = a.item_name.toUpperCase(); // ignore upper and lowercase
+        const nameB = b.item_name.toUpperCase(); // ignore upper and lowercase
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+        // names must be equal
+        return 0;
+      })
       this.unit_name = this.itemsData.unit_name
       // console.log(this.itemsData, this.unit_name);
     })
@@ -307,12 +330,56 @@ export class AddPurchaseOrderComponent implements OnInit {
 
   // For shipping charges value
   onKey(event: any) {
-    this.shippingCharge = Number(event.target.value);
-    this.calculateTotal();
+
+    console.log(typeof (event));
+
+
+    let charges = 0;
+    if (typeof (event) == 'object') {
+      charges = event.target.value;
+    } else {
+      charges = event;
+    }
+
+    let showShipping = false;
+    let total = 0;
+    if (this.orderItemData.length != 0) {
+      this.orderItemData.forEach((ele: any) => {
+        total += ele.subtotal;
+      })
+      if (total <= charges) {
+        alert('Shipping Charges cannot be greater than or equal to the total amount!');
+        this.shippingCharge = 0;
+        this.total = total;
+        showShipping = false;
+      }
+      else {
+        showShipping = true;
+      }
+    }
+    else {
+      alert('Please add atleast one item to input shipping charges!');
+      this.shippingCharge = 0;
+      return;
+    }
+
+    if (showShipping) {
+      this.shippingCharge = Number(charges);
+      this.calculateTotal();
+    }
   }
 
   addItemData(data: any) {
 
+    if (this.itemsForm.invalid) {
+      this.itemsForm.markAllAsTouched();
+      alert('Please fill all the required fields.');
+      this.isInputShown = true;
+      this.isInputShown2 = true;
+      return;
+    }
+
+    this.modalService.dismissAll();
     this.itemGroupsData.forEach((g: any) => {
       if (g.id == data.item_group_id) {
         this.name = g.group_name
@@ -324,6 +391,16 @@ export class AddPurchaseOrderComponent implements OnInit {
         this.itemName = g.item_name
       }
     });
+
+    // this.itemsForm.reset();
+    this.itemsForm = this.fb.group({
+      notes: [''],
+      item_id: [null, [Validators.required]],
+      item_group_id: [0, [Validators.required]],
+      qty: ['', [Validators.required]],
+      unit_id: [{ value: null, disabled: true }],
+      price: ['', [Validators.required]],
+    })
 
     const obj = [{
       item_group_id: Number(data.item_group_id),
@@ -342,50 +419,70 @@ export class AddPurchaseOrderComponent implements OnInit {
     this.semitotal = this.orderItemData.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
       return a + b;
     })
-    // this.toast.success('Success', 'Item Added Successfully.')
+    this.toast.success('Success', 'Item Added Successfully.')
 
     this.calculateTotal();
+    // this.isInputShown = false;
+    // this.isInputShown2 = false;
   }
 
   editItemData(data: any) {
-    console.log('DAta', data);
+
+    if (this.editItemsForm.invalid) {
+      this.editItemsForm.markAllAsTouched();
+      alert('Please fill all the required fields.');
+      return;
+    }
+
+    this.modalService.dismissAll();
+    console.log('DAta', data.getRawValue());
+    const editData = data.getRawValue();
+    console.log(editData);
 
     let group_name = '';
     let item_name = '';
     let unit_name = '';
+    let unit_id = 0;
 
     this.itemGroupsData.forEach((g: any) => {
-      if (g.id == data.item_group_id) {
+      if (g.id == editData.item_group_id) {
         group_name = g.group_name
       }
     });
 
     this.itemsData.forEach((g: any) => {
-      if (g.id == Number(data.item_id)) {
+      if (g.id == Number(editData.item_id)) {
         item_name = g.item_name
         unit_name = g.unit_name
+        unit_id = g.unit_id
       }
     });
     this.orderItemData.forEach((g: any) => {
-      if (data.item_id == g.item_id) {
-        g.item_group_id = data.item_group_id,
+      if (editData.item_id == g.item_id) {
+        console.log('g', g);
+
+        g.item_group_id = editData.item_group_id,
           g.item_group_name = group_name,
-          g.item_id = data.item_id,
+          g.item_id = editData.item_id,
           g.item_name = item_name,
-          g.unit_id = data.unit_id,
+          g.unit_id = unit_id,
           g.unit_name = unit_name,
-          g.qty = data.qty,
-          g.notes = data.notes,
-          g.price = data.price,
-          g.subtotal = data.price * data.qty
+          g.qty = editData.qty,
+          g.notes = editData.notes,
+          g.price = editData.price,
+          g.subtotal = editData.price * editData.qty
       }
     })
     console.log(this.orderItemData);
     this.semitotal = this.orderItemData.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
       return a + b;
     })
-    // this.toast.success('Success', 'Item Added Successfully.')
-    this.calculateTotal();
+    this.toast.success('Success', 'Item Edited Successfully.');
+    setTimeout(() => { this.onKey(this.shippingCharge) }, 500);
+    setTimeout(() => { this.calculateTotal() }, 500);
+
+    // this.onKey(this.shippingCharge);
+    // this.calculateTotal();
 
   }
 
@@ -416,15 +513,18 @@ export class AddPurchaseOrderComponent implements OnInit {
       });
       console.log('len', this.orderItemData.length);
 
-      if(this.orderItemData.length == 0) {
+      if (this.orderItemData.length == 0) {
         this.semitotal = 0
       } else {
         this.semitotal = this.orderItemData.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
           return a + b;
         })
       }
-      this.calculateTotal()
+      setTimeout(() => { this.onKey(this.shippingCharge) }, 500);
+      setTimeout(() => { this.calculateTotal() }, 500);
       console.log('afterdelete', this.orderItemData);
+
+      this.toast.success('Success', 'Item Deleted Successfully.');
     }
   }
 
@@ -434,6 +534,11 @@ export class AddPurchaseOrderComponent implements OnInit {
 
   // For submitting add purchase form data
   onSubmit(data: any) {
+
+    if (this.orderItemData.length == 0) {
+      alert('Please add atleast one item.');
+      return;
+    }
 
     if (this.date == '') {
       this.date = this.curr_date.year + '-' + this.curr_date.month + '-' + this.curr_date.day
@@ -446,7 +551,7 @@ export class AddPurchaseOrderComponent implements OnInit {
       purchase_date: this.date,
       user_id: data.user_id,
       notes: data.notes,
-      shipping_charge: data.shipping_charge,
+      shipping_charge: this.shippingCharge,
       total_amount: this.total,
       items: this.orderItemData
     }

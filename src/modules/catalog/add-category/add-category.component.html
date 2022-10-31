@@ -1,6 +1,6 @@
 <sb-layout-dashboard>
     <div class="card mt-4">
-        <h1 class="card-header">Add Category</h1>
+        <h1 class="card-header bg-gradient text-white">Add Category</h1>
         <form [formGroup]="addCategoryForm">
             <div class="container-fluid">
                 <h2 class="card-header mt-4 pb-2">General</h2>
@@ -9,7 +9,7 @@
                     <div class="col">
                         <div class="form-group required">
                             <label class="required">Name</label>
-                            <input type="text" formControlName="name" placeholder="Enter Category Name"
+                            <input type="text" formControlName="name" placeholder="Enter Name"
                                 class="form-control" autofocus />
                             <div *ngIf="name?.touched && name?.invalid" class="alert alert-danger">
                                 <div *ngIf="name?.errors?.required">Name is required.</div>
@@ -41,7 +41,7 @@
                         </div>
                     </div>
 
-                    <div class="col">
+                    <!-- <div class="col">
                         <div class="form-group required">
                             <label class="required">Number of Products</label>
                             <input type="text" formControlName="number_of_products" placeholder="Enter Number of Products"
@@ -50,7 +50,7 @@
                                 <div *ngIf="number_of_products?.errors?.required">Number of Products is required.</div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
 
                 <h2 class="card-header pt-4 pb-2">Description and Images</h2>
@@ -96,7 +96,7 @@
                         <div class="form-group required">
                             <label for="img" class="">Image</label>
                             <input type="file" id="img" name="image" accept="image/*" formControlName="image"
-                                class="form-control" />
+                                class="form-control p-1" />
                             <div *ngIf="image?.touched && image?.invalid" class="alert alert-danger">
                                 <div *ngIf="image?.errors?.required">
                                     Image is required.</div>
@@ -109,7 +109,7 @@
                         <div class="form-group required">
                             <label for="img2">Category Logo</label>
                             <input type="file" id="img2" name="category_logo" accept="image/*"
-                                formControlName="category_logo" class="form-control" />
+                                formControlName="category_logo" class="form-control p-1" />
                                 <div *ngIf="category_logo?.touched && category_logo?.invalid" class="alert alert-danger">
                                     <div *ngIf="category_logo?.errors?.required">
                                         Category Logo is required.</div>
@@ -206,10 +206,9 @@
                                 class="form-control"></textarea>
                         </div>
                     </div>
-
                 </div>
 
-                <button [disabled]="!addCategoryForm.valid" type="submit" class="btn btn-primary mb-4 float-right"
+                <button type="submit" class="btn btn-primary mb-4 float-right"
                     (click)="onSubmit(addCategoryForm.value)">
                     Submit
                 </button>

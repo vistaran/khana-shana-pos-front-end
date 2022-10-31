@@ -18,6 +18,7 @@ const routes: Routes = [
     component: ExpenseByGroupComponent,
     data: {
       title: 'Expense By Item Group',
+      activeTopNav: 'Expense By Item Group'
     } as SBRouteData,
   },
   {
@@ -26,6 +27,7 @@ const routes: Routes = [
     component: MonthlyExpenseComponent,
     data: {
       title: 'Monthly Expense',
+      activeTopNav: 'Monthly Expense'
     } as SBRouteData,
   },
 ];

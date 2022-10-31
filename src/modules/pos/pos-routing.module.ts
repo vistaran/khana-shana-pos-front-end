@@ -30,6 +30,7 @@ const routes: Routes = [
         component: UsersListComponent,
         data: {
             title: 'POS Users',
+            activeTopNav: 'Users'
         } as SBRouteData,
     },
     {
@@ -38,6 +39,7 @@ const routes: Routes = [
         component: AddUserComponent,
         data: {
             title: 'Add User',
+            activeTopNav: 'Users'
         } as SBRouteData,
     },
     {
@@ -46,6 +48,7 @@ const routes: Routes = [
         component: OutletComponent,
         data: {
             title: 'Outlet',
+            activeTopNav: 'Users'
         } as SBRouteData,
     },
     {
@@ -54,6 +57,7 @@ const routes: Routes = [
         component: AddOutletComponent,
         data: {
             title: 'Outlet',
+            activeTopNav: 'Users'
         } as SBRouteData,
     },
     {
@@ -62,6 +66,7 @@ const routes: Routes = [
         component: EditUserComponent,
         data: {
             title: 'Edit User',
+            activeTopNav: 'Users'
         } as SBRouteData,
     },
     {
@@ -70,6 +75,7 @@ const routes: Routes = [
         component: EditOutletComponent,
         data: {
             title: 'Edit Outlet',
+            activeTopNav: 'Users'
         } as SBRouteData,
     },
     {
@@ -78,6 +84,7 @@ const routes: Routes = [
         component: VendorsComponent,
         data: {
             title: 'Vendors',
+            activeTopNav: 'Vendors'
         } as SBRouteData,
     },
     {
@@ -86,6 +93,7 @@ const routes: Routes = [
         component: AddVendorComponent,
         data: {
             title: 'Add Vendor',
+            activeTopNav: 'Vendors'
         } as SBRouteData,
     },
     {
@@ -94,6 +102,7 @@ const routes: Routes = [
         component: EditVendorComponent,
         data: {
             title: 'Edit Vendor',
+            activeTopNav: 'Vendors'
         } as SBRouteData,
     },
     {
@@ -102,6 +111,7 @@ const routes: Routes = [
         component: UomComponent,
         data: {
             title: 'UOM',
+            activeTopNav: 'UOM'
         } as SBRouteData,
     },
     {
@@ -110,6 +120,7 @@ const routes: Routes = [
         component: AddUomComponent,
         data: {
             title: 'Add UOM',
+            activeTopNav: 'UOM'
         } as SBRouteData,
     },
     {
@@ -117,7 +128,8 @@ const routes: Routes = [
         canActivate: [],
         component: EditUomComponent,
         data: {
-            title: 'Edit Vendor',
+            title: 'Edit UOM',
+            activeTopNav: 'UOM'
         } as SBRouteData,
     },
 ];

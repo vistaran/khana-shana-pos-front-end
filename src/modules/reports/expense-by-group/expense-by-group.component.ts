@@ -55,9 +55,21 @@ export class ExpenseByGroupComponent implements OnInit {
 
   getExpenseByGroupData() {
     this.showloader = true
-    this.expenseByGroupService.getExpenseByGroupData(this.from, this.to).subscribe(data => {
+    this.expenseByGroupService.getExpenseByGroupData(this.from, this.to).subscribe(data=> {
       this.totalExpense = 0
-      this.expenseGroupData = data.data
+      this.expenseGroupData = data.data.sort(function (a: any, b: any) {
+        const nameA = a.item_group_name.toUpperCase(); // ignore upper and lowercase
+        const nameB = b.item_group_name.toUpperCase(); // ignore upper and lowercase
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+
+        // names must be equal
+        return 0;
+      });
       this.length = this.expenseGroupData.length
       console.log(this.expenseGroupData);
       this.expenseGroupData.forEach((g: any) => {
@@ -81,17 +93,21 @@ export class ExpenseByGroupComponent implements OnInit {
     }
     this.from = this.fromDate.year + '-' + this.fromDate.month + '-' + this.fromDate.day
     console.log(this.from, this.to);
-    if (this.from && this.to) {
+
+    if (this.from && this.to == null) {
+      this.to = this.from;
+      this.getExpenseByGroupData();
+    } else if (this.from && this.to) {
       this.getExpenseByGroupData()
     }
 
   }
 
-  onDateSelect(date: NgbDate) {
-    this.from = date.year + '-' + date.month + '-' + date.day
-    this.to = date.year + '-' + date.month + '-' + date.day
-    this.getExpenseByGroupData()
-  }
+  // onDateSelect(date: NgbDate) {
+  //   this.from = date.year + '-' + date.month + '-' + date.day
+  //   this.to = date.year + '-' + date.month + '-' + date.day
+  //   this.getExpenseByGroupData()
+  // }
 
   isHovered(date: NgbDate) {
     return this.fromDate && !this.toDate && this.hoveredDate && date.after(this.fromDate) &&

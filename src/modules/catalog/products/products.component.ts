@@ -17,7 +17,7 @@ export class ProductsComponent implements OnInit {
 
 
   page = 1;
-  pageSize = 5;
+  pageSize = 10;
   searchValue: any
   showloader: any
   activeId = 1;
@@ -40,7 +40,7 @@ export class ProductsComponent implements OnInit {
   // To get products data for table listing
   getProductData() {
     this.showloader = true
-    this.productService.getProducts().subscribe(result => {
+    this.productService.getProducts(this.page).subscribe(result => {
       this.productData = result.products.data;
       this.length = this.productData.length;
       this.total = result.products.total;

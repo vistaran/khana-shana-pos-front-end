@@ -1,29 +1,31 @@
 <sb-layout-dashboard>
-    <div class="row">
+    <div class="row pr-5 pl-5">
         <div class="col">
-            <ul ngbNav #nav="ngbNav" class="nav-tabs mt-5 font-weight-bold">
+            <!-- <ul ngbNav #nav="ngbNav" class="nav-tabs mt-5 font-weight-bold">
                 <li ngbNavItem>
                     <a ngbNavLink>Customer</a>
-                    <ng-template ngbNavContent>
+                    <ng-template ngbNavContent> -->
                         <h2 class="mt-3 mb-4">Customer List</h2>
                         <!-- search button -->
                         <div class="d-flex justify-content-between mb-4">
 
                             <div class="input-group rounded w-25">
-                                <input type="search" class="form-control rounded" placeholder="Search"
+                                <input class="form-control amber-border" class="form-control" type="text"
                                     aria-label="Search" (keyup)="search($event)" placeholder="Search"
-                                    [(ngModel)]="searchValue" aria-describedby="search-addon" />
-                                <span class="input-group-text border-0" id="search-addon">
-                                    <i class="fas fa-search"></i>
-                                </span>
+                                    [(ngModel)]="searchValue">
+                                <div class="input-group-append">
+                                    <button class="btn input-group-text bg-white text-dark amber lighten-3 form-control" id="basic-text1"><i
+                                            class="fa fa-search" aria-hidden="true"
+                                            (click)="search($event)"></i></button>
+                                </div>
                             </div>
 
                             <div class="col">
-                                <select class="btn btn-secondary" [(ngModel)]="pageSize" (ngModelChange)="refreshItemsData($event)">
+                                <select class="btn btn-outline-success" [(ngModel)]="pageSize" (ngModelChange)="refreshItemsData($event)">
                                     <option default value="{{100}}">100 items per page</option>
-                                    <option value="{{5}}">5 items per page</option>
-                                    <option value="{{10}}">10 items per page</option>
                                     <option value="{{15}}">15 items per page</option>
+                                    <option value="{{10}}">10 items per page</option>
+                                    <option value="{{5}}">5 items per page</option>
                                 </select>
                             </div>
 
@@ -32,8 +34,8 @@
                             </button>
 
                         </div>
-                        <table class="table table-bordered table-striped table-hover">
-                            <thead class="head">
+                        <table class="table table-bordered shadow ">
+                            <thead class="head bg-gradient text-white">
                                 <th>Customer Id</th>
                                 <th>Name</th>
                                 <th>Phone Number</th>
@@ -45,12 +47,12 @@
                                     <td>{{ data.first_name }} {{ data.last_name}}</td>
                                     <td>{{ data.phone_number }}</td>
                                     <td>
-                                        <button ngbTooltip="Edit" class="btn btn-info mr-2"
+                                        <button ngbTooltip="Edit" class="btn btn-info mr-2 rounded-circle shadow btn-sm"
                                             [routerLink]="['/customer_management/editcustomer/' + data.id]"><i
                                                 class="fa fa-pencil-square-o fa-lg"></i></button>
 
                                         <button ngbTooltip="Delete" id="remove" (click)="deleteRow(data.id)"
-                                            class="btn btn-danger"><i class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                                            class="btn btn-danger rounded-circle shadow btn-sm"><i class="fa fa-trash-o fa-lg mx-auto"></i></button>
                                     </td>
                                 </tr>
                                 <tr *ngIf="!length && !showloader">
@@ -75,10 +77,10 @@
                                 </ngb-pagination>
                             </div>
                         </div>
-                    </ng-template>
+                    <!-- </ng-template>
                 </li>
             </ul>
-            <div [ngbNavOutlet]="nav"></div>
+            <div [ngbNavOutlet]="nav"></div> -->
         </div>
     </div>
 </sb-layout-dashboard>

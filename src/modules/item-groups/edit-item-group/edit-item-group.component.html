@@ -2,7 +2,7 @@
     <div class="d-flex justify-content-center">
 
     <div class="card shadow w-75 mt-3">
-        <h1 class="card-header mb-3 text-center">Edit Item Group</h1>
+        <h1 class="card-header bg-gradient text-white mb-3 text-center">Edit Item Group</h1>
         <form [formGroup]="editItemGroupForm">
             <div class="container">
                 <!-- <h2 class="card-header mt-4 pb-2">General</h2> -->
@@ -10,9 +10,9 @@
                     <div class="col-6 col-sm-4">
                         <div class="form-group required">
                             <label class="required">Item Group Name</label>
-                            <input type="text" formControlName="group_name" placeholder="Item Group Name" class="form-control" autofocus/>
-                            <div *ngIf="group_name?.touched && group_name?.invalid" class="alert alert-danger">
-                                <div *ngIf="group_name?.errors?.required">Item Group Name is required.</div>
+                            <input type="text" formControlName="group_name" placeholder="Item Group Name" maxlength="35" class="form-control" autofocus/>
+                            <div *ngIf="group_name?.touched && group_name?.invalid || showValidations" >
+                                <div class="alert alert-danger" *ngIf="group_name?.errors?.required">Item Group Name is required.</div>
                             </div>
                         </div>
                     </div>

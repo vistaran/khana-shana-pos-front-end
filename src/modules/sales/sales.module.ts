@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import { RouterModule } from '@angular/router';
@@ -16,6 +16,7 @@ import { SalesComponent } from './sales/sales.component';
 import { ShipmentComponent } from './shipment/shipment.component';
 import { EditSaleComponent } from './edit-sale/edit-sale.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { SharedModuleModule } from '@modules/shared-module/shared-module.module';
 
 
 @NgModule({
@@ -28,7 +29,11 @@ import { NgSelectModule } from '@ng-select/ng-select';
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
-    NgSelectModule
+    NgSelectModule,
+    SharedModuleModule
+  ],
+  providers: [
+    DatePipe
   ]
 })
 export class SalesModule { }

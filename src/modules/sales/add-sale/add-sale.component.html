@@ -1,35 +1,47 @@
 <sb-layout-dashboard>
-    <div class="card shadow mt-4">
-        <h1 class="card-header mb-3">Add Order</h1>
-        <form [formGroup]="addSaleForm">
+    <div class="card shadow mt-4" (document:keydown.shift.s)="onSubmit(addSaleForm.value)">
+        <h3 class="card-header mb-3 bg-gradient text-white py-1 px-2">Add Order</h3>
+        <form [formGroup]="addSaleForm" (ngSubmit)="onSubmit(addSaleForm.value)">
             <div class="container-fluid">
 
                 <!-- <h3 class="card-header mb-2">Select Customer</h3> -->
-                <button [hidden]="showCustomerDetail" class="btn btn-info mb-2" type="button"
-                    (click)="openVerticallyCentered(content3)" autofocus>Select
-                    Customer</button>
-                <div [hidden]="!showCustomerDetail">
-                    <h4>Customer Details: </h4>
-                    <p>Name: {{ customerName}}</p>
-                    <p>Phone number: {{ customerNumber}}</p>
-                    <button class="btn btn-info mb-2" type="button" (click)="openVerticallyCentered(content3)">Select
-                        Another Customer</button>
+                <div class="d-flex">
+                    <button [hidden]="showCustomerDetail" class="btn btn-info mb-2 btn-sm" type="button"
+                        (click)="openVerticallyCentered(content3)" autofocus>Select
+                        Customer</button>
+                    <div [hidden]="!showCustomerDetail">
+                        <h4>Customer Details: </h4>
+                        <p>Name: {{ customerName}}</p>
+                        <p>Phone number: {{ customerNumber}}</p>
+                        <div class="d-flex">
+                            <button class="btn btn-info mb-2 btn-sm" type="button"
+                                (click)="openVerticallyCentered(content3)">Select
+                                Another Customer</button>
+                            <p class="mb-0 mx-2 mt-1">or</p>
+                            <button class="btn btn-info mb-2 btn-sm" type="button" (click)="openModal(content4)">Add
+                                Customer</button>
+                        </div>
+                    </div>
+                    <p [hidden]="showCustomerDetail" class="mb-0 mx-2 mt-1">or</p>
+                    <button [hidden]="showCustomerDetail" class="btn btn-info mb-2 btn-sm" type="button"
+                        (click)="openModal(content4)">Add
+                        Customer</button>
                 </div>
 
                 <ng-template #content3 let-modal>
 
-                    <div class="modal-header">
-                        <h4 class="modal-title">Select Customer</h4>
-                        <button type="button" class="btn-close btn-primary" aria-label="Close"
-                            (click)="modal.dismiss('Cross click')">X
-                        </button>
+                    <div class="modal-header bg-primary align-items-center text-light">
+                        <h4 class="text-light modal-title">Select Customer</h4>
+                        <i type="button" class="fas fa-xmark fa-xl" aria-label="Close"
+                            (click)="modal.dismiss('Cross click')" (click)="selectCustomerClose()">
+                        </i>
                     </div>
 
                     <div class="modal-body">
 
                         <form [formGroup]="customerForm">
                             <div class="col">
-                                <div class="form-group">
+                                <div class="form-group required">
                                     <label class="required">Select Customer</label><br />
 
                                     <!-- <ng-select formControlName="customer_id" [items]="customerData.first_name" bindLabel="name" placeholder="Select Customer" [(ngModel)]="selectedCity">
@@ -41,84 +53,155 @@
                                             }}. {{
                                             item.first_name }} {{ item.last_name}}</ng-option>
                                     </ng-select>
-                                    <div *ngIf="customer?.touched && customer?.invalid" class="alert alert-danger">
-                                        <div *ngIf="customer?.errors?.required">Customer is required.</div>
+                                    <div *ngIf="customer?.touched && customer?.invalid || showCustomerValidation">
+                                        <div *ngIf="customer?.errors?.required" class="alert alert-danger">Customer is
+                                            required.</div>
                                     </div>
-
                                 </div>
                             </div>
                         </form>
                     </div>
 
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" (click)="onSelectCustomer(customerForm)"
-                            (click)="modal.close('Close click')">Add
+                        <button type="submit" class="btn btn-info btn-sm m-0"
+                            (click)="onSelectCustomer(customerForm)">Add
                             Customer</button>
                     </div>
 
                 </ng-template>
+
+                <ng-template #content4 let-modal>
+
+                    <div class="modal-header bg-primary align-items-center text-light">
+                        <h4 class=" modal-title">Add Customer</h4>
+                        <i type="button" class="fas fa-xmark fa-xl" aria-label="Close"
+                            (click)="modal.dismiss('Cross click')" (click)="addCustomerClose()">
+                        </i>
+                    </div>
+
+                    <form [formGroup]="addCustomerForm" (ngSubmit)="onSubmitCustomer(addCustomerForm.value)">
+                        <div class="modal-body">
+                            <!-- <h2 class="card-header mt-4 pb-2">General</h2> -->
+                            <div class="row justify-content-around">
+
+                                <div class="col-6 col-sm-4">
+                                    <div class="form-group required">
+                                        <label class="required">First Name</label>
+                                        <input type="text" placeholder="First Name" formControlName="first_name"
+                                            class="form-control" autofocus />
+                                        <div *ngIf="firstname?.touched && firstname?.invalid"
+                                            class="alert alert-danger">
+                                            <div *ngIf="firstname?.errors?.required">First Name is required.</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-6 col-sm-4">
+                                    <div class="form-group required">
+                                        <label class="required">Last Name</label>
+                                        <input type="text" placeholder="Last Name" formControlName="last_name"
+                                            class="form-control" />
+                                        <div *ngIf="lastname?.touched && lastname?.invalid" class="alert alert-danger">
+                                            <div *ngIf="lastname?.errors?.required">Last Name is required.</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-6 col-sm-4">
+                                    <div class="form-group required">
+                                        <label class="required">Phone Number</label>
+                                        <input type="tel" placeholder="Phone Number" formControlName="phone_number"
+                                            class="form-control" (keypress)="validateNumber($event)" maxlength="10" />
+                                        <div *ngIf="phone?.touched && phone?.invalid" class="alert alert-danger"
+                                            maxlength="10">
+                                            <div *ngIf="phone?.errors?.required">Phone Number is required.</div>
+                                            <div *ngIf="phone?.errors?.maxlength">Phone number must not exceed 10 digits
+                                            </div>
+                                            <div *ngIf="phone?.errors?.minlength && !phone?.errors?.pattern">Phone
+                                                number must contain 10 digits
+                                            </div>
+                                            <div *ngIf="phone?.errors?.pattern">Only Numbers are allowed</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary float-right btn-sm m-0">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+
+
+                </ng-template>
+
                 <div class="row">
                     <div class="col">
-                        <h3 class="card-header">Available Products</h3>
+                        <h5 class="p-2">Select Products</h5>
 
-                        <div class="card-deck row mt-2">
-                            <div class="col-5 mb-3" *ngFor="let data of productData">
+                        <div class=" row mt-2" *ngIf="showProducts">
+                            <div class="col-3 mb-3" *ngFor="let data of productData">
 
 
-                                <div class="card shadow h-100">
-                                    <button class="bg-transparent h-100 border border-info" type="button"
-                                        (click)="openVerticallyCentered(content)">
-                                        <div class="card-body">
-                                            <h5 class="card-title text-info">{{ data.product_name }}</h5>
-                                            <small class="card-text"><b>Category: </b> {{ data.category_name }}
+                                <div class="h-100">
+                                    <button class="shadow bg-transparent h-100 border border-secondary w-100 rounded"
+                                        type="button" (click)="openVerticallyCentered(content)">
+                                        <!-- <div class="card-body"> -->
+                                        <span class="text-capitalize">{{ data.product_name }}</span>
+                                        <!-- <small class="card-text"><b>Category: </b> {{ data.category_name }}
                                             </small><br>
-                                            <small class="card-text" *ngIf="data.description != null"><b>Description: </b> {{ data.description }}
+                                            <small class="card-text" *ngIf="data.description != null"><b>Description:
+                                                </b> {{ data.description }}
                                             </small>
-                                            <small class="card-text" *ngIf="data.description == null"><b>Description: </b> None
+                                            <small class="card-text" *ngIf="data.description == null"><b>Description:
+                                                </b> None
                                             </small><br>
                                             <small class="card-text"><b>Price: </b> ₹ {{ data.price }}
-                                            </small>
-                                        </div>
+                                            </small> -->
+                                        <!-- </div> -->
 
                                     </button>
                                 </div>
 
                                 <ng-template #content let-modal>
 
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">Product Quantity</h4>
-                                        <button type="button" class="btn-close btn-primary" aria-label="Close"
-                                            (click)="modal.dismiss('Cross click')">X
-                                        </button>
+                                    <div class="modal-header bg-primary align-items-center text-light">
+                                        <h4 class=" modal-title">Product Quantity</h4>
+                                        <i type="button" class="fas fa-xmark fa-xl" aria-label="Close"
+                                            (click)="modal.dismiss('Cross click')" (click)="qtyClose()">
+                                        </i>
                                     </div>
 
-                                    <div class="modal-body">
-                                        <form [formGroup]="qtyForm">
+                                    <form [formGroup]="qtyForm" (ngSubmit)="onSelectProduct(data, qtyForm.value)">
+                                        <div class="modal-body">
 
                                             <div class="col">
-                                                <div class="form-group">
+                                                <div class="form-group required">
                                                     <label class="required">Quantity</label>
-                                                    <input type="number" formControlName="quantity" class="form-control"
-                                                        autofocus />
+                                                    <input type="number" min="0" oninput="validity.valid||(value='');"
+                                                        formControlName="quantity" class="form-control"
+                                                        placeholder="Enter Quantity" sbAutoFocus />
 
-                                                    <!-- <div *ngIf="unit_id?.touched && unit_id?.invalid" class="alert alert-danger">
-                                                        <div *ngIf="unit_id?.errors?.required">Unit is required.</div>
-                                                    </div> -->
+                                                    <div
+                                                        *ngIf="quantity?.touched && quantity?.invalid || showValidations">
+                                                        <div class="alert alert-danger"
+                                                            *ngIf="quantity?.errors?.required">Quantity is required.
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
 
-                                        </form>
-                                    </div>
+                                        </div>
+                                        <div class="modal-footer d-flex justify-content-end">
+                                            <button type="submit" class="btn btn-info btn-sm">Save
+                                                Order</button>
+                                        </div>
+                                    </form>
 
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary"
-                                            (click)="onSelectProduct(data, qtyForm.value)"
-                                            (click)="modal.close('Close click')">Save
-                                            Order</button>
-                                    </div>
 
                                 </ng-template>
-
 
 
                             </div>
@@ -127,13 +210,13 @@
                     </div>
 
                     <div class="col">
-                        <h3 class="card-header mb-2">Added Products</h3>
+                        <h5 class="p-2 mb-2">Cart Summary</h5>
 
                         <!-- <div class="card-deck row mt-2">
                             <div class="col-5 mb-3" *ngFor="let data of addedProduct"> -->
 
-                        <table class="table table-bordered table-striped">
-                            <thead class="head">
+                        <table class="table table-bordered shadow table-sm">
+                            <thead class="head bg-dark text-white">
                                 <th>Product</th>
                                 <th>Category</th>
                                 <th>Quantity</th>
@@ -147,71 +230,83 @@
                                     <td>{{ data.category_name }}</td>
                                     <td>{{ data.quantity }}</td>
                                     <td>₹{{ data.price }}</td>
-                                    <td>{{ data.quantity * data.price}}</td>
+                                    <td>₹{{ data.quantity * data.price}}</td>
                                     <td>
 
-                                        <button id="remove" ngbTooltip="Delete" class="btn btn-danger btn-sm"
+                                        <button id="remove" ngbTooltip="Delete"
+                                            class="btn btn-danger rounded-circle shadow btn-sm"
                                             (click)="RemoveProduct(data.id)"><i
                                                 class="fa fa-trash-o fa-lg mx-auto"></i></button>
                                     </td>
                                 </tr>
 
                                 <tr class="table-sm">
-                                    <td colspan="5" class="text-right"><b>Shipping Charges</b></td>
+                                    <td colspan="4" class="text-right"><b>Shipping Charges</b></td>
                                     <td>
-                                        <div class="input-group input-group-sm mb-3">
-                                            <input type="number" formControlName="shipping_charge" class="form-control"
+                                        <div class="input-group input-group-sm">
+                                            <!-- <input type="number" formControlName="shipping_charge" class="form-control"
                                                 aria-label="Sizing example input"
-                                                aria-describedby="inputGroup-sizing-sm" (keyup)="onKey($event)">
+                                                aria-describedby="inputGroup-sizing-sm" (keyup)="onKey($event)"
+                                                (change)="onKey($event)"> -->
+                                            <input type="number" [(ngModel)]="shipping_charge" min="0"
+                                                oninput="validity.valid||(value='');" class="form-control"
+                                                [ngModelOptions]="{standalone: true}" (change)="onKey($event)">
                                         </div>
                                     </td>
                                 </tr>
 
                                 <tr class="table-sm">
-                                    <td colspan="5" class="text-right"><b>Total Amount:</b></td>
+                                    <td colspan="4" class="text-right"><b>Total Amount:</b></td>
                                     <td>₹{{ total }}</td>
                                 </tr>
 
                             </tbody>
                         </table>
 
-                    </div>
-                </div>
+                        <div class="row">
 
-                <div class="row">
+                            <div class="col">
+                                <div class="form-group required">
+                                    <label class="required">Order Date</label>
+                                    <div class="input-group">
+                                        <input class="form-control amber-border" placeholder="yyyy-mm-dd" name="dp"
+                                            ngbDatepicker #d="ngbDatepicker" formControlName="order_date"
+                                            (dateSelect)="onSelectDate($event)">
+                                        <div class="input-group-append">
+                                            <button
+                                                class="btn input-group-text bg-white text-dark amber lighten-3 form-control"
+                                                (click)="d.toggle()" type="button">
+                                                <i class="fa fa-calendar fa-lg mx-auto"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-                    <div class="col">
-                        <div class="form-group">
-                            <label class="required">Order Date</label>
-                            <div class="input-group">
-                                <input class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker
-                                    #d="ngbDatepicker" formControlName="order_date"
-                                    (dateSelect)="onSelectDate($event)">
-                                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
-                                    <i class="fa fa-calendar fa-lg mx-auto"></i>
-                                </button>
+                            <div class="col">
+                                <div class="form-group required">
+                                    <label>Payment Mode</label>
+                                    <select formControlName="payment_mode" class="form-control">
+                                        <option *ngFor="let item of payment_mode_copy" value="{{item.alternate_name}}">
+                                            {{
+                                            item.name
+                                            }}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="required">Add a Note</label>
+                                    <textarea type="text" formControlName="notes" class="form-control"></textarea>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="col">
-                        <label>Payment Mode</label>
-                        <select formControlName="payment_mode" class="form-control">
-                            <option *ngFor="let item of payment_mode_copy" value="{{item.alternate_name}}">{{ item.name
-                                }}</option>
-                        </select>
-                    </div>
-
-                    <div class="col">
-                        <div class="form-group">
-                            <label class="required">Add a Note</label>
-                            <textarea type="text" formControlName="notes" class="form-control"></textarea>
-                        </div>
                     </div>
                 </div>
 
-                <button [disabled]="!addSaleForm.valid" type="submit" (click)="onSubmit(addSaleForm.value)"
-                    class="btn btn-primary mb-4 float-right">
+                <button type="submit" class="btn btn-primary mb-4 float-right btn-sm">
                     Submit
                 </button>
 
