@@ -2,8 +2,12 @@ import { SideNavItems, SideNavSection } from '@modules/navigation/models';
 
 export const sideNavSections: SideNavSection[] = [
     {
-        text: 'Financial',
-        items: ['sales', 'item_groups', 'items', 'purchase_orders'],
+        text: 'Expenses',
+        items: [ 'item_groups', 'items', 'purchase_orders'],
+    },
+    {
+        text: 'Sales',
+        items: ['sales','products', 'categories',],
     },
     {
         text: 'Reports',
@@ -15,18 +19,25 @@ export const sideNavSections: SideNavSection[] = [
     },
     {
         text: 'Catalog',
-        items: ['products', 'categories', 'attributes', 'attributeFamily'],
+        items: [ 'attributes', 'attributeFamily'],
     }
 ];
 
+// Sales
+// -------
+// Sales
+// Menu Items
+// Menu Categories
+// Tables Management
+
+// Expenses
+// -----------
+// Items 
+// Item Groups
+// Purchases
 export const sideNavItems: SideNavItems = {
 
-    // Financial
-    sales: {
-        // icon: 'table',
-        text: '₹ Sales',
-        link: '/sales'
-    },
+    // Expenses
     purchase_orders: {
         // icon: 'dollar-sign', 
         text: '₹ Purchases',
@@ -42,6 +53,24 @@ export const sideNavItems: SideNavItems = {
         text: '₹ Items',
         link: '/items'
     },
+
+    // Sales
+    sales: {
+        // icon: 'table',
+        text: '₹ Sales',
+        link: '/sales'
+    },
+    products: {
+        // icon: 'tachometer-alt',
+        text: '₹ Menu Items',
+        link: '/catalog/products',
+    },
+    categories: {
+        // icon: 'tachometer-alt',
+        text: '₹ Menu Categories',
+        link: '/catalog/categories'
+    },
+
 
 
     // System
@@ -81,16 +110,7 @@ export const sideNavItems: SideNavItems = {
 
 
     // Catalog
-    products: {
-        icon: 'tachometer-alt',
-        text: 'Products',
-        link: '/catalog/products',
-    },
-    categories: {
-        icon: 'tachometer-alt',
-        text: 'Categories',
-        link: '/catalog/categories'
-    },
+   
     attributes: {
         icon: 'tachometer-alt',
         text: 'Attributes',
