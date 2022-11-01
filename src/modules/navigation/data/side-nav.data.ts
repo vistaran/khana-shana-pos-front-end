@@ -7,7 +7,7 @@ export const sideNavSections: SideNavSection[] = [
     },
     {
         text: 'Sales',
-        items: ['sales','products', 'categories',],
+        items: ['sales','products', 'categories', 'table_management'],
     },
     {
         text: 'Reports',
@@ -32,14 +32,14 @@ export const sideNavSections: SideNavSection[] = [
 
 // Expenses
 // -----------
-// Items 
+// Items
 // Item Groups
 // Purchases
 export const sideNavItems: SideNavItems = {
 
     // Expenses
     purchase_orders: {
-        // icon: 'dollar-sign', 
+        // icon: 'dollar-sign',
         text: '₹ Purchases',
         link: '/purchase_orders'
     },
@@ -69,6 +69,11 @@ export const sideNavItems: SideNavItems = {
         // icon: 'tachometer-alt',
         text: '₹ Menu Categories',
         link: '/catalog/categories'
+    },
+    table_management: {
+        icon: 'table',
+        text: 'Table Management',
+        link: '/sales/table_management'
     },
 
 
@@ -110,7 +115,7 @@ export const sideNavItems: SideNavItems = {
 
 
     // Catalog
-   
+
     attributes: {
         icon: 'tachometer-alt',
         text: 'Attributes',

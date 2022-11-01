@@ -1,0 +1,48 @@
+<sb-layout-dashboard>
+    <div class="d-flex justify-content-center">
+
+        <div class="card shadow w-75 mt-3">
+            <h1 class="card-header bg-gradient text-white mb-3 text-center">Add Table</h1>
+            <form [formGroup]="addTableForm" (ngSubmit)="onSubmit(addTableForm.value)">
+                <div class="container">
+                    <!-- <h2 class="card-header mt-4 pb-2">General</h2> -->
+                    <div class="row card-body justify-content-around">
+                        <div class="col-6 col-sm-4">
+                            <div class="form-group required">
+                                <label class="required">Table number</label>
+                                <input type="text" formControlName="table_number" placeholder="Table number"
+                                    maxlength="35" class="form-control" autofocus />
+                                <div *ngIf="table_number?.touched && table_number?.invalid || showValidations">
+                                    <div class="alert alert-danger" *ngIf="table_number?.errors?.required">Table Number
+                                        is required.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6 col-sm-4">
+                            <div class="form-group required">
+                                <label class="required">Table name</label>
+                                <input type="text" formControlName="table_name" placeholder="Table name" maxlength="35"
+                                    class="form-control" autofocus />
+                                <div *ngIf="table_name?.touched && table_name?.invalid || showValidations">
+                                    <div class="alert alert-danger" *ngIf="table_name?.errors?.required">Table Name is
+                                        required.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <button (click)="showValidations = true" type="submit" (click)="onSubmit(addItemGroupForm.value)"
+                    class="btn btn-primary mb-4 float-right">
+                    Submit
+                </button> -->
+                    <button type="submit"
+                        class="btn btn-primary mb-4 float-right">
+                        Submit
+                    </button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</sb-layout-dashboard>
