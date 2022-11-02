@@ -38,7 +38,20 @@ export class TableManagementComponent implements OnInit {
             this.showloader = false;
             console.log(result);
             this.tableData = result.data;
-            this.total = result.total
+            this.total = result.total;
+            this.tableData.forEach((element: any) => {
+                if(element.is_table_active == 1) {
+                    element.is_table_active = 'Yes';
+                } else {
+                    element.is_table_active = 'No';
+                }
+
+                if(element.is_table_occupied == 1) {
+                    element.is_table_occupied = 'Yes';
+                } else {
+                    element.is_table_occupied = 'No';
+                }
+            });
 
         }, err => {
             this.toast.error('Error', 'Something went wrong.');

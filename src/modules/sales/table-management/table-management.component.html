@@ -54,6 +54,11 @@
                                     class="fa fa-trash-o fa-lg mx-auto"></i></button>
                         </td>
                     </tr>
+                    <tr *ngIf="!tableData.length && !showloader">
+                        <td colspan="5" class="text-center">
+                            No records found.
+                        </td>
+                    </tr>
                 </tbody>
             </table>
 
@@ -70,9 +75,6 @@
                     </ngb-pagination>
                 </div>
             </div>
-
-
-            <div class="alert alert-danger" id="no-rows-alert" style="display: none">No records found</div>
             <!-- </ng-template>
                         </li>
                     </ul>
