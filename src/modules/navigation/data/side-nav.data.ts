@@ -39,39 +39,39 @@ export const sideNavItems: SideNavItems = {
 
     // Expenses
     purchase_orders: {
-        // icon: 'dollar-sign',
-        text: '₹ Purchases',
+        icon: 'shopping-cart',
+        text: 'Purchases',
         link: '/purchase_orders'
     },
     item_groups: {
-        // icon: '',
-        text: '₹ Item Groups',
+        icon: 'cubes',
+        text: 'Item Groups',
         link: '/item_groups'
     },
     items: {
-        // icon: 'columns',
-        text: '₹ Items',
+        icon: 'cube',
+        text: 'Items',
         link: '/items'
     },
 
     // Sales
     sales: {
-        // icon: 'table',
-        text: '₹ Sales',
+        icon: 'cash-register',
+        text: 'Sales',
         link: '/sales'
     },
     products: {
-        // icon: 'tachometer-alt',
-        text: '₹ Menu Items',
+        icon: 'clipboard-list',
+        text: 'Menu Items',
         link: '/catalog/products',
     },
     categories: {
-        // icon: 'tachometer-alt',
-        text: '₹ Menu Categories',
+        icon: 'rupee-sign',
+        text: 'Menu Categories',
         link: '/catalog/categories'
     },
     table_management: {
-        icon: 'table',
+        icon: 'twitter',
         text: 'Table Management',
         link: '/sales/table_management'
     },

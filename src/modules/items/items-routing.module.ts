@@ -19,7 +19,7 @@ const routes: Routes = [
     component: ItemsComponent,
     data: {
       title: 'Items',
-      activeTopNav: '₹ Items'
+      activeTopNav: 'Items'
     } as SBRouteData,
   },
   {
@@ -28,7 +28,7 @@ const routes: Routes = [
     component: AddItemComponent,
     data: {
       title: 'Add Item',
-      activeTopNav: '₹ Items'
+      activeTopNav: 'Items'
     } as SBRouteData,
   },
   {
@@ -37,7 +37,7 @@ const routes: Routes = [
     component: EditItemComponent,
     data: {
       title: 'Edit Item',
-      activeTopNav: '₹ Items'
+      activeTopNav: 'Items'
     } as SBRouteData,
   },
 ];

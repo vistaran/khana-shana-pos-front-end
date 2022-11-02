@@ -26,42 +26,50 @@
                 <thead class="head bg-gradient text-white">
                     <th>Table Number</th>
                     <th>Table Name</th>
+                    <th>Table Occupied</th>
+                    <th>Table Active</th>
                     <th>Actions</th>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td class="">
-                            1
+                    <tr *ngFor="let data of tableData">
+                        <td>
+                            {{ data.res_table_number }}
                         </td>
-                        <td class="">
-                            Vandana
+                        <td>
+                            {{ data.res_table_name }}
+                        </td>
+                        <td>
+                            {{ data.is_table_occupied }}
+                        </td>
+                        <td>
+                            {{ data.is_table_active }}
                         </td>
                         <td>
                             <button class="btn btn-info rounded-circle shadow mr-2 btn-sm" ngbTooltip="Edit"
-                                [routerLink]="['/sales/edit_table/' + 1]"><i
+                                [routerLink]="['/sales/edit_table/' + data.id]"><i
                                     class="fa fa-pencil-square-o fa-lg"></i></button>
 
                             <button id="remove" ngbTooltip="Delete"
-                                class="btn btn-danger rounded-circle shadow btn-sm"><i
+                                class="btn btn-danger rounded-circle shadow btn-sm" (click)="deleteTableData(data.id, data.res_table_number)"><i
                                     class="fa fa-trash-o fa-lg mx-auto"></i></button>
                         </td>
                     </tr>
                 </tbody>
             </table>
 
-            <!-- <div *ngIf="showloader" class="d-flex justify-content-center pt-5">
+            <div *ngIf="showloader" class="d-flex justify-content-center pt-5">
                 <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                     <span class="sr-only">Loading...</span>
                 </div>
-            </div> -->
+            </div>
 
-            <!-- <div class="justify-content-between row">
+            <div class="justify-content-between row">
                 <div class="col">
                     <ngb-pagination (pageChange)="onPageChange($event)" [(page)]="page" [pageSize]="pageSize"
                         [collectionSize]="total" [boundaryLinks]="true" [maxSize]="total">
                     </ngb-pagination>
                 </div>
-            </div> -->
+            </div>
 
 
             <div class="alert alert-danger" id="no-rows-alert" style="display: none">No records found</div>

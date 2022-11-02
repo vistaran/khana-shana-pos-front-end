@@ -1,4 +1,5 @@
-import { Router } from '@angular/router';
+import { TableManagementService } from './../table-management.service';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AppToastService } from './../../shared-module/services/app-toast.service';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -12,6 +13,7 @@ export class EditTableComponent implements OnInit {
 
     editTableForm!: FormGroup
     showValidations = false;
+    id: any;
 
     get table_name() {
         return this.editTableForm.get('table_name');
@@ -21,16 +23,44 @@ export class EditTableComponent implements OnInit {
         return this.editTableForm.get('table_number');
     }
 
+    get is_table_occupied() {
+        return this.editTableForm.get('is_table_occupied');
+    }
+
+    get is_table_active() {
+        return this.editTableForm.get('is_table_active');
+    }
+
     constructor(
         private fb: FormBuilder,
         private toast: AppToastService,
-        private router: Router
+        private router: Router,
+        private TableManagementService: TableManagementService,
+        private route: ActivatedRoute
     ) { }
 
     ngOnInit(): void {
+        this.id = this.route.snapshot.params.id;
         this.editTableForm = this.fb.group({
             table_number: ['', [Validators.required]],
-            table_name: ['', [Validators.required]]
+            table_name: ['', [Validators.required]],
+            table_occupied: ['', [Validators.required]],
+            table_active: ['', [Validators.required]]
+        })
+
+        this.getTableManagementDataById();
+    }
+
+    getTableManagementDataById() {
+        this.TableManagementService.getTableManagementDataById(this.id).subscribe((result: any) => {
+            this.editTableForm.patchValue({
+                table_number: result.Restaurant_Table_Details.res_table_number,
+                table_name: result.Restaurant_Table_Details.res_table_name,
+                table_occupied: result.Restaurant_Table_Details.is_table_occupied.toString(),
+                table_active: result.Restaurant_Table_Details.is_table_active.toString()
+            });
+        }, err => {
+            this.toast.error('Error', 'Something went wrong.');
         })
     }
 
@@ -41,6 +71,13 @@ export class EditTableComponent implements OnInit {
             return;
         }
         console.log(data);
+
+        this.TableManagementService.editTableData(this.id, data).subscribe((result: any) => {
+            this.toast.success('Success', 'Table data updated successfully!');
+            this.router.navigate(['/sales/table_management']);
+        }, err => {
+            this.toast.error('Error', 'Something went wrong. Please try again!');
+        })
 
     }
 

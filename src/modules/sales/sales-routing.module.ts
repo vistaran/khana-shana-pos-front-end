@@ -26,7 +26,7 @@ const routes: Routes = [
         component: SalesComponent,
         data: {
             title: 'Sales',
-            activeTopNav: '₹ Sales'
+            activeTopNav: 'Sales'
         } as SBRouteData,
     },
     {
@@ -35,7 +35,7 @@ const routes: Routes = [
         component: AddSaleComponent,
         data: {
             title: 'Add Sale',
-            activeTopNav: '₹ Sales'
+            activeTopNav: 'Sales'
         } as SBRouteData,
     },
     {
@@ -44,7 +44,7 @@ const routes: Routes = [
         component: EditSaleComponent,
         data: {
             title: 'Edit Sale',
-            activeTopNav: '₹ Sales'
+            activeTopNav: 'Sales'
         } as SBRouteData,
     },
     {
