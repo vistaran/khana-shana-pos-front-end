@@ -66,12 +66,12 @@ export const sideNavItems: SideNavItems = {
         link: '/catalog/products',
     },
     categories: {
-        icon: 'rupee-sign',
+        icon: 'list-alt',
         text: 'Menu Categories',
         link: '/catalog/categories'
     },
     table_management: {
-        icon: 'twitter',
+        icon: 'table',
         text: 'Table Management',
         link: '/sales/table_management'
     },
@@ -80,35 +80,35 @@ export const sideNavItems: SideNavItems = {
 
     // System
     users: {
-        icon: 'columns',
+        icon: 'user',
         text: 'Users',
         link: '/pos/users'
     },
     vendors: {
-        icon: 'columns',
+        icon: 'users-cog',
         text: 'Vendors',
         link: '/pos/vendors'
     },
     uom: {
-        icon: 'columns',
+        icon: 'balance-scale-left',
         text: 'UOM',
         link: '/pos/uom'
     },
 
     customer: {
-        icon: 'columns',
+        icon: 'users',
         text: 'Customers',
         link: '/customer_management'
     },
 
     // Reports
     expense_by_group: {
-        icon: 'columns',
+        icon: 'wallet',
         text: 'Expense By Item Group',
         link: '/reports/expense_by_group',
     },
     monthly_expense: {
-        icon: 'columns',
+        icon: 'wallet',
         text: 'Monthly Expense',
         link: '/reports/monthly_expense',
     },
@@ -117,12 +117,12 @@ export const sideNavItems: SideNavItems = {
     // Catalog
 
     attributes: {
-        icon: 'tachometer-alt',
+        icon: 'bars',
         text: 'Attributes',
         link: '/catalog/attributes'
     },
     attributeFamily: {
-        icon: 'tachometer-alt',
+        icon: 'bars',
         text: 'Attribute Family',
         link: '/catalog/attributeFamily'
     },

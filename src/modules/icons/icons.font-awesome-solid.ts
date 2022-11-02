@@ -22,7 +22,12 @@ import {
     faCubes,
     faCashRegister,
     faShoppingCart,
-    faClipboardList
+    faClipboardList,
+    faListAlt,
+    faWallet,
+    faUsersCog,
+    faBalanceScaleLeft,
+    faUsers,
 } from '@fortawesome/free-solid-svg-icons';
 
 export const fontAwesomeSolidIcons = {
@@ -47,5 +52,10 @@ export const fontAwesomeSolidIcons = {
     faCubes,
     faCashRegister,
     faShoppingCart,
-    faClipboardList
+    faClipboardList,
+    faListAlt,
+    faWallet,
+    faUsersCog,
+    faBalanceScaleLeft,
+    faUsers
 };
