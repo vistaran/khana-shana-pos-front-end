@@ -1,5 +1,6 @@
+import { TableManagementService } from './../table-management.service';
 import { Component, HostListener, OnInit, Renderer2 } from '@angular/core';
-import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Form, FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ProductService } from '@modules/catalog/product.service';
 import { CustomerManagementService } from '@modules/customer-management/customer-management.service';
@@ -10,451 +11,601 @@ import { Subject } from 'rxjs';
 import { SalesService } from '../sales.service';
 
 @Component({
-  selector: 'sb-add-sale',
-  templateUrl: './add-sale.component.html',
-  styleUrls: ['./add-sale.component.scss']
+    selector: 'sb-add-sale',
+    templateUrl: './add-sale.component.html',
+    styleUrls: ['./add-sale.component.scss']
 })
 export class AddSaleComponent implements OnInit {
 
-  @HostListener('document:keydown.shift.s')
-  productData: any = [];
-  addedProduct: any = [];
-  customerData: any = [];
-  orderDetail: any = [];
-  itemDetail: any = [];
-  addSaleForm!: FormGroup
-  qtyForm!: FormGroup
-  customerForm!: FormGroup
-  selectedCity: any
-  pageSize = 100
-  showProducts = false;
+    @HostListener('document:keydown.shift.s')
+    productData: any = [];
+    addedProduct: any = [];
+    customerData: any = [];
+    orderDetail: any = [];
+    itemDetail: any = [];
+    addSaleForm!: FormGroup
+    qtyForm!: FormGroup
+    customerForm!: FormGroup
+    discountForm!: FormGroup
+    selectedCity: any
+    pageSize = 100
+    showProducts = false;
 
-  payment_mode: any
+    payment_mode: any
 
-  today = new Date()
-  dd = this.today.getDate();
-  mm = this.today.getMonth() + 1; // January is 0!
-  yyyy = this.today.getFullYear();
+    today = new Date()
+    dd = this.today.getDate();
+    mm = this.today.getMonth() + 1; // January is 0!
+    yyyy = this.today.getFullYear();
 
-  curr_date: NgbDate = new NgbDate(this.yyyy, this.mm, this.dd);
-  date = ''
+    curr_date: NgbDate = new NgbDate(this.yyyy, this.mm, this.dd);
+    date = ''
 
-  payment_mode_copy = [
-    {
-      id: 1, name: 'Cash', alternate_name: 'cash'
-    },
-    {
-      id: 2, name: 'Credit card', alternate_name: 'credit_card'
-    },
-    {
-      id: 3, name: 'Debit card', alternate_name: 'debit_card'
-    },
-    {
-      id: 4, name: 'Netbanking', alternate_name: 'net_banking'
-    },
-    {
-      id: 5, name: 'UPI', alternate_name: 'upi'
-    }
-  ]
-
-  shipping_charge = 0;
-  total = 0;
-  semitotal = 0
-  page = 1
-  showloader: any
-  searchValue: any
-  showCustomerDetail = false;
-  customerName: any
-  customerNumber: any
-  customer_id: any
-  showValidations = false;
-  showCustomerValidation = false;
-  addCustomerForm!: FormGroup;
-  newDate: any;
-  resultDisplayArray: any
-
-
-  get customer() {
-    return this.customerForm.get('customer_id');
-  }
-
-  get quantity() {
-    return this.qtyForm.get('quantity');
-  }
-
-
-  get firstname() {
-    return this.addCustomerForm.get('first_name');
-  }
-
-  get lastname() {
-    return this.addCustomerForm.get('last_name');
-  }
-
-  get phone() {
-    return this.addCustomerForm.get('phone_number');
-  }
-
-
-
-  constructor(
-    private productService: ProductService,
-    private fb: FormBuilder,
-    private modalService: NgbModal,
-    private customerService: CustomerManagementService,
-    private saleService: SalesService,
-    private toast: AppToastService,
-    private router: Router,
-    private renderer: Renderer2
-  ) { }
-
-  ngOnInit(): void {
-
-    this.addSaleForm = this.fb.group({
-      shipping_charge: [0],
-      order_date: [this.curr_date],
-      payment_mode: ['cash'],
-      notes: ['']
-    })
-
-    this.qtyForm = this.fb.group({
-      quantity: ['', [Validators.required]]
-    })
-
-    this.customerForm = this.fb.group({
-      customer_id: [null, [Validators.required]]
-    })
-
-    this.addCustomerForm = this.fb.group({
-      first_name: ['', [Validators.required]],
-      last_name: ['', [Validators.required]],
-      phone_number: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]]
-    })
-
-    this.getProductsData()
-    this.getCustomerData()
-    // this.renderer.listen(document, 'keydown.shift.s', handler)
-  }
-
-  validateNumber(event: any) {
-
-    var inp = String.fromCharCode(event.keyCode);
-
-    if (/[0-9]/.test(inp)) {
-      return true;
-    } else {
-      event.preventDefault();
-      return false;
-    }
-  }
-
-  getProductsData() {
-    this.productData = [];
-    this.productService.getProducts(this.page).subscribe((data: any) => {
-      this.productData = data.products.data;
-      console.log(data);
-      if (data.products.last_page > 1) {
-        console.log('greater');
-        for (let i = 2; i <= data.products.last_page; i++) {
-          console.log();
-          this.productService.getProducts(i).subscribe((ele: any) => {
-            this.productData = this.productData.concat(ele.products.data);
-            console.log(ele.products.data);
-          })
+    payment_mode_copy = [
+        {
+            id: 1, name: 'Cash', alternate_name: 'cash'
+        },
+        {
+            id: 2, name: 'Credit card', alternate_name: 'credit_card'
+        },
+        {
+            id: 3, name: 'Debit card', alternate_name: 'debit_card'
+        },
+        {
+            id: 4, name: 'Netbanking', alternate_name: 'net_banking'
+        },
+        {
+            id: 5, name: 'UPI', alternate_name: 'upi'
         }
-        this.showProducts = true;
-        console.log(this.productData, 'pro data');
+    ];
+    productQuantity: any = [];
 
-      } else {
-        this.showProducts = true;
-      }
-      // this.productData = data.products.data
-      // console.log(this.productData);
-    })
-  }
+    tableList: any = [];
+    selectedTableId: any;
 
-  getCustomerData() {
-    this.saleService.getCustomerData(this.pageSize).subscribe((result: any) => {
-      this.customerData = result.data.sort(function (a: any, b: any) {
-        const nameA = a.first_name.toUpperCase(); // ignore upper and lowercase
-        const nameB = b.first_name.toUpperCase(); // ignore upper and lowercase
-        if (nameA < nameB) {
-          return -1;
-        }
-        if (nameA > nameB) {
-          return 1;
-        }
+    qty = 1;
+    shipping_charge = 0;
+    discount_amount = 0;
+    discount_store = 0;
+    total = 0;
+    semitotal = 0
+    page = 1
+    showloader: any
+    searchValue: any
+    showCustomerDetail = false;
+    customerName: any
+    customerNumber: any
+    customer_id: any
+    showValidations = false;
+    showCustomerValidation = false;
+    addCustomerForm!: FormGroup;
+    newDate: any;
+    resultDisplayArray: any
+    showDiscount: any;
+    showDiscountOption = false;
+    discount_type: any;
+    table_number: any;
 
-        // names must be equal
-        return 0;
-      })
-    })
-  }
 
-  searchCustomer(event: any) {
-    console.log(event.term);
-    this.customerService.searchCustomer(event.term).subscribe((res: any) => {
-      this.customerData = res.customers.data
-      console.log(this.customerData);
-    }, err => {
-      this.toast.error('Error', 'Server error.')
-      this.showloader = false
-    });
-  }
 
-  onSubmitCustomer(data: any) {
-
-    if (this.addCustomerForm.invalid) {
-      alert('Please fill all the required fields!');
-      return;
+    get customer() {
+        return this.customerForm.get('customer_id');
     }
 
-    this.modalService.dismissAll();
-
-    this.customerService.postCustomerData(data)
-      .subscribe((result: any) => {
-        console.log(result.customers)
-        this.toast.success('Success', 'Customer Added Successfully.')
-        this.getCustomerData();
-        this.getCustomerDetail(result.customers);
-      }, err => {
-        this.toast.error('Error', 'Server error.')
-      });
-    console.log('Form Submitted', (data));
-  }
-
-  getCustomerDetail(id: any) {
-    this.customerService.editCustomerForm(id).subscribe((data: any) => {
-      this.customerName = data.first_name + ' ' + data.last_name;
-      this.customerNumber = data.phone_number;
-      this.customer_id = id;
-      this.showCustomerDetail = true;
-    })
-  }
-
-  selectCustomerClose() {
-    this.customerForm = this.fb.group({
-      customer_id: [null, [Validators.required]]
-    })
-  }
-
-  qtyClose() {
-    this.qtyForm = this.fb.group({
-      quantity: ['', [Validators.required]]
-    })
-  }
-
-  addCustomerClose() {
-    this.addCustomerForm = this.fb.group({
-      first_name: ['', [Validators.required]],
-      last_name: ['', [Validators.required]],
-      phone_number: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]]
-    })
-  }
-
-  onSelectDate(date: any) {
-    console.log(date);
-    this.date = date.year + '-' + date.month + '-' + date.day
-    console.log(this.date);
-  }
-
-  onSelectProduct(data: any, qty: any) {
-
-    if (this.qtyForm.invalid) {
-      this.showValidations = true;
-      alert('Please enter quantity');
-      return;
+    get quantity() {
+        return this.qtyForm.get('quantity');
     }
 
-    let invalid;
 
-    this.modalService.dismissAll();
-
-    this.addedProduct.forEach((g: any) => {
-      if (data.product_name == g.product_name) {
-        invalid = true
-      }
-    })
-    if (invalid) {
-      this.toast.warning('Warning', data.product_name + ' is already added.')
-      return;
-    }
-    console.log('Quantity', qty.quantity);
-
-    this.productData.forEach((g: any) => {
-      // g.quantity = 0;
-      // g.subtotal = 0;
-      // console.log(g)
-      if (g.id == data.id) {
-        g.quantity = qty.quantity
-        g.subtotal = (data.price * qty.quantity)
-        this.addedProduct.push(g)
-
-        // this.ngOnInit()
-      }
-      console.log(this.addedProduct);
-
-    });
-
-    this.semitotal = this.addedProduct.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
-      return a + b;
-    })
-
-    this.toast.success('Success', 'Product added successfully.');
-    this.qtyForm = this.fb.group({
-      quantity: ['', [Validators.required]]
-    })
-
-    this.total += (data.quantity * data.price)
-    this.calculateTotal()
-    // console.log('Added Product', this.addedProduct);
-  }
-
-  onSelectCustomer(data: any) {
-    // console.log(data.value.customer_id);
-
-    if (this.customerForm.invalid) {
-      this.showCustomerValidation = true;
-      alert('Please select customer');
-      return;
+    get firstname() {
+        return this.addCustomerForm.get('first_name');
     }
 
-    this.customer_id = data.value.customer_id
-    console.log('Customer id: ', this.customer_id);
-
-    this.modalService.dismissAll();
-
-    this.customerData.forEach((g: any) => {
-
-      if (g.id == data.value.customer_id) {
-        this.customerName = g.first_name + ' ' + g.last_name
-        this.customerNumber = g.phone_number
-        this.showCustomerDetail = true
-      }
-    });
-  }
-
-  openVerticallyCentered(content: any) {
-    this.modalService.open(content, { centered: true, size: 'sm' });
-  }
-
-  openModal(content: any) {
-    this.modalService.open(content, { centered: true });
-  }
-
-  onKey(event: any) {
-
-    console.log(typeof (event));
-
-    let charges = 0;
-    if (typeof (event) == 'object') {
-      charges = event.target.value;
-    } else {
-      charges = event;
+    get lastname() {
+        return this.addCustomerForm.get('last_name');
     }
 
-    let showShipping = false;
-    let total = 0;
-    if (this.addedProduct.length != 0) {
-      this.addedProduct.forEach((ele: any) => {
-        total += ele.subtotal;
-      })
-      if (total <= charges) {
-        alert('Shipping Charges cannot be greater than or equal to the total amount!');
-        this.shipping_charge = 0;
-        this.total = total;
-        showShipping = false;
-      }
-      else {
-        showShipping = true;
-      }
-    }
-    else {
-      alert('Please add atleast one item to input shipping charges!');
-      this.shipping_charge = 0;
-      return;
+    get phone() {
+        return this.addCustomerForm.get('phone_number');
     }
 
-    if (showShipping) {
-      this.shipping_charge = Number(charges);
-      this.calculateTotal();
+    get getFormData(): FormArray {
+        return <FormArray>this.qtyForm.get('quantity');
     }
-  }
 
-  RemoveProduct(id: any) {
-    if (confirm('Are you sure you want to delete?')) {
-      this.addedProduct = this.addedProduct.filter((item: any) => item.id !== id);
-      // console.log('afterdelete', this.addedProduct);
-      if (this.addedProduct.length == 0) {
-        this.semitotal = 0
-      } else {
-        this.semitotal = this.addedProduct.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
-          return a + b;
+
+
+    constructor(
+        private productService: ProductService,
+        private fb: FormBuilder,
+        private modalService: NgbModal,
+        private customerService: CustomerManagementService,
+        private saleService: SalesService,
+        private toast: AppToastService,
+        private router: Router,
+        private renderer: Renderer2,
+        private TableManagementService: TableManagementService
+    ) { }
+
+    ngOnInit(): void {
+
+        this.addSaleForm = this.fb.group({
+            shipping_charge: [0],
+            order_date: [this.curr_date],
+            payment_mode: ['cash'],
+            notes: [''],
+            table_number: [],
+            discount: [0]
         })
-      }
-      setTimeout(() => { this.onKey(this.shipping_charge) }, 500);
-      setTimeout(() => { this.calculateTotal() }, 500);
-      this.toast.success('Success', 'Product deleted successfully.');
+
+        this.discountForm = this.fb.group({
+            discount: [0]
+        })
+
+        // this.qtyForm = this.fb.group({
+        //     quantity: ['', [Validators.required]]
+        // })
+
+        this.qtyForm = this.fb.group({
+            quantity: this.fb.array([])
+        });
+
+        this.customerForm = this.fb.group({
+            customer_id: [null, [Validators.required]]
+        })
+
+        this.addCustomerForm = this.fb.group({
+            first_name: ['', [Validators.required]],
+            last_name: ['', [Validators.required]],
+            phone_number: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]]
+        })
+
+        this.getProductsData()
+        this.getCustomerData()
+        this.getTableData()
+        // this.renderer.listen(document, 'keydown.shift.s', handler)
     }
-  }
 
-  calculateTotal() {
-    this.total = Number(this.shipping_charge) + Number(this.semitotal);
-  }
+    validateNumber(event: any) {
 
-  getItems(items: any) {
-    this.resultDisplayArray = [];
-    for (let i = 0; i < items.length; i++) {
-      this.resultDisplayArray += `<tr>
+        var inp = String.fromCharCode(event.keyCode);
+
+        if (/[0-9]/.test(inp)) {
+            return true;
+        } else {
+            event.preventDefault();
+            return false;
+        }
+    }
+
+    getProductsData() {
+        this.productData = [];
+        this.productService.getProducts(this.page).subscribe((data: any) => {
+            this.productData = data.products.data;
+            console.log(data);
+            if (data.products.last_page > 1) {
+                console.log('greater');
+                for (let i = 2; i <= data.products.last_page; i++) {
+                    console.log();
+                    this.productService.getProducts(i).subscribe((ele: any) => {
+                        this.productData = this.productData.concat(ele.products.data);
+                        console.log(ele.products.data);
+                    })
+                }
+                this.showProducts = true;
+                console.log(this.productData, 'pro data');
+
+            } else {
+                this.showProducts = true;
+            }
+            // this.productData = data.products.data
+            // console.log(this.productData);
+        })
+    }
+
+    getCustomerData() {
+        this.saleService.getCustomerData(this.pageSize).subscribe((result: any) => {
+            this.customerData = result.data.sort(function (a: any, b: any) {
+                const nameA = a.first_name.toUpperCase(); // ignore upper and lowercase
+                const nameB = b.first_name.toUpperCase(); // ignore upper and lowercase
+                if (nameA < nameB) {
+                    return -1;
+                }
+                if (nameA > nameB) {
+                    return 1;
+                }
+
+                // names must be equal
+                return 0;
+            })
+        })
+    }
+
+    searchCustomer(event: any) {
+        console.log(event.term);
+        this.customerService.searchCustomer(event.term).subscribe((res: any) => {
+            this.customerData = res.customers.data
+            console.log(this.customerData);
+        }, err => {
+            this.toast.error('Error', 'Server error.')
+            this.showloader = false
+        });
+    }
+
+    getTableData() {
+        this.TableManagementService.getTableManagementData().subscribe((data: any) => {
+            console.log('table0', data);
+            data.data.forEach((element: any) => {
+                if (element.is_table_occupied == 0 && element.is_table_active == 1) {
+                    this.tableList.push(element);
+                }
+            });
+            console.log(this.tableList);
+
+            // this.tableList = data.data;
+            if(this.tableList.length > 0) {
+                this.addSaleForm.get('table_number')?.setValue(this.tableList[0].res_table_number);
+            }
+        })
+    }
+
+    onTableChange(event: any) {
+        console.log(event);
+        this.tableList.forEach((element: any) => {
+            if (element.res_table_number == event) {
+                console.log(element.id);
+                this.selectedTableId = element.id;
+            }
+        });
+
+    }
+
+    onSubmitCustomer(data: any) {
+
+        if (this.addCustomerForm.invalid) {
+            alert('Please fill all the required fields!');
+            return;
+        }
+
+        this.modalService.dismissAll();
+
+        this.customerService.postCustomerData(data)
+            .subscribe((result: any) => {
+                console.log(result.customers)
+                this.toast.success('Success', 'Customer Added Successfully.')
+                this.getCustomerData();
+                this.getCustomerDetail(result.customers);
+            }, err => {
+                this.toast.error('Error', 'Server error.')
+            });
+        console.log('Form Submitted', (data));
+    }
+
+    getCustomerDetail(id: any) {
+        this.customerService.editCustomerForm(id).subscribe((data: any) => {
+            this.customerName = data.first_name + ' ' + data.last_name;
+            this.customerNumber = data.phone_number;
+            this.customer_id = id;
+            this.showCustomerDetail = true;
+        })
+    }
+
+    selectCustomerClose() {
+        this.customerForm = this.fb.group({
+            customer_id: [null, [Validators.required]]
+        })
+    }
+
+    qtyClose() {
+        this.qtyForm = this.fb.group({
+            quantity: ['', [Validators.required]]
+        })
+    }
+
+    addCustomerClose() {
+        this.addCustomerForm = this.fb.group({
+            first_name: ['', [Validators.required]],
+            last_name: ['', [Validators.required]],
+            phone_number: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]]
+        })
+    }
+
+    onSelectDate(date: any) {
+        console.log(date);
+        this.date = date.year + '-' + date.month + '-' + date.day
+        console.log(this.date);
+    }
+
+    onSelectProduct(data: any) {
+
+        // if (this.qtyForm.invalid) {
+        //     this.showValidations = true;
+        //     alert('Please enter quantity');
+        //     return;
+        // }
+
+        let invalid;
+
+        this.modalService.dismissAll();
+
+        this.addedProduct.forEach((g: any) => {
+            if (data.product_name == g.product_name) {
+                invalid = true
+            }
+        })
+        if (invalid) {
+            this.toast.warning('Warning', data.product_name + ' is already added.')
+            return;
+        }
+        // console.log('Quantity', data.qty);
+
+        this.productData.forEach((g: any) => {
+            // g.quantity = 0;
+            // g.subtotal = 0;
+            // console.log(g)
+            if (g.id == data.id) {
+                g.quantity = 1;
+                g.subtotal = data.price
+                this.addedProduct.push(g)
+                // this.ngOnInit()
+            }
+            // console.log(this.addedProduct);
+
+        });
+
+        this.semitotal = this.addedProduct.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
+            return a + b;
+        })
+
+        this.toast.success('Success', 'Product added successfully.');
+
+        this.productQuantity[this.addedProduct.length - 1] = 1;
+        // this.qtyForm = this.fb.group({
+        //     quantity: ['', [Validators.required]]
+        // })
+
+        console.log(this.productQuantity, 'quantity');
+
+
+        this.total += (data.quantity * data.price)
+        this.calculateTotal();
+        // console.log('Added Product', this.addedProduct);
+    }
+
+    qtyChange(event: any, i: any) {
+        console.log(event, 'val');
+
+        let qty = Number(event?.target.value);
+        this.productQuantity[i] = qty;
+        console.log(this.productQuantity);
+
+        this.addedProduct[i].subtotal = qty * this.addedProduct[i].price;
+        console.log(this.addedProduct);
+
+        this.semitotal = this.addedProduct.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
+            return a + b;
+        })
+
+        this.calculateTotal();
+    }
+
+    addDiscount(obj: any) {
+        console.log(obj);
+        if (obj.discount == true) {
+            this.showDiscountOption = true;
+        } else {
+            this.showDiscountOption = false;
+            this.discount_amount = 0;
+            this.calculateTotal();
+        }
+    }
+
+    getDiscountType(event: any) {
+        console.log(event);
+        this.discount_type = event.target.value;
+    }
+
+    getDiscountAmount(event: any) {
+
+        console.log(typeof (event));
+
+        let discount = 0;
+        if (typeof (event) == 'object') {
+            discount = event.target.value;
+        } else {
+            discount = event;
+        }
+
+        let showShipping = false;
+        let total = 0;
+        if (this.addedProduct.length != 0) {
+            this.addedProduct.forEach((ele: any) => {
+                total += ele.subtotal;
+            })
+            if (total <= discount) {
+                alert('Discount cannot be greater than or equal to the total amount!');
+                this.discount_amount = 0;
+                this.total = total;
+                showShipping = false;
+            }
+            else {
+                showShipping = true;
+            }
+        }
+        else {
+            alert('Please add atleast one item to input discount!');
+            this.discount_amount = 0;
+            return;
+        }
+
+        if (showShipping) {
+            this.discount_amount = Number(discount);
+            this.calculateTotal(this.discount_amount);
+        }
+    }
+
+    onSelectCustomer(data: any) {
+        // console.log(data.value.customer_id);
+
+        if (this.customerForm.invalid) {
+            this.showCustomerValidation = true;
+            alert('Please select customer');
+            return;
+        }
+
+        this.customer_id = data.value.customer_id
+        console.log('Customer id: ', this.customer_id);
+
+        this.modalService.dismissAll();
+
+        this.customerData.forEach((g: any) => {
+
+            if (g.id == data.value.customer_id) {
+                this.customerName = g.first_name + ' ' + g.last_name
+                this.customerNumber = g.phone_number
+                this.showCustomerDetail = true
+            }
+        });
+    }
+
+    openVerticallyCentered(content: any) {
+        this.modalService.open(content, { centered: true, size: 'sm' });
+    }
+
+    openModal(content: any) {
+        this.modalService.open(content, { centered: true });
+    }
+
+    onKey(event: any) {
+
+        console.log(typeof (event));
+
+        let charges = 0;
+        if (typeof (event) == 'object') {
+            charges = event.target.value;
+        } else {
+            charges = event;
+        }
+
+        let showShipping = false;
+        let total = 0;
+        if (this.addedProduct.length != 0) {
+            this.addedProduct.forEach((ele: any) => {
+                total += ele.subtotal;
+            })
+            if (total <= charges) {
+                alert('Shipping Charges cannot be greater than or equal to the total amount!');
+                this.shipping_charge = 0;
+                this.total = total;
+                showShipping = false;
+            }
+            else {
+                showShipping = true;
+            }
+        }
+        else {
+            alert('Please add atleast one item to input shipping charges!');
+            this.shipping_charge = 0;
+            return;
+        }
+
+        if (showShipping) {
+            this.shipping_charge = Number(charges);
+            this.calculateTotal();
+        }
+    }
+
+    RemoveProduct(id: any) {
+        if (confirm('Are you sure you want to delete?')) {
+            this.addedProduct = this.addedProduct.filter((item: any) => item.id !== id);
+            // console.log('afterdelete', this.addedProduct);
+            if (this.addedProduct.length == 0) {
+                this.semitotal = 0
+            } else {
+                this.semitotal = this.addedProduct.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
+                    return a + b;
+                })
+            }
+            setTimeout(() => { this.onKey(this.shipping_charge) }, 500);
+            setTimeout(() => { this.calculateTotal() }, 500);
+            this.toast.success('Success', 'Product deleted successfully.');
+        }
+    }
+
+    calculateTotal(discount?: any) {
+        // console.log(discount);
+        if (discount) {
+            if (this.discount_type == "percentage") {
+                console.log((Number(this.shipping_charge) + Number(this.semitotal)) * this.discount_amount);
+
+                this.total = (Number(this.shipping_charge) + Number(this.semitotal)) * (100 - this.discount_amount) / 100;
+                this.discount_store = (Number(this.shipping_charge) + Number(this.semitotal)) - this.total;
+                console.log(this.discount_store);
+
+            } else {
+                this.total = Number(this.shipping_charge) + Number(this.semitotal) - Number(discount);
+                this.discount_store = (Number(this.shipping_charge) + Number(this.semitotal)) - this.total;
+                console.log(this.discount_store);
+            }
+        } else {
+            this.total = Number(this.shipping_charge) + Number(this.semitotal);
+            this.discount_store = 0;
+        }
+    }
+
+    getItems(items: any) {
+        this.resultDisplayArray = [];
+        for (let i = 0; i < items.length; i++) {
+            this.resultDisplayArray += `<tr>
       <td style="text-align:start">${items[i].product_name} x${items[i].quantity}</td>
       <td>₹${items[i].price?.toFixed(2)}</td>
       <td>₹${items[i].subtotal?.toFixed(2)}</td>
       </tr>`;
+        }
+        // change code above this line
+        console.log(this.resultDisplayArray);
+
+        return this.resultDisplayArray;
     }
-    // change code above this line
-    console.log(this.resultDisplayArray);
 
-    return this.resultDisplayArray;
-  }
+    getOrderDetail(id: number, print: any) {
+        this.saleService.orderDetailData(id).subscribe((data: any) => {
+            console.log(data, 'order data');
 
-  getOrderDetail(id: number, print: any) {
-    this.saleService.orderDetailData(id).subscribe((data: any) => {
-      console.log(data, 'order data');
+            if (data.order.payment_mode == 'cash') {
+                data.order.payment_mode = 'Cash';
+            }
+            else if (data.order.payment_mode == 'credit_card') {
+                data.order.payment_mode = 'Credit Card';
+            } else if (data.order.payment_mode == 'debit_card') {
+                data.order.payment_mode = 'Debit Card';
+            } else if (data.order.payment_mode == 'net_banking') {
+                data.order.payment_mode = 'Net Banking';
+            } else if (data.order.payment_mode == 'upi') {
+                data.order.payment_mode = 'UPI';
+            }
 
-      if (data.order.payment_mode == 'cash') {
-        data.order.payment_mode = 'Cash';
-      }
-      else if (data.order.payment_mode == 'credit_card') {
-        data.order.payment_mode = 'Credit Card';
-      } else if (data.order.payment_mode == 'debit_card') {
-        data.order.payment_mode = 'Debit Card';
-      } else if (data.order.payment_mode == 'net_banking') {
-        data.order.payment_mode = 'Net Banking';
-      } else if (data.order.payment_mode == 'upi') {
-        data.order.payment_mode = 'UPI';
-      }
+            this.orderDetail = data.order
+            this.itemDetail = data.items
 
-      this.orderDetail = data.order
-      this.itemDetail = data.items
+            this.newDate = this.orderDetail.order_date.slice(0, 10).split("-").reverse().join("-");
+            console.log(this.newDate, 'newdate');
 
-      this.newDate = this.orderDetail.order_date.slice(0, 10).split("-").reverse().join("-");
-      console.log(this.newDate, 'newdate');
+            console.log(this.itemDetail);
 
-      console.log(this.itemDetail);
+            this.getItems(this.itemDetail);
 
-      this.getItems(this.itemDetail);
+            if (print == true) {
+                this.openInvoice();
+            }
 
-      if (print == true) {
-        this.openInvoice();
-      }
+        })
+    }
 
-    })
-  }
+    openInvoice() {
+        if (this.orderDetail.id != undefined) {
 
-  openInvoice() {
-    if (this.orderDetail.id != undefined) {
-
-      let htmlContent = `
+            let htmlContent = `
       <!DOCTYPE html>
       <html lang="en">
       <style>
@@ -512,6 +663,8 @@ export class AddSaleComponent implements OnInit {
         <p class="m-0">Date: <span class="font-bold">${this.newDate}</span></p>
         <p class="m-0">Order No.: <span class="font-bold">${this.orderDetail.id}</span></p>
         <p class="m-0">Payment mode: <span class="font-bold">${this.orderDetail.payment_mode}</span></p>
+        <p class="m-0">Customer Name: : <span class="font-bold">${this.customerName ? this.customerName : ''}</span></p>
+        <p class="m-0">Table Number: <span class="font-bold">${this.table_number}</span></p>
 
       <span class="tax" style="margin-top: 0.5rem; margin-bottom: 0.5rem;"></span>
       <table style="width:100%;">
@@ -529,6 +682,10 @@ export class AddSaleComponent implements OnInit {
           <tr>
             <td colspan="2" style="text-align: end;">Subtotal: </td>
             <td>₹${(this.orderDetail.total_amount?.toFixed(2) - this.orderDetail.shipping_charge?.toFixed(2)).toFixed(2)}</td>
+          </tr>
+          <tr>
+            <td colspan="2" style="text-align: end;">Discount Amount: </td>
+            <td>- ₹${this.discount_store?.toFixed(2)}</td>
           </tr>
           <tr>
             <td colspan="2" style="text-align: end;">Packaging charges: </td>
@@ -555,78 +712,100 @@ export class AddSaleComponent implements OnInit {
     </body>
   </html>
   `;
-      let invoice = window.open("", "MsgWindow", "");
-      invoice?.document.write(htmlContent);
-      setTimeout(() => {
-        invoice?.print();
-        invoice?.focus();
-        invoice?.close();
-      });
+            let invoice = window.open("", "MsgWindow", "");
+            invoice?.document.write(htmlContent);
+            setTimeout(() => {
+                invoice?.print();
+                invoice?.focus();
+                invoice?.close();
+            });
 
-    }
-  }
-
-  onSubmit(data: any) {
-
-    // if (this.customerForm.invalid) {
-    //   alert('Please select customer!');
-    //   return;
-    // }
-
-    if (this.addSaleForm.invalid) {
-      alert('Please fill all the required fields!');
-      return;
+        }
     }
 
-    if (this.addedProduct.length == 0) {
-      alert('Please add atleast one product!');
-      return;
+    onSubmit(data: any) {
+
+        // if (this.customerForm.invalid) {
+        //   alert('Please select customer!');
+        //   return;
+        // }
+
+        if (this.addSaleForm.invalid) {
+            alert('Please fill all the required fields!');
+            return;
+        }
+
+        if (this.addedProduct.length == 0) {
+            alert('Please add atleast one product!');
+            return;
+        }
+
+        // console.log(data);
+
+        const addedProductSubmit: any = []
+
+        this.addedProduct.forEach((g: any) => {
+            addedProductSubmit.push({
+                product_id: g.id,
+                category_id: g.category_id,
+                price: g.price,
+                quantity: g.quantity,
+                subtotal: g.subtotal
+            })
+            // console.log(g);
+
+        });
+        console.log('addedProductSubmit: ', addedProductSubmit);
+
+        if (this.date == '') {
+            this.date = this.curr_date.year + '-' + this.curr_date.month + '-' + this.curr_date.day
+        }
+
+        this.table_number = data.table_number;
+        const obj = {
+            shipping_charge: this.shipping_charge,
+            total_amount: this.total,
+            order_date: this.date,
+            products: addedProductSubmit,
+            payment_mode: data.payment_mode,
+            customer_id: this.customer_id,
+            notes: data.notes,
+            table_number: data.table_number,
+            discount_amount: this.discount_amount,
+            discount_type: this.discount_type
+        }
+
+        console.log(obj);
+
+        this.saleService.postOrder(obj).subscribe((result: any) => {
+            console.log(result, 'result data')
+            this.toast.success('Success', 'Sales Order Added Successfully.');
+            this.getOrderDetail(result.order.id, true);
+            this.router.navigate(['/sales']);
+
+            let table_name;
+            if (this.customerName) {
+                table_name = this.customerName
+            } else {
+                table_name = '';
+            }
+
+            let tableData = {
+                table_number: data.table_number,
+                table_name: table_name,
+                table_occupied: 1,
+                table_active: 1
+            }
+            this.TableManagementService.editTableData(this.selectedTableId, tableData).subscribe(data => {
+
+            }, err => {
+                this.toast.error('Error', 'Table could not be marked as occupied');
+            })
+        }, err => {
+            this.toast.error('Error', 'Server Error')
+            // this.router.navigate(['/auth/login'])
+        });
     }
-
-    // console.log(data);
-
-    const addedProductSubmit: any = []
-
-    this.addedProduct.forEach((g: any) => {
-      addedProductSubmit.push({
-        product_id: g.id,
-        category_id: g.category_id,
-        price: g.price,
-        quantity: g.quantity,
-        subtotal: g.subtotal
-      })
-      // console.log(g);
-
-    });
-    console.log('addedProductSubmit: ', addedProductSubmit);
-
-    if (this.date == '') {
-      this.date = this.curr_date.year + '-' + this.curr_date.month + '-' + this.curr_date.day
-    }
-
-
-    const obj = {
-      shipping_charge: this.shipping_charge,
-      total_amount: this.total,
-      order_date: this.date,
-      products: addedProductSubmit,
-      payment_mode: data.payment_mode,
-      customer_id: this.customer_id,
-      notes: data.notes
-    }
-
-    console.log(obj);
-
-    this.saleService.postOrder(obj).subscribe((result: any) => {
-      console.log(result, 'result data')
-      this.toast.success('Success', 'Sales Order Added Successfully.');
-      this.getOrderDetail(result.order.id, true);
-      this.router.navigate(['/sales']);
-    }, err => {
-      this.toast.error('Error', 'Server Error')
-      // this.router.navigate(['/auth/login'])
-    });
-  }
 
 
 

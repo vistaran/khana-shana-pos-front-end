@@ -147,7 +147,7 @@
 
                                 <div class="h-100">
                                     <button class="shadow bg-transparent h-100 border border-secondary w-100 rounded"
-                                        type="button" (click)="openVerticallyCentered(content)">
+                                        type="button" (click)="onSelectProduct(data)">
                                         <!-- <div class="card-body"> -->
                                         <span class="text-capitalize">{{ data.product_name }}</span>
                                         <!-- <small class="card-text"><b>Category: </b> {{ data.category_name }}
@@ -165,7 +165,7 @@
                                     </button>
                                 </div>
 
-                                <ng-template #content let-modal>
+                                <!-- <ng-template #content let-modal>
 
                                     <div class="modal-header bg-primary align-items-center text-light">
                                         <h4 class=" modal-title">Product Quantity</h4>
@@ -201,7 +201,7 @@
                                     </form>
 
 
-                                </ng-template>
+                                </ng-template> -->
 
 
                             </div>
@@ -214,7 +214,7 @@
 
                         <!-- <div class="card-deck row mt-2">
                             <div class="col-5 mb-3" *ngFor="let data of addedProduct"> -->
-
+                        <!-- <form [formGroup]="qtyForm"> -->
                         <table class="table table-bordered shadow table-sm">
                             <thead class="head bg-dark text-white">
                                 <th>Product</th>
@@ -225,12 +225,16 @@
                                 <th>Actions</th>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let data of addedProduct">
+                                <tr *ngFor="let data of addedProduct; let i=index">
                                     <td>{{ data.product_name }}</td>
                                     <td>{{ data.category_name }}</td>
-                                    <td>{{ data.quantity }}</td>
+                                    <td>
+                                        <input type="number" [(ngModel)]="productQuantity[i]" min="0"
+                                            oninput="validity.valid||(value='');" class="form-control"
+                                            [ngModelOptions]="{standalone: true}" (change)="qtyChange($event, i)">
+                                    </td>
                                     <td>₹{{ data.price }}</td>
-                                    <td>₹{{ data.quantity * data.price}}</td>
+                                    <td>₹{{ addedProduct[i].subtotal}}</td>
                                     <td>
 
                                         <button id="remove" ngbTooltip="Delete"
@@ -245,15 +249,26 @@
                                     <td>
                                         <div class="input-group input-group-sm">
                                             <!-- <input type="number" formControlName="shipping_charge" class="form-control"
-                                                aria-label="Sizing example input"
-                                                aria-describedby="inputGroup-sizing-sm" (keyup)="onKey($event)"
-                                                (change)="onKey($event)"> -->
+                                                            aria-label="Sizing example input"
+                                                            aria-describedby="inputGroup-sizing-sm" (keyup)="onKey($event)"
+                                                            (change)="onKey($event)"> -->
                                             <input type="number" [(ngModel)]="shipping_charge" min="0"
                                                 oninput="validity.valid||(value='');" class="form-control"
                                                 [ngModelOptions]="{standalone: true}" (change)="onKey($event)">
                                         </div>
                                     </td>
                                 </tr>
+
+                                <!-- <tr class="table-sm">
+                                    <td colspan="4" class="text-right"><b>Discount</b></td>
+                                    <td>
+                                        <div class="input-group input-group-sm">
+                                            <input type="number" [(ngModel)]="discount" min="0"
+                                                oninput="validity.valid||(value='');" class="form-control"
+                                                [ngModelOptions]="{standalone: true}" (change)="onDiscountAdd($event)">
+                                        </div>
+                                    </td>
+                                </tr> -->
 
                                 <tr class="table-sm">
                                     <td colspan="4" class="text-right"><b>Total Amount:</b></td>
@@ -262,7 +277,35 @@
 
                             </tbody>
                         </table>
+                        <!-- </form> -->
 
+
+                        <div class="row mb-3">
+                            <div class="col">
+                                <form [formGroup]="discountForm">
+                                    <input type="checkbox" id="discount" formControlName="discount"
+                                        (change)="addDiscount(discountForm.value)">
+                                    <label class="ml-2 font-weight-bold " for="discount">Add discount</label>
+                                </form>
+                            </div>
+
+                            <div class="col" *ngIf="showDiscountOption">
+                                <label>Discount Type</label>
+                                <select class="form-control"
+                                    (change)="getDiscountType($event)">
+                                    <option disabled>Select discount type</option>
+                                    <option value="percentage">Percentage</option>
+                                    <option value="fixed_amount">Fixed amount</option>
+                                </select>
+                            </div>
+
+                            <div class="col" *ngIf="showDiscountOption">
+                                <label>Enter Discount</label>
+                                <input type="number" [(ngModel)]="discount_amount" min="0"
+                                                oninput="validity.valid||(value='');" class="form-control"
+                                                [ngModelOptions]="{standalone: true}" (change)="getDiscountAmount($event)">
+                            </div>
+                        </div>
                         <div class="row">
 
                             <div class="col">
@@ -291,6 +334,24 @@
                                             {{
                                             item.name
                                             }}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="form-group required">
+                                    <label>Table No.</label>
+                                    <select formControlName="table_number" class="form-control"
+                                        (ngModelChange)="onTableChange($event)">
+                                        <ng-template *ngIf="tableList.length > 0; else noTableEmpty">
+                                            <option *ngFor="let item of tableList" value="{{item.res_table_number}}">
+                                                {{
+                                                item.res_table_number
+                                                }}</option>
+                                        </ng-template>
+                                        <ng-template #noTableEmpty>
+                                            <option disabled selected>All tables are occupied currently</option>
+                                        </ng-template>
                                     </select>
                                 </div>
                             </div>

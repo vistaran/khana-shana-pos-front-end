@@ -13,8 +13,9 @@
                     <input class="form-control amber-border" class="form-control" type="text" aria-label="Search"
                         (keyup)="search()" placeholder="Search" [(ngModel)]="searchValue">
                     <div class="input-group-append">
-                        <button class="btn input-group-text bg-white text-dark amber lighten-3 form-control form-control" id="basic-text1"><i
-                                class="fa fa-search" aria-hidden="true" (click)="search()"></i></button>
+                        <button
+                            class="btn input-group-text bg-white text-dark amber lighten-3 form-control form-control"
+                            id="basic-text1"><i class="fa fa-search" aria-hidden="true" (click)="search()"></i></button>
                     </div>
                 </div>
 
@@ -29,6 +30,7 @@
                     <th>Order ID</th>
                     <th>Customer Name</th>
                     <th>Payment Mode</th>
+                    <th>Table Number</th>
                     <th>Order Date</th>
                     <th>Total Amount</th>
                     <th>Actions</th>
@@ -38,12 +40,12 @@
                         <td>{{ data.id }}</td>
                         <td>{{ data.first_name }} {{data.last_name}}</td>
                         <td>{{ data.payment_mode }}</td>
+                        <td>{{ data.table_number ? data.table_number : '-' }}</td>
                         <td>{{ data.order_date | date: 'dd/MM/yyyy' }}</td>
                         <td>₹{{ data.total_amount?.toFixed(2) }}</td>
                         <td>
                             <button class="btn btn-white rounded-circle  shadow mr-2 btn-sm" ngbTooltip="Print"
-                                (click)="getOrderDetail(data.id, true)"><i
-                                    class="fa fa-print fa-lg"></i></button>
+                                (click)="getOrderDetail(data.id, true)"><i class="fa fa-print fa-lg"></i></button>
 
                             <button class="btn btn-dark rounded-circle shadow mr-2 btn-sm" ngbTooltip="View Details"
                                 (click)="openXl(content)" (click)="getOrderDetail(data.id, false)"><i
@@ -54,8 +56,10 @@
                                     class="fa fa-pencil-square-o fa-lg"></i></button>
 
                             <button id="remove" ngbTooltip="Delete" (click)="deleteRow(data.id)"
-                                class="btn btn-danger rounded-circle shadow btn-sm"><i
+                                class="btn btn-danger rounded-circle shadow btn-sm mr-2"><i
                                     class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                            <button id="remove" ngbTooltip="Unoccupy this table" (click)="unOccupyTable(data)" *ngIf="data.table_number"
+                                class="btn btn-danger rounded shadow btn-sm">Unoccupy Table</button>
                         </td>
                     </tr>
                     <tr *ngIf="!orderData.length && !showloader">

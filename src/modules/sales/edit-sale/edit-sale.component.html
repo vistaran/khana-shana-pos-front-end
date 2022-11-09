@@ -138,7 +138,7 @@
 
                 <div class="row">
                     <div class="col">
-                        <h3 class="card-header bg-light shadow">Available Products</h3>
+                        <h5 class="p-2">Select Products</h5>
 
                         <div class=" row mt-2" *ngIf="showProducts">
                             <div class="col-3 mb-3" *ngFor="let data of productData">
@@ -146,7 +146,7 @@
 
                                 <div class="h-100">
                                     <button class="shadow bg-transparent h-100 border border-secondary w-100 rounded"
-                                        type="button" (click)="openVerticallyCentered(content)">
+                                        type="button" (click)="onSelectProduct(data)">
                                         <!-- <div class="card-body"> -->
                                         <span class="text-capitalize">{{ data.product_name }}</span>
                                         <!-- <small class="card-text"><b>Category: </b> {{ data.category_name }}
@@ -164,7 +164,7 @@
                                     </button>
                                 </div>
 
-                                <ng-template #content let-modal>
+                                <!-- <ng-template #content let-modal>
 
                                     <div class="modal-header bg-primary align-items-center text-light">
                                         <h4 class=" modal-title">Product Quantity</h4>
@@ -200,7 +200,7 @@
                                     </form>
 
 
-                                </ng-template>
+                                </ng-template> -->
 
 
                             </div>
@@ -209,7 +209,7 @@
                     </div>
 
                     <div class="col">
-                        <h3 class="card-header mb-2 bg-light shadow">Added Products</h3>
+                        <h5 class="p-2 mb-2">Cart Summary</h5>
 
                         <!-- <div class="card-deck row mt-2">
                             <div class="col-5 mb-3" *ngFor="let data of addedProduct"> -->
@@ -224,12 +224,16 @@
                                 <th>Actions</th>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let data of addedProduct">
+                                <tr *ngFor="let data of addedProduct; let i=index">
                                     <td>{{ data.product_name }}</td>
                                     <td>{{ data.name }}</td>
-                                    <td>{{ data.quantity }}</td>
+                                    <td>
+                                        <input type="number" [(ngModel)]="productQuantity[i]" min="0"
+                                            oninput="validity.valid||(value='');" class="form-control"
+                                            [ngModelOptions]="{standalone: true}" (change)="qtyChange($event, i)">
+                                    </td>
                                     <td>₹{{ data.price }}</td>
-                                    <td>₹{{ data.quantity * data.price}}</td>
+                                    <td>₹{{ addedProduct[i].subtotal}}</td>
                                     <td>
 
                                         <button id="remove" ngbTooltip="Delete"
@@ -261,47 +265,90 @@
                             </tbody>
                         </table>
 
-                    </div>
-                </div>
+                        <div class="row mb-4">
+                            <div class="col">
+                                <form [formGroup]="discountForm">
+                                    <input type="checkbox" id="discount" formControlName="discount"
+                                        (change)="addDiscount(discountForm.value)" [checked]="markCheckBox">
+                                    <label class="ml-2 font-weight-bold " for="discount">Add discount</label>
+                                </form>
+                            </div>
 
-                <div class="row">
+                            <div class="col" *ngIf="showDiscountOption">
+                                <label>Discount Type</label>
+                                <select class="form-control" (change)="getDiscountType($event)" [(ngModel)]="discount_type" [ngModelOptions]="{standalone: true}">
+                                    <option disabled>Select discount type</option>
+                                    <option value="percentage">Percentage</option>
+                                    <option value="fixed_amount">Fixed amount</option>
+                                </select>
+                            </div>
 
-                    <div class="col">
-                        <div class="form-group required">
-                            <label class="required">Order Date</label>
-                            <div class="input-group">
-                                <input class="form-control amber-border" placeholder="yyyy-mm-dd" name="dp"
-                                    ngbDatepicker #d="ngbDatepicker" formControlName="order_date"
-                                    (dateSelect)="onSelectDate($event)">
-                                <div class="input-group-append">
-                                    <button class="btn input-group-text bg-white text-dark amber lighten-3 form-control"
-                                        (click)="d.toggle()" type="button">
-                                        <i class="fa fa-calendar fa-lg mx-auto"></i>
-                                    </button>
+                            <div class="col" *ngIf="showDiscountOption">
+                                <label>Enter Discount</label>
+                                <input type="number" [(ngModel)]="discount_amount" min="0"
+                                    oninput="validity.valid||(value='');" class="form-control"
+                                    [ngModelOptions]="{standalone: true}" (change)="getDiscountAmount($event)">
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col">
+                                <div class="form-group required">
+                                    <label class="required">Order Date</label>
+                                    <div class="input-group">
+                                        <input class="form-control amber-border" placeholder="yyyy-mm-dd" name="dp"
+                                            ngbDatepicker #d="ngbDatepicker" formControlName="order_date"
+                                            (dateSelect)="onSelectDate($event)">
+                                        <div class="input-group-append">
+                                            <button
+                                                class="btn input-group-text bg-white text-dark amber lighten-3 form-control"
+                                                (click)="d.toggle()" type="button">
+                                                <i class="fa fa-calendar fa-lg mx-auto"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="form-group required">
+                                    <label>Payment Mode</label>
+                                    <select formControlName="payment_mode" class="form-control">
+                                        <option *ngFor="let item of payment_mode_array" value="{{item.alternate_name}}">
+                                            {{
+                                            item.name
+                                            }}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="form-group required">
+                                    <label>Table No.</label>
+                                    <select formControlName="table_number" class="form-control"
+                                        (ngModelChange)="onTableChange($event)">
+                                        <option *ngFor="let item of tableList" value="{{item.res_table_number}}">
+                                            {{
+                                            item.res_table_number
+                                            }}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="required">Add a Note</label>
+                                    <textarea type="text" formControlName="notes" placeholder="Add a note"
+                                        class="form-control"></textarea>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="col">
-                        <div class="form-group required">
-                            <label>Payment Mode</label>
-                            <select formControlName="payment_mode" class="form-control">
-                                <option *ngFor="let item of payment_mode_array" value="{{item.alternate_name}}">{{
-                                    item.name
-                                    }}</option>
-                            </select>
-                        </div>
-                    </div>
 
-                    <div class="col">
-                        <div class="form-group">
-                            <label class="required">Add a Note</label>
-                            <textarea type="text" formControlName="notes" placeholder="Add a note"
-                                class="form-control"></textarea>
-                        </div>
                     </div>
                 </div>
+
 
                 <button [disabled]="!editSaleForm.valid" type="submit" (click)="onSubmit(editSaleForm.value)"
                     class="btn btn-primary mb-4 float-right">

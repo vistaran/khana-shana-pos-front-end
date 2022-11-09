@@ -31,7 +31,7 @@
                     <th>Actions</th>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let data of tableData">
+                    <tr *ngFor="let data of tableData" [class.tableOccupied]="data.is_table_occupied == 'Yes'">
                         <td>
                             {{ data.res_table_number }}
                         </td>

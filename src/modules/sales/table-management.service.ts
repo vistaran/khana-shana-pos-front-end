@@ -13,7 +13,7 @@ export class TableManagementService {
         private http: HttpClient
     ) { }
 
-    getTableManagementData(page: number) {
+    getTableManagementData(page?: number) {
         return this.http.get(this.url + '?page=' + page);
     }
 
@@ -32,5 +32,13 @@ export class TableManagementService {
     deleteTableData(id: any) {
         return this.http.delete(this.url + '/' + id);
 
+    }
+
+    unOccupyTable(id: any, data: any) {
+        return this.http.put(environment.apiUrl + 'unoccupy_table/' + id, data);
+    }
+
+    unOccupyTableFromSales(id: any, data: any) {
+        return this.http.put(environment.apiUrl + 'unoccupy_table_from_sales/' + id, data);
     }
 }
