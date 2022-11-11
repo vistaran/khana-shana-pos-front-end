@@ -36,7 +36,7 @@ export class AddCustomerComponent implements OnInit {
   ngOnInit(): void {
     this.addCustomerForm = this.fb.group({
       first_name: ['', [Validators.required]],
-      last_name: ['', [Validators.required]],
+      last_name: [''],
       phone_number: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]]
     })
   }

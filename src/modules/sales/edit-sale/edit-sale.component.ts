@@ -75,12 +75,12 @@ export class EditSaleComponent implements OnInit {
     showProducts = false;
     addCustomerForm!: FormGroup;
     resultDisplayArray: any
-    tableList: any;
+    tableList: any = [];
     selectedTableId: any;
     productQuantity: any = [];
     showDiscountOption = false;
     discount_amount = 0;
-    discount_type: any;
+    discount_type: any = "";
     discount_store = 0;
     table_number: any;
     markCheckBox = false;
@@ -122,7 +122,7 @@ export class EditSaleComponent implements OnInit {
 
     ngOnInit(): void {
         this.editSaleForm = this.fb.group({
-            shipping_charge: [''],
+            shipping_charge: [0],
             order_date: [],
             payment_mode: [''],
             notes: [''],
@@ -143,13 +143,13 @@ export class EditSaleComponent implements OnInit {
 
         this.addCustomerForm = this.fb.group({
             first_name: ['', [Validators.required]],
-            last_name: ['', [Validators.required]],
+            last_name: [''],
             phone_number: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]]
         })
 
         this.getProductsData()
         this.getCustomerData()
-        this.getTableDate()
+        this.getTableData()
 
         this.id = this.route.snapshot.params.id
 
@@ -171,7 +171,7 @@ export class EditSaleComponent implements OnInit {
                 order_date: this.curr_date,
                 payment_mode: data.order.payment_mode,
                 notes: data.order.notes,
-                table_number: data.order.table_number
+                // table_number: data.order.table_number
             })
 
             this.customer_id = Number(data.order.customer_id);
@@ -201,12 +201,12 @@ export class EditSaleComponent implements OnInit {
                     discount: true
                 }
                 this.markCheckBox = true;
-                this.addDiscount(obj);
-
+                this.discount_store = data.order.discount_amount;
                 this.discount_type = data.order.discount_type;
                 if (this.discount_type == "percentage") {
                     this.discount_amount = data.order.discount_amount;
                 }
+                this.addDiscount(obj);
             }
 
             if (data.order.first_name == null) {
@@ -264,10 +264,23 @@ export class EditSaleComponent implements OnInit {
         })
     }
 
-    getTableDate() {
+    getTableData() {
         this.TableManagementService.getTableManagementData().subscribe((data: any) => {
             console.log('table0', data);
-            this.tableList = data.data;
+            data.data.forEach((element: any) => {
+                if (element.is_table_occupied == 0 && element.is_table_active == 1) {
+                    console.log('true', element.is_table_occupied, element.is_table_active);
+
+                    this.tableList.push(element);
+                }
+            });
+            console.log(this.tableList, 'tableList');
+
+            // this.tableList = data.data;
+            if (this.tableList.length > 0) {
+                this.editSaleForm.get('table_number')?.setValue(this.tableList[0].res_table_number);
+            } else {
+            }
         })
     }
 
@@ -337,7 +350,7 @@ export class EditSaleComponent implements OnInit {
                 return a + b;
             })
 
-        this.productQuantity[this.addedProduct.length - 1] = 1;
+            this.productQuantity[this.addedProduct.length - 1] = 1;
         }
         this.toast.success('Success', 'Product added successfully.');
         this.qtyForm = this.fb.group({
@@ -354,6 +367,19 @@ export class EditSaleComponent implements OnInit {
         let qty = Number(event?.target.value);
         this.productQuantity[i] = qty;
         console.log(this.productQuantity);
+
+        if (this.productQuantity[i] == 0) {
+            console.log(true);
+            this.productQuantity[i] = 1;
+            qty = 1;
+        }
+
+        this.addedProduct[i].subtotal = qty * this.addedProduct[i].price;
+        this.semitotal = this.addedProduct.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
+            return a + b;
+        })
+
+        console.log(this.addedProduct);
 
         this.addedProduct[i].subtotal = qty * this.addedProduct[i].price;
         this.addedProduct[i].quantity = qty;
@@ -380,6 +406,7 @@ export class EditSaleComponent implements OnInit {
     getDiscountType(event: any) {
         console.log(event);
         this.discount_type = event.target.value;
+        this.calculateTotal(this.discount_amount);
     }
 
     getDiscountAmount(event: any) {
@@ -669,8 +696,8 @@ export class EditSaleComponent implements OnInit {
         <p class="m-0">Date: <span class="font-bold">${this.newDate}</span></p>
         <p class="m-0">Order No.: <span class="font-bold">${this.orderDetail.id}</span></p>
         <p class="m-0">Payment mode: <span class="font-bold">${this.orderDetail.payment_mode}</span></p>
-        <p class="m-0">Customer Name: : <span class="font-bold">${this.customerName ? this.customerName : ''}</span></p>
-        <p class="m-0">Table Number: <span class="font-bold">${this.table_number}</span></p>
+        <p class="m-0">Customer Name: : <span class="font-bold">${this.customerName ? this.customerName : '-'}</span></p>
+        <p class="m-0">Table Number: <span class="font-bold">${this.table_number ? this.table_number : '-'}</span></p>
 
       <span class="tax" style="margin-top: 0.5rem; margin-bottom: 0.5rem;"></span>
       <table style="width:100%;">
@@ -690,8 +717,8 @@ export class EditSaleComponent implements OnInit {
             <td>₹${(this.orderDetail.total_amount?.toFixed(2) - this.orderDetail.shipping_charge?.toFixed(2)).toFixed(2)}</td>
           </tr>
           <tr>
-            <td colspan="2" style="text-align: end;">Discount Amount: </td>
-            <td>- ₹${this.discount_store?.toFixed(2)}</td>
+            <td colspan="2" style="text-align: end;">Discount amt: </td>
+            <td>₹${this.discount_store?.toFixed(2)}</td>
           </tr>
           <tr>
             <td colspan="2" style="text-align: end;">Packaging charges: </td>

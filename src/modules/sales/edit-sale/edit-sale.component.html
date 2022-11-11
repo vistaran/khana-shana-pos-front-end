@@ -96,13 +96,13 @@
                                 </div>
 
                                 <div class="col-6 col-sm-4">
-                                    <div class="form-group required">
+                                    <div class="form-group">
                                         <label class="required">Last Name</label>
                                         <input type="text" placeholder="Last Name" formControlName="last_name"
                                             class="form-control" />
-                                        <div *ngIf="lastname?.touched && lastname?.invalid" class="alert alert-danger">
+                                        <!-- <div *ngIf="lastname?.touched && lastname?.invalid" class="alert alert-danger">
                                             <div *ngIf="lastname?.errors?.required">Last Name is required.</div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
 
@@ -228,15 +228,15 @@
                                     <td>{{ data.product_name }}</td>
                                     <td>{{ data.name }}</td>
                                     <td>
-                                        <input type="number" [(ngModel)]="productQuantity[i]" min="0"
+                                        <input type="number" [(ngModel)]="productQuantity[i]" min="1"
                                             oninput="validity.valid||(value='');" class="form-control"
-                                            [ngModelOptions]="{standalone: true}" (change)="qtyChange($event, i)">
+                                            [ngModelOptions]="{standalone: true}" (input)="qtyChange($event, i)">
                                     </td>
                                     <td>₹{{ data.price }}</td>
                                     <td>₹{{ addedProduct[i].subtotal}}</td>
                                     <td>
 
-                                        <button id="remove" ngbTooltip="Delete"
+                                        <button id="remove" ngbTooltip="Delete" type="button"
                                             class="btn rounded-circle shadow btn-danger btn-sm"
                                             (click)="RemoveProduct(data.id)"><i
                                                 class="fa fa-trash-o fa-lg mx-auto"></i></button>
@@ -252,7 +252,7 @@
                                                 aria-describedby="inputGroup-sizing-sm" (keyup)="onKey($event)" (change)="onKey($event)"> -->
                                             <input type="number" [(ngModel)]="shipping_charge" class="form-control"
                                                 min="0" oninput="validity.valid||(value='');"
-                                                [ngModelOptions]="{standalone: true}" (change)="onKey($event)">
+                                                [ngModelOptions]="{standalone: true}" (input)="onKey($event)">
                                         </div>
                                     </td>
                                 </tr>
@@ -277,7 +277,7 @@
                             <div class="col" *ngIf="showDiscountOption">
                                 <label>Discount Type</label>
                                 <select class="form-control" (change)="getDiscountType($event)" [(ngModel)]="discount_type" [ngModelOptions]="{standalone: true}">
-                                    <option disabled>Select discount type</option>
+                                    <option disabled value="">Select discount type</option>
                                     <option value="percentage">Percentage</option>
                                     <option value="fixed_amount">Fixed amount</option>
                                 </select>
@@ -287,7 +287,7 @@
                                 <label>Enter Discount</label>
                                 <input type="number" [(ngModel)]="discount_amount" min="0"
                                     oninput="validity.valid||(value='');" class="form-control"
-                                    [ngModelOptions]="{standalone: true}" (change)="getDiscountAmount($event)">
+                                    [ngModelOptions]="{standalone: true}" (input)="getDiscountAmount($event)">
                             </div>
                         </div>
 
@@ -324,7 +324,7 @@
                             </div>
 
                             <div class="col">
-                                <div class="form-group required">
+                                <div class="form-group">
                                     <label>Table No.</label>
                                     <select formControlName="table_number" class="form-control"
                                         (ngModelChange)="onTableChange($event)">
@@ -332,6 +332,7 @@
                                             {{
                                             item.res_table_number
                                             }}</option>
+                                            <option *ngIf="tableList.length == 0" disabled selected>All tables are occupied</option>
                                     </select>
                                 </div>
                             </div>
@@ -350,7 +351,7 @@
                 </div>
 
 
-                <button [disabled]="!editSaleForm.valid" type="submit" (click)="onSubmit(editSaleForm.value)"
+                <button [disabled]="!editSaleForm.valid" type="button" (click)="onSubmit(editSaleForm.value)"
                     class="btn btn-primary mb-4 float-right">
                     Update
                 </button>

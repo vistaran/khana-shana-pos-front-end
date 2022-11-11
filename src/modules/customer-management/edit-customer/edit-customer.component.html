@@ -18,13 +18,13 @@
                     </div>
 
                     <div class="col">
-                        <div class="form-group required">
+                        <div class="form-group">
                             <label class="required">Last Name</label>
                             <input type="text" placeholder="Enter Last Name" formControlName="last_name"
                                 class="form-control" />
-                            <div *ngIf="lastname?.touched && lastname?.invalid" class="alert alert-danger">
+                            <!-- <div *ngIf="lastname?.touched && lastname?.invalid" class="alert alert-danger">
                                 <div *ngIf="lastname?.errors?.required">Last Name is required.</div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
 
@@ -146,7 +146,7 @@
                                             placeholder="Landmark(optional)" />
                                          <div *ngIf="address_line_1?.touched && address_line_1?.invalid" class="alert alert-danger">
                                         <div *ngIf="address_line_1?.errors?.required">Group Name is required.</div>
-                                    </div> 
+                                    </div>
                                     </div>
                                 </div> -->
 

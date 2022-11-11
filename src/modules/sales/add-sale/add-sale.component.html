@@ -1,7 +1,7 @@
 <sb-layout-dashboard>
     <div class="card shadow mt-4" (document:keydown.shift.s)="onSubmit(addSaleForm.value)">
         <h3 class="card-header mb-3 bg-gradient text-white py-1 px-2">Add Order</h3>
-        <form [formGroup]="addSaleForm" (ngSubmit)="onSubmit(addSaleForm.value)">
+        <form [formGroup]="addSaleForm">
             <div class="container-fluid">
 
                 <!-- <h3 class="card-header mb-2">Select Customer</h3> -->
@@ -101,9 +101,9 @@
                                         <label class="required">Last Name</label>
                                         <input type="text" placeholder="Last Name" formControlName="last_name"
                                             class="form-control" />
-                                        <div *ngIf="lastname?.touched && lastname?.invalid" class="alert alert-danger">
+                                        <!-- <div *ngIf="lastname?.touched && lastname?.invalid" class="alert alert-danger">
                                             <div *ngIf="lastname?.errors?.required">Last Name is required.</div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
 
@@ -229,15 +229,15 @@
                                     <td>{{ data.product_name }}</td>
                                     <td>{{ data.category_name }}</td>
                                     <td>
-                                        <input type="number" [(ngModel)]="productQuantity[i]" min="0"
+                                        <input type="number" [(ngModel)]="productQuantity[i]" min="1"
                                             oninput="validity.valid||(value='');" class="form-control"
-                                            [ngModelOptions]="{standalone: true}" (change)="qtyChange($event, i)">
+                                            [ngModelOptions]="{standalone: true}" (input)="qtyChange($event, i)">
                                     </td>
                                     <td>₹{{ data.price }}</td>
                                     <td>₹{{ addedProduct[i].subtotal}}</td>
                                     <td>
 
-                                        <button id="remove" ngbTooltip="Delete"
+                                        <button id="remove" ngbTooltip="Delete" type="button"
                                             class="btn btn-danger rounded-circle shadow btn-sm"
                                             (click)="RemoveProduct(data.id)"><i
                                                 class="fa fa-trash-o fa-lg mx-auto"></i></button>
@@ -254,7 +254,7 @@
                                                             (change)="onKey($event)"> -->
                                             <input type="number" [(ngModel)]="shipping_charge" min="0"
                                                 oninput="validity.valid||(value='');" class="form-control"
-                                                [ngModelOptions]="{standalone: true}" (change)="onKey($event)">
+                                                [ngModelOptions]="{standalone: true}" (input)="onKey($event)">
                                         </div>
                                     </td>
                                 </tr>
@@ -291,8 +291,7 @@
 
                             <div class="col" *ngIf="showDiscountOption">
                                 <label>Discount Type</label>
-                                <select class="form-control"
-                                    (change)="getDiscountType($event)">
+                                <select class="form-control" (change)="getDiscountType($event)">
                                     <option disabled>Select discount type</option>
                                     <option value="percentage">Percentage</option>
                                     <option value="fixed_amount">Fixed amount</option>
@@ -302,8 +301,8 @@
                             <div class="col" *ngIf="showDiscountOption">
                                 <label>Enter Discount</label>
                                 <input type="number" [(ngModel)]="discount_amount" min="0"
-                                                oninput="validity.valid||(value='');" class="form-control"
-                                                [ngModelOptions]="{standalone: true}" (change)="getDiscountAmount($event)">
+                                    oninput="validity.valid||(value='');" class="form-control"
+                                    [ngModelOptions]="{standalone: true}" (change)="getDiscountAmount($event)">
                             </div>
                         </div>
                         <div class="row">
@@ -339,19 +338,15 @@
                             </div>
 
                             <div class="col">
-                                <div class="form-group required">
+                                <div class="form-group">
                                     <label>Table No.</label>
                                     <select formControlName="table_number" class="form-control"
                                         (ngModelChange)="onTableChange($event)">
-                                        <ng-template *ngIf="tableList.length > 0; else noTableEmpty">
-                                            <option *ngFor="let item of tableList" value="{{item.res_table_number}}">
-                                                {{
-                                                item.res_table_number
-                                                }}</option>
-                                        </ng-template>
-                                        <ng-template #noTableEmpty>
-                                            <option disabled selected>All tables are occupied currently</option>
-                                        </ng-template>
+                                        <option *ngFor="let item of tableList" value="{{item.res_table_number}}">
+                                            {{
+                                            item.res_table_number
+                                            }}</option>
+                                            <option *ngIf="tableList.length == 0" disabled selected>All tables are occupied</option>
                                     </select>
                                 </div>
                             </div>
@@ -367,7 +362,7 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary mb-4 float-right btn-sm">
+                <button type="button" class="btn btn-primary mb-4 float-right btn-sm" (click)="onSubmit(addSaleForm.value)">
                     Submit
                 </button>
 

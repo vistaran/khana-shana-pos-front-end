@@ -134,8 +134,7 @@ export class AddSaleComponent implements OnInit {
             order_date: [this.curr_date],
             payment_mode: ['cash'],
             notes: [''],
-            table_number: [],
-            discount: [0]
+            table_number: []
         })
 
         this.discountForm = this.fb.group({
@@ -156,7 +155,7 @@ export class AddSaleComponent implements OnInit {
 
         this.addCustomerForm = this.fb.group({
             first_name: ['', [Validators.required]],
-            last_name: ['', [Validators.required]],
+            last_name: [''],
             phone_number: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]]
         })
 
@@ -237,14 +236,17 @@ export class AddSaleComponent implements OnInit {
             console.log('table0', data);
             data.data.forEach((element: any) => {
                 if (element.is_table_occupied == 0 && element.is_table_active == 1) {
+                    console.log('true', element.is_table_occupied, element.is_table_active);
+
                     this.tableList.push(element);
                 }
             });
-            console.log(this.tableList);
+            console.log(this.tableList, 'tableList');
 
             // this.tableList = data.data;
-            if(this.tableList.length > 0) {
+            if (this.tableList.length > 0) {
                 this.addSaleForm.get('table_number')?.setValue(this.tableList[0].res_table_number);
+            } else {
             }
         })
     }
@@ -376,15 +378,24 @@ export class AddSaleComponent implements OnInit {
         console.log(event, 'val');
 
         let qty = Number(event?.target.value);
+        console.log(qty);
+
         this.productQuantity[i] = qty;
         console.log(this.productQuantity);
 
-        this.addedProduct[i].subtotal = qty * this.addedProduct[i].price;
+        if (this.productQuantity[i] == 0) {
+            console.log(true);
+            this.productQuantity[i] = 1;
+            qty = 1;
+        }
+
+            this.addedProduct[i].subtotal = qty * this.addedProduct[i].price;
+            this.semitotal = this.addedProduct.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
+                return a + b;
+            })
+
         console.log(this.addedProduct);
 
-        this.semitotal = this.addedProduct.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
-            return a + b;
-        })
 
         this.calculateTotal();
     }
@@ -403,6 +414,8 @@ export class AddSaleComponent implements OnInit {
     getDiscountType(event: any) {
         console.log(event);
         this.discount_type = event.target.value;
+        this.calculateTotal(this.discount_amount);
+
     }
 
     getDiscountAmount(event: any) {
@@ -663,8 +676,8 @@ export class AddSaleComponent implements OnInit {
         <p class="m-0">Date: <span class="font-bold">${this.newDate}</span></p>
         <p class="m-0">Order No.: <span class="font-bold">${this.orderDetail.id}</span></p>
         <p class="m-0">Payment mode: <span class="font-bold">${this.orderDetail.payment_mode}</span></p>
-        <p class="m-0">Customer Name: : <span class="font-bold">${this.customerName ? this.customerName : ''}</span></p>
-        <p class="m-0">Table Number: <span class="font-bold">${this.table_number}</span></p>
+        <p class="m-0">Customer Name: : <span class="font-bold">${this.customerName ? this.customerName : '-'}</span></p>
+        <p class="m-0">Table Number: <span class="font-bold">${this.table_number ? this.table_number : '-'}</span></p>
 
       <span class="tax" style="margin-top: 0.5rem; margin-bottom: 0.5rem;"></span>
       <table style="width:100%;">
@@ -684,8 +697,8 @@ export class AddSaleComponent implements OnInit {
             <td>₹${(this.orderDetail.total_amount?.toFixed(2) - this.orderDetail.shipping_charge?.toFixed(2)).toFixed(2)}</td>
           </tr>
           <tr>
-            <td colspan="2" style="text-align: end;">Discount Amount: </td>
-            <td>- ₹${this.discount_store?.toFixed(2)}</td>
+            <td colspan="2" style="text-align: end;">Discount amt: </td>
+            <td>₹${this.discount_store?.toFixed(2)}</td>
           </tr>
           <tr>
             <td colspan="2" style="text-align: end;">Packaging charges: </td>

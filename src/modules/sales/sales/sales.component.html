@@ -122,12 +122,16 @@
                         <td>{{ data.product_name }}</td>
                         <td>{{ data.name }}</td>
                         <td>{{ data.quantity }}</td>
-                        <td>₹ {{ data.price }}</td>
-                        <td>{{ data.subtotal }}</td>
+                        <td>₹{{ data.price }}</td>
+                        <td>₹{{ data.subtotal }}</td>
                     </tr>
                     <tr class="table-sm">
                         <td colspan="4" class="text-right"><b>Shipping Charges:</b></td>
                         <td>₹{{ orderDetail.shipping_charge }}</td>
+                    </tr>
+                    <tr class="table-sm">
+                        <td colspan="4" class="text-right"><b>Discount Amount:</b></td>
+                        <td>₹{{ orderDetail.discount_amount }}</td>
                     </tr>
                     <tr class="table-sm">
                         <td colspan="4" class="text-right"><b>Total Amount:</b></td>
@@ -190,7 +194,7 @@
                         <td>{{ data.product_name }}</td>
                         <td>{{ data.name }}</td>
                         <td>{{ data.quantity }}</td>
-                        <td>₹ {{ data.price }}</td>
+                        <td>₹{{ data.price }}</td>
                         <td>{{ data.subtotal }}</td>
                     </tr>
                     <tr class="table-sm">
