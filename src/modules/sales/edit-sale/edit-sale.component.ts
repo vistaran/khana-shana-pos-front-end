@@ -714,7 +714,7 @@ export class EditSaleComponent implements OnInit {
           </tr>
           <tr>
             <td colspan="2" style="text-align: end;">Subtotal: </td>
-            <td>₹${(this.orderDetail.total_amount?.toFixed(2) - this.orderDetail.shipping_charge?.toFixed(2)).toFixed(2)}</td>
+            <td>₹${Math.round(this.orderDetail.total_amount?.toFixed(2) - this.orderDetail.shipping_charge?.toFixed(2) + Number(this.discount_store?.toFixed(2))).toFixed(2)}</td>
           </tr>
           <tr>
             <td colspan="2" style="text-align: end;">Discount amt: </td>
@@ -862,7 +862,7 @@ export class EditSaleComponent implements OnInit {
             if (this.customerName) {
                 table_name = this.customerName
             } else {
-                table_name = '';
+                table_name = '-';
             }
 
             let tableData = {

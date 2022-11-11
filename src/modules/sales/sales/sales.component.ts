@@ -19,6 +19,7 @@ export class SalesComponent implements OnInit {
     orderDetail: any = [];
     itemDetail: any = [];
     total = 0
+    subtotal = 0;
     pageSize = 10
     page = 1
     showloader: any
@@ -26,6 +27,7 @@ export class SalesComponent implements OnInit {
     searchValue: any
     resultDisplayArray: any
     newDate: any;
+    discount_amount = 0;
 
     constructor(
         private router: Router,
@@ -97,6 +99,22 @@ export class SalesComponent implements OnInit {
 
             this.orderDetail = data.order
             this.itemDetail = data.items
+
+            let semitotal = 0, discount_store = 0, total = 0;
+            this.subtotal = 0;
+            this.itemDetail.forEach((element: any) => {
+                semitotal += element.subtotal;
+            });
+
+            if (this.orderDetail.discount_type == "percentage") {
+                total = (this.orderDetail.shipping_charge + semitotal) * (100 - this.orderDetail.discount_amount) / 100;
+
+                this.discount_amount = (this.orderDetail.shipping_charge + semitotal) - total;
+            }
+
+            console.log(this.discount_amount);
+
+
 
             this.newDate = this.orderDetail.order_date.slice(0, 10).split("-").reverse().join("-");
             console.log(this.newDate, 'newdate');
@@ -255,7 +273,11 @@ export class SalesComponent implements OnInit {
           </tr>
           <tr>
             <td colspan="2" style="text-align: end;">Subtotal: </td>
-            <td>₹${(this.orderDetail.total_amount?.toFixed(2) - this.orderDetail.shipping_charge?.toFixed(2)).toFixed(2)}</td>
+            <td>₹${Math.round(this.orderDetail.total_amount?.toFixed(2) - this.orderDetail.shipping_charge?.toFixed(2) + Number(this.orderDetail.discount_amount?.toFixed(2))).toFixed(2)}</td>
+          </tr>
+          <tr>
+            <td colspan="2" style="text-align: end;">Discount amt: </td>
+            <td>₹${this.discount_amount?.toFixed(2)}</td>
           </tr>
           <tr>
             <td colspan="2" style="text-align: end;">Packaging charges: </td>

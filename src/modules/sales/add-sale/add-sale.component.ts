@@ -389,10 +389,10 @@ export class AddSaleComponent implements OnInit {
             qty = 1;
         }
 
-            this.addedProduct[i].subtotal = qty * this.addedProduct[i].price;
-            this.semitotal = this.addedProduct.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
-                return a + b;
-            })
+        this.addedProduct[i].subtotal = qty * this.addedProduct[i].price;
+        this.semitotal = this.addedProduct.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
+            return a + b;
+        })
 
         console.log(this.addedProduct);
 
@@ -694,7 +694,7 @@ export class AddSaleComponent implements OnInit {
           </tr>
           <tr>
             <td colspan="2" style="text-align: end;">Subtotal: </td>
-            <td>₹${(this.orderDetail.total_amount?.toFixed(2) - this.orderDetail.shipping_charge?.toFixed(2)).toFixed(2)}</td>
+            <td>₹${Math.round(this.orderDetail.total_amount?.toFixed(2) - this.orderDetail.shipping_charge?.toFixed(2) + Number(this.orderDetail.discount_amount?.toFixed(2))).toFixed(2)}</td>
           </tr>
           <tr>
             <td colspan="2" style="text-align: end;">Discount amt: </td>
@@ -800,7 +800,7 @@ export class AddSaleComponent implements OnInit {
             if (this.customerName) {
                 table_name = this.customerName
             } else {
-                table_name = '';
+                table_name = '-';
             }
 
             let tableData = {
