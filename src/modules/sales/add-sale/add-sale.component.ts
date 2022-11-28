@@ -389,6 +389,7 @@ export class AddSaleComponent implements OnInit {
             qty = 1;
         }
 
+        this.addedProduct[i].quantity = qty;
         this.addedProduct[i].subtotal = qty * this.addedProduct[i].price;
         this.semitotal = this.addedProduct.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
             return a + b;
@@ -454,6 +455,8 @@ export class AddSaleComponent implements OnInit {
         if (showShipping) {
             this.discount_amount = Number(discount);
             this.calculateTotal(this.discount_amount);
+            console.log(this.discount_amount, 'dis amount');
+
         }
     }
 
@@ -567,6 +570,9 @@ export class AddSaleComponent implements OnInit {
     }
 
     getItems(items: any) {
+        console.log(items);
+
+
         this.resultDisplayArray = [];
         for (let i = 0; i < items.length; i++) {
             this.resultDisplayArray += `<tr>

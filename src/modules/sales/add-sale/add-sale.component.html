@@ -302,7 +302,7 @@
                                 <label>Enter Discount</label>
                                 <input type="number" [(ngModel)]="discount_amount" min="0"
                                     oninput="validity.valid||(value='');" class="form-control"
-                                    [ngModelOptions]="{standalone: true}" (change)="getDiscountAmount($event)">
+                                    [ngModelOptions]="{standalone: true}" (input)="getDiscountAmount($event)">
                             </div>
                         </div>
                         <div class="row">

@@ -100,6 +100,9 @@ export class SalesComponent implements OnInit {
             this.orderDetail = data.order
             this.itemDetail = data.items
 
+            console.log(this.orderDetail, 'orderDetails');
+
+
             let semitotal = 0, discount_store = 0, total = 0;
             this.subtotal = 0;
             this.itemDetail.forEach((element: any) => {
@@ -111,10 +114,9 @@ export class SalesComponent implements OnInit {
 
                 this.discount_amount = (this.orderDetail.shipping_charge + semitotal) - total;
             }
+            this.orderDetail.discount_amount = this.discount_amount;
 
             console.log(this.discount_amount);
-
-
 
             this.newDate = this.orderDetail.order_date.slice(0, 10).split("-").reverse().join("-");
             console.log(this.newDate, 'newdate');

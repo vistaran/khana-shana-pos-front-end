@@ -374,20 +374,13 @@ export class EditSaleComponent implements OnInit {
             qty = 1;
         }
 
-        this.addedProduct[i].subtotal = qty * this.addedProduct[i].price;
-        this.semitotal = this.addedProduct.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
-            return a + b;
-        })
-
-        console.log(this.addedProduct);
-
-        this.addedProduct[i].subtotal = qty * this.addedProduct[i].price;
         this.addedProduct[i].quantity = qty;
-        console.log(this.addedProduct);
-
+        this.addedProduct[i].subtotal = qty * this.addedProduct[i].price;
         this.semitotal = this.addedProduct.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
             return a + b;
         })
+
+        console.log(this.addedProduct);
 
         this.calculateTotal(this.discount_amount);
     }
@@ -825,6 +818,20 @@ export class EditSaleComponent implements OnInit {
                     flag: 'add'
                 })
             })
+
+            this.addedProduct.forEach((element: any) => {
+                this.newProduct.forEach((ele2: any) => {
+                    if(element.product_id != ele2.product_id) {
+                        addedProductSubmit.push({
+                            order_id: this.id,
+                            quantity: element.quantity,
+                            price: element.price,
+                            subtotal: element.subtotal,
+                            flag: 'edit'
+                        })
+                    }
+                });
+            });
         }
         console.log('Final: ', addedProductSubmit)
 
