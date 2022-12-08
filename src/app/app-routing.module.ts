@@ -43,6 +43,11 @@ const routes: Routes = [
             import('modules/purchase-orders/purchase-orders-routing.module').then(m => m.PurchaseOrdersRoutingModule),
     },
     {
+        path: 'menu',
+        loadChildren: () =>
+            import('modules/qrcode-menu/qrcode-menu-routing.module').then(m => m.QrcodeMenuRoutingModule),
+    },
+    {
         path: 'reports',
         loadChildren: () =>
             import('modules/reports/reports-routing.module').then(m => m.ReportsRoutingModule),
