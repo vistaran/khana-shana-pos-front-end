@@ -1,1 +1,9 @@
 @import 'styles/variables.scss';
+.stats {
+    transition: .3s;
+}
+
+.stats:hover {
+    box-shadow: 5px 7px 10px 2px #e9eef4;
+    transform: translate(0, -3px);
+}

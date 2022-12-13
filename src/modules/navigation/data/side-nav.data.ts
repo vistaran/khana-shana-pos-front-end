@@ -3,15 +3,15 @@ import { SideNavItems, SideNavSection } from '@modules/navigation/models';
 export const sideNavSections: SideNavSection[] = [
     {
         text: 'Expenses',
-        items: [ 'item_groups', 'items', 'purchase_orders'],
+        items: ['item_groups', 'items', 'purchase_orders'],
     },
     {
         text: 'Sales',
-        items: ['sales','products', 'categories', 'table_management'],
+        items: ['dashboard', 'sales', 'products', 'categories', 'table_management'],
     },
     {
         text: 'Reports',
-        items: ['expense_by_group','monthly_expense'],
+        items: ['expense_by_group', 'monthly_expense'],
     },
     {
         text: 'System',
@@ -19,7 +19,7 @@ export const sideNavSections: SideNavSection[] = [
     },
     {
         text: 'Catalog',
-        items: [ 'attributes', 'attributeFamily'],
+        items: ['attributes', 'attributeFamily'],
     }
 ];
 
@@ -129,11 +129,11 @@ export const sideNavItems: SideNavItems = {
 
 
 
-    // dashboard: {
-    //     icon: 'tachometer-alt',
-    //     text: 'Dashboard',
-    //     link: '/dashboard',
-    // },
+    dashboard: {
+        icon: 'tachometer-alt',
+        text: 'Dashboard',
+        link: '/dashboard',
+    },
 
 
     // sales: {
