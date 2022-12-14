@@ -41,8 +41,7 @@
                                     <tr *ngFor="let data of userData">
                                         <td>{{ data.user_id }}</td>
                                         <td class="justify-content-center"><img class="img-xs rounded-circle"
-                                                [src]="data.user_avatar"
-                                                onerror="this.src='https://cdn.icon-icons.com/icons2/1378/PNG/128/avatardefault_92824.png'">
+                                                src="https://cdn.icon-icons.com/icons2/1378/PNG/128/avatardefault_92824.png">
                                         </td>
                                         <td>{{ data.username }}</td>
                                         <td>{{ data.email }}</td>
@@ -56,7 +55,7 @@
                                             <button ngbTooltip="Edit" class="btn btn-info rounded-circle shadow mr-2 btn-sm"
                                                 [routerLink]="['/pos/edit/edituser/' + data.user_id]"><i
                                                     class="fa fa-pencil-square-o fa-lg"></i></button>
-    
+
                                             <button id="remove" ngbTooltip="Delete" (click)="deleteRow(data.user_id)"
                                                 class="btn rounded-circle shadow btn-danger btn-sm"><i class="fa fa-trash-o fa-lg mx-auto"></i></button>
                                         </td>

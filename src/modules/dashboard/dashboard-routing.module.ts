@@ -24,6 +24,7 @@ export const ROUTES: Routes = [
                     active: true,
                 },
             ],
+            activeTopNav: 'Dashboard'
         } as SBRouteData,
         canActivate: [],
         component: dashboardContainers.DashboardComponent,

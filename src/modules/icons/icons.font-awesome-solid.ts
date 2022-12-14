@@ -28,6 +28,7 @@ import {
     faUsersCog,
     faBalanceScaleLeft,
     faUsers,
+    faWarehouse
 } from '@fortawesome/free-solid-svg-icons';
 
 export const fontAwesomeSolidIcons = {
@@ -57,5 +58,6 @@ export const fontAwesomeSolidIcons = {
     faWallet,
     faUsersCog,
     faBalanceScaleLeft,
-    faUsers
+    faUsers,
+    faWarehouse
 };
