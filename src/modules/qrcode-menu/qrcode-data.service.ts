@@ -3,17 +3,21 @@ import { environment } from 'environments/environment';
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class QrcodeDataService {
 
-  private url = environment.apiUrl + 'category/qrcode';
+    private url = environment.apiUrl;
 
-  constructor(
-    private http: HttpClient
-  ) { }
+    constructor(
+        private http: HttpClient
+    ) { }
 
-  getMenuData() {
-    return this.http.get<any>(this.url);
-  }
+    getMenuData() {
+        return this.http.get<any>(this.url + 'category/qrcode');
+    }
+
+    getQrCode() {
+        return this.http.get(this.url + 'qrcode');
+    }
 }
