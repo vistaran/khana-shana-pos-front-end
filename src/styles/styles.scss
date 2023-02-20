@@ -104,3 +104,13 @@ ngb-accordion .card .card-header .btn-link {
     font-size: x-large;
     font-weight: 600;
 }
+
+@media (max-width: 475px) {
+    .flex-flow {
+        flex-flow: row wrap;
+    }
+
+    .w-25 {
+        width: 35% !important;
+    }
+}

@@ -1,5 +1,4 @@
 <sb-layout-dashboard>
-    <div class="row pl-5 pr-5">
         <div class="col">
             <!-- <ul ngbNav [(activeId)]="activeId" #nav="ngbNav" class="nav-tabs mt-5 font-weight-bold">
                 <li [ngbNavItem]="1">
@@ -24,7 +23,7 @@
                             </button>
 
                         </div>
-                        <table class="table table-bordered    shadow">
+                        <table class="table table-responsive-sm     shadow">
                             <thead class="head bg-gradient text-white">
                                 <th>UOM ID</th>
                                 <th>Name</th>
@@ -36,7 +35,7 @@
                                     <td>{{ data.id }}</td>
                                     <td>{{ data.unit_name }}</td>
                                     <td>{{ data.unit }}</td>
-                                    <td>
+                                    <td class="d-flex">
                                         <button ngbTooltip="Edit" class="btn rounded-circle shadow btn-info mr-2 btn-sm"
                                             [routerLink]="['/pos/edit/edituom/' + data.id]"><i
                                                 class="fa fa-pencil-square-o fa-lg"></i></button>
@@ -64,7 +63,7 @@
                             <div class="col">
                                 <ngb-pagination (pageChange)="onPageChange($event)" [(page)]="page"
                                     [pageSize]="pageSize" [collectionSize]="total" [boundaryLinks]="true"
-                                    [maxSize]="total">
+                                    [maxSize]="3">
                                 </ngb-pagination>
                             </div>
                         </div>
@@ -74,5 +73,4 @@
             </ul>
             <div [ngbNavOutlet]="nav"></div> -->
         </div>
-    </div>
 </sb-layout-dashboard>

@@ -14,7 +14,7 @@ export class ProductsComponent implements OnInit {
 
     public productData: any = [];
     public length = 0;
-    public total = 0;
+    public total = 5;
 
 
     page = 1;
@@ -39,7 +39,7 @@ export class ProductsComponent implements OnInit {
     ngOnInit() {
 
         this.getProductData();
-        this.generateQrCode();
+        // this.generateQrCode();
     }
 
     // To get products data for table listing

@@ -9,7 +9,7 @@
                     <div class="form-group form-inline">Full text search: <input class="form-control ml-2" type="text"
                             name="searchTerm" [(ngModel)]="countryService.searchTerm" /><span class="ml-3"
                             *ngIf="countryService.loading$ | async">Loading...</span></div>
-                    <table class="table table-striped">
+                    <table class="table table-striped table-responsive-sm">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -40,7 +40,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <div class="d-flex justify-content-between p-2">
+                    <div class="d-flex justify-content-between p-2 flex-flow">
                         <ngb-pagination [collectionSize]="total$ | async" [(page)]="countryService.page"
                             [pageSize]="countryService.pageSize"></ngb-pagination><select class="custom-select"
                             style="width: auto" name="pageSize" [(ngModel)]="countryService.pageSize">
@@ -93,7 +93,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <div class="d-flex justify-content-between p-2">
+                    <div class="d-flex justify-content-between p-2 flex-flow">
                         <ngb-pagination [collectionSize]="total$ | async" [(page)]="countryService.page"
                             [pageSize]="countryService.pageSize"></ngb-pagination><select class="custom-select"
                             style="width: auto" name="pageSize" [(ngModel)]="countryService.pageSize">
