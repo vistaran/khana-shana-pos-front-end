@@ -81,7 +81,7 @@
                     <form [formGroup]="addCustomerForm" (ngSubmit)="onSubmitCustomer(addCustomerForm.value)">
                         <div class="modal-body">
                             <!-- <h2 class="card-header mt-4 pb-2">General</h2> -->
-                            <div class="row justify-content-around">
+                            <div class="row">
 
                                 <div class="col-6 col-sm-4">
                                     <div class="form-group required">
@@ -141,7 +141,7 @@
                         <h5 class="p-2">Select Products</h5>
 
                         <div class=" row mt-2" *ngIf="showProducts">
-                            <div class="col-3 mb-3" *ngFor="let data of productData">
+                            <div class="col-md-3 mb-3 col-4" *ngFor="let data of productData">
 
 
                                 <div class="h-100">
@@ -274,7 +274,7 @@
                                 </form>
                             </div>
 
-                            <div class="col" *ngIf="showDiscountOption">
+                            <div class="col-md-3 col-6" *ngIf="showDiscountOption">
                                 <label>Discount Type</label>
                                 <select class="form-control" (change)="getDiscountType($event)" [(ngModel)]="discount_type" [ngModelOptions]="{standalone: true}">
                                     <option disabled value="">Select discount type</option>
@@ -283,7 +283,7 @@
                                 </select>
                             </div>
 
-                            <div class="col" *ngIf="showDiscountOption">
+                            <div class="col-md-3 col-6" *ngIf="showDiscountOption">
                                 <label>Enter Discount</label>
                                 <input type="number" [(ngModel)]="discount_amount" min="0"
                                     oninput="validity.valid||(value='');" class="form-control"
@@ -293,7 +293,7 @@
 
                         <div class="row">
 
-                            <div class="col">
+                            <div class="col-md-3 col-6">
                                 <div class="form-group required">
                                     <label class="required">Order Date</label>
                                     <div class="input-group">
@@ -311,7 +311,7 @@
                                 </div>
                             </div>
 
-                            <div class="col">
+                            <div class="col-md-3 col-6">
                                 <div class="form-group required">
                                     <label>Payment Mode</label>
                                     <select formControlName="payment_mode" class="form-control">
@@ -323,7 +323,7 @@
                                 </div>
                             </div>
 
-                            <div class="col">
+                            <div class="col-md-3 col-6">
                                 <div class="form-group">
                                     <label>Table No.</label>
                                     <select formControlName="table_number" class="form-control"
@@ -337,7 +337,7 @@
                                 </div>
                             </div>
 
-                            <div class="col">
+                            <div class="col-md-3 col-6">
                                 <div class="form-group">
                                     <label class="required">Add a Note</label>
                                     <textarea type="text" formControlName="notes" placeholder="Add a note"

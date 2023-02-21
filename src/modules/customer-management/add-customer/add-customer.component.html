@@ -1,14 +1,14 @@
 <sb-layout-dashboard>
     <div class="d-flex justify-content-center">
 
-    <div class="card shadow w-75 mt-3">
-        <h1 class="card-header bg-gradient text-white mb-3 text-center">Add Customer</h1>
+    <div class="card shadow mt-3">
+        <h3 class="card-header bg-gradient text-white mb-3 text-center">Add Customer</h3>
         <form [formGroup]="addCustomerForm">
             <div class="container">
                 <!-- <h2 class="card-header mt-4 pb-2">General</h2> -->
                 <div class="row card-body justify-content-around">
 
-                    <div class="col-6 col-sm-4">
+                    <div class="col-md-6 col-sm-12">
                         <div class="form-group required">
                             <label class="required">First Name</label>
                             <input type="text" placeholder="Enter First Name" formControlName="first_name" class="form-control" autofocus/>
@@ -18,7 +18,7 @@
                         </div>
                     </div>
 
-                    <div class="col-6 col-sm-4">
+                    <div class="col-md-6 col-sm-12">
                         <div class="form-group ">
                             <label class="required">Last Name</label>
                             <input type="text" placeholder="Enter Last Name" formControlName="last_name" class="form-control" />
@@ -28,7 +28,7 @@
                         </div>
                     </div>
 
-                    <div class="col-6 col-sm-4">
+                    <div class="col-md-6 col-sm-12">
                         <div class="form-group required">
                             <label class="required">Phone Number</label>
                             <input type="tel" placeholder="Enter Phone Number" formControlName="phone_number" class="form-control" (keypress)="validateNumber($event)"/>

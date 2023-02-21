@@ -1,18 +1,18 @@
 <h2 class="mt-3 mb-4">POS Outlet List</h2>
 
-<div class="row d-flex justify-content-between">
-    <div class="col-md-6 mb-4">
+<div class=" d-flex justify-content-between">
 
-        <div class="input-group w-50">
-            <input class="form-control amber-border" class="form-control" type="text" aria-label="Search"
-                (keyup)="search($event)" placeholder="Search" [(ngModel)]="searchValue">
-            <div class="input-group-append">
-                <button class="btn input-group-text amber lighten-3 bg-white text-dark" id="basic-text1"><i class="fa fa-search"
-                        aria-hidden="true" (click)="search($event)"></i></button>
-            </div>
+
+    <div class="input-group rounded w-25">
+        <input class="form-control amber-border" class="form-control" type="text" aria-label="Search"
+            (keyup)="search($event)" placeholder="Search" [(ngModel)]="searchValue">
+        <div class="input-group-append">
+            <button class="btn input-group-text amber lighten-3 bg-white text-dark form-control" id="basic-text1"><i
+                    class="fa fa-search" aria-hidden="true" (click)="search($event)"></i></button>
         </div>
-
     </div>
+
+
     <div>
         <button [routerLink]="['/pos/addoutlet']" class="btn btn-primary mb-4 float-right">
             Add Outlet
@@ -41,7 +41,8 @@
                     [routerLink]="['/pos/edit/editoutlet/' + data.id]"><i
                         class="fa fa-pencil-square-o fa-lg"></i></button>
 
-                <button ngbTooltip="Delete" id="remove" (click)="deleteRow(data.id)" class="btn rounded-circle shadow btn-danger btn-sm"><i
+                <button ngbTooltip="Delete" id="remove" (click)="deleteRow(data.id)"
+                    class="btn rounded-circle shadow btn-danger btn-sm"><i
                         class="fa fa-trash-o fa-lg mx-auto "></i></button>
             </td>
         </tr>
