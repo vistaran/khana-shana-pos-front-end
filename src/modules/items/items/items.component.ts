@@ -17,7 +17,7 @@ export class ItemsComponent implements OnInit {
   public itemGroupsData: any = [];
   public unitData: any = [];
   public length = 0;
-  public total = 0;
+  public total = 5;
   public id = 0;
   page = 1;
   pageSize = 100;

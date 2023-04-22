@@ -1,92 +1,91 @@
 <sb-layout-dashboard>
-    <div class="row pl-5 pr-5">
-        <div class="col">
-            <!-- <ul ngbNav #nav="ngbNav" class="nav-tabs mt-5 font-weight-bold">
+    <div class="col">
+        <!-- <ul ngbNav #nav="ngbNav" class="nav-tabs mt-5 font-weight-bold">
                 <li ngbNavItem>
                     <a ngbNavLink>Orders</a> -->
-            <!-- <ng-template ngbNavContent> -->
-            <h2 class="mt-3 mb-4">Purchase Order List</h2>
-            <!-- search button -->
-            <div class="d-flex justify-content-between mb-4">
+        <!-- <ng-template ngbNavContent> -->
+        <h2 class="mt-3 mb-4">Purchase Order List</h2>
+        <!-- search button -->
+        <div class="d-flex justify-content-between mb-4 flex-flow">
 
-                <div class="input-group rounded w-25">
-                    <input class="form-control amber-border" class="form-control" type="text"
-                        aria-label="Search" (keyup)="search()" placeholder="Search"
-                        [(ngModel)]="searchValue">
-                    <div class="input-group-append">
-                        <button class="btn input-group-text bg-white text-dark amber lighten-3 form-control" id="basic-text1"><i
-                                class="fa fa-search" aria-hidden="true"
-                                (click)="search()"></i></button>
-                    </div>
-                </div>
-
-                <button (click)="onClick()" class="btn btn-primary float-right">
-                    Add Purchase Order
-                </button>
-
-            </div>
-
-            <table class="table table-bordered    shadow">
-                <thead class="head bg-gradient text-white">
-                    <th>Order Id</th>
-                    <th>Vendor</th>
-                    <th>Outlet</th>
-                    <th>Purchase Date</th>
-                    <th>Total Amount</th>
-                    <th>Actions</th>
-                </thead>
-                <tbody *ngIf="!showloader">
-                    <tr *ngFor="let data of purchaseOrdersData">
-                        <td>{{ data.id }}</td>
-                        <td>{{ data.name }}</td>
-                        <td>{{ data.outlet_name }}</td>
-                        <td>{{ data.purchase_date | date: 'dd/MM/yyyy' }}</td>
-                        <td>₹{{ data.total_amount?.toFixed(2) }}</td>
-                        <td>
-                            <button class="btn btn-dark rounded-circle shadow mr-2 btn-sm" ngbTooltip="View Details" (click)="openXl(content)"
-                                (click)="getOrderDetail(data.id)"><i class="fa fa-eye fa-lg"></i></button>
-
-                            <button ngbTooltip="Edit" class="btn btn-info rounded-circle shadow mr-2 btn-sm"
-                                [routerLink]="['/purchase_orders/edit_purchase_order/' + data.id]"><i
-                                    class="fa fa-pencil-square-o fa-lg"></i></button>
-
-                            <button id="remove" ngbTooltip="Delete" (click)="deleteRow(data.id)"
-                                class="btn btn-danger rounded-circle shadow btn-sm"><i class="fa fa-trash-o fa-lg mx-auto"></i></button>
-                        </td>
-                    </tr>
-                    <tr *ngIf="!length && !showloader">
-                        <td colspan="8" class="text-center">
-                            No records found.
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <div *ngIf="showloader" class="d-flex justify-content-center pt-5">
-                <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                    <!-- <img src="src\image\Infinity-1s-200px.svg"> -->
-                    <span class="sr-only">Loading...</span>
+            <div class="input-group rounded w-25">
+                <input class="form-control amber-border" class="form-control" type="text" aria-label="Search"
+                    (keyup)="search()" placeholder="Search" [(ngModel)]="searchValue">
+                <div class="input-group-append">
+                    <button class="btn input-group-text bg-white text-dark amber lighten-3 form-control"
+                        id="basic-text1"><i class="fa fa-search" aria-hidden="true" (click)="search()"></i></button>
                 </div>
             </div>
 
-            <div class="justify-content-between row">
-                <div class="col">
-                    <ngb-pagination (pageChange)="onPageChange($event)" [(page)]="page" [pageSize]="pageSize"
-                        [collectionSize]="total" [boundaryLinks]="true" [maxSize]="total">
-                    </ngb-pagination>
-                </div>
+            <button (click)="onClick()" class="btn btn-primary float-right">
+                Add Purchase Order
+            </button>
+
+        </div>
+
+        <table class="table table-responsive-sm     shadow">
+            <thead class="head bg-gradient text-white">
+                <th>Order Id</th>
+                <th>Vendor</th>
+                <th>Outlet</th>
+                <th>Purchase Date</th>
+                <th>Total Amount</th>
+                <th>Actions</th>
+            </thead>
+            <tbody *ngIf="!showloader">
+                <tr *ngFor="let data of purchaseOrdersData">
+                    <td>{{ data.id }}</td>
+                    <td>{{ data.name }}</td>
+                    <td>{{ data.outlet_name }}</td>
+                    <td>{{ data.purchase_date | date: 'dd/MM/yyyy' }}</td>
+                    <td>₹{{ data.total_amount?.toFixed(2) }}</td>
+                    <td class="d-flex">
+                        <button class="btn btn-dark rounded-circle shadow mr-2 btn-sm" ngbTooltip="View Details"
+                            (click)="openXl(content)" (click)="getOrderDetail(data.id)"><i
+                                class="fa fa-eye fa-lg"></i></button>
+
+                        <button ngbTooltip="Edit" class="btn btn-info rounded-circle shadow mr-2 btn-sm"
+                            [routerLink]="['/purchase_orders/edit_purchase_order/' + data.id]"><i
+                                class="fa fa-pencil-square-o fa-lg"></i></button>
+
+                        <button id="remove" ngbTooltip="Delete" (click)="deleteRow(data.id)"
+                            class="btn btn-danger rounded-circle shadow btn-sm"><i
+                                class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                    </td>
+                </tr>
+                <tr *ngIf="!length && !showloader">
+                    <td colspan="8" class="text-center">
+                        No records found.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div *ngIf="showloader" class="d-flex justify-content-center pt-5">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <!-- <img src="src\image\Infinity-1s-200px.svg"> -->
+                <span class="sr-only">Loading...</span>
             </div>
-            <!-- </ng-template> -->
-            <!-- </li>
+        </div>
+
+        <div class="justify-content-between row">
+            <div class="col">
+                <ngb-pagination (pageChange)="onPageChange($event)" [(page)]="page" [pageSize]="pageSize"
+                    [collectionSize]="total" [boundaryLinks]="true" [maxSize]="3">
+                </ngb-pagination>
+            </div>
+        </div>
+        <!-- </ng-template> -->
+        <!-- </li>
             </ul>
             <div [ngbNavOutlet]="nav"></div> -->
-        </div>
     </div>
 
     <ng-template #content let-modal>
         <div class="modal-header bg-primary">
             <h4 class="modal-title text-white">Purchase Details</h4>
-            <button type="button" class="btn btn-light btn-xs" aria-label="Close" (click)="modal.dismiss('Cross click')">X</button>
+            <button type="button" class="btn btn-light btn-xs" aria-label="Close"
+                (click)="modal.dismiss('Cross click')">X</button>
         </div>
         <div class="modal-body">
             <p><b>Order Id:</b> {{orderDetail.id}}</p>
@@ -99,7 +98,7 @@
             </p>
 
             <p class="mb-2"><b>Product Details:</b></p>
-            <table class="table table-bordered table-striped table-success table-sm  ">
+            <table class="table  table-striped table-success table-sm table-responsive-sm ">
                 <thead class="head">
                     <th>Item Group Name</th>
                     <th>Item Name</th>

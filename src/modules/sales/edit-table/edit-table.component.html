@@ -1,0 +1,88 @@
+<sb-layout-dashboard>
+    <div class="d-flex justify-content-center">
+
+        <div class="card shadow mt-3">
+            <h3 class="card-header bg-gradient text-white mb-3 text-center">Edit Table</h3>
+            <form [formGroup]="editTableForm" (ngSubmit)="onSubmit(editTableForm.value)">
+                <div class="container">
+                    <!-- <h2 class="card-header mt-4 pb-2">General</h2> -->
+                    <div class="row card-body justify-content-around">
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group required">
+                                <label class="required">Table number</label>
+                                <input type="text" formControlName="table_number" placeholder="Table number"
+                                    maxlength="35" class="form-control" autofocus />
+                                <div *ngIf="table_number?.touched && table_number?.invalid || showValidations">
+                                    <div class="alert alert-danger" *ngIf="table_number?.errors?.required">Table Number
+                                        is required.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group required">
+                                <label class="required">Table name</label>
+                                <input type="text" formControlName="table_name" placeholder="Table name" maxlength="35"
+                                    class="form-control" autofocus />
+                                <div *ngIf="table_name?.touched && table_name?.invalid || showValidations">
+                                    <div class="alert alert-danger" *ngIf="table_name?.errors?.required">Table Name is
+                                        required.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group required ">
+                                <label class="required">Is table Occupied</label>
+                                <div class="align-items-center">
+                                    <input type="radio" formControlName="table_occupied" class="mr-1" id="occ_yes"
+                                        name="table_occupied" value="1" />
+                                    <label for="occ_yes" class="mr-3 mb-0">Yes</label>
+                                    <input type="radio" formControlName="table_occupied" class="mr-1" id="occ_no"
+                                        name="table_occupied" value="0" />
+                                    <label for="occ_no" class="mb-0">No</label>
+                                    <div
+                                        *ngIf="is_table_occupied?.touched && is_table_occupied?.invalid || showValidations">
+                                        <div class="alert alert-danger" *ngIf="is_table_occupied?.errors?.required">This
+                                            field is
+                                            required.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group required ">
+                                <label class="required">Is table active</label>
+                                <div class="align-items-center">
+                                    <input type="radio" formControlName="table_active" class="mr-1" id="act_yes"
+                                        name="table_active" value="1" />
+                                    <label for="act_yes" class="mr-3 mb-0">Yes</label>
+                                    <input type="radio" formControlName="table_active" class="mr-1" id="act_no"
+                                        name="table_active" value="0" />
+                                    <label for="act_no" class="mb-0">No</label>
+                                    <div
+                                        *ngIf="is_table_active?.touched && is_table_active?.invalid || showValidations">
+                                        <div class="alert alert-danger" *ngIf="is_table_active?.errors?.required">This
+                                            field
+                                            is
+                                            required.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- <button (click)="showValidations = true" type="submit" (click)="onSubmit(addItemGroupForm.value)"
+                    class="btn btn-primary mb-4 float-right">
+                    Submit
+                </button> -->
+                    <button type="submit" class="btn btn-primary mb-4 float-right btn-sm">
+                        Submit
+                    </button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</sb-layout-dashboard>

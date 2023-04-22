@@ -1,12 +1,12 @@
 <sb-layout-dashboard>
     <div class="card mt-4">
-        <h1 class="card-header bg-gradient text-white">Add Category</h1>
+        <h3 class="card-header bg-gradient text-white">Add Category</h3>
         <form [formGroup]="addCategoryForm">
             <div class="container-fluid">
-                <h2 class="card-header mt-4 pb-2">General</h2>
+                <h4 class="card-header mt-4 pb-2">General</h4>
 
                 <div class="row card-body">
-                    <div class="col">
+                    <div class="col-md-4">
                         <div class="form-group required">
                             <label class="required">Name</label>
                             <input type="text" formControlName="name" placeholder="Enter Name"
@@ -17,7 +17,7 @@
                         </div>
                     </div>
 
-                    <div class="col">
+                    <div class="col-md-4">
                         <div class="form-group required">
                             <label class="required">Visible In Menu</label>
                             <select name="visible_in_menu" formControlName="visible_in_menu" class="form-control">
@@ -30,7 +30,7 @@
                         </div>
                     </div>
 
-                    <div class="col">
+                    <div class="col-md-4">
                         <div class="form-group required">
                             <label class="required">Position</label>
                             <input type="text" formControlName="position" placeholder="Enter Position"
@@ -41,7 +41,7 @@
                         </div>
                     </div>
 
-                    <!-- <div class="col">
+                    <!-- <div class="col-md-4">
                         <div class="form-group required">
                             <label class="required">Number of Products</label>
                             <input type="text" formControlName="number_of_products" placeholder="Enter Number of Products"
@@ -53,9 +53,9 @@
                     </div> -->
                 </div>
 
-                <h2 class="card-header pt-4 pb-2">Description and Images</h2>
+                <h4 class="card-header pt-4 pb-2">Description and Images</h4>
                 <div class="row card-body">
-                    <div class="col">
+                    <div class="col-md-4">
                         <div class="form-group required">
                             <label class="required">Display Mode</label><br />
                             <select name="display_mode" formControlName="display_mode" class="form-control">
@@ -67,7 +67,7 @@
                         </div>
                     </div>
 
-                    <div class="col">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label class="required">Description<span class="text-secondary">(optional)</span></label>
                             <textarea type="text" formControlName="decription" placeholder="Add Description"
@@ -78,7 +78,7 @@
                         </div>
                     </div>
 
-                    <div class="col">
+                    <div class="col-md-4">
                         <div class="form-group required">
                             <label class="required">Attributes</label>
                             <select name="attri" formControlName="attri" class="form-control">
@@ -92,7 +92,7 @@
                 </div>
 
                 <div class="card-body row">
-                    <div class="col">
+                    <div class="col-md-4">
                         <div class="form-group required">
                             <label for="img" class="">Image</label>
                             <input type="file" id="img" name="image" accept="image/*" formControlName="image"
@@ -105,7 +105,7 @@
                     </div>
 
 
-                    <div class="col">
+                    <div class="col-md-4">
                         <div class="form-group required">
                             <label for="img2">Category Logo</label>
                             <input type="file" id="img2" name="category_logo" accept="image/*"
@@ -117,7 +117,7 @@
                         </div>
                     </div>
 
-                    <div class="col">
+                    <div class="col-md-4">
                         <div class="form-group required">
                             <label class="required">Status</label><br />
                             <select name="status" formControlName="status" class="form-control">
@@ -132,42 +132,9 @@
 
                 </div>
 
-                <!-- <h2 class="card-header">Parent Category</h2>
+                <h4 class="card-header">Search Engine Optimization</h4>
                 <div class="card-body row">
-
-                    <div class="form-group">
-
-                        <ng-container *ngFor="let data of parentCategroryData">
-                            <ul>
-                                <li *ngIf="data.parent_category_id == null" class="list-unstyled">
-                                    <i class="fa fa-chevron-down" (click)="collapse.toggle()"
-                                        [attr.aria-expanded]="isCollapsed" aria-controls="collapseExample"></i>
-                                    <input type="radio" name="parent_category" (change)="onItemChange(data.id)">
-                                    {{data.name}}
-                                </li>
-
-                                <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
-                                    <ng-container *ngFor="let item of parentCategroryData">
-                                        <ul>
-                                            <li *ngIf="data.id == item.parent_category_id" class="list-unstyled">
-                                                <input type="radio" name="parent_category"
-                                                    (change)="onItemChange(item.id)">
-                                                {{item.name}}
-                                            </li>
-                                        </ul>
-                                    </ng-container>
-                                </div>
-                            </ul>
-                        </ng-container>
-                    </div>
-
-
-                </div> -->
-
-
-                <h2 class="card-header">Search Engine Optimization</h2>
-                <div class="card-body row">
-                    <div class="col">
+                    <div class="col-md-4">
                         <div class="form-group required">
                             <label>Meta Title</label>
                             <input type="text" formControlName="meta_title" placeholder="Enter Meta Title"
@@ -178,7 +145,7 @@
                         </div>
                     </div>
 
-                    <div class="col">
+                    <div class="col-md-4">
                         <div class="form-group required">
                             <label class="required">Slug</label>
                             <input type="text" formControlName="slug" placeholder="Enter Slug" class="form-control" />
@@ -188,7 +155,7 @@
                         </div>
                     </div>
 
-                    <div class="col">
+                    <div class="col-md-4">
                         <div class="form-group required">
                             <label class="required">Meta keyword</label>
                             <input type="text" formControlName="meta_keyword" placeholder="Enter Meta Keyword"
@@ -199,7 +166,7 @@
                         </div>
                     </div>
 
-                    <div class="col">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label>Meta Description<span class="text-secondary">(optional)</span></label>
                             <textarea type="text" formControlName="meta_description" placeholder="Add Meta Description"

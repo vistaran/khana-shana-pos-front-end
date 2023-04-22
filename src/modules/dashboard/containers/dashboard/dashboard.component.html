@@ -1,1 +1,18 @@
-<sb-layout-dashboard><sb-dashboard-head title="Dashboard" [hideBreadcrumbs]="false"></sb-dashboard-head><sb-dashboard-cards></sb-dashboard-cards><sb-dashboard-charts></sb-dashboard-charts><sb-dashboard-tables></sb-dashboard-tables></sb-layout-dashboard>
+<sb-layout-dashboard>
+    <div class="d-flex justify-content-between flex-flow">
+        <sb-dashboard-head title="Dashboard" [hideBreadcrumbs]="true"></sb-dashboard-head>
+        <div class="align-items-end d-flex">
+            <!-- <i class="fa-solid fa-calendar-day mr-1 px-1"></i> -->
+            <select class="btn btn-outline-dark btn-light mb-2 text-left" >
+                <option default value="{{100}}">All time</option>
+                <option value="{{15}}">Past 30 days</option>
+                <option value="{{10}}">Past 6 months</option>
+                <option value="{{5}}">Past year</option>
+                <option value="{{5}}">Custom</option>
+            </select>
+        </div>
+    </div>
+    <sb-dashboard-cards></sb-dashboard-cards>
+    <sb-dashboard-charts></sb-dashboard-charts>
+    <sb-dashboard-tables></sb-dashboard-tables>
+</sb-layout-dashboard>

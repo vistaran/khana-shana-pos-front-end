@@ -2,12 +2,20 @@ import { SideNavItems, SideNavSection } from '@modules/navigation/models';
 
 export const sideNavSections: SideNavSection[] = [
     {
-        text: 'Financial',
-        items: ['sales', 'item_groups', 'items', 'purchase_orders'],
+        text: ' ',
+        items: ['dashboard']
+    },
+    {
+        text: 'Expenses',
+        items: ['item_groups', 'items', 'purchase_orders'],
+    },
+    {
+        text: 'Sales',
+        items: ['sales', 'products', 'categories', 'table_management'],
     },
     {
         text: 'Reports',
-        items: ['expense_by_group','monthly_expense'],
+        items: ['expense_by_group', 'monthly_expense'],
     },
     {
         text: 'System',
@@ -15,100 +23,121 @@ export const sideNavSections: SideNavSection[] = [
     },
     {
         text: 'Catalog',
-        items: ['products', 'categories', 'attributes', 'attributeFamily'],
+        items: ['attributes', 'attributeFamily'],
     }
 ];
 
+// Sales
+// -------
+// Sales
+// Menu Items
+// Menu Categories
+// Tables Management
+
+// Expenses
+// -----------
+// Items
+// Item Groups
+// Purchases
 export const sideNavItems: SideNavItems = {
 
-    // Financial
-    sales: {
-        // icon: 'table',
-        text: '₹ Sales',
-        link: '/sales'
-    },
+    // Expenses
     purchase_orders: {
-        // icon: 'dollar-sign', 
-        text: '₹ Purchases',
+        icon: 'shopping-cart',
+        text: 'Purchases',
         link: '/purchase_orders'
     },
     item_groups: {
-        // icon: '',
-        text: '₹ Item Groups',
+        icon: 'cubes',
+        text: 'Item Groups',
         link: '/item_groups'
     },
     items: {
-        // icon: 'columns',
-        text: '₹ Items',
+        icon: 'cube',
+        text: 'Items',
         link: '/items'
     },
+
+    // Sales
+    sales: {
+        icon: 'cash-register',
+        text: 'Sales',
+        link: '/sales'
+    },
+    products: {
+        icon: 'clipboard-list',
+        text: 'Menu Items',
+        link: '/catalog/products',
+    },
+    categories: {
+        icon: 'list-alt',
+        text: 'Menu Categories',
+        link: '/catalog/categories'
+    },
+    table_management: {
+        icon: 'table',
+        text: 'Table Management',
+        link: '/sales/table_management'
+    },
+
 
 
     // System
     users: {
-        icon: 'columns',
+        icon: 'user',
         text: 'Users',
         link: '/pos/users'
     },
     vendors: {
-        icon: 'columns',
+        icon: 'users-cog',
         text: 'Vendors',
         link: '/pos/vendors'
     },
     uom: {
-        icon: 'columns',
+        icon: 'balance-scale-left',
         text: 'UOM',
         link: '/pos/uom'
     },
 
     customer: {
-        icon: 'columns',
+        icon: 'users',
         text: 'Customers',
         link: '/customer_management'
     },
 
     // Reports
     expense_by_group: {
-        icon: 'columns',
+        icon: 'wallet',
         text: 'Expense By Item Group',
         link: '/reports/expense_by_group',
     },
     monthly_expense: {
-        icon: 'columns',
+        icon: 'wallet',
         text: 'Monthly Expense',
         link: '/reports/monthly_expense',
     },
 
 
     // Catalog
-    products: {
-        icon: 'tachometer-alt',
-        text: 'Products',
-        link: '/catalog/products',
-    },
-    categories: {
-        icon: 'tachometer-alt',
-        text: 'Categories',
-        link: '/catalog/categories'
-    },
+
     attributes: {
-        icon: 'tachometer-alt',
+        icon: 'bars',
         text: 'Attributes',
         link: '/catalog/attributes'
     },
     attributeFamily: {
-        icon: 'tachometer-alt',
+        icon: 'bars',
         text: 'Attribute Family',
         link: '/catalog/attributeFamily'
     },
 
 
 
-    // dashboard: {
-    //     icon: 'tachometer-alt',
-    //     text: 'Dashboard',
-    //     link: '/dashboard',
-    // },
+    dashboard: {
+        icon: 'chart-area',
+        text: 'Dashboard',
+        link: '/dashboard',
+    },
 
 
     // sales: {

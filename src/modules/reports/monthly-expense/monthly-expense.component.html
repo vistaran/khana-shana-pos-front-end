@@ -5,7 +5,7 @@
 
                 <h2>Monthly Expense</h2>
 
-                <div class="card bg-light col-3 d-flex mt-3">
+                <div class="card bg-light col-md-3 d-flex mt-3">
                     <div class="card-header bg-dark text-white">
                         Select Year
                     </div>
@@ -34,9 +34,9 @@
                 </div>
 
 
-                <div *ngIf="showData" class="container">
+                <div *ngIf="showData" class="">
                     <div class="d-flex mt-3 mb-1 justify-content-between">
-                        <div class="mr-3 flex-fill">
+                        <div class=" flex-fill">
                             <button ngbTooltip="Select Another Month" class="btn btn-dark"
                                 (click)="showData = false"><i class="fa fa-angle-left"></i></button>
                         </div>
@@ -72,7 +72,7 @@
 
                                         <div class="">
 
-                                            <table class="table table-bordered shadow table-sm  ">
+                                            <table class="table  shadow table-sm  ">
                                                 <thead class="head bg-dark text-white">
                                                     <th>No.</th>
                                                     <th>Item Group Name</th>
@@ -133,7 +133,7 @@
 
                                         <div class="">
 
-                                            <table class="table table-bordered shadow table-sm  ">
+                                            <table class="table  shadow table-sm  ">
                                                 <thead class="head bg-dark text-white">
                                                     <!-- <th>No.</th> -->
                                                     <th>Item Name</th>
@@ -172,7 +172,7 @@
                                                     <ngb-pagination class="text-secondary bg-secondary"
                                                         (pageChange)="onPageChange($event)" [(page)]="page"
                                                         [pageSize]="pageSize" [collectionSize]="total"
-                                                        [boundaryLinks]="true" [maxSize]="total">
+                                                        [boundaryLinks]="true" [maxSize]="3">
                                                     </ngb-pagination>
                                                 </div>
                                             </div>

@@ -28,7 +28,7 @@ const routes: Routes = [
     component: ProductsComponent,
     data: {
       title: 'Products',
-      activeTopNav: 'Products'
+      activeTopNav: 'Menu Items'
     } as SBRouteData,
   },
   {
@@ -37,7 +37,7 @@ const routes: Routes = [
     component: AddProductComponent,
     data: {
       title: 'Add Product',
-      activeTopNav: 'Products'
+      activeTopNav: 'Menu Items'
     } as SBRouteData,
   },
   {
@@ -46,7 +46,7 @@ const routes: Routes = [
     component: EditProductComponent,
     data: {
       title: 'Edit Product',
-      activeTopNav: 'Products'
+      activeTopNav: 'Menu Items'
     } as SBRouteData,
   },
   {
@@ -55,7 +55,7 @@ const routes: Routes = [
     component: CategoriesComponent,
     data: {
       title: 'Categories',
-      activeTopNav: 'Categories'
+      activeTopNav: 'Menu Categories'
     } as SBRouteData,
   },
   {
@@ -64,7 +64,7 @@ const routes: Routes = [
     component: AddCategoryComponent,
     data: {
       title: 'Add Category',
-      activeTopNav: 'Categories'
+      activeTopNav: 'Menu Categories'
     } as SBRouteData,
   },
   {
@@ -73,7 +73,7 @@ const routes: Routes = [
     component: EditCategoryComponent,
     data: {
       title: 'Edit Category',
-      activeTopNav: 'Categories'
+      activeTopNav: 'Menu Categories'
     } as SBRouteData,
   },
   {

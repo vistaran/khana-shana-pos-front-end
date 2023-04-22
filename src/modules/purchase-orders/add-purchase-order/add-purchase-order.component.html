@@ -1,12 +1,12 @@
 <sb-layout-dashboard>
     <div class="card mt-4">
-        <h1 class="card-header bg-gradient text-white">Add Purchase Order</h1>
+        <h3 class="card-header bg-gradient text-white">Add Purchase Order</h3>
         <form [formGroup]="addOrderForm">
             <div class="container-fluid">
-                <h2 class="card-header bg-light shadow mt-4 pb-2">General</h2>
+                <h4 class="card-header bg-light shadow mt-4 pb-2">General</h4>
                 <div class="row card-body">
 
-                    <div class="col">
+                    <div class="col-sm-1 col-md-4">
                         <div class="form-group required">
                             <label class="required">Select Vendor</label>
                             <select name="vendor_id" class="form-control" placeholder="Select Vendor"
@@ -26,7 +26,7 @@
                     </div>
 
 
-                    <div class="col">
+                    <div class="col-sm-1 col-md-4">
                         <div class="form-group required">
                             <label class="required">Select Outlet</label>
                             <select name="outlet_id" class="form-control" formControlName="outlet_id"
@@ -47,7 +47,7 @@
 
 
 
-                    <div class="col">
+                    <div class="col-sm-1 col-md-4">
                         <div class="form-group required">
                             <label class="required">Purchase Date</label>
                             <div class="input-group">
@@ -64,11 +64,7 @@
                         </div>
                     </div>
 
-
-                </div>
-
-                <div class="row card-body">
-                    <div class="col-4">
+                    <div class="col-sm-1 col-md-4">
                         <div class="form-group">
                             <label class="required">Add a Note</label>
                             <textarea type="text" formControlName="notes" placeholder="Add note"
@@ -77,11 +73,12 @@
                                 <div *ngIf="notes?.errors?.required">Note is required.</div>
                             </div> -->
                         </div>
+
                     </div>
                 </div>
 
 
-                <h2 class="card-header bg-light shadow mt-4 pb-2">Item Details</h2>
+                <h4 class="card-header bg-light shadow mt-4 pb-2">Item Details</h4>
 
                 <button type="button" class="btn btn-primary mt-4 me-2  mb-4 float-right"
                     (click)="openVerticallyCentered(content)" (click)="isInputShown=false;isInputShown2=false">Add
@@ -101,7 +98,7 @@
 
                             <div class="row card-body">
 
-                                <div class="col">
+                                <div class="col-sm-1 col-md-6">
                                     <div class="form-group required">
                                         <label class="required">Select Item Group Name</label>
                                         <select name="item_group_id" formControlName="item_group_id"
@@ -125,7 +122,7 @@
 
                                 <!-- <div > -->
 
-                                <div [hidden]="!isInputShown" class="col">
+                                <div [hidden]="!isInputShown" class="col-sm-1 col-md-6">
                                     <div class="form-group required">
                                         <label class="required">Select Item Name</label>
                                         <ng-select name="item_id" formControlName="item_id"
@@ -146,58 +143,57 @@
                                 </div>
                                 <!-- </div> -->
 
-                                <div [hidden]="!isInputShown2">
-                                    <div class="row card-body">
+                                <div [hidden]="!isInputShown2" class="row card-body">
 
-                                        <div class="col">
-                                            <div class="form-group required">
-                                                <label class="required">Select Unit Name</label>
-                                                <input type="text" formControlName="unit_id" value="{{ unit_name }}" />
+
+                                    <div class="col-6">
+                                        <div class="form-group required">
+                                            <label class="required">Select Unit Name</label>
+                                            <input type="text" formControlName="unit_id" value="{{ unit_name }}" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="form-group required">
+                                            <label class="required">Quantity</label>
+                                            <input type="number" formControlName="qty" class="form-control"
+                                                placeholder="Enter Quantity" />
+                                            <div *ngIf="qty?.touched && qty?.invalid" class="alert alert-danger">
+                                                <div *ngIf="qty?.errors?.required">Quantity is required.
+                                                </div>
                                             </div>
                                         </div>
+                                    </div>
 
-                                        <div class="col">
-                                            <div class="form-group required">
-                                                <label class="required">Quantity</label>
-                                                <input type="number" formControlName="qty" class="form-control"
-                                                    placeholder="Enter Quantity" />
-                                                <div *ngIf="qty?.touched && qty?.invalid" class="alert alert-danger">
-                                                    <div *ngIf="qty?.errors?.required">Quantity is required.
-                                                    </div>
+                                </div>
+
+                                <div [hidden]="!isInputShown2" class="row card-body">
+
+
+
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="required">Add a Note</label>
+                                            <textarea type="text" formControlName="notes" class="form-control"
+                                                placeholder="Add note"></textarea>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="form-group required">
+                                            <label class="required">Price</label>
+                                            <input type="number" formControlName="price" class="form-control"
+                                                placeholder="Enter price" />
+                                            <div *ngIf="price?.touched && price?.invalid" class="alert alert-danger">
+                                                <div *ngIf="price?.errors?.required">Price is required.
+
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div [hidden]="!isInputShown2">
-
-                                    <div class="row card-body">
-
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <label class="required">Add a Note</label>
-                                                <textarea type="text" formControlName="notes" class="form-control"
-                                                    placeholder="Add note"></textarea>
-
-                                            </div>
-                                        </div>
-
-                                        <div class="col">
-                                            <div class="form-group required">
-                                                <label class="required">Price</label>
-                                                <input type="number" formControlName="price" class="form-control"
-                                                    placeholder="Enter price" />
-                                                <div *ngIf="price?.touched && price?.invalid"
-                                                    class="alert alert-danger">
-                                                    <div *ngIf="price?.errors?.required">Price is required.
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
 
                         </div>
@@ -211,7 +207,7 @@
 
                 </ng-template>
 
-                <table class="table table-bordered table-sm shadow">
+                <table class="table table-responsive-sm   table-sm shadow">
                     <thead class="head bg-dark text-white">
                         <th>Item Group</th>
                         <th>Item Name</th>
@@ -230,7 +226,7 @@
                             <td>{{ data.qty }}</td>
                             <td>₹{{ data.price }}</td>
                             <td>₹{{ (data.qty * data.price)?.toFixed(2) }}</td>
-                            <td>
+                            <td class="d-flex">
                                 <button ngbTooltip="Edit" class="btn btn-info rounded-circle shadow btn-sm mr-2 btn-sm"
                                     (click)="openVerticallyCentered(content2)"
                                     (click)="EditOrderPatchValue(data.item_id)"><i
@@ -242,7 +238,7 @@
                             </td>
                         </tr>
 
-                        <tr class="table-sm">
+                        <tr class="table-sm ">
                             <td colspan="5" class="text-right"><b>Shipping Charges</b></td>
                             <td>
                                 <div class="input-group input-group-sm">
@@ -256,7 +252,7 @@
                             </td>
                         </tr>
 
-                        <tr class="table-sm">
+                        <tr class="table-sm ">
                             <td colspan="5" class="text-right"><b>Total Amount:</b></td>
                             <td>₹{{ total?.toFixed(2) }}</td>
                         </tr>
@@ -284,7 +280,7 @@
 
                         <div class="row card-body">
 
-                            <div class="col">
+                            <div class="col-sm-1 col-md-6">
                                 <div class="form-group required">
                                     <label class="required">Select Item Group Name</label>
                                     <select name="item_group_id" formControlName="item_group_id"
@@ -308,7 +304,7 @@
 
                             <!-- <div > -->
 
-                            <div class="col">
+                            <div class="col-sm-1 col-md-6">
                                 <div class="form-group required">
                                     <label class="required">Select Item Name</label>
                                     <select name="item_id" formControlName="item_id" (search)="searchItem($event)"
@@ -332,14 +328,14 @@
                             <div>
                                 <div class="row card-body">
 
-                                    <div class="col">
+                                    <div class="col-6">
                                         <div class="form-group required">
                                             <label class="required">Select Unit Name</label>
-                                            <input type="text" formControlName="unit_id" value="{{ unit_name }}" />
+                                            <input type="text" formControlName="unit_id" value="{{ unit_name }}" class="form-control"/>
                                         </div>
                                     </div>
 
-                                    <div class="col">
+                                    <div class="col-6">
                                         <div class="form-group required">
                                             <label class="required">Quantity</label>
                                             <input type="number" placeholder="Enter quantity" formControlName="qty"
@@ -353,33 +349,33 @@
                                 </div>
                             </div>
 
-                            <div>
 
-                                <div class="row card-body">
 
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <label class="required">Add a Note</label>
-                                            <textarea type="text" placeholder="Add note" formControlName="notes"
-                                                class="form-control"></textarea>
+                            <div class="row card-body">
 
-                                        </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label class="required">Add a Note</label>
+                                        <textarea type="text" placeholder="Add note" formControlName="notes"
+                                            class="form-control"></textarea>
+
                                     </div>
+                                </div>
 
-                                    <div class="col">
-                                        <div class="form-group required">
-                                            <label class="required">Price</label>
-                                            <input type="number" formControlName="price" class="form-control"
-                                                placeholder="Enter price" />
-                                            <div *ngIf="price?.touched && price?.invalid" class="alert alert-danger">
-                                                <div *ngIf="price?.errors?.required">Price is required.
+                                <div class="col-6">
+                                    <div class="form-group required">
+                                        <label class="required">Price</label>
+                                        <input type="number" formControlName="price" class="form-control"
+                                            placeholder="Enter price" />
+                                        <div *ngIf="price?.touched && price?.invalid" class="alert alert-danger">
+                                            <div *ngIf="price?.errors?.required">Price is required.
 
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
 
                     </div>

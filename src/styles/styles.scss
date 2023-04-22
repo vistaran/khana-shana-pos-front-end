@@ -18,7 +18,9 @@
 
 @import '~@ng-select/ng-select/themes/default.theme.css';
 
-body, .form-control, ngb-datepicker {
+body,
+.form-control,
+ngb-datepicker {
     font-size: 13px;
 }
 
@@ -37,17 +39,21 @@ body, .form-control, ngb-datepicker {
     height: 2rem;
     width: 2rem;
 }
+
 .custom-day.focused {
     background-color: #e6e6e6;
 }
+
 .custom-day.range,
 .custom-day:hover {
     background-color: rgb(2, 117, 216);
     color: white;
 }
+
 .custom-day.faded {
     background-color: rgba(2, 117, 216, 0.5);
 }
+
 .required label:after {
     color: #e32;
     content: ' *';
@@ -74,4 +80,37 @@ card {
 .sb-sidenav .sb-sidenav-menu .nav .nav-link {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
+}
+
+.tableOccupied {
+    background: #eca2a2;
+}
+
+.btn-link {
+    color: black !important;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+ngb-accordion .card .card-header {
+    background-image: linear-gradient(#44b276, #28a7459e);
+    color: white;
+}
+
+ngb-accordion .card .card-header .btn-link {
+    color: white !important;
+    font-size: x-large;
+    font-weight: 600;
+}
+
+@media (max-width: 475px) {
+    .flex-flow {
+        flex-flow: row wrap;
+    }
+
+    .w-25 {
+        width: 35% !important;
+    }
 }

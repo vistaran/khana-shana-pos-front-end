@@ -1,12 +1,12 @@
 <sb-layout-dashboard>
     <div class="card shadow mt-4">
-        <h1 class="card-header bg-gradient text-white">Edit Customer</h1>
+        <h3 class="card-header bg-gradient text-white">Edit Customer</h3>
         <form [formGroup]="editCustomerForm">
             <div class="container-fluid">
                 <!-- <h2 class="card-header mt-4 pb-2">General</h2> -->
                 <div class="row card-body">
 
-                    <div class="col">
+                    <div class="col-md-6 col-sm-12">
                         <div class="form-group required">
                             <label class="required">First Name</label>
                             <input type="text" placeholder="Enter First Name" formControlName="first_name"
@@ -17,18 +17,18 @@
                         </div>
                     </div>
 
-                    <div class="col">
-                        <div class="form-group required">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group">
                             <label class="required">Last Name</label>
                             <input type="text" placeholder="Enter Last Name" formControlName="last_name"
                                 class="form-control" />
-                            <div *ngIf="lastname?.touched && lastname?.invalid" class="alert alert-danger">
+                            <!-- <div *ngIf="lastname?.touched && lastname?.invalid" class="alert alert-danger">
                                 <div *ngIf="lastname?.errors?.required">Last Name is required.</div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
 
-                    <div class="col">
+                    <div class="col-md-6 col-sm-12">
                         <div class="form-group required">
                             <label class="required">Phone Number</label>
                             <input type="text" placeholder="Enter Phone Number" formControlName="phone_number"
@@ -44,7 +44,7 @@
                         </div>
                     </div>
 
-                    <div class="col">
+                    <div class="col-md-6 col-sm-12">
                         <div class="form-group">
                             <label class="required">Email<span class="text-secondary"> (optional)</span></label>
                             <input type="text" placeholder="Enter Email" formControlName="email" class="form-control" />
@@ -53,7 +53,7 @@
 
                 </div>
 
-                <h2 class="card-header mt-4 mb-3 pb-2">Address</h2>
+                <h4 class="card-header mt-4 mb-3 pb-2">Address</h4>
 
                 <div class="d-flex flex-row-reverse mb-3">
                     <button type="button" class="btn btn-primary" (click)="openVerticallyCentered(content)">
@@ -146,7 +146,7 @@
                                             placeholder="Landmark(optional)" />
                                          <div *ngIf="address_line_1?.touched && address_line_1?.invalid" class="alert alert-danger">
                                         <div *ngIf="address_line_1?.errors?.required">Group Name is required.</div>
-                                    </div> 
+                                    </div>
                                     </div>
                                 </div> -->
 

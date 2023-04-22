@@ -1,5 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://posapidemo.vistaran.com/api/'
-
+    apiUrl: location.protocol + '//' + location.hostname.split('.')[0] + '.posapi.vistaran.com/api/'
 };

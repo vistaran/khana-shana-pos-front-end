@@ -1,15 +1,15 @@
 <sb-layout-dashboard>
 
     <div class="d-flex justify-content-center">
-        <div class="card shadow w-75 mt-2">
-            <h1 class="card-header bg-gradient text-white mb-3 text-center ">Add Product</h1>
+        <div class="card shadow mt-2">
+            <h3 class="card-header bg-gradient text-white mb-3 text-center ">Add Product</h3>
             <form [formGroup]="addProductForm">
 
                 <div class="container">
                     <!-- <h2 class="card-header mt-4 pb-2">General</h2> -->
-                    <div class="row card-body justify-content-around">
+                    <div class="row card-body">
 
-                        <div class="col-4 col-sm-4">
+                        <div class="col-sm-6 col-md-4">
                             <div class="form-group required">
                                 <label class="required">Name</label><br />
                                 <input placeholder="Enter Name" type="text" formControlName="product_name" class="form-control" autofocus/>
@@ -19,7 +19,7 @@
                             </div>
                         </div>
 
-                        <div class="col-4 col-sm-4">
+                        <div class="col-sm-6 col-md-4">
                             <div class="form-group required">
                                 <label class="required">Price</label>
                                 <div class="input-group">
@@ -35,17 +35,14 @@
                             </div>
                         </div>
 
-                        <div class="col-4 col-sm-4">
+                        <div class="col-sm-6 col-md-4">
                             <div class="form-group">
                                 <label class="required">Position</label><br />
                                 <input placeholder="Enter Name" type="text" formControlName="item_position" class="form-control"/>
                             </div>
                         </div>
 
-                    </div>
-
-                    <div class="row card-body justify-content-around">
-                        <div class="col-4 col-sm-4">
+                        <div class="col-sm-6 col-md-4">
 
                             <div class="form-group required">
                                 <label class="required">Category</label>
@@ -59,7 +56,7 @@
                             </div>
                         </div>
 
-                        <div class="col-4 col-sm-4">
+                        <div class="col-sm-6 col-md-4">
                             <div class="form-group">
                                 <label class="required">Description<span class="text-secondary">(optional)</span></label><br />
                                 <textarea type="text" placeholder="Add Description" formControlName="description" class="form-control"></textarea>
@@ -69,8 +66,6 @@
                             </div>
 
                         </div>
-
-                        <div class="col-4 col-sm-4"></div>
                     </div>
 
                     <button class="btn btn-primary mb-4 float-right"

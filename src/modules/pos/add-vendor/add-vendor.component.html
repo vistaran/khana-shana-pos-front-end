@@ -1,39 +1,39 @@
 <sb-layout-dashboard>
     <div class="d-flex justify-content-center">
-        <div class="card shadow w-75 mt-2">
-            <h1 class="card-header bg-gradient text-white mb-3 text-center">Add Vendor</h1>
+        <div class="card shadow mt-2">
+            <h3 class="card-header bg-gradient text-white mb-3 text-center">Add Vendor</h3>
             <form [formGroup]="addVendorForm">
                 <div class="container">
                     <!-- <h2 class="card-header mt-4 pb-2">General</h2> -->
                     <div class="row card-body justify-content-around">
-                        <div class="col-6 col-sm-4">
+                        <div class="col-md-6 col-sm-12">
                             <div class="form-group required">
                                 <label class="required">Name</label>
                                 <input type="text" formControlName="name" class="form-control" placeholder="Enter Name"
                                     autofocus />
                                 <div *ngIf="name?.touched && name?.invalid || showValidations">
-                                    <div *ngIf="name?.errors?.required" class="alert alert-danger">Name is required.</div>
+                                    <div *ngIf="name?.errors?.required" class="alert alert-danger">Name is required.
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-6 col-sm-4">
+                        <div class="col-md-6 col-sm-12">
                             <div class="form-group">
                                 <label class="required">Phone Number</label>
                                 <input type="text" formControlName="phone_numbers" placeholder="Enter Phone number"
-                                    class="form-control" (keypress)="validateNumber($event)" maxlength="10"/>
+                                    class="form-control" (keypress)="validateNumber($event)" maxlength="10" />
                                 <div *ngIf="phone?.touched && phone?.invalid || showValidations">
                                     <!-- <div *ngIf="phone?.errors?.required" class="alert alert-danger">Phone number is required.</div> -->
-                                    <div *ngIf="phone?.errors?.maxlength" class="alert alert-danger">Phone number must not exceed 10 digits
+                                    <div *ngIf="phone?.errors?.maxlength" class="alert alert-danger">Phone number must
+                                        not exceed 10 digits
                                     </div>
-                                    <div *ngIf="phone?.errors?.pattern" class="alert alert-danger">Only Numbers are allowed</div>
+                                    <div *ngIf="phone?.errors?.pattern" class="alert alert-danger">Only Numbers are
+                                        allowed</div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row card-body justify-content-around">
-                        <div class="col-6 col-sm-4">
+                        <div class="col-md-6 col-sm-12">
                             <div class="form-group">
                                 <label class="required">Address</label>
                                 <input type="text" formControlName="address" placeholder="Enter Address"
@@ -44,7 +44,7 @@
                             </div>
                         </div>
 
-                        <div class="col-6 col-sm-4">
+                        <div class="col-md-6 col-sm-12">
                             <div class="form-group required">
                                 <label class="required">Select Status</label><br />
                                 <select name="status" formControlName="status" placeholder="Select Status"
@@ -53,11 +53,11 @@
                                     <option value=1>inactive</option>
                                 </select>
                                 <div *ngIf="stat?.touched && stat?.invalid || showValidations">
-                                    <div *ngIf="stat?.errors?.required" class="alert alert-danger">Status is required.</div>
+                                    <div *ngIf="stat?.errors?.required" class="alert alert-danger">Status is required.
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
                     <button (click)="showValidations = true" type="submit" (click)="onSubmit(addVendorForm.value)"

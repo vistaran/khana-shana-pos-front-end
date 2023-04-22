@@ -19,7 +19,7 @@ const routes: Routes = [
     component: ItemGroupsComponent,
     data: {
       title: 'Item Groups',
-      activeTopNav: '₹ Item Groups'
+      activeTopNav: 'Item Groups'
     } as SBRouteData,
   },
   {
@@ -28,7 +28,7 @@ const routes: Routes = [
     component: AddItemGroupComponent,
     data: {
       title: 'Add Item Group',
-      activeTopNav: '₹ Item Groups'
+      activeTopNav: 'Item Groups'
     } as SBRouteData,
   },
   {
@@ -37,7 +37,7 @@ const routes: Routes = [
     component: EditItemGroupComponent,
     data: {
       title: 'Edit Item Group',
-      activeTopNav: '₹ Item Groups'
+      activeTopNav: 'Item Groups'
     } as SBRouteData,
   },
 ]

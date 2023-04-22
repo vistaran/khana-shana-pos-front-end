@@ -1,0 +1,35 @@
+<h3 class="text-center my-3">
+    <span class="bg-gradient text-white border">Khana</span>
+    <span class="text-success gr-text">Shana</span>
+</h3>
+<div class="row justify-content-center my-3 mx-3">
+    <div class="col-md-12 col-lg-4 col-xl-4 col-12 col-sm-12">
+        <ngb-accordion #acc="ngbAccordion" [activeIds]="activeIds">
+            <ngb-panel title="{{ category.name }}" *ngFor="let category of menuData; let i= index" id="ngb-panel-{{i}}"
+                class="bg-gradient">
+                <ng-template ngbPanelContent>
+                    <div *ngFor="let products of category.products"
+                        class="row border p-3 rounded gap-3 mb-2 align-items-center">
+
+                        <div class="col d-flex px-0">
+                            <img class="productImage" src="/assets/img/food.jpg">
+                            <div class="col font-weight-bold">
+                                <p class="h4">{{ products.product_name }}</p>
+                                <p class="h5">₹{{ products.price?.toFixed(2) }}</p>
+                            </div>
+                        </div>
+
+
+                        <!-- <div class="col font-weight-bold">
+
+                        </div> -->
+
+                    </div>
+                    <div *ngIf="category.products.length == 0">
+                        No products in this category
+                    </div>
+                </ng-template>
+            </ngb-panel>
+        </ngb-accordion>
+    </div>
+</div>
