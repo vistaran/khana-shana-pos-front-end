@@ -1,6 +1,5 @@
 {
     "angularCompilerOptions": {
-        "enableIvy": false,
         "fullTemplateTypeCheck": true,
         "preserveWhitespaces": false,
         "strictInjectionParameters": true
@@ -10,7 +9,6 @@
         "baseUrl": "src",
         "declaration": false,
         "downlevelIteration": true,
-        "emitDecoratorMetadata": true,
         "esModuleInterop": true,
         "experimentalDecorators": true,
         "importHelpers": true,
