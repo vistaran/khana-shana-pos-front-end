@@ -83,7 +83,7 @@
                                         <div class="">
                                             <button id=" remove" *ngIf="group.group_based == 'User'"
                                                 class="btn btn-light float-right" (click)=" deleteGroup(group.id)">
-                                                <i class="fa fa-trash-o fa-lg float-right"></i>
+                                                <i class="fa-solid fa-trash-can fa-lg float-right"></i>
                                             </button>
                                         </div>
                                     </div>
@@ -107,7 +107,7 @@
                                                     <td>
                                                         <button *ngIf="data.attribute_based == 'User'" id="remove"
                                                             (click)="deleteRow(data.id)" class="btn btn-light btn-sm"><i
-                                                                class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                                                                class="fa-solid fa-trash-can fa-lg mx-auto"></i></button>
                                                     </td>
                                                 </tr>
                                                 <tr *ngIf="!length && !showloader">

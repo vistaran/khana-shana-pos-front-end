@@ -40,11 +40,11 @@
                     <td>
                         <button ngbTooltip="Edit" class="btn btn-info rounded-circle shadow mr-2 btn-sm"
                             [routerLink]="['/catalog/editfamily/'+ data.id]"><i
-                                class="fa fa-pencil-square-o fa-lg"></i></button>
+                                class="fa-solid fa-square-pen fa-lg"></i></button>
 
                         <button ngbTooltip="Delete" id="remove" (click)="deleteRow(data.id)"
                             class="btn btn-danger rounded-circle shadow btn-sm"><i
-                                class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                                class="fa-solid fa-trash-can fa-lg mx-auto"></i></button>
                     </td>
                 </tr>
                 <tr *ngIf="!attributeFamilyData.length && !showloader">

@@ -50,11 +50,11 @@
 
                         <button class="btn btn-info rounded-circle shadow mr-2 btn-sm" ngbTooltip="Edit"
                             [routerLink]="['/sales/edit_sale/' + data.id]"><i
-                                class="fa fa-pencil-square-o fa-lg"></i></button>
+                                class="fa-solid fa-square-pen fa-lg"></i></button>
 
                         <button id="remove" ngbTooltip="Delete" (click)="deleteRow(data.id)"
                             class="btn btn-danger rounded-circle shadow btn-sm mr-2"><i
-                                class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                                class="fa-solid fa-trash-can fa-lg mx-auto"></i></button>
                         <button id="remove" ngbTooltip="Unoccupy this table" (click)="unOccupyTable(data)"
                             *ngIf="data.table_number" class="btn btn-danger rounded shadow btn-sm">Unoccupy
                             Table</button>
