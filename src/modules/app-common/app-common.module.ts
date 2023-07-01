@@ -5,9 +5,8 @@ import { RouterModule } from '@angular/router';
 
 /* Third Party */
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { IconsModule } from '@modules/icons/icons.module';
 
-const thirdParty = [IconsModule, NgbModule];
+const thirdParty = [NgbModule];
 
 /* Containers */
 import * as appCommonContainers from './containers';
