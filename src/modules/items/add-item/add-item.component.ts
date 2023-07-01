@@ -113,12 +113,14 @@ export class AddItemComponent implements OnInit {
   // For submitting add item group form data
   onSubmit(data: any) {
     this.itemService.postItemsData(data)
-      .subscribe((result: any) => {
-        console.log(result)
-        this.toast.success('Success', 'Item Added Successfully.')
-        this.router.navigate(['/items']);
-      }, err => {
-        this.toast.error('Error', 'Server error.')
+      .subscribe({
+        next: (result: any) => {
+          console.log(result)
+          this.toast.success('Success', 'Item Added Successfully.')
+          this.router.navigate(['/items']);
+        }, error: err => {
+          this.toast.error('Error', 'Server error.')
+        }
       });
     console.log('Form Submitted', (data));
   }

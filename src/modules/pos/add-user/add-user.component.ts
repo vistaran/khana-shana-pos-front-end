@@ -179,10 +179,10 @@ export class AddUserComponent implements OnInit {
         var inp = String.fromCharCode(event.keyCode);
 
         if (/[0-9]/.test(inp)) {
-          return true;
+            return true;
         } else {
-          event.preventDefault();
-          return false;
+            event.preventDefault();
+            return false;
         }
     }
 
@@ -210,12 +210,14 @@ export class AddUserComponent implements OnInit {
 
         this.userService
             .postUserData(formData)
-            .subscribe((result: any) => {
-                console.log(result)
-                this.toast.success('Success', 'Added Successfully.');
-                this.route.navigate(['/pos/users'])
-            }, err => {
-                this.toast.error('Error', 'Server error.');
+            .subscribe({
+                next: (result: any) => {
+                    console.log(result)
+                    this.toast.success('Success', 'Added Successfully.');
+                    this.route.navigate(['/pos/users'])
+                }, error: err => {
+                    this.toast.error('Error', 'Server error.');
+                }
             });
         console.log('Form Submitted', (data));
     }

@@ -47,23 +47,25 @@ export class UsersListComponent implements OnInit {
     // To get user data for table listing
     getUserData() {
         this.showloader = true
-        this.userService.getUserData(this.page).subscribe(result => {
-            this.userData = result.user.data
-            this.length = this.userData.length;
-            this.total = result.user.total;
-            this.showloader = false;
+        this.userService.getUserData(this.page).subscribe({
+            next: result => {
+                this.userData = result.user.data
+                this.length = this.userData.length;
+                this.total = result.user.total;
+                this.showloader = false;
 
-            this.userData.forEach((ele: any) => {
-                let temp = '';
-                temp = 'data:image/jpeg;base64,' + ele.user_avatar;
-                ele.image = this.sanitizer.bypassSecurityTrustUrl(temp);
-            })
+                this.userData.forEach((ele: any) => {
+                    let temp = '';
+                    temp = 'data:image/jpeg;base64,' + ele.user_avatar;
+                    ele.image = this.sanitizer.bypassSecurityTrustUrl(temp);
+                })
 
-            console.log(this.userData);
+                console.log(this.userData);
 
-        }, err => {
-            this.showloader = false
-            this.toast.error('Error', 'Server error.')
+            }, error: err => {
+                this.showloader = false
+                this.toast.error('Error', 'Server error.')
+            }
         })
     }
 
@@ -82,11 +84,13 @@ export class UsersListComponent implements OnInit {
     // For deleting user
     deleteRow(id: number) {
         if (confirm('Are you sure you want to delete?')) {
-            this.userService.deleteUser(id).subscribe(data => {
-                this.getUserData();
-                this.toast.success('Success', 'User Deleted Successfully.')
-            }, err => {
-                this.toast.error('Error', 'Server error.')
+            this.userService.deleteUser(id).subscribe({
+                next: data => {
+                    this.getUserData();
+                    this.toast.success('Success', 'User Deleted Successfully.')
+                }, error: err => {
+                    this.toast.error('Error', 'Server error.')
+                }
             });
         }
     }
@@ -94,15 +98,17 @@ export class UsersListComponent implements OnInit {
     // For searching users data from table
     search(event: any) {
         this.showloader = true
-        this.userService.searchUser(this.searchValue).subscribe(res => {
-            this.userData = res.users.data
-            this.length = this.userData.length;
-            this.total = res.users.total;
-            this.showloader = false
-            console.log('search',this.userData)
-        }, err => {
-            this.showloader = false
-            this.toast.error('Error', 'Server error.')
+        this.userService.searchUser(this.searchValue).subscribe({
+            next: res => {
+                this.userData = res.users.data
+                this.length = this.userData.length;
+                this.total = res.users.total;
+                this.showloader = false
+                console.log('search', this.userData)
+            }, error: err => {
+                this.showloader = false
+                this.toast.error('Error', 'Server error.')
+            }
         })
     }
 

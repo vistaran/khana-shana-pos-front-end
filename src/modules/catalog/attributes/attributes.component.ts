@@ -35,15 +35,17 @@ export class AttributesComponent implements OnInit {
   // For getting attributes data for table listing
   getAttributesData() {
     this.showloader = true
-    this.attributeService.getAttributesData(this.page).subscribe(result => {
-      this.attributesData = result.Attributes.data;
-      this.length = this.attributesData.length;
-      this.total = result.Attributes.total;
-      this.showloader = false
-      console.log(this.attributesData, this.length, this.total, this.page);
-    }, err => {
-      this.showloader = false
-      this.toast.error('Error', 'Server error.')
+    this.attributeService.getAttributesData(this.page).subscribe({
+      next: result => {
+        this.attributesData = result.Attributes.data;
+        this.length = this.attributesData.length;
+        this.total = result.Attributes.total;
+        this.showloader = false
+        console.log(this.attributesData, this.length, this.total, this.page);
+      }, error: err => {
+        this.showloader = false
+        this.toast.error('Error', 'Server error.')
+      }
     })
   }
 
@@ -55,11 +57,13 @@ export class AttributesComponent implements OnInit {
   // For deleting attribute data
   deleteRow(id: number) {
     if (confirm('Are you sure you want to delete?')) {
-      this.attributeService.deleteAttribute(id).subscribe(data => {
-        this.getAttributesData();
-        this.toast.success('Success', 'Attribute Deleted Successfully.')
-      }, err => {
-        this.toast.error('Error', 'Server error.')
+      this.attributeService.deleteAttribute(id).subscribe({
+        next: data => {
+          this.getAttributesData();
+          this.toast.success('Success', 'Attribute Deleted Successfully.')
+        }, error: err => {
+          this.toast.error('Error', 'Server error.')
+        }
       });
     }
   }
@@ -74,15 +78,17 @@ export class AttributesComponent implements OnInit {
   // For searching attributes data from table
   search(event: any) {
     this.showloader = true
-    this.attributeService.searchAttribute(this.searchValue).subscribe(res => {
-      this.attributesData = res.Attributes.data;
-      this.length = this.attributesData.length;
-      this.total = res.Attributes.total;
-      this.showloader = false
-      console.log(this.attributesData)
-    }, err => {
-      this.toast.error('Error', 'Server error.')
-      this.showloader = false
+    this.attributeService.searchAttribute(this.searchValue).subscribe({
+      next: res => {
+        this.attributesData = res.Attributes.data;
+        this.length = this.attributesData.length;
+        this.total = res.Attributes.total;
+        this.showloader = false
+        console.log(this.attributesData)
+      }, error: err => {
+        this.toast.error('Error', 'Server error.')
+        this.showloader = false
+      }
     });
   }
 }

@@ -52,15 +52,17 @@ export class EditTableComponent implements OnInit {
     }
 
     getTableManagementDataById() {
-        this.TableManagementService.getTableManagementDataById(this.id).subscribe((result: any) => {
-            this.editTableForm.patchValue({
-                table_number: result.Restaurant_Table_Details.res_table_number,
-                table_name: result.Restaurant_Table_Details.res_table_name,
-                table_occupied: result.Restaurant_Table_Details.is_table_occupied.toString(),
-                table_active: result.Restaurant_Table_Details.is_table_active.toString()
-            });
-        }, err => {
-            this.toast.error('Error', 'Something went wrong.');
+        this.TableManagementService.getTableManagementDataById(this.id).subscribe({
+            next: (result: any) => {
+                this.editTableForm.patchValue({
+                    table_number: result.Restaurant_Table_Details.res_table_number,
+                    table_name: result.Restaurant_Table_Details.res_table_name,
+                    table_occupied: result.Restaurant_Table_Details.is_table_occupied.toString(),
+                    table_active: result.Restaurant_Table_Details.is_table_active.toString()
+                });
+            }, error: err => {
+                this.toast.error('Error', 'Something went wrong.');
+            }
         })
     }
 
@@ -72,11 +74,13 @@ export class EditTableComponent implements OnInit {
         }
         console.log(data);
 
-        this.TableManagementService.editTableData(this.id, data).subscribe((result: any) => {
-            this.toast.success('Success', 'Table data updated successfully!');
-            this.router.navigate(['/sales/table_management']);
-        }, err => {
-            this.toast.error('Error', 'Something went wrong. Please try again!');
+        this.TableManagementService.editTableData(this.id, data).subscribe({
+            next: (result: any) => {
+                this.toast.success('Success', 'Table data updated successfully!');
+                this.router.navigate(['/sales/table_management']);
+            }, error: err => {
+                this.toast.error('Error', 'Something went wrong. Please try again!');
+            }
         })
 
     }

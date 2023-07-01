@@ -38,15 +38,17 @@ export class PurchaseOrdersComponent implements OnInit {
   // For getting Item group data for listing
   getPurchaseOrdersData() {
     this.showloader = true
-    this.purchaseOrderService.getPurchaseOrdersData(this.page).subscribe(data => {
-      this.showloader = false
-      this.purchaseOrdersData = data.orders.data;
-      this.length = this.purchaseOrdersData.length
-      this.total = data.orders.total
-      console.log(this.purchaseOrdersData);
-    }, err => {
-      this.showloader = false
-      this.toast.error('Error', 'Server error.')
+    this.purchaseOrderService.getPurchaseOrdersData(this.page).subscribe({
+      next: data => {
+        this.showloader = false
+        this.purchaseOrdersData = data.orders.data;
+        this.length = this.purchaseOrdersData.length
+        this.total = data.orders.total
+        console.log(this.purchaseOrdersData);
+      }, error: err => {
+        this.showloader = false
+        this.toast.error('Error', 'Server error.')
+      }
     });
   }
 
@@ -65,11 +67,13 @@ export class PurchaseOrdersComponent implements OnInit {
   // For deleting Item data
   deleteRow(id: number) {
     if (confirm('Are you sure you want to delete?')) {
-      this.purchaseOrderService.deleteOrder(id).subscribe(data => {
-        this.getPurchaseOrdersData();
-        this.toast.success('Success', 'Puchase Order Deleted Successfully.')
-      }, err => {
-        this.toast.error('Error', 'Server error.')
+      this.purchaseOrderService.deleteOrder(id).subscribe({
+        next: data => {
+          this.getPurchaseOrdersData();
+          this.toast.success('Success', 'Puchase Order Deleted Successfully.')
+        }, error: err => {
+          this.toast.error('Error', 'Server error.')
+        }
       });
     }
   }
@@ -86,14 +90,16 @@ export class PurchaseOrdersComponent implements OnInit {
   search() {
     this.showloader = true
     this.page = 1
-    this.purchaseOrderService.searchPurchaseOrder(this.searchValue, this.page).subscribe((data: any) => {
-      this.purchaseOrdersData = data.orders.data;
-      this.length = this.purchaseOrdersData.length
-      this.total = data.orders.total
-      this.showloader = false
-    }, err => {
-      this.toast.error('Error', 'Server error.')
-      this.showloader = false
+    this.purchaseOrderService.searchPurchaseOrder(this.searchValue, this.page).subscribe({
+      next: (data: any) => {
+        this.purchaseOrdersData = data.orders.data;
+        this.length = this.purchaseOrdersData.length
+        this.total = data.orders.total
+        this.showloader = false
+      }, error: err => {
+        this.toast.error('Error', 'Server error.')
+        this.showloader = false
+      }
     });
   }
 

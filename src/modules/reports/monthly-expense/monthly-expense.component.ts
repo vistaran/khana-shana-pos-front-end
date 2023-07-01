@@ -87,67 +87,71 @@ export class MonthlyExpenseComponent implements OnInit {
 
   monthlyExpense() {
     this.showloader = true
-    this.expenseService.getExpenseByGroup(this.year, this.value).subscribe(data => {
-      this.totalExpense = 0
+    this.expenseService.getExpenseByGroup(this.year, this.value).subscribe({
+      next: data => {
+        this.totalExpense = 0
 
-      this.showloader = false
-      this.showData = true
+        this.showloader = false
+        this.showData = true
 
-      this.monthlyExpenseData = data.amount.sort(function (a: any, b: any) {
-        const nameA = a.item_group_name.toUpperCase(); // ignore upper and lowercase
-        const nameB = b.item_group_name.toUpperCase(); // ignore upper and lowercase
-        if (nameA < nameB) {
-          return -1;
-        }
-        if (nameA > nameB) {
-          return 1;
-        }
+        this.monthlyExpenseData = data.amount.sort(function (a: any, b: any) {
+          const nameA = a.item_group_name.toUpperCase(); // ignore upper and lowercase
+          const nameB = b.item_group_name.toUpperCase(); // ignore upper and lowercase
+          if (nameA < nameB) {
+            return -1;
+          }
+          if (nameA > nameB) {
+            return 1;
+          }
 
-        // names must be equal
-        return 0;
-      });
-      this.length = this.monthlyExpenseData.length
+          // names must be equal
+          return 0;
+        });
+        this.length = this.monthlyExpenseData.length
 
-      this.monthlyExpenseData.forEach((g: any) => {
-        this.totalExpense += g.total
-      });
+        this.monthlyExpenseData.forEach((g: any) => {
+          this.totalExpense += g.total
+        });
 
-      this.monthlyExpenseByItem()
+        this.monthlyExpenseByItem()
 
-    }, err => {
-      this.toast.error('Error', 'Server error.')
+      }, error: err => {
+        this.toast.error('Error', 'Server error.')
+      }
     })
   }
 
   monthlyExpenseByItem() {
-    this.expenseService.getExpenseByItem(this.year, this.value, this.page).subscribe(result => {
-      this.totalExpenseForItem = 0
-      this.expenseByItemData = result.data.data.sort(function (a: any, b: any) {
-        const nameA = a.item_name.toUpperCase(); // ignore upper and lowercase
-        const nameB = b.item_name.toUpperCase(); // ignore upper and lowercase
-        if (nameA < nameB) {
-          return -1;
-        }
-        if (nameA > nameB) {
-          return 1;
-        }
+    this.expenseService.getExpenseByItem(this.year, this.value, this.page).subscribe({
+      next: result => {
+        this.totalExpenseForItem = 0
+        this.expenseByItemData = result.data.data.sort(function (a: any, b: any) {
+          const nameA = a.item_name.toUpperCase(); // ignore upper and lowercase
+          const nameB = b.item_name.toUpperCase(); // ignore upper and lowercase
+          if (nameA < nameB) {
+            return -1;
+          }
+          if (nameA > nameB) {
+            return 1;
+          }
 
-        // names must be equal
-        return 0;
-      });
-      // console.log(this.expenseByItemData);
+          // names must be equal
+          return 0;
+        });
+        // console.log(this.expenseByItemData);
 
-      this.lengthItemData = this.expenseByItemData.length
-      this.total = result.data.total
+        this.lengthItemData = this.expenseByItemData.length
+        this.total = result.data.total
 
-      this.expenseByItemData.forEach((g: any) => {
-        this.totalExpenseForItem += g.subtotal
-        g.number = result.data.from
-        // console.log(g);
-      });
+        this.expenseByItemData.forEach((g: any) => {
+          this.totalExpenseForItem += g.subtotal
+          g.number = result.data.from
+          // console.log(g);
+        });
 
-    }, err => {
-      this.toast.error('Error', 'Server error.')
+      }, error: err => {
+        this.toast.error('Error', 'Server error.')
+      }
     })
   }
 

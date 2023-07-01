@@ -34,17 +34,19 @@ export class ItemGroupsComponent implements OnInit {
   // For getting Item group data for listing
   getItemGroupsData() {
     this.showloader = true;
-    this.itemGroupService.getItemGroupsData(this.page, this.pageSize).subscribe((result: any) => {
-      this.itemGroupsData = result.data;
-      this.total = result.total
-      this.length = this.itemGroupsData.length
-      this.showloader = false;
+    this.itemGroupService.getItemGroupsData(this.page, this.pageSize).subscribe({
+      next: (result: any) => {
+        this.itemGroupsData = result.data;
+        this.total = result.total
+        this.length = this.itemGroupsData.length
+        this.showloader = false;
 
-      // console.log(result);
-    }, err => {
-      this.toast.error('Error', 'Server error.');
-      this.showloader = false;
+        // console.log(result);
+      }, error: err => {
+        this.toast.error('Error', 'Server error.');
+        this.showloader = false;
 
+      }
     });
   }
 
@@ -67,11 +69,13 @@ export class ItemGroupsComponent implements OnInit {
   // For deleting Item group data
   deleteRow(id: number) {
     if (confirm('Are you sure you want to delete?')) {
-      this.itemGroupService.deleteItemGrpup(id).subscribe(data => {
-        this.getItemGroupsData();
-        this.toast.success('Success', 'Item Group Deleted Successfully.')
-      }, err => {
-        this.toast.error('Error', 'Server error.')
+      this.itemGroupService.deleteItemGrpup(id).subscribe({
+        next: data => {
+          this.getItemGroupsData();
+          this.toast.success('Success', 'Item Group Deleted Successfully.')
+        }, error: err => {
+          this.toast.error('Error', 'Server error.')
+        }
       });
     }
   }
@@ -80,14 +84,16 @@ export class ItemGroupsComponent implements OnInit {
     console.log(event);
     this.showloader = true
     this.page = 1
-    this.itemGroupService.searchItemGroup(this.page, this.searchValue).subscribe((result: any) => {
-      this.itemGroupsData = result.data;
-      this.total = result.total
-      this.length = this.itemGroupsData.length
-      this.showloader = false
-    }, err => {
-      this.toast.error('Error', 'Server error.')
-      this.showloader = false
+    this.itemGroupService.searchItemGroup(this.page, this.searchValue).subscribe({
+      next: (result: any) => {
+        this.itemGroupsData = result.data;
+        this.total = result.total
+        this.length = this.itemGroupsData.length
+        this.showloader = false
+      }, error: err => {
+        this.toast.error('Error', 'Server error.')
+        this.showloader = false
+      }
     });
   }
 

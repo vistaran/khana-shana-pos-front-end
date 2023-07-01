@@ -46,18 +46,20 @@ export class EditItemGroupComponent implements OnInit {
   // Submit edit item group form
   updateData(data: any) {
 
-    if(this.editItemGroupForm.invalid) {
+    if (this.editItemGroupForm.invalid) {
       alert('Please fill the required fields!');
       return;
     }
 
 
-    this.itemGroupService.editItemGroup(this.id, data).subscribe(data => {
-      console.log('Data updated successfully! ', data);
-      this.toast.success('Success', 'Item Group Edited successfully.')
-      this.router.navigate(['/item_groups']);
-    }, err => {
-      this.toast.error('Error', 'Server error.')
+    this.itemGroupService.editItemGroup(this.id, data).subscribe({
+      next: data => {
+        console.log('Data updated successfully! ', data);
+        this.toast.success('Success', 'Item Group Edited successfully.')
+        this.router.navigate(['/item_groups']);
+      }, error: err => {
+        this.toast.error('Error', 'Server error.')
+      }
     });
   }
 

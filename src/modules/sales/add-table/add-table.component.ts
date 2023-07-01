@@ -68,12 +68,14 @@ export class AddTableComponent implements OnInit {
         }
         // console.log(data);
 
-        this.TableManagementService.addTableData(data).subscribe((result: any) => {
-            this.toast.success('Success', 'Table added successfully!');
-            this.router.navigate(['/sales/table_management']);
+        this.TableManagementService.addTableData(data).subscribe({
+            next: (result: any) => {
+                this.toast.success('Success', 'Table added successfully!');
+                this.router.navigate(['/sales/table_management']);
 
-        }, err => {
-            this.toast.error('Error', 'Something went wrong. Please try again!');
+            }, error: err => {
+                this.toast.error('Error', 'Something went wrong. Please try again!');
+            }
         })
 
     }

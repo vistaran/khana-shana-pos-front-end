@@ -296,12 +296,14 @@ export class AddPurchaseOrderComponent implements OnInit {
 
   searchItem(event: any) {
     // console.log(event.term);
-    this.purchaseOrderService.searchItems(event.term).subscribe((res: any) => {
-      this.itemsData = res.data
-      // console.log(this.customerData);
-    }, err => {
-      this.toast.error('Error', 'Server error.')
-      // this.showloader = false
+    this.purchaseOrderService.searchItems(event.term).subscribe({
+      next: (res: any) => {
+        this.itemsData = res.data
+        // console.log(this.customerData);
+      }, error: err => {
+        this.toast.error('Error', 'Server error.')
+        // this.showloader = false
+      }
     });
   }
 
@@ -556,12 +558,14 @@ export class AddPurchaseOrderComponent implements OnInit {
       items: this.orderItemData
     }
     this.purchaseOrderService.postPurchaseOrderData(obj)
-      .subscribe((result: any) => {
-        // console.log(result)
-        this.toast.success('Success', 'Purchase Order Added Successfully.')
-        this.router.navigate(['/purchase_orders']);
-      }, err => {
-        this.toast.error('Error', 'Token has expired. Please login again.')
+      .subscribe({
+        next: (result: any) => {
+          // console.log(result)
+          this.toast.success('Success', 'Purchase Order Added Successfully.')
+          this.router.navigate(['/purchase_orders']);
+        }, error: err => {
+          this.toast.error('Error', 'Token has expired. Please login again.')
+        }
       });
 
     console.log('Form Submitted', (obj));

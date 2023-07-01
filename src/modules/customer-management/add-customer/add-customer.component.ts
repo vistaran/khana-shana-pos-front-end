@@ -74,18 +74,20 @@ export class AddCustomerComponent implements OnInit {
   // For submitting add item group form data
   onSubmit(data: any) {
 
-    if(this.addCustomerForm.invalid) {
+    if (this.addCustomerForm.invalid) {
       alert('Please fill all the required fields!');
       return;
     }
 
     this.customerService.postCustomerData(data)
-      .subscribe((result: any) => {
-        console.log(result)
-        this.toast.success('Success', 'Customer Added Successfully.')
-        this.router.navigate(['/customer_management']);
-      }, err => {
-        this.toast.error('Error', 'Server error.')
+      .subscribe({
+        next: (result: any) => {
+          console.log(result)
+          this.toast.success('Success', 'Customer Added Successfully.')
+          this.router.navigate(['/customer_management']);
+        }, error: err => {
+          this.toast.error('Error', 'Server error.')
+        }
       });
     console.log('Form Submitted', (data));
   }

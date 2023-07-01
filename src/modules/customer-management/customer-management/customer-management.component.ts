@@ -32,12 +32,14 @@ export class CustomerManagementComponent implements OnInit {
   }
 
   getCustomerData() {
-    this.customerService.getCustomerData(this.page, this.pageSize).subscribe((result: any)=> {
-      this.customerData = result.data
-      this.total = result.total
-      this.length = this.customerData.length
-    }, err => {
-      this.toast.error('Error', 'Server error.')
+    this.customerService.getCustomerData(this.page, this.pageSize).subscribe({
+      next: (result: any) => {
+        this.customerData = result.data
+        this.total = result.total
+        this.length = this.customerData.length
+      }, error: err => {
+        this.toast.error('Error', 'Server error.')
+      }
     });
   }
 
@@ -61,25 +63,29 @@ export class CustomerManagementComponent implements OnInit {
   // For deleting product
   deleteRow(id: number) {
     if (confirm('Are you sure you want to delete?')) {
-      this.customerService.deleteCustomer(id).subscribe(data => {
-        this.getCustomerData();
-        this.toast.success('Success', 'Customer Deleted Successfully.')
-      }, err => {
-        this.toast.error('Error', 'Server error.')
+      this.customerService.deleteCustomer(id).subscribe({
+        next: data => {
+          this.getCustomerData();
+          this.toast.success('Success', 'Customer Deleted Successfully.')
+        }, error: err => {
+          this.toast.error('Error', 'Server error.')
+        }
       });
     }
   }
 
   search(event: any) {
     this.showloader = true
-    this.customerService.searchCustomer(this.searchValue).subscribe((res: any) => {
-      this.customerData = res.data
-      this.length = this.customerData.length;
-      this.total = res.total
-      this.showloader = false
-    }, err => {
-      this.toast.error('Error', 'Server error.')
-      this.showloader = false
+    this.customerService.searchCustomer(this.searchValue).subscribe({
+      next: (res: any) => {
+        this.customerData = res.data
+        this.length = this.customerData.length;
+        this.total = res.total
+        this.showloader = false
+      }, error: err => {
+        this.toast.error('Error', 'Server error.')
+        this.showloader = false
+      }
     });
   }
 

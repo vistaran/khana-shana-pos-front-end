@@ -115,7 +115,7 @@ export class AddCategoryComponent implements OnInit {
   // For submitting Add category form data
   onSubmit(data: any) {
 
-    if(this.addCategoryForm.invalid) {
+    if (this.addCategoryForm.invalid) {
       alert('Please fill all the required fields');
       this.addCategoryForm.markAllAsTouched();
       return;
@@ -123,22 +123,26 @@ export class AddCategoryComponent implements OnInit {
 
     this.categoryService
       .postCategory(data)
-      .subscribe((result: any) => {
-        // console.log(result)
-        this.toast.success('Success', 'Category Added successfully.')
-        this.router.navigate(['catalog/categories'])
-      }, err => {
-        this.toast.error('Error', 'Server error.')
+      .subscribe({
+        next: (result: any) => {
+          // console.log(result)
+          this.toast.success('Success', 'Category Added successfully.')
+          this.router.navigate(['catalog/categories'])
+        }, error: err => {
+          this.toast.error('Error', 'Server error.')
+        }
       });
   }
 
   // For parent category listing
   getParentCategrory() {
-    this.categoryService.getCategoriesData(this.page).subscribe(data => {
-      this.parentCategroryData = data.category.data
-      // console.log(this.parentCategroryData)
-    }, err => {
-      this.toast.error('Error', 'Server error.')
+    this.categoryService.getCategoriesData(this.page).subscribe({
+      next: data => {
+        this.parentCategroryData = data.category.data
+        // console.log(this.parentCategroryData)
+      }, error: err => {
+        this.toast.error('Error', 'Server error.')
+      }
     });
   }
 
