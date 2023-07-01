@@ -79,23 +79,25 @@ export class EditVendorComponent implements OnInit {
       event.preventDefault();
       return false;
     }
-}
+  }
 
 
   // Submit edit vendor form
   updateData(data: any) {
 
-    if(this.editVendorForm.invalid) {
+    if (this.editVendorForm.invalid) {
       alert('Please check the validations!')
       return;
     }
 
-    this.vendorService.editVendor(this.id, data).subscribe(data => {
-      console.log('Data updated successfully! ', data);
-      this.router.navigate(['/pos/vendors']);
-      this.toast.success('Success', 'Vendor Edited successfully.')
-    }, err => {
-      this.toast.error('Error', 'Server error.')
+    this.vendorService.editVendor(this.id, data).subscribe({
+      next: data => {
+        console.log('Data updated successfully! ', data);
+        this.router.navigate(['/pos/vendors']);
+        this.toast.success('Success', 'Vendor Edited successfully.')
+      }, error: err => {
+        this.toast.error('Error', 'Server error.')
+      }
     });
   }
 

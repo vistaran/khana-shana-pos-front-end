@@ -35,15 +35,17 @@ export class CategoriesComponent implements OnInit {
   // For getting categories data for table listing
   getCategoriesData() {
     this.showloader = true
-    this.categories.getCategoriesData(this.page).subscribe(result => {
-      this.categoryData = result.category.data;
-      this.length = this.categoryData.length;
-      this.total = result.category.total;
-      this.showloader = false
-      console.log(this.categoryData);
-    }, err => {
-      this.showloader = false
-      this.toast.error('Error', 'Server error.')
+    this.categories.getCategoriesData(this.page).subscribe({
+      next: result => {
+        this.categoryData = result.category.data;
+        this.length = this.categoryData.length;
+        this.total = result.category.total;
+        this.showloader = false
+        console.log(this.categoryData);
+      }, error: err => {
+        this.showloader = false
+        this.toast.error('Error', 'Server error.')
+      }
     })
   }
 
@@ -62,11 +64,13 @@ export class CategoriesComponent implements OnInit {
   // For deleting category data
   deleteRow(id: number) {
     if (confirm('Are you sure you want to delete?')) {
-      this.categories.deleteCategory(id).subscribe(data => {
-        this.getCategoriesData();
-        this.toast.success('Success', 'Category Deleted Successfully.')
-      }, err => {
-        this.toast.error('Error', 'Server error.')
+      this.categories.deleteCategory(id).subscribe({
+        next: data => {
+          this.getCategoriesData();
+          this.toast.success('Success', 'Category Deleted Successfully.')
+        }, error: err => {
+          this.toast.error('Error', 'Server error.')
+        }
       });
     }
   }
@@ -74,15 +78,17 @@ export class CategoriesComponent implements OnInit {
   // For searching category data from table
   search(event: any) {
     this.showloader = true
-    this.categories.searchCategory(this.searchValue).subscribe(res => {
-      this.categoryData = res.category.data
-      this.length = this.categoryData.length;
-      this.total = res.category.total;
-      this.showloader = false
-      console.log(this.categoryData)
-    }, err => {
-      this.toast.error('Error', 'Server error.')
-      this.showloader = false
+    this.categories.searchCategory(this.searchValue).subscribe({
+      next: res => {
+        this.categoryData = res.category.data
+        this.length = this.categoryData.length;
+        this.total = res.category.total;
+        this.showloader = false
+        console.log(this.categoryData)
+      }, error: err => {
+        this.toast.error('Error', 'Server error.')
+        this.showloader = false
+      }
     });
   }
 }

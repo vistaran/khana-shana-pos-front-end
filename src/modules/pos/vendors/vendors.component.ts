@@ -36,15 +36,17 @@ export class VendorsComponent implements OnInit {
 
   getVendorsData() {
     this.showloader = true;
-    this.vendorService.getVendorsData(this.page).subscribe(data => {
-      this.vendorData = data.vendors.data;
-      this.length = this.vendorData.length
-      this.total = data.vendors.total
-      this.showloader = false;
-      console.log(this.vendorData);
-    }, err => {
-      this.showloader = false
-      this.toast.show('Error', 'Server error', { className: 'bg-danger text-light' })
+    this.vendorService.getVendorsData(this.page).subscribe({
+      next: data => {
+        this.vendorData = data.vendors.data;
+        this.length = this.vendorData.length
+        this.total = data.vendors.total
+        this.showloader = false;
+        console.log(this.vendorData);
+      }, error: err => {
+        this.showloader = false
+        this.toast.show('Error', 'Server error', { className: 'bg-danger text-light' })
+      }
     });
   }
 
@@ -59,11 +61,13 @@ export class VendorsComponent implements OnInit {
 
   deleteRow(id: number) {
     if (confirm('Are you sure you want to delete?')) {
-      this.vendorService.deleteVendor(id).subscribe(data => {
-        this.getVendorsData();
-        this.toast.success('Success', 'Vendor Deleted Successfully.')
-      }, err => {
-        this.toast.error('Error', 'Server error.')
+      this.vendorService.deleteVendor(id).subscribe({
+        next: data => {
+          this.getVendorsData();
+          this.toast.success('Success', 'Vendor Deleted Successfully.')
+        }, error: err => {
+          this.toast.error('Error', 'Server error.')
+        }
       });
     }
   }
@@ -71,14 +75,16 @@ export class VendorsComponent implements OnInit {
   search() {
     this.showloader = true
     this.page = 1
-    this.vendorService.searchVendor(this.page, this.searchValue).subscribe((data: any) => {
-      this.vendorData = data.vendors.data;
-      this.length = this.vendorData.length
-      this.total = data.vendors.total
-      this.showloader = false
-    }, err => {
-      this.toast.error('Error', 'Server error.')
-      this.showloader = false
+    this.vendorService.searchVendor(this.page, this.searchValue).subscribe({
+      next: (data: any) => {
+        this.vendorData = data.vendors.data;
+        this.length = this.vendorData.length
+        this.total = data.vendors.total
+        this.showloader = false
+      }, error: err => {
+        this.toast.error('Error', 'Server error.')
+        this.showloader = false
+      }
     });
   }
 

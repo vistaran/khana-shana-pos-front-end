@@ -286,12 +286,14 @@ export class EditSaleComponent implements OnInit {
 
     searchCustomer(event: any) {
         console.log(event.term);
-        this.customerService.searchCustomer(event.term).subscribe((res: any) => {
-            this.customerData = res.customers.data
-            console.log(this.customerData);
-        }, err => {
-            this.toast.error('Error', 'Server error.')
-            this.showloader = false
+        this.customerService.searchCustomer(event.term).subscribe({
+            next: (res: any) => {
+                this.customerData = res.customers.data
+                console.log(this.customerData);
+            }, error: err => {
+                this.toast.error('Error', 'Server error.')
+                this.showloader = false
+            }
         });
     }
 
@@ -489,13 +491,15 @@ export class EditSaleComponent implements OnInit {
         this.modalService.dismissAll();
 
         this.customerService.postCustomerData(data)
-            .subscribe((result: any) => {
-                console.log(result.customers)
-                this.toast.success('Success', 'Customer Added Successfully.')
-                this.getCustomerData();
-                this.getCustomerDetail(result.customers);
-            }, err => {
-                this.toast.error('Error', 'Server error.')
+            .subscribe({
+                next: (result: any) => {
+                    console.log(result.customers)
+                    this.toast.success('Success', 'Customer Added Successfully.')
+                    this.getCustomerData();
+                    this.getCustomerDetail(result.customers);
+                }, error: err => {
+                    this.toast.error('Error', 'Server error.')
+                }
             });
         console.log('Form Submitted', (data));
     }
@@ -821,7 +825,7 @@ export class EditSaleComponent implements OnInit {
 
             this.addedProduct.forEach((element: any) => {
                 this.newProduct.forEach((ele2: any) => {
-                    if(element.product_id != ele2.product_id) {
+                    if (element.product_id != ele2.product_id) {
                         addedProductSubmit.push({
                             order_id: this.id,
                             quantity: element.quantity,
@@ -858,34 +862,38 @@ export class EditSaleComponent implements OnInit {
 
         console.log(obj);
 
-        this.saleService.editOrder(this.id, obj).subscribe((result: any) => {
-            console.log(result)
-            this.toast.success('Success', 'Sales Order Edited Successfully.');
-            console.log(result.id);
-            this.getOrderDetail(result.id, true);
-            this.router.navigate(['/sales']);
+        this.saleService.editOrder(this.id, obj).subscribe({
+            next: (result: any) => {
+                console.log(result)
+                this.toast.success('Success', 'Sales Order Edited Successfully.');
+                console.log(result.id);
+                this.getOrderDetail(result.id, true);
+                this.router.navigate(['/sales']);
 
-            let table_name;
-            if (this.customerName) {
-                table_name = this.customerName
-            } else {
-                table_name = '-';
+                let table_name;
+                if (this.customerName) {
+                    table_name = this.customerName
+                } else {
+                    table_name = '-';
+                }
+
+                let tableData = {
+                    table_number: data.table_number,
+                    table_name: table_name,
+                    table_occupied: 1,
+                    table_active: 1
+                }
+                this.TableManagementService.editTableData(this.selectedTableId, tableData).subscribe({
+                    next: data => {
+
+                    }, error: err => {
+                        this.toast.error('Error', 'Table could not be marked as occupied');
+                    }
+                })
+
+            }, error: err => {
+                this.toast.error('Error', 'Server error.')
             }
-
-            let tableData = {
-                table_number: data.table_number,
-                table_name: table_name,
-                table_occupied: 1,
-                table_active: 1
-            }
-            this.TableManagementService.editTableData(this.selectedTableId, tableData).subscribe(data => {
-
-            }, err => {
-                this.toast.error('Error', 'Table could not be marked as occupied');
-            })
-
-        }, err => {
-            this.toast.error('Error', 'Server error.')
         });
     }
 

@@ -6,7 +6,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DatePipe } from '@angular/common'
 
 import { SalesService } from '../sales.service';
-import { Template } from '@angular/compiler/src/render3/r3_ast';
 
 @Component({
     selector: 'sb-sales',
@@ -44,35 +43,37 @@ export class SalesComponent implements OnInit {
 
     getOrderData() {
         this.showloader = true
-        this.saleService.getOrderData(this.page).subscribe((data: any) => {
+        this.saleService.getOrderData(this.page).subscribe({
+            next: (data: any) => {
 
-            data.orders.data.forEach((element: any) => {
-                if (element.payment_mode == 'cash') {
-                    element.payment_mode = 'Cash';
-                }
-                else if (element.payment_mode == 'credit_card') {
-                    element.payment_mode = 'Credit Card';
-                } else if (element.payment_mode == 'debit_card') {
-                    element.payment_mode = 'Debit Card';
-                } else if (element.payment_mode == 'net_banking') {
-                    element.payment_mode = 'Net Banking';
-                } else if (element.payment_mode == 'upi') {
-                    element.payment_mode = 'UPI';
-                }
-            })
+                data.orders.data.forEach((element: any) => {
+                    if (element.payment_mode == 'cash') {
+                        element.payment_mode = 'Cash';
+                    }
+                    else if (element.payment_mode == 'credit_card') {
+                        element.payment_mode = 'Credit Card';
+                    } else if (element.payment_mode == 'debit_card') {
+                        element.payment_mode = 'Debit Card';
+                    } else if (element.payment_mode == 'net_banking') {
+                        element.payment_mode = 'Net Banking';
+                    } else if (element.payment_mode == 'upi') {
+                        element.payment_mode = 'UPI';
+                    }
+                })
 
-            this.orderData = data.orders.data
-            this.total = data.orders.total
-            console.log(this.orderData);
-            this.showloader = false;
+                this.orderData = data.orders.data
+                this.total = data.orders.total
+                console.log(this.orderData);
+                this.showloader = false;
 
-            console.log('After', this.orderData);
+                console.log('After', this.orderData);
 
 
 
-        }, err => {
-            this.toast.error('Error', 'Server error.')
-            this.showloader = false
+            }, error: err => {
+                this.toast.error('Error', 'Server error.')
+                this.showloader = false
+            }
         });
     }
 
@@ -139,11 +140,13 @@ export class SalesComponent implements OnInit {
     // For deleting Item data
     deleteRow(id: number) {
         if (confirm('Are you sure you want to delete?')) {
-            this.saleService.deleteOrder(id).subscribe(data => {
-                this.getOrderData();
-                this.toast.success('Success', 'Order Deleted Successfully.')
-            }, err => {
-                this.toast.error('Error', 'Server error.')
+            this.saleService.deleteOrder(id).subscribe({
+                next: data => {
+                    this.getOrderData();
+                    this.toast.success('Success', 'Order Deleted Successfully.')
+                }, error: err => {
+                    this.toast.error('Error', 'Server error.')
+                }
             });
         }
     }
@@ -151,30 +154,32 @@ export class SalesComponent implements OnInit {
     search() {
         this.showloader = true
         this.page = 1
-        this.saleService.searchSales(this.page, this.searchValue).subscribe((data: any) => {
+        this.saleService.searchSales(this.page, this.searchValue).subscribe({
+            next: (data: any) => {
 
-            data.orders.data.forEach((element: any) => {
-                if (element.payment_mode == 'cash') {
-                    element.payment_mode = 'Cash';
-                }
-                else if (element.payment_mode == 'credit_card') {
-                    element.payment_mode = 'Credit Card';
-                } else if (element.payment_mode == 'debit_card') {
-                    element.payment_mode = 'Debit Card';
-                } else if (element.payment_mode == 'net_banking') {
-                    element.payment_mode = 'Net Banking';
-                } else if (element.payment_mode == 'upi') {
-                    element.payment_mode = 'UPI';
-                }
-            })
+                data.orders.data.forEach((element: any) => {
+                    if (element.payment_mode == 'cash') {
+                        element.payment_mode = 'Cash';
+                    }
+                    else if (element.payment_mode == 'credit_card') {
+                        element.payment_mode = 'Credit Card';
+                    } else if (element.payment_mode == 'debit_card') {
+                        element.payment_mode = 'Debit Card';
+                    } else if (element.payment_mode == 'net_banking') {
+                        element.payment_mode = 'Net Banking';
+                    } else if (element.payment_mode == 'upi') {
+                        element.payment_mode = 'UPI';
+                    }
+                })
 
-            this.orderData = data.orders.data
-            this.total = data.orders.total
-            this.length = this.orderData.length
-            this.showloader = false
-        }, err => {
-            this.toast.error('Error', 'Server error.')
-            this.showloader = false
+                this.orderData = data.orders.data
+                this.total = data.orders.total
+                this.length = this.orderData.length
+                this.showloader = false
+            }, error: err => {
+                this.toast.error('Error', 'Server error.')
+                this.showloader = false
+            }
         });
     }
 
@@ -327,20 +332,24 @@ export class SalesComponent implements OnInit {
             table_number: null
         }
 
-        this.TableManagementService.unOccupyTable(data.table_number, submitData).subscribe((result: any) => {
-            console.log(result);
-            this.TableManagementService.unOccupyTableFromSales(data.id, salesData).subscribe((res2: any) => {
-                this.getOrderData();
-            }, err => {
-                this.toast.error('Error', 'Something went wrong. Please try again!');
-            })
+        this.TableManagementService.unOccupyTable(data.table_number, submitData).subscribe({
+            next: (result: any) => {
+                console.log(result);
+                this.TableManagementService.unOccupyTableFromSales(data.id, salesData).subscribe({
+                    next: (res2: any) => {
+                        this.getOrderData();
+                    }, error: err => {
+                        this.toast.error('Error', 'Something went wrong. Please try again!');
+                    }
+                })
 
-            this.getOrderData();
-            // this.toast.success('Success', 'Table data updated successfully!');
-            this.toast.success('Success', 'Table Marked as unoccupied!');
-            // this.router.navigate(['/sales/table_management']);
-        }, err => {
-            this.toast.error('Error', 'Something went wrong. Please try again!');
+                this.getOrderData();
+                // this.toast.success('Success', 'Table data updated successfully!');
+                this.toast.success('Success', 'Table Marked as unoccupied!');
+                // this.router.navigate(['/sales/table_management']);
+            }, error: err => {
+                this.toast.error('Error', 'Something went wrong. Please try again!');
+            }
         })
     }
 }

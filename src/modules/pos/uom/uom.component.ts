@@ -35,16 +35,18 @@ export class UomComponent implements OnInit {
 
   getUOMData() {
     this.showloader = true;
-    this.uomService.getUOMData(this.page).subscribe(data => {
-      this.uomData = data.units.data;
-      this.total = data.units.total
-      this.length = this.uomData.length
-      this.showloader = false;
-      console.log(data);
+    this.uomService.getUOMData(this.page).subscribe({
+      next: data => {
+        this.uomData = data.units.data;
+        this.total = data.units.total
+        this.length = this.uomData.length
+        this.showloader = false;
+        console.log(data);
 
-    }, err => {
-      this.showloader = false
-      this.toast.show('Error', 'Server error', { className: 'bg-danger text-light' })
+      }, error: err => {
+        this.showloader = false
+        this.toast.show('Error', 'Server error', { className: 'bg-danger text-light' })
+      }
     });
   }
 
@@ -54,11 +56,13 @@ export class UomComponent implements OnInit {
 
   deleteRow(id: number) {
     if (confirm('Are you sure you want to delete?')) {
-      this.uomService.deleteUomData(id).subscribe(data => {
-        this.getUOMData();
-        this.toast.success('Success', 'UOM Deleted Successfully.')
-      }, err => {
-        this.toast.error('Error', 'Server error.')
+      this.uomService.deleteUomData(id).subscribe({
+        next: data => {
+          this.getUOMData();
+          this.toast.success('Success', 'UOM Deleted Successfully.')
+        }, error: err => {
+          this.toast.error('Error', 'Server error.')
+        }
       });
     }
   }
@@ -71,14 +75,16 @@ export class UomComponent implements OnInit {
   search() {
     this.showloader = true
     this.page = 1
-    this.uomService.searchUomData(this.page, this.searchValue).subscribe((data: any) => {
-      this.uomData = data.units.data;
-      this.total = data.units.total
-      this.length = this.uomData.length
-      this.showloader = false
-    }, err => {
-      this.toast.error('Error', 'Server error.')
-      this.showloader = false
+    this.uomService.searchUomData(this.page, this.searchValue).subscribe({
+      next: (data: any) => {
+        this.uomData = data.units.data;
+        this.total = data.units.total
+        this.length = this.uomData.length
+        this.showloader = false
+      }, error: err => {
+        this.toast.error('Error', 'Server error.')
+        this.showloader = false
+      }
     });
   }
 

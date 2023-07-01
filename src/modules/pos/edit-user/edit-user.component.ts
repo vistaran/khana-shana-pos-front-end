@@ -236,10 +236,10 @@ export class EditUserComponent implements OnInit {
         var inp = String.fromCharCode(event.keyCode);
 
         if (/[0-9]/.test(inp)) {
-          return true;
+            return true;
         } else {
-          event.preventDefault();
-          return false;
+            event.preventDefault();
+            return false;
         }
     }
 
@@ -303,12 +303,14 @@ export class EditUserComponent implements OnInit {
 
         // console.log(formData.getAll('outlet_id'));
 
-        this.userService.editUser(this.id, obj).subscribe(data => {
-            console.log('Data updated successfully! ', data);
-            this.router.navigate(['/pos/users']);
-            this.toast.success('Success', 'User Edited Successfully.')
-        }, err => {
-            this.toast.error('Error', 'Server error.');
+        this.userService.editUser(this.id, obj).subscribe({
+            next: data => {
+                console.log('Data updated successfully! ', data);
+                this.router.navigate(['/pos/users']);
+                this.toast.success('Success', 'User Edited Successfully.')
+            }, error: err => {
+                this.toast.error('Error', 'Server error.');
+            }
         });
     }
 }

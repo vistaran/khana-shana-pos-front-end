@@ -41,19 +41,21 @@ export class AddUomComponent implements OnInit {
   // For submitting add uom form data
   onSubmit(data: any) {
 
-    if(this.addUomForm.invalid) {
+    if (this.addUomForm.invalid) {
       alert('Please fill all the required fields!');
       return;
     }
 
     this.uomService
       .postUomData(data)
-      .subscribe((result: any) => {
-        console.log(result)
-        this.toast.success('Success', 'Added Successfully.')
-        this.router.navigate(['/pos/uom']);
-      }, err => {
-        this.toast.error('Error', 'Server error.')
+      .subscribe({
+        next: (result: any) => {
+          console.log(result)
+          this.toast.success('Success', 'Added Successfully.')
+          this.router.navigate(['/pos/uom']);
+        }, error: err => {
+          this.toast.error('Error', 'Server error.')
+        }
       });
     console.log('Form Submitted', (data));
 

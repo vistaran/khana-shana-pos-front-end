@@ -68,12 +68,14 @@ export class AddAttributeComponent implements OnInit {
   onSubmit(data: any) {
     this.attributeService
       .postAttribute(data)
-      .subscribe((result: any) => {
-        console.log(result)
-        this.toast.success('Success', 'Added successfully.')
-        this.router.navigate(['catalog/products'], { queryParams: { attributes: true } })
-      }, err => {
-        this.toast.error('Error', 'Server error.')
+      .subscribe({
+        next: (result: any) => {
+          console.log(result)
+          this.toast.success('Success', 'Added successfully.')
+          this.router.navigate(['catalog/products'], { queryParams: { attributes: true } })
+        }, error: err => {
+          this.toast.error('Error', 'Server error.')
+        }
       });
   }
 

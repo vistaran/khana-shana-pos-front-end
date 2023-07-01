@@ -90,12 +90,14 @@ export class EditProductComponent implements OnInit {
       description: data.description,
     }
 
-    this.productService.editProducts(this.id, obj).subscribe(data => {
-      console.log('Data updated successfully! ', data)
-      this.router.navigate(['/catalog/products']);
-      this.toast.success('Success', 'Product Edited successfully.')
-    }, err => {
-      this.toast.error('Error', 'Server error.')
+    this.productService.editProducts(this.id, obj).subscribe({
+      next: data => {
+        console.log('Data updated successfully! ', data)
+        this.router.navigate(['/catalog/products']);
+        this.toast.success('Success', 'Product Edited successfully.')
+      }, error: err => {
+        this.toast.error('Error', 'Server error.')
+      }
     })
   }
 

@@ -107,12 +107,12 @@ export class EditOutletComponent implements OnInit {
         var inp = String.fromCharCode(event.keyCode);
 
         if (/[0-9]/.test(inp)) {
-          return true;
+            return true;
         } else {
-          event.preventDefault();
-          return false;
+            event.preventDefault();
+            return false;
         }
-      }
+    }
 
     // For submitting edit outlet form data
     updateData(data: any) {
@@ -135,14 +135,15 @@ export class EditOutletComponent implements OnInit {
         }
         // console.log(obj);
 
-        this.outletService.editOutlet(this.id, obj).subscribe((data: any) => {
-            // console.log('Data updated successfully! ', data);
-            this.router.navigate(['/pos/users'], { queryParams: { outlet: true } });
-            this.toast.success('Success', 'Outlet Edited successfully.');
-        },
-            err => {
+        this.outletService.editOutlet(this.id, obj).subscribe({
+            next: (data: any) => {
+                // console.log('Data updated successfully! ', data);
+                this.router.navigate(['/pos/users'], { queryParams: { outlet: true } });
+                this.toast.success('Success', 'Outlet Edited successfully.');
+            }, error: err => {
                 this.toast.error('Error', 'Server error.');
-            });
+            }
+        });
 
     }
 }

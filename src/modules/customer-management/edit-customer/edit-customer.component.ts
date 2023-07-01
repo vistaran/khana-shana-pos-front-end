@@ -167,7 +167,7 @@ export class EditCustomerComponent implements OnInit {
       city: ['', [Validators.required]],
       state: ['', [Validators.required]],
       contry: ['', [Validators.required]],
-      postalcode: ['', [Validators.required,  Validators.minLength(5), Validators.maxLength(6)]],
+      postalcode: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(6)]],
       latitude: [''],
       longitude: ['']
     })
@@ -266,12 +266,14 @@ export class EditCustomerComponent implements OnInit {
   // For submitting edit customer group form data
   onSubmit(data: any) {
     this.customerService.editCustomer(this.id, data)
-      .subscribe((result: any) => {
-        console.log(result)
-        this.toast.success('Success', 'Customer Edited Successfully.')
-        this.router.navigate(['/customer_management']);
-      }, err => {
-        this.toast.error('Error', 'Server error.')
+      .subscribe({
+        next: (result: any) => {
+          console.log(result)
+          this.toast.success('Success', 'Customer Edited Successfully.')
+          this.router.navigate(['/customer_management']);
+        }, error: err => {
+          this.toast.error('Error', 'Server error.')
+        }
       });
     console.log('Form Submitted', (data));
   }
@@ -300,7 +302,7 @@ export class EditCustomerComponent implements OnInit {
 
   addAddress(data: any) {
 
-    if(this.addressForm.invalid) {
+    if (this.addressForm.invalid) {
       this.addressForm.markAllAsTouched();
       alert('Please fill all the required fields');
       return;
@@ -333,19 +335,21 @@ export class EditCustomerComponent implements OnInit {
       latitude: data.latitude,
       longitude: data.longitude
     }
-    this.customerService.addCustomerAddress(obj).subscribe(data => {
-      console.log(data)
-      this.toast.success('Success', 'Address Added Successfully.')
-      this.getCustomerAddress()
-      // this.router.navigate(['/customer_management']);
-    }, err => {
-      this.toast.error('Error', 'Server error.')
+    this.customerService.addCustomerAddress(obj).subscribe({
+      next: data => {
+        console.log(data)
+        this.toast.success('Success', 'Address Added Successfully.')
+        this.getCustomerAddress()
+        // this.router.navigate(['/customer_management']);
+      }, error: err => {
+        this.toast.error('Error', 'Server error.')
+      }
     });
   }
 
   editAddress(data: any) {
 
-    if(this.editAddressForm.invalid) {
+    if (this.editAddressForm.invalid) {
       this.editAddressForm.markAllAsTouched();
       alert('Please fill all the required fields');
       return;
@@ -376,25 +380,29 @@ export class EditCustomerComponent implements OnInit {
       latitude: data.latitude,
       longitude: data.longitude
     }
-    this.customerService.editCustomerAddress(this.address_id, obj).subscribe(data => {
-      console.log(data)
-      this.toast.success('Success', 'Address Edited Successfully.')
-      this.ngOnInit();
-      // this.getCustomerAddress()
+    this.customerService.editCustomerAddress(this.address_id, obj).subscribe({
+      next: data => {
+        console.log(data)
+        this.toast.success('Success', 'Address Edited Successfully.')
+        this.ngOnInit();
+        // this.getCustomerAddress()
 
-      // this.router.navigate(['/customer_management/editcustomer/' + this.id]);
-    }, err => {
-      this.toast.error('Error', 'Server error.')
+        // this.router.navigate(['/customer_management/editcustomer/' + this.id]);
+      }, error: err => {
+        this.toast.error('Error', 'Server error.')
+      }
     });
   }
 
   deleteAddress(id: number) {
     if (confirm('Are you sure you want to delete?')) {
-      this.customerService.deleteCustomerAddress(id).subscribe(data => {
-        this.getCustomerAddress();
-        this.toast.success('Success', 'Address Deleted Successfully.')
-      }, err => {
-        this.toast.error('Error', 'Server error.')
+      this.customerService.deleteCustomerAddress(id).subscribe({
+        next: data => {
+          this.getCustomerAddress();
+          this.toast.success('Success', 'Address Deleted Successfully.')
+        }, error: err => {
+          this.toast.error('Error', 'Server error.')
+        }
       });
     }
   }
