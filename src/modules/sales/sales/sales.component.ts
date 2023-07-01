@@ -6,7 +6,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DatePipe } from '@angular/common'
 
 import { SalesService } from '../sales.service';
-import { Template } from '@angular/compiler/src/render3/r3_ast';
 
 @Component({
     selector: 'sb-sales',
