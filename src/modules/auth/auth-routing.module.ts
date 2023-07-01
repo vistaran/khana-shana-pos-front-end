@@ -9,9 +9,6 @@ import { AuthModule } from './auth.module';
 /* Containers */
 import * as authContainers from './containers';
 
-/* Guards */
-import * as authGuards from './guards';
-
 /* Routes */
 export const ROUTES: Routes = [
     {
@@ -26,15 +23,7 @@ export const ROUTES: Routes = [
         data: {
             title: 'Login - Khana Shana',
         } as SBRouteData,
-    },
-    {
-        path: 'register',
-        canActivate: [],
-        component: authContainers.RegisterComponent,
-        data: {
-            title: 'Pages Register - Khana Shana',
-        } as SBRouteData,
-    },
+    }
     {
         path: 'forgot-password',
         canActivate: [],
