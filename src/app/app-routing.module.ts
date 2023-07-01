@@ -52,11 +52,6 @@ const routes: Routes = [
         loadChildren: () =>
             import('modules/reports/reports-routing.module').then(m => m.ReportsRoutingModule),
     },
-    // {
-    //     path: 'charts',
-    //     loadChildren: () =>
-    //         import('modules/charts/charts-routing.module').then(m => m.ChartsRoutingModule),
-    // },
     {
         path: 'dashboard',
         loadChildren: () =>
