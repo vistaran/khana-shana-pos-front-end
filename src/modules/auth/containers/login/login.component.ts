@@ -57,15 +57,17 @@ export class LoginComponent implements OnInit {
         }
 
         console.log(data);
-        this.auth.login(data).subscribe((result: any) => {
-            localStorage.setItem('token', result.access_token)
-            localStorage.setItem('Firstname', result.user.first_name)
-            localStorage.setItem('Lastname', result.user.lastname)
-            localStorage.setItem('Email',result.user.email)
-            this.router.navigate(['/sales']);
-            this.userData = result.user
-        }, error => {
-            this.toast.show('Error', 'Email id or password is incorrect', { className: 'bg-danger text-light'});
+        this.auth.login(data).subscribe({
+            next: (result: any) => {
+                localStorage.setItem('token', result.access_token)
+                localStorage.setItem('Firstname', result.user.first_name)
+                localStorage.setItem('Lastname', result.user.lastname)
+                localStorage.setItem('Email',result.user.email)
+                this.router.navigate(['/sales']);
+                this.userData = result.user
+            }, error: error => {
+                this.toast.show('Error', 'Email id or password is incorrect', { className: 'bg-danger text-light'});
+            }
         });
 
         // prepare parameter
