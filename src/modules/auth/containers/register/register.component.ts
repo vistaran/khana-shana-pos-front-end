@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { faLayerGroup } from '@fortawesome/free-solid-svg-icons';
 import { User } from '@modules/auth/models/auth.model';
 import { PasswordValidator } from '@modules/pos/password.validator';
 import { UserDataService } from '@modules/pos/user-data.service';
