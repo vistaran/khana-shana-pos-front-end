@@ -141,66 +141,44 @@
                         <h5 class="p-2">Select Products</h5>
 
                         <div class=" row mt-2" *ngIf="showProducts">
-                            <div class="col-md-3 mb-3 col-4" *ngFor="let data of productData">
+                            <div class="col-md-12 mb-3 col-12" *ngFor="let data of productData">
 
 
                                 <div class="h-100">
-                                    <button class="shadow bg-transparent h-100 border border-secondary w-100 rounded"
+                                    <!-- <button class="shadow bg-transparent h-100 border border-secondary w-100 rounded"
                                         type="button" (click)="onSelectProduct(data)">
-                                        <!-- <div class="card-body"> -->
                                         <span class="text-capitalize">{{ data.product_name }}</span>
-                                        <!-- <small class="card-text"><b>Category: </b> {{ data.category_name }}
-                                            </small><br>
-                                            <small class="card-text" *ngIf="data.description != null"><b>Description:
-                                                </b> {{ data.description }}
-                                            </small>
-                                            <small class="card-text" *ngIf="data.description == null"><b>Description:
-                                                </b> None
-                                            </small><br>
-                                            <small class="card-text"><b>Price: </b> ₹ {{ data.price }}
-                                            </small> -->
-                                        <!-- </div> -->
-
-                                    </button>
-                                </div>
-
-                                <!-- <ng-template #content let-modal>
-
-                                    <div class="modal-header bg-primary align-items-center text-light">
-                                        <h4 class=" modal-title">Product Quantity</h4>
-                                        <i type="button" class="fas fa-xmark fa-xl" aria-label="Close"
-                                            (click)="modal.dismiss('Cross click')" (click)="qtyClose()">
-                                        </i>
-                                    </div>
-
-                                    <form [formGroup]="qtyForm" (ngSubmit)="onSelectProduct(data, qtyForm.value)">
-                                        <div class="modal-body">
-
-                                            <div class="col">
-                                                <div class="form-group required">
-                                                    <label class="required">Quantity</label>
-                                                    <input type="number" min="0" oninput="validity.valid||(value='');"
-                                                        formControlName="quantity" class="form-control"
-                                                        placeholder="Enter Quantity" sbAutoFocus />
-
-                                                    <div
-                                                        *ngIf="quantity?.touched && quantity?.invalid || showValidations">
-                                                        <div class="alert alert-danger"
-                                                            *ngIf="quantity?.errors?.required">Quantity is required.
-                                                        </div>
-                                                    </div>
+                                    </button> -->
+                                    <div class="card">
+                                        <div class="card-body p-3">
+                                            <p class="d-flex justify-content-between m-0">
+                                                <span class="font-semibold text-xl">{{ data.product_name }}</span> <span
+                                                    class="text-right text-xl">₹{{ data.price }}</span>
+                                            </p>
+                                            <div class="w-1/2 ml-auto">
+                                                <div
+                                                    class="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-2 pb-2">
+                                                    <button data-action="decrement"
+                                                        (click)="decreaseCount(data.id, data.product_count)"
+                                                        class="bg-gradient rounded-l rounded- w-20 rounded cursor-pointer outline-none flex justify-center items-center text-white text-2xl">
+                                                        <!-- <span class="text-2xl text-white font-light"></span> -->
+                                                        −
+                                                    </button>
+                                                    <input type="number" disabled
+                                                        class="product_quantity border-b border-t  text-center w-full px-0   font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700 "
+                                                        name="custom-input-number" min='0'
+                                                        value="{{ data.product_count ?? 0 }}" />
+                                                    <button data-action="increment"
+                                                        (click)="increaseCount(data.id, data.product_count)"
+                                                        class="bg-gradient  w-20 rounded-r cursor-pointer outline-none flex justify-center items-center text-white text-2xl">+
+                                                    </button>
                                                 </div>
                                             </div>
-
                                         </div>
-                                        <div class="modal-footer d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-info btn-sm">Save
-                                                Order</button>
-                                        </div>
-                                    </form>
+                                    </div>
+                                </div>
 
 
-                                </ng-template> -->
 
 
                             </div>
@@ -214,7 +192,7 @@
                         <!-- <div class="card-deck row mt-2">
                             <div class="col-5 mb-3" *ngFor="let data of addedProduct"> -->
 
-                        <table class="table table-responsive-sm  shadow">
+                        <!-- <table class="table table-responsive-sm  shadow">
                             <thead class="head bg-dark text-white">
                                 <th>Product</th>
                                 <th>Category</th>
@@ -247,9 +225,7 @@
                                     <td colspan="4" class="text-right"><b>Shipping Charges: </b></td>
                                     <td>
                                         <div class="input-group input-group-sm">
-                                            <!-- <input type="number" formControlName="shipping_charge" class="form-control"
-                                                aria-label="Sizing example input"
-                                                aria-describedby="inputGroup-sizing-sm" (keyup)="onKey($event)" (change)="onKey($event)"> -->
+
                                             <input type="number" [(ngModel)]="shipping_charge" class="form-control"
                                                 min="0" oninput="validity.valid||(value='');"
                                                 [ngModelOptions]="{standalone: true}" (input)="onKey($event)">
@@ -263,7 +239,23 @@
                                 </tr>
 
                             </tbody>
-                        </table>
+                        </table> -->
+
+                        <div class="p-2 mb-2">
+                            <div *ngFor="let data of addedProduct" class="">
+                                <div class="text-lg flex justify-between">
+                                    <span>{{ data.product_name }} x{{ data.product_count }}
+                                        <span class="text-sm text-red-500"
+                                            (click)="removeProduct(data.id)">(remove)</span>
+                                    </span>
+                                    <span>₹{{ data.subtotal }}</span>
+                                </div>
+                            </div>
+
+                            <div *ngIf="addedProduct.length == 0">
+                                Cart is empty.
+                            </div>
+                        </div>
 
                         <div class="row mb-4">
                             <div class="col">
@@ -276,7 +268,8 @@
 
                             <div class="col-md-3 col-6" *ngIf="showDiscountOption">
                                 <label>Discount Type</label>
-                                <select class="form-control" (change)="getDiscountType($event)" [(ngModel)]="discount_type" [ngModelOptions]="{standalone: true}">
+                                <select class="form-control" (change)="getDiscountType($event)"
+                                    [(ngModel)]="discount_type" [ngModelOptions]="{standalone: true}">
                                     <option disabled value="">Select discount type</option>
                                     <option value="percentage">Percentage</option>
                                     <option value="fixed_amount">Fixed amount</option>
@@ -332,7 +325,8 @@
                                             {{
                                             item.res_table_number
                                             }}</option>
-                                            <option *ngIf="tableList.length == 0" disabled selected>All tables are occupied</option>
+                                        <option *ngIf="tableList.length == 0" disabled selected>All tables are occupied
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -345,12 +339,14 @@
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
 
 
+                <button type="button" [routerLink]="['/sales/sales']"
+                    class="btn btn-outline-primary mb-4 float-right ml-2">
+                    Cancel
+                </button>
                 <button [disabled]="!editSaleForm.valid" type="button" (click)="onSubmit(editSaleForm.value)"
                     class="btn btn-primary mb-4 float-right">
                     Update

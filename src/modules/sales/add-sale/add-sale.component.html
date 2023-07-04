@@ -142,27 +142,39 @@
                         <h5 class="p-2">Select Products</h5>
 
                         <div class=" row mt-2" *ngIf="showProducts">
-                            <div class="col-md-3 mb-3 col-4" *ngFor="let data of productData">
-
-
+                            <div class="col-md-12 mb-3 col-12" *ngFor="let data of productData">
                                 <div class="h-100">
-                                    <button class="shadow bg-transparent h-100 border border-secondary w-100 rounded"
+                                    <!-- <button class="shadow bg-transparent h-100 border border-secondary w-100 rounded"
                                         type="button" (click)="onSelectProduct(data)">
-                                        <!-- <div class="card-body"> -->
                                         <span class="text-capitalize">{{ data.product_name }}</span>
-                                        <!-- <small class="card-text"><b>Category: </b> {{ data.category_name }}
-                                            </small><br>
-                                            <small class="card-text" *ngIf="data.description != null"><b>Description:
-                                                </b> {{ data.description }}
-                                            </small>
-                                            <small class="card-text" *ngIf="data.description == null"><b>Description:
-                                                </b> None
-                                            </small><br>
-                                            <small class="card-text"><b>Price: </b> ₹ {{ data.price }}
-                                            </small> -->
-                                        <!-- </div> -->
-
-                                    </button>
+                                    </button> -->
+                                    <div class="card">
+                                        <div class="card-body p-3">
+                                            <p class="d-flex justify-content-between m-0">
+                                                <span class="font-semibold text-xl">{{ data.product_name }}</span> <span
+                                                    class="text-right text-xl">₹{{ data.price }}</span>
+                                            </p>
+                                            <div class="w-1/2 ml-auto">
+                                                <div
+                                                    class="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-2 pb-2">
+                                                    <button data-action="decrement"
+                                                        (click)="decreaseCount(data.id, data.product_count)"
+                                                        class="bg-gradient rounded-l rounded- w-20 rounded cursor-pointer outline-none flex justify-center items-center text-white text-2xl">
+                                                        <!-- <span class="text-2xl text-white font-light"></span> -->
+                                                        −
+                                                    </button>
+                                                    <input type="number" disabled
+                                                        class="product_quantity border-b border-t  text-center w-full px-0   font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700 "
+                                                        name="custom-input-number" min='0'
+                                                        value="{{ data.product_count ?? 0 }}" />
+                                                    <button data-action="increment"
+                                                        (click)="increaseCount(data.id, data.product_count)"
+                                                        class="bg-gradient  w-20 rounded-r cursor-pointer outline-none flex justify-center items-center text-white text-2xl">+
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <!-- <ng-template #content let-modal>
@@ -210,12 +222,12 @@
                     </div>
 
                     <div class="col">
-                        <h5 class="p-2 mb-2">Cart Summary</h5>
+                        <h5 class="p-2 mb-0">Cart Summary</h5>
 
                         <!-- <div class="card-deck row mt-2">
                             <div class="col-5 mb-3" *ngFor="let data of addedProduct"> -->
                         <!-- <form [formGroup]="qtyForm"> -->
-                        <table class="table table-responsive-sm table-bordered shadow table-sm">
+                        <!-- <table class="table table-responsive-sm table-bordered shadow table-sm">
                             <thead class="head bg-dark text-white">
                                 <th>Product</th>
                                 <th>Category</th>
@@ -243,42 +255,39 @@
                                                 class="fa-solid fa-trash-can fa-lg mx-auto"></i></button>
                                     </td>
                                 </tr>
-
                                 <tr class="table-sm">
                                     <td colspan="4" class="text-right"><b>Shipping Charges</b></td>
                                     <td>
                                         <div class="input-group input-group-sm">
-                                            <!-- <input type="number" formControlName="shipping_charge" class="form-control"
-                                                            aria-label="Sizing example input"
-                                                            aria-describedby="inputGroup-sizing-sm" (keyup)="onKey($event)"
-                                                            (change)="onKey($event)"> -->
                                             <input type="number" [(ngModel)]="shipping_charge" min="0"
                                                 oninput="validity.valid||(value='');" class="form-control"
                                                 [ngModelOptions]="{standalone: true}" (input)="onKey($event)">
                                         </div>
                                     </td>
                                 </tr>
-
-                                <!-- <tr class="table-sm">
-                                    <td colspan="4" class="text-right"><b>Discount</b></td>
-                                    <td>
-                                        <div class="input-group input-group-sm">
-                                            <input type="number" [(ngModel)]="discount" min="0"
-                                                oninput="validity.valid||(value='');" class="form-control"
-                                                [ngModelOptions]="{standalone: true}" (change)="onDiscountAdd($event)">
-                                        </div>
-                                    </td>
-                                </tr> -->
-
                                 <tr class="table-sm">
                                     <td colspan="4" class="text-right"><b>Total Amount:</b></td>
                                     <td>₹{{ total }}</td>
                                 </tr>
 
                             </tbody>
-                        </table>
+                        </table> -->
                         <!-- </form> -->
 
+                        <div class="p-2 mb-2">
+                            <div *ngFor="let data of addedProduct" class="">
+                                <div class="text-lg flex justify-between">
+                                    <span>{{ data.product_name }} x{{ data.product_count }}
+                                        <span class="text-sm text-red-500"
+                                            (click)="removeProduct(data.id)">(remove)</span>
+                                    </span>
+                                    <span>₹{{ data.subtotal }}</span>
+                                </div>
+                            </div>
+                            <div *ngIf="addedProduct.length == 0">
+                                Cart is empty.
+                            </div>
+                        </div>
 
                         <div class="row mb-3">
                             <div class="col">
@@ -306,7 +315,6 @@
                             </div>
                         </div>
                         <div class="row">
-
                             <div class="col-md-3 col-6">
                                 <div class="form-group required">
                                     <label class="required">Order Date</label>
@@ -346,7 +354,8 @@
                                             {{
                                             item.res_table_number
                                             }}</option>
-                                            <option *ngIf="tableList.length == 0" disabled selected>All tables are occupied</option>
+                                        <option *ngIf="tableList.length == 0" disabled selected>All tables are occupied
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -362,7 +371,8 @@
                     </div>
                 </div>
 
-                <button type="button" class="btn btn-primary mb-4 float-right btn-sm" (click)="onSubmit(addSaleForm.value)">
+                <button type="button" class="btn btn-primary mb-4 float-right btn-sm"
+                    (click)="onSubmit(addSaleForm.value)">
                     Submit
                 </button>
 

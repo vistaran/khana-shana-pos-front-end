@@ -80,6 +80,19 @@
 
                     <div class="col-md-4">
                         <div class="form-group required">
+                            <label class="required">Status</label><br />
+                            <select name="status" formControlName="status" class="form-control">
+                                <option *ngFor="let item of status">{{ item }}</option>
+                            </select>
+                            <div *ngIf="stat?.touched && stat?.invalid" class="alert alert-danger">
+                                <div *ngIf="stat?.errors?.required">
+                                    Status is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="col-md-4">
+                        <div class="form-group required">
                             <label class="required">Attributes</label>
                             <select name="attri" formControlName="attri" class="form-control">
                                 <option *ngFor="let item of attributesData">{{ item.name }}</option>
@@ -88,10 +101,8 @@
                         <div *ngIf="attributes?.touched && attributes?.invalid" class="alert alert-danger">
                             <div *ngIf="attributes?.errors?.required">Attributes is required.</div>
                         </div>
-                    </div>
-                </div>
+                    </div> -->
 
-                <div class="card-body row">
                     <div class="col-md-4">
                         <div class="form-group required">
                             <label for="img" class="">Image</label>
@@ -117,22 +128,9 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4">
-                        <div class="form-group required">
-                            <label class="required">Status</label><br />
-                            <select name="status" formControlName="status" class="form-control">
-                                <option *ngFor="let item of status">{{ item }}</option>
-                            </select>
-                            <div *ngIf="stat?.touched && stat?.invalid" class="alert alert-danger">
-                                <div *ngIf="stat?.errors?.required">
-                                    Status is required.</div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
 
-                <h4 class="card-header">Search Engine Optimization</h4>
+                <!-- <h4 class="card-header">Search Engine Optimization</h4>
                 <div class="card-body row">
                     <div class="col-md-4">
                         <div class="form-group required">
@@ -173,7 +171,7 @@
                                 class="form-control"></textarea>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <button type="submit" class="btn btn-primary mb-4 float-right"
                     (click)="onSubmit(addCategoryForm.value)">

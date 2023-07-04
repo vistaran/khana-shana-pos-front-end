@@ -133,6 +133,94 @@ export class SalesComponent implements OnInit {
         })
     }
 
+    printChefCopy(id: any) {
+
+        this.getOrderDetail(id, false);
+
+        if (this.orderDetail.id != undefined) {
+
+            let htmlContent = `
+      <!DOCTYPE html>
+      <html lang="en">
+      <style>
+        .text-align {
+          margin-top: 0.5rem;
+          margin-bottom: 0.5rem;
+          text-align: center
+        }
+
+      p {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .m-0 {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+
+      .font-bold {
+        font-weight: bold;
+      }
+      .tax:before, .tax:after {
+        content: "";
+        flex: 1 1;
+        border-bottom: 1px dashed #000;
+        margin: auto;
+      }
+
+      .tax {
+        display: flex;
+        flex-direction: row;
+      }
+
+      .grid-container {
+        display: grid;
+        grid-template-columns: auto auto;
+      }
+
+      body {
+        font-size: 10px;
+        font-family: Consolas,monaco,monospace;
+      }
+}
+
+  </style>
+    <body>
+      <p class="text-align"></p>
+      <h3 class="text-align">Jamanvaar Kitchen</h3>
+      <p class="tax text-align">Order Summary</p>
+
+        <p class="m-0">Order No.: <span class="font-bold">${this.orderDetail.id}</span></p>
+        <p class="m-0">Table No.: <span class="font-bold">${this.orderDetail.table_number}</span></p>
+
+      <span class="tax" style="margin-top: 0.5rem; margin-bottom: 0.5rem;"></span>
+      <table style="width:100%;">
+        <thead>
+          <th style="text-align:start">Item name</th>
+          <th style="text-align:start">Quantity</th>
+        </thead>
+        <tbody style="width:100%;text-align:center">
+          ${this.getChefItems(this.itemDetail)}
+          <tr>
+            <td colspan="2"></td>
+            <td colspan="1"><span class="tax"></span></td>
+          </tr>
+        </tbody>
+      </table>
+    </body>
+  </html>
+  `;
+            let printCopy = window.open("", "MsgWindow", "");
+            printCopy?.document.write(htmlContent);
+            setTimeout(() => {
+                printCopy?.print();
+                printCopy?.focus();
+                printCopy?.close();
+            });
+
+        }
+    }
     onClick() {
         this.router.navigate(['/sales/add_sale'])
     }
@@ -195,6 +283,20 @@ export class SalesComponent implements OnInit {
       <td style="text-align:start">${items[i].product_name} x${items[i].quantity}</td>
       <td>₹${items[i].price?.toFixed(2)}</td>
       <td>₹${items[i].subtotal?.toFixed(2)}</td>
+      </tr>`;
+        }
+        // change code above this line
+        console.log(this.resultDisplayArray);
+
+        return this.resultDisplayArray;
+    }
+
+    getChefItems(items: any) {
+        this.resultDisplayArray = [];
+        for (let i = 0; i < items.length; i++) {
+            this.resultDisplayArray += `<tr>
+      <td style="text-align:start">${items[i].product_name}</td>
+      <td>x${items[i].quantity}</td>
       </tr>`;
         }
         // change code above this line

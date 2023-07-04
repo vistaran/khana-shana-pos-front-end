@@ -164,7 +164,6 @@ export class EditSaleComponent implements OnInit {
                 this.day = Number(data.order.order_date.substring(8, 10))
                 this.curr_date = new NgbDate(this.year, this.month, this.day)
             }
-            console.log(this.curr_date);
 
             this.editSaleForm.patchValue({
                 shipping_charge: data.order.shipping_charge,
@@ -182,6 +181,22 @@ export class EditSaleComponent implements OnInit {
             //   }
             // });
             console.log('customerID', this.customer_id)
+
+            data.items.forEach((element: any) => {
+                element.product_count = element.quantity;
+
+                this.productData.forEach((ele:any) => {
+                    console.log(ele.id, 'id', element.id, 'ele');
+
+                    if(ele.id == element.product_id) {
+                        console.log(element.quantity, 'qu');
+
+                        ele.product_count = element.quantity;
+                    }
+                });
+            });
+
+            console.log(this.productData, 'pro');
 
             this.addedProduct = data.items
             this.total = data.order.total_amount
@@ -224,13 +239,19 @@ export class EditSaleComponent implements OnInit {
     getProductsData() {
         this.productData = [];
         this.productService.getProducts(this.page).subscribe((data: any) => {
+            data.products.data.forEach((element: any) => {
+                element.product_count = 0;
+            });
             this.productData = data.products.data;
             console.log(data);
             if (data.products.last_page > 1) {
                 console.log('greater');
                 for (let i = 2; i <= data.products.last_page; i++) {
-                    console.log();
                     this.productService.getProducts(i).subscribe((ele: any) => {
+                        ele.forEach((element: any) => {
+                            element.product_count = 0;
+                        });
+
                         this.productData = this.productData.concat(ele.products.data);
                         console.log(ele.products.data);
                     })
@@ -297,6 +318,49 @@ export class EditSaleComponent implements OnInit {
         });
     }
 
+    decreaseCount(id: any, count: any) {
+        this.productData.forEach((element: any, key: any) => {
+            console.log(element, 'key');
+            if (element.id == id) {
+                if (this.productData[key].product_count > 0) {
+                    this.productData[key].product_count = count - 1;
+                } else {
+                    this.productData[key].product_count = 0;
+                }
+            }
+        });
+        this.onSelectProduct(this.productData);
+    }
+
+    increaseCount(id: any, count: any) {
+        this.productData.forEach((element: any, key: any) => {
+            console.log(element, 'key');
+            if (element.id == id) {
+                this.productData[key].product_count = count + 1;
+            }
+        });
+        this.onSelectProduct(this.productData);
+    }
+
+    removeProduct(id: any) {
+        if (confirm('Are you sure you want to delete?')) {
+            this.addedProduct = this.addedProduct.filter((item: any) => item.id !== id);
+            // console.log('afterdelete', this.addedProduct);
+            if (this.addedProduct.length == 0) {
+                this.semitotal = 0
+            } else {
+                this.semitotal = this.addedProduct.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
+                    return a + b;
+                })
+            }
+
+            console.log(this.addedProduct);
+            this.decreaseCount(id, 0);
+            setTimeout(() => { this.onKey(this.shipping_charge) }, 500);
+            setTimeout(() => { this.calculateTotal() }, 500);
+            this.toast.success('Success', 'Product deleted successfully.');
+        }
+    }
 
     qtyClose() {
         this.qtyForm = this.fb.group({
@@ -323,29 +387,38 @@ export class EditSaleComponent implements OnInit {
 
         this.modalService.dismissAll();
 
-        this.addedProduct.forEach((g: any) => {
-            if (data.product_name == g.product_name) {
-                invalid = true
-            }
-        })
-        if (invalid) {
-            this.toast.warning('Warning', data.product_name + ' is already added.')
-            return;
-        }
-        // console.log('Quantity', qty.quantity);
-        this.productData.forEach((g: any) => {
-            // g.quantity = 0;
-            // g.subtotal = 0;
-            if (g.id == data.id) {
-                g.quantity = 1;
-                g.subtotal = data.price;
-                g.name = g.category_name;
-                this.addedProduct.push(g)
-                this.newProduct.push(g)
+        this.addedProduct = [];
+
+        data.forEach((element: any) => {
+            if (element.product_count > 0) {
+                element.subtotal = element.price * element.product_count;
+                element.quantity = element.product_count;
+                this.addedProduct.push(element);
             }
         });
+        // this.addedProduct.forEach((g: any) => {
+        //     if (data.product_name == g.product_name) {
+        //         invalid = true
+        //     }
+        // })
+        // if (invalid) {
+        //     this.toast.warning('Warning', data.product_name + ' is already added.')
+        //     return;
+        // }
+        // // console.log('Quantity', qty.quantity);
+        // this.productData.forEach((g: any) => {
+        //     // g.quantity = 0;
+        //     // g.subtotal = 0;
+        //     if (g.id == data.id) {
+        //         g.quantity = 1;
+        //         g.subtotal = data.price;
+        //         g.name = g.category_name;
+        //         this.addedProduct.push(g)
+        //         this.newProduct.push(g)
+        //     }
+        // });
 
-        console.log('Added Product ', this.addedProduct);
+        // console.log('Added Product ', this.addedProduct);
 
         if (this.addedProduct.length > 0) {
             this.semitotal = this.addedProduct.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
@@ -354,7 +427,7 @@ export class EditSaleComponent implements OnInit {
 
             this.productQuantity[this.addedProduct.length - 1] = 1;
         }
-        this.toast.success('Success', 'Product added successfully.');
+        // this.toast.success('Success', 'Product added successfully.');
         this.qtyForm = this.fb.group({
             quantity: ['', [Validators.required]]
         })
@@ -572,27 +645,6 @@ export class EditSaleComponent implements OnInit {
         if (showShipping) {
             this.shipping_charge = Number(charges);
             this.calculateTotal(this.discount_amount);
-        }
-    }
-
-    RemoveProduct(id: any) {
-
-        if (confirm('Are you sure you want to delete?')) {
-            this.deletedProduct = this.addedProduct.filter((item: any) => item.id == id);
-            this.addedProduct = this.addedProduct.filter((item: any) => item.id !== id);
-            console.log('afterdelete', this.deletedProduct);
-            if (this.addedProduct.length == 0) {
-                this.semitotal = 0
-            } else {
-                if (this.addedProduct.length > 0) {
-                    this.semitotal = this.addedProduct.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
-                        return a + b;
-                    })
-                }
-            }
-            setTimeout(() => { this.onKey(this.shipping_charge) }, 500);
-            setTimeout(() => { this.calculateTotal(this.discount_amount) }, 500);
-            this.toast.success('Success', 'Product deleted successfully.');
         }
     }
 
