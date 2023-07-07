@@ -10,7 +10,7 @@
                         <div class="form-group">
                             <label class="required">Attribute Code</label>
                             <input type="text" formControlName="attribute_code" class="form-control" autofocus/>
-                            <div *ngIf="attributeCode?.touched && attributeCode?.invalid" class="alert alert-danger">
+                            <div *ngIf="attributeCode?.touched && attributeCode?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                 <div *ngIf="attributeCode?.errors?.required">Attribute Code is required.</div>
                             </div>
                         </div>
@@ -20,7 +20,7 @@
                         <div class="form-group">
                             <label class="required">Attribute Type</label>
                             <input type="text" formControlName="type" class="form-control" />
-                            <div *ngIf="attributeTyp?.touched && attributeTyp?.invalid" class="alert alert-danger">
+                            <div *ngIf="attributeTyp?.touched && attributeTyp?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                 <div *ngIf="attributeTyp?.errors?.required">Attribute Type is required.</div>
                             </div>
                         </div>
@@ -30,7 +30,7 @@
                         <div class="form-group">
                             <label class="required">Name</label>
                             <input type="text" formControlName="name" class="form-control" />
-                            <div *ngIf="name?.touched && name?.invalid" class="alert alert-danger">
+                            <div *ngIf="name?.touched && name?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                 <div *ngIf="name?.errors?.required">Name is required.</div>
                             </div>
                         </div>
@@ -43,7 +43,7 @@
                         <div class="form-group">
                             <label class="required">Admin</label>
                             <input type="text" formControlName="admin" class="form-control" />
-                            <div *ngIf="admin?.touched && admin?.invalid" class="alert alert-danger">
+                            <div *ngIf="admin?.touched && admin?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                 <div *ngIf="admin?.errors?.required">Admin is required.</div>
                             </div>
                         </div>

@@ -11,7 +11,7 @@
                             <div class="form-group required">
                                 <label class="required">Item Name</label>
                                 <input type="text" formControlName="item_name" maxlength="35" placeholder="Enter Item Name" class="form-control" autofocus/>
-                                <div *ngIf="item_name?.touched && item_name?.invalid" class="alert alert-danger">
+                                <div *ngIf="item_name?.touched && item_name?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                     <div *ngIf="item_name?.errors?.required">Item Name is required.</div>
                                 </div>
                             </div>
@@ -28,7 +28,7 @@
                                         </option>
                                     </ng-container>
                                 </select>
-                                <div *ngIf="unit_id?.touched && unit_id?.invalid" class="alert alert-danger">
+                                <div *ngIf="unit_id?.touched && unit_id?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                     <div *ngIf="unit_id?.errors?.required">Unit is required.</div>
                                 </div>
                             </div>
@@ -45,7 +45,7 @@
                                         </option>
                                     </ng-container>
                                 </select>
-                                <div *ngIf="item_group_id?.touched && item_group_id?.invalid" class="alert alert-danger">
+                                <div *ngIf="item_group_id?.touched && item_group_id?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                     <div *ngIf="item_group_id?.errors?.required">Item Group is required.</div>
                                 </div>
                             </div>

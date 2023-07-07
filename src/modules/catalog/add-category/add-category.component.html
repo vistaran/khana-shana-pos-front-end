@@ -11,7 +11,7 @@
                             <label class="required">Name</label>
                             <input type="text" formControlName="name" placeholder="Enter Name"
                                 class="form-control" autofocus />
-                            <div *ngIf="name?.touched && name?.invalid" class="alert alert-danger">
+                            <div *ngIf="name?.touched && name?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                 <div *ngIf="name?.errors?.required">Name is required.</div>
                             </div>
                         </div>
@@ -24,7 +24,7 @@
                                 <!-- <option value="default"></option> -->
                                 <option *ngFor="let item of visibleInMenu">{{ item }}</option>
                             </select>
-                            <div *ngIf="visible?.touched && visible?.invalid" class="alert alert-danger">
+                            <div *ngIf="visible?.touched && visible?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                 <div *ngIf="visible?.errors?.required">Visible in Menu is required.</div>
                             </div>
                         </div>
@@ -35,7 +35,7 @@
                             <label class="required">Position</label>
                             <input type="text" formControlName="position" placeholder="Enter Position"
                                 class="form-control" />
-                            <div *ngIf="position?.touched && position?.invalid" class="alert alert-danger">
+                            <div *ngIf="position?.touched && position?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                 <div *ngIf="position?.errors?.required">Position is required.</div>
                             </div>
                         </div>
@@ -46,7 +46,7 @@
                             <label class="required">Number of Products</label>
                             <input type="text" formControlName="number_of_products" placeholder="Enter Number of Products"
                                 class="form-control" />
-                            <div *ngIf="number_of_products?.touched && number_of_products?.invalid" class="alert alert-danger">
+                            <div *ngIf="number_of_products?.touched && number_of_products?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                 <div *ngIf="number_of_products?.errors?.required">Number of Products is required.</div>
                             </div>
                         </div>
@@ -61,7 +61,7 @@
                             <select name="display_mode" formControlName="display_mode" class="form-control">
                                 <option *ngFor="let item of displayMode">{{ item }}</option>
                             </select>
-                            <div *ngIf="displayMod?.touched && displayMod?.invalid" class="alert alert-danger">
+                            <div *ngIf="displayMod?.touched && displayMod?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                 <div *ngIf="displayMod?.errors?.required">Display Mode is required.</div>
                             </div>
                         </div>
@@ -72,7 +72,7 @@
                             <label class="required">Description<span class="text-secondary">(optional)</span></label>
                             <textarea type="text" formControlName="decription" placeholder="Add Description"
                                 class="form-control"></textarea>
-                            <!-- <div *ngIf="description?.touched && description?.invalid" class="alert alert-danger">
+                            <!-- <div *ngIf="description?.touched && description?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                 <div *ngIf="description?.errors?.required">Description is required.</div>
                             </div> -->
                         </div>
@@ -84,7 +84,7 @@
                             <select name="status" formControlName="status" class="form-control">
                                 <option *ngFor="let item of status">{{ item }}</option>
                             </select>
-                            <div *ngIf="stat?.touched && stat?.invalid" class="alert alert-danger">
+                            <div *ngIf="stat?.touched && stat?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                 <div *ngIf="stat?.errors?.required">
                                     Status is required.</div>
                             </div>
@@ -98,7 +98,7 @@
                                 <option *ngFor="let item of attributesData">{{ item.name }}</option>
                             </select>
                         </div>
-                        <div *ngIf="attributes?.touched && attributes?.invalid" class="alert alert-danger">
+                        <div *ngIf="attributes?.touched && attributes?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                             <div *ngIf="attributes?.errors?.required">Attributes is required.</div>
                         </div>
                     </div> -->
@@ -108,7 +108,7 @@
                             <label for="img" class="">Image</label>
                             <input type="file" id="img" name="image" accept="image/*" formControlName="image"
                                 class="form-control p-1" />
-                            <div *ngIf="image?.touched && image?.invalid" class="alert alert-danger">
+                            <div *ngIf="image?.touched && image?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                 <div *ngIf="image?.errors?.required">
                                     Image is required.</div>
                             </div>
@@ -121,7 +121,7 @@
                             <label for="img2">Category Logo</label>
                             <input type="file" id="img2" name="category_logo" accept="image/*"
                                 formControlName="category_logo" class="form-control p-1" />
-                                <div *ngIf="category_logo?.touched && category_logo?.invalid" class="alert alert-danger">
+                                <div *ngIf="category_logo?.touched && category_logo?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                     <div *ngIf="category_logo?.errors?.required">
                                         Category Logo is required.</div>
                                 </div>
@@ -137,7 +137,7 @@
                             <label>Meta Title</label>
                             <input type="text" formControlName="meta_title" placeholder="Enter Meta Title"
                                 class="form-control" />
-                            <div *ngIf="meta_title?.touched && meta_title?.invalid" class="alert alert-danger">
+                            <div *ngIf="meta_title?.touched && meta_title?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                 <div *ngIf="meta_title?.errors?.required">Meta title is required.</div>
                             </div>
                         </div>
@@ -147,7 +147,7 @@
                         <div class="form-group required">
                             <label class="required">Slug</label>
                             <input type="text" formControlName="slug" placeholder="Enter Slug" class="form-control" />
-                            <div *ngIf="slug?.touched && slug?.invalid" class="alert alert-danger">
+                            <div *ngIf="slug?.touched && slug?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                 <div *ngIf="slug?.errors?.required">Slug is required.</div>
                             </div>
                         </div>
@@ -158,7 +158,7 @@
                             <label class="required">Meta keyword</label>
                             <input type="text" formControlName="meta_keyword" placeholder="Enter Meta Keyword"
                                 class="form-control" />
-                            <div *ngIf="meta_keyword?.touched && meta_keyword?.invalid" class="alert alert-danger">
+                            <div *ngIf="meta_keyword?.touched && meta_keyword?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                 <div *ngIf="meta_keyword?.errors?.required">Meta Keyword is required.</div>
                             </div>
                         </div>
