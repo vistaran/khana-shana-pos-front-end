@@ -31,6 +31,7 @@ export class EditSaleComponent implements OnInit {
     orderDetail: any = [];
     itemDetail: any = [];
     newDate: any;
+    showCartSummary = false;
 
 
     payment_mode: any

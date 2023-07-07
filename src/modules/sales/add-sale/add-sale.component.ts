@@ -86,6 +86,7 @@ export class AddSaleComponent implements OnInit {
     discount_type: any;
     table_number: any;
     default_table_number: any;
+    showCartSummary = false;
 
 
 

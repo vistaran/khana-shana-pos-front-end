@@ -137,7 +137,7 @@
                 </ng-template>
 
                 <div class="row">
-                    <div class="col">
+                    <div class="col" [hidden]="showCartSummary">
                         <h5 class="p-2">Select Products</h5>
 
                         <div class=" row mt-2" *ngIf="showProducts">
@@ -186,7 +186,7 @@
                         </div>
                     </div>
 
-                    <div class="col">
+                    <div class="col" [hidden]="!showCartSummary">
                         <h5 class="p-2 mb-2">Cart Summary</h5>
 
                         <!-- <div class="card-deck row mt-2">
@@ -343,14 +343,15 @@
                 </div>
 
 
-                <button type="button" [routerLink]="['/sales/sales']"
-                    class="btn btn-outline-primary mb-4 float-right ml-2">
-                    Cancel
-                </button>
-                <button [disabled]="!editSaleForm.valid" type="button" (click)="onSubmit(editSaleForm.value)"
-                    class="btn btn-primary mb-4 float-right">
-                    Update
-                </button>
+                <div class="flex justify-end">
+                    <button type="button" [routerLink]="['/sales/sales']" class="btn btn-outline-primary mb-4 mr-2">
+                        Cancel
+                    </button>
+                    <button [disabled]="!editSaleForm.valid" type="button" (click)="onSubmit(editSaleForm.value)"
+                        class="btn btn-primary mb-4 float-right">
+                        Update
+                    </button>
+                </div>
 
             </div>
         </form>

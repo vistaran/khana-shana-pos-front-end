@@ -138,7 +138,7 @@
                 </ng-template>
 
                 <div class="row">
-                    <div class="col">
+                    <div class="col" [hidden]="showCartSummary">
                         <h5 class="p-2">Select Products</h5>
 
                         <div class=" row mt-2" *ngIf="showProducts">
@@ -219,10 +219,20 @@
                             </div>
 
                         </div>
+                        <div class="flex justify-end py-2">
+                            <button class=" bg-gradient py-2 px-3 text-white rounded-md" ngbTooltip="Go to cart"
+                                (click)="showCartSummary =true">
+                                <span class="relative">
+                                    <i class="fa fa-shopping-cart fa-lg"></i>
+                                    <span class="absolute text-xs -top-2 -right-2 w-auto">{{ this.addedProduct.length
+                                        }}</span>
+                                </span>
+                            </button>
+                        </div>
                     </div>
 
-                    <div class="col">
-                        <h5 class="p-2 mb-0">Cart Summary</h5>
+                    <div class="col" [hidden]="!showCartSummary">
+                        <h5 class="p-2 mb-0 flex items-center"><i class="fa fa-angle-left pr-2" (click)="showCartSummary = false"></i>Cart Summary</h5>
 
                         <!-- <div class="card-deck row mt-2">
                             <div class="col-5 mb-3" *ngFor="let data of addedProduct"> -->
@@ -368,13 +378,20 @@
                             </div>
                         </div>
 
+                        <div class="flex justify-end">
+                            <button type="button" [routerLink]="['/sales/sales']"
+                                class="btn btn-outline-primary mb-4 mr-2 btn-sm">
+                                Cancel
+                            </button>
+                            <button type="button" class="btn btn-primary mb-4 float-right btn-sm"
+                                (click)="onSubmit(addSaleForm.value)">
+                                Submit
+                            </button>
+                        </div>
                     </div>
                 </div>
 
-                <button type="button" class="btn btn-primary mb-4 float-right btn-sm"
-                    (click)="onSubmit(addSaleForm.value)">
-                    Submit
-                </button>
+
 
             </div>
         </form>
