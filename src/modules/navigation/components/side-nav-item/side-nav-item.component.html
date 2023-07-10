@@ -1,5 +1,5 @@
 <div class="text-dark">
-    <a class="nav-link text-slate-50" [routerLink]="sideNavItem.link" (click)="expanded = !expanded"
+    <a class="nav-link text-slate-50 text-xs" [routerLink]="sideNavItem.link" (click)="expanded = !expanded"
         [ngClass]="{'active': sideNavItem.text == path, collapsed: !expanded}">
         <div class="sb-nav-link-icon text-slate-50" *ngIf="sideNavItem.icon">
             <!-- <fa-icon [icon]='["fas", sideNavItem.icon]'></fa-icon> -->

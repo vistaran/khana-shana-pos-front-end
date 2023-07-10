@@ -14,7 +14,7 @@
                                     <input type="text" formControlName="first_name" placeholder="Enter First name"
                                         class="form-control" />
                                     <div *ngIf="firstName?.touched && firstName?.invalid || showValidations">
-                                        <div class="alert alert-danger" *ngIf="firstName?.errors?.required">First name
+                                        <div class="alert alert-danger mt-1 py-1 px-3" *ngIf="firstName?.errors?.required">First name
                                             is required.</div>
                                     </div>
                                 </div>
@@ -26,7 +26,7 @@
                                     <input type="text" formControlName="lastname" placeholder="Enter Last name"
                                         class="form-control" />
                                     <div *ngIf="lastName?.touched && lastName?.invalid || showValidations">
-                                        <div class="alert alert-danger" *ngIf="lastName?.errors?.required">Last name is
+                                        <div class="alert alert-danger mt-1 py-1 px-3" *ngIf="lastName?.errors?.required">Last name is
                                             required.</div>
                                     </div>
                                 </div>
@@ -38,7 +38,7 @@
                                     <input type="text" formControlName="username" placeholder="Enter Username"
                                         class="form-control" placeholder="Enter Username" autofocus />
                                     <div *ngIf="userName?.touched && userName?.invalid || showValidations">
-                                        <div class="alert alert-danger" *ngIf="userName?.errors?.required">Username is
+                                        <div class="alert alert-danger mt-1 py-1 px-3" *ngIf="userName?.errors?.required">Username is
                                             required.</div>
                                     </div>
                                 </div>
@@ -50,9 +50,9 @@
                                     <input type="text" formControlName="email" placeholder="Enter email"
                                         class="form-control" />
                                     <div *ngIf="email?.touched && email?.invalid || showValidations">
-                                        <div class="alert alert-danger" *ngIf="email?.errors?.required">Email is
+                                        <div class="alert alert-danger mt-1 py-1 px-3" *ngIf="email?.errors?.required">Email is
                                             required.</div>
-                                        <div class="alert alert-danger" *ngIf="email?.errors?.email">Email is invalid
+                                        <div class="alert alert-danger mt-1 py-1 px-3" *ngIf="email?.errors?.email">Email is invalid
                                         </div>
                                     </div>
                                 </div>
@@ -64,12 +64,12 @@
                                     <input type="tel" formControlName="phone_no" placeholder="Enter Phone number"
                                         class="form-control" (keypress)="validateNumber($event)" maxlength="10"/>
                                     <div *ngIf="phone?.touched && phone?.invalid || showValidations">
-                                        <div class="alert alert-danger" *ngIf="phone?.errors?.required">Phone number is
+                                        <div class="alert alert-danger mt-1 py-1 px-3" *ngIf="phone?.errors?.required">Phone number is
                                             required.</div>
-                                        <div class="alert alert-danger" *ngIf="phone?.errors?.maxlength">Phone number
+                                        <div class="alert alert-danger mt-1 py-1 px-3" *ngIf="phone?.errors?.maxlength">Phone number
                                             must not exceed 10 digits
                                         </div>
-                                        <div class="alert alert-danger" *ngIf="phone?.errors?.pattern">Only Numbers are
+                                        <div class="alert alert-danger mt-1 py-1 px-3" *ngIf="phone?.errors?.pattern">Only Numbers are
                                             allowed</div>
                                     </div>
                                 </div>
@@ -88,7 +88,7 @@
                                         (change)="handleFileInput($event.target.files)" (change)="onChange($event)"
                                         formControlName="user_avatar" />
                                     <div *ngIf="user_avatar?.touched && user_avatar?.invalid || showValidations">
-                                        <div class="alert alert-danger" *ngIf="user_avatar?.errors?.required">User
+                                        <div class="alert alert-danger mt-1 py-1 px-3" *ngIf="user_avatar?.errors?.required">User
                                             Avatar is
                                             required.</div>
                                     </div>
@@ -104,7 +104,7 @@
                                     <input type="password" formControlName="password" placeholder="Enter Password"
                                         class="form-control" />
                                     <div *ngIf="password?.touched && password?.invalid || showValidations">
-                                        <div class="alert alert-danger" *ngIf="password?.errors?.required">Password is
+                                        <div class="alert alert-danger mt-1 py-1 px-3" *ngIf="password?.errors?.required">Password is
                                             required.</div>
                                     </div>
                                 </div>
@@ -118,11 +118,11 @@
                                         formControlName="confirm_password" class="form-control" />
                                     <div
                                         *ngIf="confirmPassword?.touched && confirmPassword?.invalid || showValidations">
-                                        <div class="alert alert-danger"
+                                        <div class="alert alert-danger mt-1 py-1 px-3"
                                             *ngIf="confirmPassword?.errors?.required && confirmPassword?.invalid">
                                             Confirm Password is required.</div>
                                     </div>
-                                    <div class="alert alert-danger"
+                                    <div class="alert alert-danger mt-1 py-1 px-3"
                                         *ngIf="editUserForm?.errors?.mismatch && !confirmPassword?.invalid">
                                         Passwords do not match.
                                     </div>
@@ -141,7 +141,7 @@
                                             }}</option>
                                     </select>
                                     <div *ngIf="outl?.touched && outl?.invalid || showValidations">
-                                        <div *ngIf="outl?.errors?.required" class="alert alert-danger">Outlet is
+                                        <div *ngIf="outl?.errors?.required" class="alert alert-danger mt-1 py-1 px-3">Outlet is
                                             required.</div>
                                     </div>
                                 </div>
@@ -155,7 +155,7 @@
                                         </option>
                                     </select>
                                     <div *ngIf="stat?.touched && stat?.invalid || showValidations">
-                                        <div *ngIf="stat?.errors?.required" class="alert alert-danger">User Account
+                                        <div *ngIf="stat?.errors?.required" class="alert alert-danger mt-1 py-1 px-3">User Account
                                             Status is required.</div>
                                     </div>
                                 </div>
@@ -167,7 +167,7 @@
                             <select name="status" formControlName="outlet_status" class="form-control">
                                 <option *ngFor="let item of status">{{ item }}</option>
                             </select>
-                            <div *ngIf="outstat?.touched && outstat?.invalid" class="alert alert-danger">
+                            <div *ngIf="outstat?.touched && outstat?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                 <div *ngIf="outstat?.errors?.required">Status is required.</div>
                             </div>
                         </div>

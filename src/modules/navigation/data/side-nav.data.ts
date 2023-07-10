@@ -11,20 +11,20 @@ export const sideNavSections: SideNavSection[] = [
     },
     {
         text: 'Sales',
-        items: ['sales', 'products', 'categories', 'table_management'],
-    },
+        items: ['sales', 'table_management'],
+    },  
     {
-        text: 'Reports',
-        items: ['expense_by_group', 'monthly_expense'],
+        text: 'Catalog',
+        items: ['products', 'categories'],
     },
     {
         text: 'System',
         items: ['users', 'vendors', 'uom', 'customer'],
     },
     {
-        text: 'Catalog',
-        items: ['attributes', 'attributeFamily'],
-    }
+        text: 'Reports',
+        items: ['expense_by_group', 'monthly_expense'],
+    },
 ];
 
 // Sales
@@ -64,16 +64,7 @@ export const sideNavItems: SideNavItems = {
         text: 'Sales',
         link: '/sales'
     },
-    products: {
-        icon: 'clipboard-list',
-        text: 'Menu Items',
-        link: '/catalog/products',
-    },
-    categories: {
-        icon: 'list-alt',
-        text: 'Menu Categories',
-        link: '/catalog/categories'
-    },
+    
     table_management: {
         icon: 'table',
         text: 'Table Management',
@@ -120,16 +111,27 @@ export const sideNavItems: SideNavItems = {
 
     // Catalog
 
-    attributes: {
-        icon: 'bars',
-        text: 'Attributes',
-        link: '/catalog/attributes'
+    products: {
+        icon: 'clipboard-list',
+        text: 'Menu Items',
+        link: '/catalog/products',
     },
-    attributeFamily: {
-        icon: 'bars',
-        text: 'Attribute Family',
-        link: '/catalog/attributeFamily'
+    categories: {
+        icon: 'list-alt',
+        text: 'Menu Categories',
+        link: '/catalog/categories'
     },
+
+    // attributes: {
+    //     icon: 'bars',
+    //     text: 'Attributes',
+    //     link: '/catalog/attributes'
+    // },
+    // attributeFamily: {
+    //     icon: 'bars',
+    //     text: 'Attribute Family',
+    //     link: '/catalog/attributeFamily'
+    // },
 
 
 

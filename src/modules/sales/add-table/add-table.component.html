@@ -13,7 +13,7 @@
                                 <input type="text" formControlName="table_number" (keypress)="validateNumber($event)"
                                     placeholder="Table number" maxlength="35" class="form-control" autofocus />
                                 <div *ngIf="table_number?.touched && table_number?.invalid || showValidations">
-                                    <div class="alert alert-danger" *ngIf="table_number?.errors?.required">Table Number
+                                    <div class="alert alert-danger mt-1 py-1 px-3" *ngIf="table_number?.errors?.required">Table Number
                                         is required.</div>
                                 </div>
                             </div>
@@ -33,7 +33,7 @@
                                 <input type="text" formControlName="table_name" placeholder="Table name" maxlength="35"
                                     class="form-control" />
                                 <div *ngIf="table_name?.touched && table_name?.invalid || showValidations">
-                                    <div class="alert alert-danger" *ngIf="table_name?.errors?.required">Table Name is
+                                    <div class="alert alert-danger mt-1 py-1 px-3" *ngIf="table_name?.errors?.required">Table Name is
                                         required.</div>
                                 </div>
                             </div>
@@ -50,7 +50,7 @@
                                     <label for="occ_no" class="mb-0">No</label>
                                     <div
                                         *ngIf="is_table_occupied?.touched && is_table_occupied?.invalid || showValidations">
-                                        <div class="alert alert-danger" *ngIf="is_table_occupied?.errors?.required">This
+                                        <div class="alert alert-danger mt-1 py-1 px-3" *ngIf="is_table_occupied?.errors?.required">This
                                             field is
                                             required.</div>
                                     </div>
@@ -70,7 +70,7 @@
                                     <label for="act_no" class="mb-0">No</label>
                                     <div
                                         *ngIf="is_table_active?.touched && is_table_active?.invalid || showValidations">
-                                        <div class="alert alert-danger" *ngIf="is_table_active?.errors?.required">This
+                                        <div class="alert alert-danger mt-1 py-1 px-3" *ngIf="is_table_active?.errors?.required">This
                                             field
                                             is
                                             required.</div>

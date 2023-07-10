@@ -13,7 +13,7 @@
                                 <input type="text" formControlName="unit_name" placeholder="Enter Name"
                                     class="form-control" autofocus />
                                 <div *ngIf="showValidations || name?.invalid && name?.touched">
-                                    <div class="alert alert-danger" *ngIf="name?.errors?.required">Name is required.
+                                    <div class="alert alert-danger mt-1 py-1 px-3" *ngIf="name?.errors?.required">Name is required.
                                     </div>
                                 </div>
                             </div>
@@ -25,7 +25,7 @@
                                 <input type="text" formControlName="unit" placeholder="Enter Unit"
                                     class="form-control" />
                                 <div *ngIf="showValidations || unit?.invalid && unit?.touched">
-                                    <div class="alert alert-danger" *ngIf="unit?.errors?.required">Unit is required.
+                                    <div class="alert alert-danger mt-1 py-1 px-3" *ngIf="unit?.errors?.required">Unit is required.
                                     </div>
                                 </div>
                             </div>

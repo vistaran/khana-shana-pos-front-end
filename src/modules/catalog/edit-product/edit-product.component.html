@@ -15,7 +15,7 @@
                                 <label class="required">Name</label><br />
                                 <input type="text" placeholder="Enter Name" formControlName="product_name"
                                     class="form-control" autofocus />
-                                <div *ngIf="name?.touched && name?.invalid" class="alert alert-danger">
+                                <div *ngIf="name?.touched && name?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                     <div *ngIf="name?.errors?.required">Name is required.</div>
                                 </div>
                             </div>
@@ -34,7 +34,7 @@
                                         class="form-control" />
 
                                 </div>
-                                <div *ngIf="price?.touched && price?.invalid" class="alert alert-danger">
+                                <div *ngIf="price?.touched && price?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                     <div *ngIf="price?.errors?.required">Price is required.</div>
                                 </div>
                             </div>
@@ -55,7 +55,7 @@
                                     <option *ngFor="let item of categoryData" value="{{item.id}}">{{ item.name }}
                                     </option>
                                 </select>
-                                <div *ngIf="category?.touched && category?.invalid" class="alert alert-danger">
+                                <div *ngIf="category?.touched && category?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                     <div *ngIf="category?.errors?.required">Category is required.</div>
                                 </div>
                             </div>
@@ -67,7 +67,7 @@
                                         class="text-secondary">(optional)</span></label><br />
                                 <textarea type="text" placeholder="Add Description" formControlName="description"
                                     class="form-control"></textarea>
-                                <!-- <div *ngIf="description?.touched && description?.invalid" class="alert alert-danger">
+                                <!-- <div *ngIf="description?.touched && description?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                     <div *ngIf="description?.errors?.required">Description is required.</div>
                                 </div> -->
                             </div>
