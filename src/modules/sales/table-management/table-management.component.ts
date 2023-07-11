@@ -40,19 +40,6 @@ export class TableManagementComponent implements OnInit {
                 console.log(result);
                 this.tableData = result.data;
                 this.total = result.total;
-                this.tableData.forEach((element: any) => {
-                    if (element.is_table_active == 1) {
-                        element.is_table_active = 'Yes';
-                    } else {
-                        element.is_table_active = 'No';
-                    }
-
-                    if (element.is_table_occupied == 1) {
-                        element.is_table_occupied = 'Yes';
-                    } else {
-                        element.is_table_occupied = 'No';
-                    }
-                });
 
             }, error: err => {
                 this.toast.error('Error', 'Something went wrong.');
@@ -76,6 +63,14 @@ export class TableManagementComponent implements OnInit {
                     this.toast.error('Error', 'Server error.')
                 }
             });
+        }
+    }
+
+    goToOrder(is_occupied: any, table_number: any) {
+        if (is_occupied) {
+            // this.router.navigate(['/sales/add_sale']);
+        } else {
+            this.router.navigate(['/sales/add_sale', { queryParams: { table_number: table_number } }]);
         }
     }
 

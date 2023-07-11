@@ -5,7 +5,7 @@
                 <h1 class="card-header">Add User</h1>
                 <form [formGroup]="addUserForm">
                     <div class="container-fluid">
-                        <h2 class="card-header mt-4 pb-2">General</h2>
+                        <h2 class="card-header mt-4 pb-2 font-size">General</h2>
                         <div class="row card-body">
 
                             <div class="col-6">
@@ -15,7 +15,7 @@
                                         placeholder="Enter First Name" autofocus />
 
                                     <div *ngIf="firstName?.touched && firstName?.invalid || showValidations">
-                                        <div class="alert alert-danger" *ngIf="firstName?.errors?.required">First name
+                                        <div class="alert alert-danger mt-1 py-1 px-3" *ngIf="firstName?.errors?.required">First name
                                             is required.</div>
                                     </div>
                                 </div>
@@ -27,7 +27,7 @@
                                     <input type="text" formControlName="lastname" placeholder="Enter Last Name"
                                         class="form-control" />
                                     <div *ngIf="lastName?.touched && lastName?.invalid || showValidations">
-                                        <div class="alert alert-danger" *ngIf="lastName?.errors?.required">Last name is
+                                        <div class="alert alert-danger mt-1 py-1 px-3" *ngIf="lastName?.errors?.required">Last name is
                                             required.</div>
                                     </div>
                                 </div>
@@ -39,7 +39,7 @@
                                     <input type="text" formControlName="username" placeholder="Enter User name"
                                         class="form-control" />
                                     <div *ngIf="userName?.touched && userName?.invalid || showValidations">
-                                        <div class="alert alert-danger" *ngIf="userName?.errors?.required">Username is
+                                        <div class="alert alert-danger mt-1 py-1 px-3" *ngIf="userName?.errors?.required">Username is
                                             required.</div>
                                     </div>
                                 </div>
@@ -51,9 +51,9 @@
                                     <input type="text" formControlName="email" placeholder="Enter Email"
                                         class="form-control" />
                                     <div *ngIf="email?.touched && email?.invalid || showValidations">
-                                        <div class="alert alert-danger" *ngIf="email?.errors?.required">Email is
+                                        <div class="alert alert-danger mt-1 py-1 px-3" *ngIf="email?.errors?.required">Email is
                                             required.</div>
-                                        <div class="alert alert-danger"
+                                        <div class="alert alert-danger mt-1 py-1 px-3"
                                             *ngIf="email?.errors?.email && !email?.errors?.required">Email is invalid
                                         </div>
                                     </div>
@@ -66,13 +66,13 @@
                                     <input type="tel" formControlName="phone_no" placeholder="Enter Phone Number"
                                         class="form-control" (keypress)="validateNumber($event)" maxlength="10"/>
                                     <div *ngIf="phone?.touched && phone?.invalid || showValidations">
-                                        <div *ngIf="phone?.errors?.required" class="alert alert-danger">Phone number is
+                                        <div *ngIf="phone?.errors?.required" class="alert alert-danger mt-1 py-1 px-3">Phone number is
                                             required.</div>
                                         <div *ngIf="phone?.errors?.maxlength && !phone?.errors?.pattern"
-                                            class="alert alert-danger">Phone number
+                                            class="alert alert-danger mt-1 py-1 px-3">Phone number
                                             must not exceed 10 digits
                                         </div>
-                                        <div *ngIf="phone?.errors?.pattern" class="alert alert-danger">Only Numbers are
+                                        <div *ngIf="phone?.errors?.pattern" class="alert alert-danger mt-1 py-1 px-3">Only Numbers are
                                             allowed</div>
                                     </div>
 
@@ -82,7 +82,7 @@
                         </div>
 
 
-                        <h2 class="card-header pt-2 pb-2">User Avatar</h2>
+                        <h2 class="card-header pt-2 pb-2 font-size">User Avatar</h2>
                         <div class="card-body row">
                             <div class="col-6">
                                 <div class="form-group required">
@@ -93,7 +93,7 @@
                                         formControlName="user_avatar" (change)="handleFileInput($event.target.files)"
                                         (change)="onChange($event)" />
                                     <div *ngIf="user_avatar?.touched && user_avatar?.invalid || showValidations">
-                                        <div class="alert alert-danger" *ngIf="user_avatar?.errors?.required">User
+                                        <div class="alert alert-danger mt-1 py-1 px-3" *ngIf="user_avatar?.errors?.required">User
                                             Avatar is required.</div>
                                     </div>
                                 </div>
@@ -101,7 +101,7 @@
                         </div>
 
 
-                        <h2 class="card-header pt-4">Password</h2>
+                        <h2 class="card-header pt-4 font-size">Password</h2>
                         <div class="card-body row">
                             <div class="col">
                                 <div class="form-group required">
@@ -109,7 +109,7 @@
                                     <input type="password" formControlName="password" placeholder="Enter Password"
                                         class="form-control" />
                                     <div *ngIf="password?.touched && password?.invalid || showValidations">
-                                        <div class="alert alert-danger" *ngIf="password?.errors?.required">Password is
+                                        <div class="alert alert-danger mt-1 py-1 px-3" *ngIf="password?.errors?.required">Password is
                                             required.</div>
                                     </div>
                                 </div>
@@ -122,11 +122,11 @@
                                         formControlName="confirm_password" class="form-control" />
                                     <div
                                         *ngIf="confirm_password?.touched && confirm_password?.invalid || showValidations">
-                                        <div class="alert alert-danger"
+                                        <div class="alert alert-danger mt-1 py-1 px-3"
                                             *ngIf="confirm_password?.errors?.required && confirm_password?.invalid">
                                             Confirm Password is required.</div>
                                     </div>
-                                    <div class="alert alert-danger"
+                                    <div class="alert alert-danger mt-1 py-1 px-3"
                                         *ngIf="addUserForm?.errors?.mismatch && !confirm_password?.invalid">
                                         Passwords do not match.
                                     </div>
@@ -135,7 +135,7 @@
                             </div>
                         </div>
 
-                        <h2 class="card-header pt-4 pb-2">Status & Outlet</h2>
+                        <h2 class="card-header pt-4 pb-2 font-size">Status & Outlet</h2>
                         <div class="card-body row">
                             <div class="col">
                                 <div class="form-group required">
@@ -147,7 +147,7 @@
                                     </select>
 
                                     <div *ngIf="outl?.touched && outl?.invalid || showValidations">
-                                        <div class="alert alert-danger" *ngIf="outl?.errors?.required ">Outlet name is
+                                        <div class="alert alert-danger mt-1 py-1 px-3" *ngIf="outl?.errors?.required ">Outlet name is
                                             required.</div>
                                     </div>
                                 </div>
@@ -160,7 +160,7 @@
                                         <option *ngFor="let item of status; index as i" value="{{i}}">{{ item }}</option>
                                     </select>
                                     <div *ngIf="stat?.touched && stat?.invalid || showValidations">
-                                        <div class="alert alert-danger" *ngIf="stat?.errors?.required">User Account
+                                        <div class="alert alert-danger mt-1 py-1 px-3" *ngIf="stat?.errors?.required">User Account
                                             Status is
                                             required.</div>
                                     </div>

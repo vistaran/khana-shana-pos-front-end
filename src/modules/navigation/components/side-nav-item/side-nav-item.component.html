@@ -1,12 +1,13 @@
 <div class="text-dark">
-    <a class="nav-link text-white" [routerLink]="sideNavItem.link" (click)="expanded = !expanded"
+    <a class="nav-link text-slate-50 text " [routerLink]="sideNavItem.link" (click)="expanded = !expanded"
         [ngClass]="{'active': sideNavItem.text == path, collapsed: !expanded}">
-        <div class="sb-nav-link-icon text-white" *ngIf="sideNavItem.icon">
-            <fa-icon [icon]='["fas", sideNavItem.icon]'></fa-icon>
+        <div class="sb-nav-link-icon text-slate-50" *ngIf="sideNavItem.icon">
+            <!-- <fa-icon [icon]='["fas", sideNavItem.icon]'></fa-icon> -->
+            <i class="fa-solid fa-{{ sideNavItem.icon }}"></i>
         </div>
         {{sideNavItem.text}}
         <div class="sb-sidenav-collapse-arrow">
-            <fa-icon class="ml-auto" *ngIf="sideNavItem.submenu" [icon]="['fas', 'angle-down']"></fa-icon>
+            <i *ngIf="sideNavItem.submenu" class="fa-solid fa-angles-down ml-auto"></i>
         </div>
     </a>
     <nav class="sb-sidenav-menu-nested nav" *ngIf="sideNavItem.submenu &amp;&amp; expanded">

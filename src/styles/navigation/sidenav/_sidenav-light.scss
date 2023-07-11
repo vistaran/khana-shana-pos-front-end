@@ -19,12 +19,12 @@
       &:hover {
         color: $sidenav-light-link-active-color;
       }
-      &.active {
-        color: $sidenav-light-link-active-color;
-        .sb-nav-link-icon {
-          color: $sidenav-light-link-active-color;
-        }
-      }
+      // &.active {
+      //   color: $sidenav-light-link-active-color;
+      //   .sb-nav-link-icon {
+      //     color: $sidenav-light-link-active-color;
+      //   }
+      // }
     }
   }
   .sb-sidenav-footer {

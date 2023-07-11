@@ -23,7 +23,7 @@ export const ROUTES: Routes = [
         data: {
             title: 'Login - Khana Shana',
         } as SBRouteData,
-    }
+    },
     {
         path: 'forgot-password',
         canActivate: [],

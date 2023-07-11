@@ -1,7 +1,7 @@
 import { TableManagementService } from './../table-management.service';
 import { Component, HostListener, OnInit, Renderer2 } from '@angular/core';
 import { Form, FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '@modules/catalog/product.service';
 import { CustomerManagementService } from '@modules/customer-management/customer-management.service';
 import { AppToastService } from '@modules/shared-module/services/app-toast.service';
@@ -85,6 +85,7 @@ export class AddSaleComponent implements OnInit {
     showDiscountOption = false;
     discount_type: any;
     table_number: any;
+    default_table_number: any;
 
 
 
@@ -123,6 +124,7 @@ export class AddSaleComponent implements OnInit {
         private saleService: SalesService,
         private toast: AppToastService,
         private router: Router,
+        private activeRoute: ActivatedRoute,
         private renderer: Renderer2,
         private TableManagementService: TableManagementService
     ) { }
@@ -159,6 +161,12 @@ export class AddSaleComponent implements OnInit {
             phone_number: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]]
         })
 
+        this.activeRoute.queryParams.subscribe((params: any) => {
+            if (params['table_number']) {
+                this.default_table_number = params['table_number'];
+            }
+        });
+
         this.getProductsData()
         this.getCustomerData()
         this.getTableData()
@@ -180,19 +188,25 @@ export class AddSaleComponent implements OnInit {
     getProductsData() {
         this.productData = [];
         this.productService.getProducts(this.page).subscribe((data: any) => {
+            data.products.data.forEach((element: any) => {
+                element.product_count = 0;
+            });
             this.productData = data.products.data;
-            console.log(data);
+            console.log(this.productData, 'pro');
+
             if (data.products.last_page > 1) {
                 console.log('greater');
                 for (let i = 2; i <= data.products.last_page; i++) {
-                    console.log();
                     this.productService.getProducts(i).subscribe((ele: any) => {
+                        ele.forEach((element: any) => {
+                            element.product_count = 0;
+                        });
                         this.productData = this.productData.concat(ele.products.data);
                         console.log(ele.products.data);
                     })
                 }
-                this.showProducts = true;
                 console.log(this.productData, 'pro data');
+                this.showProducts = true;
 
             } else {
                 this.showProducts = true;
@@ -246,11 +260,39 @@ export class AddSaleComponent implements OnInit {
             console.log(this.tableList, 'tableList');
 
             // this.tableList = data.data;
-            if (this.tableList.length > 0) {
-                this.addSaleForm.get('table_number')?.setValue(this.tableList[0].res_table_number);
+            if (this.default_table_number) {
+                this.addSaleForm.get('table_number')?.setValue(this.default_table_number);
             } else {
+
+                if (this.tableList.length > 0) {
+                    this.addSaleForm.get('table_number')?.setValue(this.tableList[0].res_table_number);
+                }
             }
         })
+    }
+
+    decreaseCount(id: any, count: any) {
+        this.productData.forEach((element: any, key: any) => {
+            console.log(element, 'key');
+            if (element.id == id) {
+                if (this.productData[key].product_count > 0) {
+                    this.productData[key].product_count = count - 1;
+                } else {
+                    this.productData[key].product_count = 0;
+                }
+            }
+        });
+        this.onSelectProduct(this.productData);
+    }
+
+    increaseCount(id: any, count: any) {
+        this.productData.forEach((element: any, key: any) => {
+            console.log(element, 'key');
+            if (element.id == id) {
+                this.productData[key].product_count = count + 1;
+            }
+        });
+        this.onSelectProduct(this.productData);
     }
 
     onTableChange(event: any) {
@@ -324,46 +366,68 @@ export class AddSaleComponent implements OnInit {
 
     onSelectProduct(data: any) {
 
+
+        this.modalService.dismissAll();
+
+        this.addedProduct = [];
+
+        data.forEach((element: any) => {
+            if (element.product_count > 0) {
+                element.subtotal = element.price * element.product_count;
+                element.quantity = element.product_count;
+                this.addedProduct.push(element);
+            }
+        });
+
+        console.log(this.addedProduct, 'added');
+
+        // this.addedProduct.forEach((g: any) => {
+        //     if (g.id == data.id) {
+        //         g.quantity = 1;
+        //         g.subtotal = data.price
+        //         this.addedProduct.push(g)
+        //         // this.ngOnInit()
+        //     }
+        //     // console.log(this.addedProduct);
+        // });
+
         // if (this.qtyForm.invalid) {
         //     this.showValidations = true;
         //     alert('Please enter quantity');
         //     return;
         // }
 
-        let invalid;
+        // let invalid;
 
-        this.modalService.dismissAll();
-
-        this.addedProduct.forEach((g: any) => {
-            if (data.product_name == g.product_name) {
-                invalid = true
-            }
-        })
-        if (invalid) {
-            this.toast.warning('Warning', data.product_name + ' is already added.')
-            return;
-        }
+        // this.addedProduct.forEach((g: any) => {
+        //     if (data.product_name == g.product_name) {
+        //         invalid = true
+        //     }
+        // })
+        // if (invalid) {
+        //     this.toast.warning('Warning', data.product_name + ' is already added.')
+        //     return;
+        // }
         // console.log('Quantity', data.qty);
 
-        this.productData.forEach((g: any) => {
-            // g.quantity = 0;
-            // g.subtotal = 0;
-            // console.log(g)
-            if (g.id == data.id) {
-                g.quantity = 1;
-                g.subtotal = data.price
-                this.addedProduct.push(g)
-                // this.ngOnInit()
-            }
-            // console.log(this.addedProduct);
-
-        });
+        // this.productData.forEach((g: any) => {
+        //     // g.quantity = 0;
+        //     // g.subtotal = 0;
+        //     // console.log(g)
+        //     if (g.id == data.id) {
+        //         g.quantity = 1;
+        //         g.subtotal = data.price
+        //         this.addedProduct.push(g)
+        //         // this.ngOnInit()
+        //     }
+        //     // console.log(this.addedProduct);
+        // });
 
         this.semitotal = this.addedProduct.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
             return a + b;
         })
 
-        this.toast.success('Success', 'Product added successfully.');
+        // this.toast.success('Success', 'Product added successfully.');
 
         this.productQuantity[this.addedProduct.length - 1] = 1;
         // this.qtyForm = this.fb.group({
@@ -373,7 +437,7 @@ export class AddSaleComponent implements OnInit {
         console.log(this.productQuantity, 'quantity');
 
 
-        this.total += (data.quantity * data.price)
+        this.total += (data.quantity * data.price);
         this.calculateTotal();
         // console.log('Added Product', this.addedProduct);
     }
@@ -524,7 +588,7 @@ export class AddSaleComponent implements OnInit {
             }
         }
         else {
-            alert('Please add atleast one item to input shipping charges!');
+            // alert('Please add atleast one item to input shipping charges!');
             this.shipping_charge = 0;
             return;
         }
@@ -535,7 +599,7 @@ export class AddSaleComponent implements OnInit {
         }
     }
 
-    RemoveProduct(id: any) {
+    removeProduct(id: any) {
         if (confirm('Are you sure you want to delete?')) {
             this.addedProduct = this.addedProduct.filter((item: any) => item.id !== id);
             // console.log('afterdelete', this.addedProduct);
@@ -546,6 +610,9 @@ export class AddSaleComponent implements OnInit {
                     return a + b;
                 })
             }
+
+            console.log(this.addedProduct);
+            this.decreaseCount(id, 0);
             setTimeout(() => { this.onKey(this.shipping_charge) }, 500);
             setTimeout(() => { this.calculateTotal() }, 500);
             this.toast.success('Success', 'Product deleted successfully.');

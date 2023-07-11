@@ -97,19 +97,19 @@ export class AddCategoryComponent implements OnInit {
       position: ['', [Validators.required]],
       display_mode: [0, [Validators.required]],
       decription: [''],
-      attri: [0, [Validators.required]],
+    //   attri: [0, [Validators.required]],
       image: ['', [Validators.required]],
       category_logo: ['', [Validators.required]],
       // parent_category: [''],
-      meta_title: ['', [Validators.required]],
-      slug: ['', [Validators.required]],
-      meta_description: [''],
-      meta_keyword: ['', [Validators.required]],
+    //   meta_title: ['', [Validators.required]],
+    //   slug: ['', [Validators.required]],
+    //   meta_description: [''],
+    //   meta_keyword: ['', [Validators.required]],
       status: [0, [Validators.required]],
       // number_of_products: ['', [Validators.required]]
     });
-    this.getParentCategrory()
-    this.getAttributesData()
+    // this.getParentCategrory()
+    // this.getAttributesData()
   }
 
   // For submitting Add category form data

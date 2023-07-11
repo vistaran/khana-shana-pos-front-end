@@ -1,5 +1,5 @@
 import { TableManagementService } from './../table-management.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AppToastService } from './../../shared-module/services/app-toast.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -41,10 +41,12 @@ export class AddTableComponent implements OnInit {
     ngOnInit(): void {
         this.addTableForm = this.fb.group({
             table_number: ['', [Validators.required]],
+            seats_available: [0],
             table_name: ['', [Validators.required]],
             table_occupied: [null, [Validators.required]],
             table_active: [null, [Validators.required]]
-        })
+        });
+
     }
 
     validateNumber(event: any) {
