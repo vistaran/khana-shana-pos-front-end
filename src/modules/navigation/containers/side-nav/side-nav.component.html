@@ -2,7 +2,7 @@
     <div class="sb-sidenav-menu bg-primary">
         <div class="nav">
             <ng-container *ngFor="let section of sideNavSections">
-                <div class="sb-sidenav-menu-heading text-white" *ngIf="section.text">{{ section.text }}</div>
+                <div class="sb-sidenav-menu-heading text-white text" *ngIf="section.text">{{ section.text }}</div>
                 <ng-container *ngFor="let item of section.items">
                     <sb-side-nav-item [sideNavItem]="sideNavItems[item]"></sb-side-nav-item>
                 </ng-container>
