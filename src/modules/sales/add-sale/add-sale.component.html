@@ -1,8 +1,8 @@
 <sb-layout-dashboard>
-    <div class="card shadow mt-4" (document:keydown.shift.s)="onSubmit(addSaleForm.value)">
-        <h3 class="card-header mb-3 bg-gradient text-white py-1 px-2">Add Order</h3>
+    <div class="" (document:keydown.shift.s)="onSubmit(addSaleForm.value)">
+        <h3 class=" mb-3 py-1 px-2">Add Order</h3>
         <form [formGroup]="addSaleForm">
-            <div class="container-fluid">
+            <div class="">
 
                 <!-- <h3 class="card-header mb-2">Select Customer</h3> -->
                 <div class="d-flex">
@@ -54,7 +54,8 @@
                                             item.first_name }} {{ item.last_name}}</ng-option>
                                     </ng-select>
                                     <div *ngIf="customer?.touched && customer?.invalid || showCustomerValidation">
-                                        <div *ngIf="customer?.errors?.required" class="alert alert-danger mt-1 py-1 px-3">Customer is
+                                        <div *ngIf="customer?.errors?.required"
+                                            class="alert alert-danger mt-1 py-1 px-3">Customer is
                                             required.</div>
                                     </div>
                                 </div>
@@ -112,8 +113,8 @@
                                         <label class="required">Phone Number</label>
                                         <input type="tel" placeholder="Phone Number" formControlName="phone_number"
                                             class="form-control" (keypress)="validateNumber($event)" maxlength="10" />
-                                        <div *ngIf="phone?.touched && phone?.invalid" class="alert alert-danger mt-1 py-1 px-3"
-                                            maxlength="10">
+                                        <div *ngIf="phone?.touched && phone?.invalid"
+                                            class="alert alert-danger mt-1 py-1 px-3" maxlength="10">
                                             <div *ngIf="phone?.errors?.required">Phone Number is required.</div>
                                             <div *ngIf="phone?.errors?.maxlength">Phone number must not exceed 10 digits
                                             </div>
@@ -139,15 +140,53 @@
 
                 <div class="row">
                     <div class="col" [hidden]="showCartSummary">
-                        <h5 class="p-2">Select Products</h5>
+                        <h5 class="p-2">Menu Items</h5>
 
-                        <div class=" row mt-2" *ngIf="showProducts">
-                            <div class="col-md-12 mb-3 col-12" *ngFor="let data of productData">
-                                <div class="h-100">
-                                    <!-- <button class="shadow bg-transparent h-100 border border-secondary w-100 rounded"
-                                        type="button" (click)="onSelectProduct(data)">
-                                        <span class="text-capitalize">{{ data.product_name }}</span>
-                                    </button> -->
+                        <div class=" " *ngIf="showProducts">
+                            <!-- <div class="col-md-12 mb-3 col-12" *ngFor="let data of categoryData"> -->
+                            <div ngbAccordion *ngIf="showProducts">
+                                <div ngbAccordionItem [collapsed]="false"
+                                    *ngFor="let category of categoryData; let i= index" id="ngb-panel-{{i}}">
+                                    <p ngbAccordionHeader class="bg-slate-100 text-white m-0 px-2" ngbAccordionButton>
+                                        <button ngbAccordionButton
+                                            class="w-full text-gray-500 capitalize font-bold text-left text-md">{{
+                                            category.name }}</button>
+                                    </p>
+                                    <div ngbAccordionCollapse>
+                                        <div ngbAccordionBody>
+                                            <ng-template>
+                                                <div *ngFor="let products of category.products" class="">
+                                                    <div class="px-2">
+                                                        <div class="flex justify-between items-center">
+                                                            <p class="text-md m-0">{{ products.product_name }}</p>
+                                                            <div class="w-1/4 ml-auto">
+                                                                <div
+                                                                    class="flex flex-row h-8 w-full rounded-lg relative bg-transparent mt-2 pb-2">
+                                                                    <button data-action="decrement"
+                                                                        (click)="decreaseCount(category.id,products.id, products.product_count)"
+                                                                        class="bg-gradient rounded-l rounded- w-10 rounded cursor-pointer outline-none flex justify-center items-center text-white text-2xl">
+                                                                        −
+                                                                    </button>
+                                                                    <input type="number" disabled
+                                                                        class="bg-white product_quantity border-b border-t  text-center w-full px-0 py-2  font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700 "
+                                                                        name="custom-input-number" min='0'
+                                                                        value="{{ products.product_count ?? 0 }}" />
+                                                                    <button data-action="increment"
+                                                                        (click)="increaseCount(category.id,products.id, products.product_count)"
+                                                                        class="bg-gradient  w-10 rounded-r cursor-pointer outline-none flex justify-center items-center text-white text-2xl">+
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ng-template>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- <div class="h-100">
                                     <div class="card">
                                         <div class="card-body p-3">
                                             <p class="d-flex justify-content-between m-0">
@@ -160,7 +199,6 @@
                                                     <button data-action="decrement"
                                                         (click)="decreaseCount(data.id, data.product_count)"
                                                         class="bg-gradient rounded-l rounded- w-20 rounded cursor-pointer outline-none flex justify-center items-center text-white text-2xl">
-                                                        <!-- <span class="text-2xl text-white font-light"></span> -->
                                                         −
                                                     </button>
                                                     <input type="number" disabled
@@ -175,51 +213,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-
-                                <!-- <ng-template #content let-modal>
-
-                                    <div class="modal-header bg-primary align-items-center text-light">
-                                        <h4 class=" modal-title">Product Quantity</h4>
-                                        <i type="button" class="fas fa-xmark fa-xl" aria-label="Close"
-                                            (click)="modal.dismiss('Cross click')" (click)="qtyClose()">
-                                        </i>
-                                    </div>
-
-                                    <form [formGroup]="qtyForm" (ngSubmit)="onSelectProduct(data, qtyForm.value)">
-                                        <div class="modal-body">
-
-                                            <div class="col">
-                                                <div class="form-group required">
-                                                    <label class="required">Quantity</label>
-                                                    <input type="number" min="0" oninput="validity.valid||(value='');"
-                                                        formControlName="quantity" class="form-control"
-                                                        placeholder="Enter Quantity" sbAutoFocus />
-
-                                                    <div
-                                                        *ngIf="quantity?.touched && quantity?.invalid || showValidations">
-                                                        <div class="alert alert-danger mt-1 py-1 px-3"
-                                                            *ngIf="quantity?.errors?.required">Quantity is required.
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="modal-footer d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-info btn-sm">Save
-                                                Order</button>
-                                        </div>
-                                    </form>
-
-
-                                </ng-template> -->
-
-
-                            </div>
-
+                                </div> -->
+                            <!-- </div> -->
                         </div>
-                        <div class="flex justify-end py-2">
+                        <div class="flex justify-center py-2 mt-4">
                             <button class=" bg-gradient py-2 px-3 text-white rounded-md" ngbTooltip="Go to cart"
                                 (click)="showCartSummary =true">
                                 <span class="relative">
@@ -232,7 +229,11 @@
                     </div>
 
                     <div class="col" [hidden]="!showCartSummary">
-                        <h5 class="p-2 mb-0 flex items-center"><i class="fa fa-angle-left pr-2" (click)="showCartSummary = false"></i>Cart Summary</h5>
+                        <h5 class="p-2 mb-0 flex items-center">
+                            <button (click)="showCartSummary = false">
+                                <i class="fa fa-angle-left pr-2"></i>
+                            </button>Cart Summary
+                        </h5>
 
                         <!-- <div class="card-deck row mt-2">
                             <div class="col-5 mb-3" *ngFor="let data of addedProduct"> -->
@@ -289,7 +290,7 @@
                                 <div class="text-lg flex justify-between">
                                     <span>{{ data.product_name }} x{{ data.product_count }}
                                         <span class="text-sm text-red-500"
-                                            (click)="removeProduct(data.id)">(remove)</span>
+                                            (click)="removeProduct(data.id, data.category_id)">(remove)</span>
                                     </span>
                                     <span>₹{{ data.subtotal }}</span>
                                 </div>

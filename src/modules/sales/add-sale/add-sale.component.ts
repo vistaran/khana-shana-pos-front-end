@@ -18,11 +18,12 @@ import { SalesService } from '../sales.service';
 export class AddSaleComponent implements OnInit {
 
     @HostListener('document:keydown.shift.s')
-    productData: any = [];
+    categoryData: any = [];
     addedProduct: any = [];
     customerData: any = [];
     orderDetail: any = [];
     itemDetail: any = [];
+    activeIds: any = [];
     addSaleForm!: FormGroup
     qtyForm!: FormGroup
     customerForm!: FormGroup
@@ -40,6 +41,7 @@ export class AddSaleComponent implements OnInit {
 
     curr_date: NgbDate = new NgbDate(this.yyyy, this.mm, this.dd);
     date = ''
+    panels = ['First', 'Second', 'Third'];
 
     payment_mode_copy = [
         {
@@ -187,33 +189,45 @@ export class AddSaleComponent implements OnInit {
     }
 
     getProductsData() {
-        this.productData = [];
+        this.categoryData = [];
         this.productService.getProducts(this.page).subscribe((data: any) => {
-            data.products.data.forEach((element: any) => {
-                element.product_count = 0;
+            data.data.forEach((element: any, index: any) => {
+                console.log(element.products.length, 'len');
+
+                if (element.products.length == 0) data.data.splice(index, 1);
             });
-            this.productData = data.products.data;
-            console.log(this.productData, 'pro');
 
-            if (data.products.last_page > 1) {
-                console.log('greater');
-                for (let i = 2; i <= data.products.last_page; i++) {
-                    this.productService.getProducts(i).subscribe((ele: any) => {
-                        ele.forEach((element: any) => {
-                            element.product_count = 0;
-                        });
-                        this.productData = this.productData.concat(ele.products.data);
-                        console.log(ele.products.data);
-                    })
-                }
-                console.log(this.productData, 'pro data');
-                this.showProducts = true;
+            data.data.forEach((element: any) => {
+                element.products.forEach((pro: any) => {
+                    pro.product_count = 0;
+                });
+            });
+            this.categoryData = data.data;
+            console.log(this.categoryData, 'pro');
 
-            } else {
-                this.showProducts = true;
+            for (let i = 0; i < this.categoryData.length; i++) {
+                this.activeIds.push("ngb-panel-" + i);
             }
-            // this.productData = data.products.data
-            // console.log(this.productData);
+            this.showProducts = true;
+            // if (data.products.last_page > 1) {
+            //     console.log('greater');
+            //     for (let i = 2; i <= data.products.last_page; i++) {
+            //         this.productService.getProducts(i).subscribe((ele: any) => {
+            //             ele.forEach((element: any) => {
+            //                 element.product_count = 0;
+            //             });
+            //             this.categoryData = this.categoryData.concat(ele.products.data);
+            //             console.log(ele.products.data);
+            //         })
+            //     }
+            //     console.log(this.categoryData, 'pro data');
+            //     this.showProducts = true;
+
+            // } else {
+            //     this.showProducts = true;
+            // }
+            // this.categoryData = data.products.data
+            // console.log(this.categoryData);
         })
     }
 
@@ -272,28 +286,40 @@ export class AddSaleComponent implements OnInit {
         })
     }
 
-    decreaseCount(id: any, count: any) {
-        this.productData.forEach((element: any, key: any) => {
-            console.log(element, 'key');
-            if (element.id == id) {
-                if (this.productData[key].product_count > 0) {
-                    this.productData[key].product_count = count - 1;
-                } else {
-                    this.productData[key].product_count = 0;
-                }
+    decreaseCount(catID: any, prodId: any, count: any) {
+        this.categoryData.forEach((element: any, key: any) => {
+            if (element.id == catID) {
+                element.products.forEach((prod: any, key2: any) => {
+                    if (prodId == prod.id) {
+                        console.log(prod);
+                        if (prod.product_count > 0) {
+                            console.log(element, 'key');
+                            prod.product_count = count - 1;
+                        } else {
+                            prod.product_count = 0;
+                        }
+
+                    }
+                });
             }
         });
-        this.onSelectProduct(this.productData);
+        this.onSelectProduct(this.categoryData);
     }
 
-    increaseCount(id: any, count: any) {
-        this.productData.forEach((element: any, key: any) => {
+    increaseCount(catID: any, prodId: any, count: any) {
+
+        this.categoryData.forEach((element: any, key: any) => {
             console.log(element, 'key');
-            if (element.id == id) {
-                this.productData[key].product_count = count + 1;
+            if (element.id == catID) {
+                element.products.forEach((prod: any, key2: any) => {
+                    if (prodId == prod.id) {
+                        console.log(this.categoryData[key].products[key2]);
+                        this.categoryData[key].products[key2].product_count = count + 1;
+                    }
+                });
             }
         });
-        this.onSelectProduct(this.productData);
+        this.onSelectProduct(this.categoryData);
     }
 
     onTableChange(event: any) {
@@ -373,11 +399,13 @@ export class AddSaleComponent implements OnInit {
         this.addedProduct = [];
 
         data.forEach((element: any) => {
-            if (element.product_count > 0) {
-                element.subtotal = element.price * element.product_count;
-                element.quantity = element.product_count;
-                this.addedProduct.push(element);
-            }
+            element.products.forEach((prod: any) => {
+                if (prod.product_count > 0) {
+                    prod.subtotal = prod.price * prod.product_count;
+                    prod.quantity = prod.product_count;
+                    this.addedProduct.push(prod);
+                }
+            });
         });
 
         console.log(this.addedProduct, 'added');
@@ -411,7 +439,7 @@ export class AddSaleComponent implements OnInit {
         // }
         // console.log('Quantity', data.qty);
 
-        // this.productData.forEach((g: any) => {
+        // this.categoryData.forEach((g: any) => {
         //     // g.quantity = 0;
         //     // g.subtotal = 0;
         //     // console.log(g)
@@ -600,7 +628,7 @@ export class AddSaleComponent implements OnInit {
         }
     }
 
-    removeProduct(id: any) {
+    removeProduct(id: any, catId: any) {
         if (confirm('Are you sure you want to delete?')) {
             this.addedProduct = this.addedProduct.filter((item: any) => item.id !== id);
             // console.log('afterdelete', this.addedProduct);
@@ -613,7 +641,7 @@ export class AddSaleComponent implements OnInit {
             }
 
             console.log(this.addedProduct);
-            this.decreaseCount(id, 0);
+            this.decreaseCount(catId, id, 1);
             setTimeout(() => { this.onKey(this.shipping_charge) }, 500);
             setTimeout(() => { this.calculateTotal() }, 500);
             this.toast.success('Success', 'Product deleted successfully.');
