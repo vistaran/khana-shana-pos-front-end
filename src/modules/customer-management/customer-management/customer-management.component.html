@@ -20,7 +20,9 @@
             </div>
 
             <div class="col">
-                <select class="btn btn-outline-success" [(ngModel)]="pageSize"
+                <select class="inline-block align-middle text-center select-none border 
+                               font-normal whitespace-no-wrap rounded py-1.5 px-3 leading-normal no-underline
+                               text-dark border-slate-400" [(ngModel)]="pageSize"
                     (ngModelChange)="refreshItemsData($event)">
                     <option default value="{{100}}">100 items per page</option>
                     <option value="{{15}}">15 items per page</option>

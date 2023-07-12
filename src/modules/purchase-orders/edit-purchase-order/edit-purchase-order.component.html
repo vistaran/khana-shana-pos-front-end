@@ -3,7 +3,7 @@
         <h3 class="card-header bg-gradient text-white">Edit Purchase Order</h3>
         <form [formGroup]="editOrderForm">
             <div class="container-fluid">
-                <h4 class="card-header bg-light shadow mt-4 pb-2">General</h4>
+                <h4 class="card-header bg-light shadow mt-4 pb-2 font-size">General</h4>
                 <div class="row card-body">
 
                     <div class="col-sm-1 col-md-4">
@@ -17,7 +17,7 @@
                                     </option>
                                 </ng-container>
                             </select>
-                            <div *ngIf="vendor_id?.touched && vendor_id?.invalid" class="alert alert-danger">
+                            <div *ngIf="vendor_id?.touched && vendor_id?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                 <div *ngIf="vendor_id?.errors?.required">Vendor is required.</div>
                             </div>
                         </div>
@@ -35,7 +35,7 @@
                                     </option>
                                 </ng-container>
                             </select>
-                            <div *ngIf="outlet_id?.touched && outlet_id?.invalid" class="alert alert-danger">
+                            <div *ngIf="outlet_id?.touched && outlet_id?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                 <div *ngIf="outlet_id?.errors?.required">Outlet is required.</div>
                             </div>
                         </div>
@@ -68,7 +68,7 @@
                 </div>
 
 
-                <h4 class="card-header bg-light shadow mt-4 pb-2">Item Details</h4>
+                <h4 class="card-header bg-light shadow mt-4 pb-2 font-size">Item Details</h4>
 
                 <button type="button" class="btn btn-primary mt-4 me-2  mb-4 float-right"
                     (click)="openVerticallyCentered(content)" (click)="isInputShown=false;isInputShown2=false">Add
@@ -103,7 +103,7 @@
                                             </ng-container>
                                         </select>
                                         <div *ngIf="item_group_id?.touched && item_group_id?.invalid"
-                                            class="alert alert-danger">
+                                            class="alert alert-danger mt-1 py-1 px-3">
                                             <div *ngIf="item_group_id?.errors?.required">Item Group name is required.
                                             </div>
                                         </div>
@@ -127,7 +127,7 @@
                                                 </ng-option>
                                             </ng-container>
                                         </ng-select>
-                                        <div *ngIf="item_id?.touched && item_id?.invalid" class="alert alert-danger">
+                                        <div *ngIf="item_id?.touched && item_id?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                             <div *ngIf="item_id?.errors?.required">Item name is required.</div>
                                         </div>
                                     </div>
@@ -154,7 +154,7 @@
                                                     </ng-container>
                                                 </select> -->
                                             <div *ngIf="unit_id?.touched && unit_id?.invalid"
-                                                class="alert alert-danger">
+                                                class="alert alert-danger mt-1 py-1 px-3">
                                                 <div *ngIf="unit_id?.errors?.required">Unit name is required.</div>
                                             </div>
                                         </div>
@@ -165,7 +165,7 @@
                                             <label class="required">Quantity</label>
                                             <input type="number" formControlName="qty" class="form-control"
                                                 placeholder="Enter quantity" />
-                                            <div *ngIf="qty?.touched && qty?.invalid" class="alert alert-danger">
+                                            <div *ngIf="qty?.touched && qty?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                                 <div *ngIf="qty?.errors?.required">Quantity is required.
 
                                                 </div>
@@ -181,7 +181,7 @@
                                             <label class="required">Add a Note</label>
                                             <textarea type="text" placeholder="Add note" formControlName="notes"
                                                 class="form-control"></textarea>
-                                            <!-- <div *ngIf="notes?.touched && notes?.invalid" class="alert alert-danger">
+                                            <!-- <div *ngIf="notes?.touched && notes?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                     <div *ngIf="notes?.errors?.required">Note is required.</div>
                                 </div> -->
                                         </div>
@@ -192,7 +192,7 @@
                                             <label class="required">Price</label>
                                             <input type="number" formControlName="price" class="form-control"
                                                 placeholder="Enter price" />
-                                            <div *ngIf="price?.touched && price?.invalid" class="alert alert-danger">
+                                            <div *ngIf="price?.touched && price?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                                 <div *ngIf="price?.errors?.required">Price is required.
 
                                                 </div>
@@ -213,7 +213,7 @@
                 </ng-template>
 
                 <table class="table table-responsive-sm table-sm shadow">
-                    <thead class="head bg-dark text-white">
+                    <thead class="head bg-gradient text-white">
                         <th>Item Group</th>
                         <th>Item Name</th>
                         <th>Unit Name</th>
@@ -255,7 +255,7 @@
                                         [ngModelOptions]="{standalone: true}" (change)="onKey($event)">
                                 </div>
                                 <!-- <div *ngIf="shipping_charge?.touched && shipping_charge?.invalid"
-                                    class="alert alert-danger">
+                                    class="alert alert-danger mt-1 py-1 px-3">
                                     <div *ngIf="shipping_charge?.errors?.required">Shipping charge is required.</div>
                                 </div> -->
                             </td>
@@ -304,7 +304,7 @@
                                         </ng-container>
                                     </select>
                                     <div *ngIf="item_group_id2?.touched && item_group_id2?.invalid"
-                                        class="alert alert-danger">
+                                        class="alert alert-danger mt-1 py-1 px-3">
                                         <div *ngIf="item_group_id2?.errors?.required">Item Group name is required.
                                         </div>
                                     </div>
@@ -327,7 +327,7 @@
                                             </option>
                                         </ng-container>
                                     </select>
-                                    <div *ngIf="item_id?.touched && item_id?.invalid" class="alert alert-danger">
+                                    <div *ngIf="item_id?.touched && item_id?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                         <div *ngIf="item_id?.errors?.required">Item name is required.</div>
                                     </div>
                                 </div>
@@ -349,7 +349,7 @@
                                         <label class="required">Quantity</label>
                                         <input type="number" formControlName="qty" placeholder="Enter quantity"
                                             class="form-control" />
-                                        <div *ngIf="qty2?.touched && qty2?.invalid" class="alert alert-danger">
+                                        <div *ngIf="qty2?.touched && qty2?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                             <div *ngIf="qty2?.errors?.required">Quantity is required.
                                             </div>
                                         </div>
@@ -376,7 +376,7 @@
                                         <label class="required">Price</label>
                                         <input type="number" formControlName="price" placeholder="Enter price"
                                             class="form-control" />
-                                        <div *ngIf="price2?.touched && price2?.invalid" class="alert alert-danger">
+                                        <div *ngIf="price2?.touched && price2?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                             <div *ngIf="price2?.errors?.required">Price is required.
 
                                             </div>

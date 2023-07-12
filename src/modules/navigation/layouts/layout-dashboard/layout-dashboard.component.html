@@ -1,12 +1,15 @@
 <div class="bg-light">
     <span [ngClass]='{"sb-nav-fixed": !static}'><sb-top-nav></sb-top-nav>
-    <div id="layoutSidenav">
+     <div id="layoutSidenav">
         <div id="layoutSidenav_nav"><sb-side-nav [sidenavStyle]="sidenavStyle" [sideNavItems]="sideNavItems" [sideNavSections]="sideNavSections"></sb-side-nav></div>
-        <div id="layoutSidenav_content"  >
-            <main >
-                <div class="container-fluid"><ng-content></ng-content></div>
+        <div class="bg-slate-200">
+        <div id="layoutSidenav_content">
+            <main class="bg-slate-200" >
+                <div class="px-3 py-2"><ng-content></ng-content></div>
             </main>
             <sb-footer></sb-footer>
-        </div></div
-></span>
+        </div>
+
+     </div></div>
+    </span>
 </div>

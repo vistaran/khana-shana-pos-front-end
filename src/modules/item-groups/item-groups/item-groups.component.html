@@ -9,7 +9,7 @@
         <div class="d-flex justify-content-between mb-4 flex-flow">
 
             <div class="input-group rounded w-25">
-                <input class="form-control amber-border" class="form-control" type="text" aria-label="Search"
+                <input class="form-control rounded-ss-2xl amber-border" class="form-control" type="text" aria-label="Search"
                     (keyup)="search($event)" placeholder="Search" [(ngModel)]="searchValue">
                 <div class="input-group-append">
                     <button class="btn input-group-text bg-white text-dark amber lighten-3 form-control"
@@ -19,7 +19,9 @@
             </div>
 
             <div class="col">
-                <select class="btn btn-outline-success" [(ngModel)]="pageSize"
+                <select class="inline-block align-middle text-center select-none border 
+                               font-normal whitespace-no-wrap rounded py-1.5 px-3 leading-normal no-underline
+                               text-dark border-slate-400" [(ngModel)]="pageSize"
                     (ngModelChange)="refreshItemsData($event)">
                     <option default value="{{100}}">100 items per page</option>
                     <option value="{{15}}">15 items per page</option>

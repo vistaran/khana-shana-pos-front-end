@@ -1,1 +1,16 @@
 @import 'styles/variables.scss';
+
+@media (max-width: 2000px) {
+    .text {
+        font-size: 0.85rem !important;
+        line-height: 1rem !important;
+    }
+    
+  }
+@media (min-width: 1900px) {
+      .text {
+          font-size: 1.15rem !important;
+          line-height: 1.5rem !important;
+      }
+
+}

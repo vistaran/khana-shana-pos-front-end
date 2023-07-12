@@ -11,7 +11,7 @@
                             <label class="required">First Name</label>
                             <input type="text" placeholder="Enter First Name" formControlName="first_name"
                                 class="form-control" autofocus />
-                            <div *ngIf="firstname?.touched && firstname?.invalid" class="alert alert-danger">
+                            <div *ngIf="firstname?.touched && firstname?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                 <div *ngIf="firstname?.errors?.required">First Name is required.</div>
                             </div>
                         </div>
@@ -22,7 +22,7 @@
                             <label class="required">Last Name</label>
                             <input type="text" placeholder="Enter Last Name" formControlName="last_name"
                                 class="form-control" />
-                            <!-- <div *ngIf="lastname?.touched && lastname?.invalid" class="alert alert-danger">
+                            <!-- <div *ngIf="lastname?.touched && lastname?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                 <div *ngIf="lastname?.errors?.required">Last Name is required.</div>
                             </div> -->
                         </div>
@@ -33,7 +33,7 @@
                             <label class="required">Phone Number</label>
                             <input type="text" placeholder="Enter Phone Number" formControlName="phone_number"
                                 class="form-control" (keypress)="validateNumber($event)" maxlength="10"/>
-                            <div *ngIf="phone?.touched && phone?.invalid" class="alert alert-danger">
+                            <div *ngIf="phone?.touched && phone?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                 <div *ngIf="phone?.errors?.required">Phone Number is required.</div>
                                 <div *ngIf="phone?.errors?.maxlength && !phone?.errors?.pattern">Phone number must not
                                     exceed 10 digits</div>
@@ -53,7 +53,7 @@
 
                 </div>
 
-                <h4 class="card-header mt-4 mb-3 pb-2">Address</h4>
+                <h4 class="card-header mt-4 mb-3 pb-2 font-size">Address</h4>
 
                 <div class="d-flex flex-row-reverse mb-3">
                     <button type="button" class="btn btn-primary" (click)="openVerticallyCentered(content)">
@@ -88,7 +88,7 @@
                                             </ng-container>
                                         </select>
                                         <div *ngIf="address_type?.touched && address_type?.invalid"
-                                            class="alert alert-danger">
+                                            class="alert alert-danger mt-1 py-1 px-3">
                                             <div *ngIf="address_type?.errors?.required">Address type is required.</div>
                                         </div>
                                     </div>
@@ -102,7 +102,7 @@
                                         <input type="text" formControlName="address_line_1" class="form-control"
                                             placeholder="House no./name" />
                                         <div *ngIf="address_line_1?.touched && address_line_1?.invalid"
-                                            class="alert alert-danger">
+                                            class="alert alert-danger mt-1 py-1 px-3">
                                             <div *ngIf="address_line_1?.errors?.required">Address Line 1 is required.
                                             </div>
                                         </div>
@@ -115,7 +115,7 @@
                                         <input type="text" formControlName="address_line_2" class="form-control"
                                             placeholder="Street name/number" />
                                         <div *ngIf="address_line_2?.touched && address_line_2?.invalid"
-                                            class="alert alert-danger">
+                                            class="alert alert-danger mt-1 py-1 px-3">
                                             <div *ngIf="address_line_2?.errors?.required">Address Line 2 is required.
                                             </div>
                                         </div>
@@ -133,7 +133,7 @@
                                         <label class="required mt-4">Country</label>
                                         <input type="text" formControlName="contry" class="form-control"
                                             placeholder="Country" (keypress)="validateAlphabet($event)" />
-                                        <div *ngIf="contry?.touched && contry?.invalid" class="alert alert-danger">
+                                        <div *ngIf="contry?.touched && contry?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                             <div *ngIf="contry?.errors?.required">Country is required.</div>
                                         </div>
                                     </div>
@@ -144,7 +144,7 @@
                                         <label class="required mt-4">Landmark</label>
                                         <input type="text" formControlName="landmark" class="form-control"
                                             placeholder="Landmark(optional)" />
-                                         <div *ngIf="address_line_1?.touched && address_line_1?.invalid" class="alert alert-danger">
+                                         <div *ngIf="address_line_1?.touched && address_line_1?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                         <div *ngIf="address_line_1?.errors?.required">Group Name is required.</div>
                                     </div>
                                     </div>
@@ -155,7 +155,7 @@
                                         <label class="required mt-4">State</label>
                                         <input type="text" formControlName="state" class="form-control"
                                             placeholder="State" (keypress)="validateAlphabet($event)" />
-                                        <div *ngIf="state?.touched && state?.invalid" class="alert alert-danger">
+                                        <div *ngIf="state?.touched && state?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                             <div *ngIf="state?.errors?.required">State is required.</div>
                                         </div>
                                     </div>
@@ -166,7 +166,7 @@
                                         <label class="required mt-4">City</label>
                                         <input type="text" formControlName="city" class="form-control"
                                             placeholder="City" (keypress)="validateAlphabet($event)" />
-                                        <div *ngIf="city?.touched && city?.invalid" class="alert alert-danger">
+                                        <div *ngIf="city?.touched && city?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                             <div *ngIf="city?.errors?.required">City is required.</div>
                                         </div>
                                     </div>
@@ -181,7 +181,7 @@
                                         <label class="required mt-4">Landmark</label>
                                         <input type="text" formControlName="address_line_3" class="form-control"
                                             placeholder="Landmark" />
-                                        <!-- <div *ngIf="address_line_1?.touched && address_line_1?.invalid" class="alert alert-danger">
+                                        <!-- <div *ngIf="address_line_1?.touched && address_line_1?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                         <div *ngIf="address_line_1?.errors?.required">Group Name is required.</div>
                                     </div> -->
                                     </div>
@@ -193,13 +193,13 @@
                                         <input type="text" formControlName="postalcode" class="form-control"
                                             placeholder="Pin code" (keypress)="validateNumber($event)" maxlength="6"/>
                                         <div *ngIf="postalcode?.touched && postalcode?.invalid">
-                                            <div *ngIf="postalcode?.errors?.required" class="alert alert-danger">Pin
+                                            <div *ngIf="postalcode?.errors?.required" class="alert alert-danger mt-1 py-1 px-3">Pin
                                                 code is required.</div>
-                                            <div *ngIf="postalcode?.errors?.minlength" class="alert alert-danger">
+                                            <div *ngIf="postalcode?.errors?.minlength" class="alert alert-danger mt-1 py-1 px-3">
                                                 Pin code
                                                 must contain atleast 5 digits.
                                             </div>
-                                            <div *ngIf="postalcode?.errors?.maxlength" class="alert alert-danger">
+                                            <div *ngIf="postalcode?.errors?.maxlength" class="alert alert-danger mt-1 py-1 px-3">
                                                 Pin code
                                                 must not exceed 6 digits.
                                             </div>
@@ -212,7 +212,7 @@
                                         <label class="required mt-4">Latitude</label>
                                         <input type="text" formControlName="latitude" class="form-control"
                                             placeholder="Latitude" />
-                                        <!-- <div *ngIf="address_line_1?.touched && address_line_1?.invalid" class="alert alert-danger">
+                                        <!-- <div *ngIf="address_line_1?.touched && address_line_1?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                         <div *ngIf="address_line_1?.errors?.required">Group Name is required.</div>
                                     </div> -->
                                     </div>
@@ -223,7 +223,7 @@
                                         <label class="required mt-4">Longitude</label>
                                         <input type="text" formControlName="longitude" class="form-control"
                                             placeholder="Longitude" />
-                                        <!-- <div *ngIf="address_line_1?.touched && address_line_1?.invalid" class="alert alert-danger">
+                                        <!-- <div *ngIf="address_line_1?.touched && address_line_1?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                         <div *ngIf="address_line_1?.errors?.required">Group Name is required.</div>
                                     </div> -->
                                     </div>
@@ -313,7 +313,7 @@
                                         </ng-container>
                                     </select>
                                     <div *ngIf="addressType_edit?.touched && addressType_edit?.invalid"
-                                        class="alert alert-danger">
+                                        class="alert alert-danger mt-1 py-1 px-3">
                                         <div *ngIf="addressType_edit?.errors?.required">Address type is required.</div>
                                     </div>
                                 </div>
@@ -326,7 +326,7 @@
                                         <input type="text" formControlName="address_line_1" class="form-control"
                                             placeholder="House no./name" />
                                         <div *ngIf="address_line_1_edit?.touched && address_line_1_edit?.invalid"
-                                            class="alert alert-danger">
+                                            class="alert alert-danger mt-1 py-1 px-3">
                                             <div *ngIf="address_line_1_edit?.errors?.required">Address Line 1 is
                                                 required.</div>
                                         </div>
@@ -339,7 +339,7 @@
                                         <input type="text" formControlName="address_line_2" class="form-control"
                                             placeholder="Street name/number" />
                                         <div *ngIf="address_line_2_edit?.touched && address_line_2_edit?.invalid"
-                                            class="alert alert-danger">
+                                            class="alert alert-danger mt-1 py-1 px-3">
                                             <div *ngIf="address_line_2_edit?.errors?.required">Address Line 2 is
                                                 required.</div>
                                         </div>
@@ -358,7 +358,7 @@
                                         <input type="text" formControlName="contry" class="form-control"
                                             placeholder="Country" (keypress)="validateAlphabet($event)" />
                                         <div *ngIf="contry_edit?.touched && contry_edit?.invalid"
-                                            class="alert alert-danger">
+                                            class="alert alert-danger mt-1 py-1 px-3">
                                             <div *ngIf="contry_edit?.errors?.required">Country is required.</div>
                                         </div>
                                     </div>
@@ -369,7 +369,7 @@
                                         <label class="required mt-4">Landmark</label>
                                         <input type="text" formControlName="landmark" class="form-control"
                                             placeholder="Landmark(optional)" />
-                                         <div *ngIf="address_line_1?.touched && address_line_1?.invalid" class="alert alert-danger">
+                                         <div *ngIf="address_line_1?.touched && address_line_1?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                     <div *ngIf="address_line_1?.errors?.required">Group Name is required.</div>
                                 </div>
                                     </div>
@@ -382,7 +382,7 @@
                                         <input type="text" formControlName="state" class="form-control"
                                             placeholder="State" (keypress)="validateAlphabet($event)" />
                                         <div *ngIf="state_edit?.touched && state_edit?.invalid"
-                                            class="alert alert-danger">
+                                            class="alert alert-danger mt-1 py-1 px-3">
                                             <div *ngIf="state_edit?.errors?.required">State is required.</div>
                                         </div>
                                     </div>
@@ -394,7 +394,7 @@
                                         <input type="text" formControlName="city" class="form-control"
                                             placeholder="City" (keypress)="validateAlphabet($event)" />
                                         <div *ngIf="city_edit?.touched && city_edit?.invalid"
-                                            class="alert alert-danger">
+                                            class="alert alert-danger mt-1 py-1 px-3">
                                             <div *ngIf="city_edit?.errors?.required">City is required.</div>
                                         </div>
                                     </div>
@@ -408,7 +408,7 @@
                                         <label class="required mt-4">Landmark</label>
                                         <input type="text" formControlName="address_line_3" class="form-control"
                                             placeholder="Landmark" />
-                                        <!-- <div *ngIf="address_line_1?.touched && address_line_1?.invalid" class="alert alert-danger">
+                                        <!-- <div *ngIf="address_line_1?.touched && address_line_1?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                     <div *ngIf="address_line_1?.errors?.required">Group Name is required.</div>
                                 </div> -->
                                     </div>
@@ -420,13 +420,13 @@
                                         <input type="text" formControlName="postalcode" class="form-control"
                                             placeholder="Pin code" (keypress)="validateNumber($event)" maxlength="6"/>
                                         <div *ngIf="postalcode_edit?.touched && postalcode_edit?.invalid">
-                                            <div *ngIf="postalcode_edit?.errors?.required" class="alert alert-danger">
+                                            <div *ngIf="postalcode_edit?.errors?.required" class="alert alert-danger mt-1 py-1 px-3">
                                                 Pin Code is required.</div>
-                                            <div *ngIf="postalcode_edit?.errors?.minlength" class="alert alert-danger">
+                                            <div *ngIf="postalcode_edit?.errors?.minlength" class="alert alert-danger mt-1 py-1 px-3">
                                                 Pin code
                                                 must contain atleast 5 digits.
                                             </div>
-                                            <div *ngIf="postalcode_edit?.errors?.maxlength" class="alert alert-danger">
+                                            <div *ngIf="postalcode_edit?.errors?.maxlength" class="alert alert-danger mt-1 py-1 px-3">
                                                 Pin code
                                                 must not exceed 6 digits.
                                             </div>
@@ -439,7 +439,7 @@
                                         <label class="required mt-4">Latitude</label>
                                         <input type="text" formControlName="latitude" class="form-control"
                                             placeholder="Latitude" />
-                                        <!-- <div *ngIf="address_line_1?.touched && address_line_1?.invalid" class="alert alert-danger">
+                                        <!-- <div *ngIf="address_line_1?.touched && address_line_1?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                     <div *ngIf="address_line_1?.errors?.required">Group Name is required.</div>
                                 </div> -->
                                     </div>
@@ -450,7 +450,7 @@
                                         <label class="required mt-4">Longitude</label>
                                         <input type="text" formControlName="longitude" class="form-control"
                                             placeholder="Longitude" />
-                                        <!-- <div *ngIf="address_line_1?.touched && address_line_1?.invalid" class="alert alert-danger">
+                                        <!-- <div *ngIf="address_line_1?.touched && address_line_1?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                     <div *ngIf="address_line_1?.errors?.required">Group Name is required.</div>
                                 </div> -->
                                     </div>
@@ -473,7 +473,7 @@
                         <div class="form-group">
                             <label class="required">Home Address</label>
                             <input type="text" formControlName="home_address" class="form-control" />
-                            <div *ngIf="homeAddress?.touched && homeAddress?.invalid" class="alert alert-danger">
+                            <div *ngIf="homeAddress?.touched && homeAddress?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                 <div *ngIf="homeAddress?.errors?.required">Home Address is required.</div>
                             </div>
                         </div>
@@ -483,7 +483,7 @@
                         <div class="form-group">
                             <label class="required">Office Address</label>
                             <input type="text" formControlName="office_address" class="form-control" />
-                            <div *ngIf="officeAddress?.touched && officeAddress?.invalid" class="alert alert-danger">
+                            <div *ngIf="officeAddress?.touched && officeAddress?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                 <div *ngIf="officeAddress?.errors?.required">Office Address is required.</div>
                             </div>
                         </div>
