@@ -93,19 +93,19 @@ export class AddCategoryComponent implements OnInit {
   ngOnInit(): void {
     this.addCategoryForm = this.fb.group({
       name: ['', [Validators.required]],
-      visible_in_menu: [0, [Validators.required]],
-      position: ['', [Validators.required]],
-      display_mode: [0, [Validators.required]],
-      decription: [''],
+    //   visible_in_menu: [0, [Validators.required]],
+    //   position: ['', [Validators.required]],
+    //   display_mode: [0, [Validators.required]],
+    //   decription: [''],
     //   attri: [0, [Validators.required]],
-      image: ['', [Validators.required]],
-      category_logo: ['', [Validators.required]],
+    //   image: ['', [Validators.required]],
+    //   category_logo: ['', [Validators.required]],
       // parent_category: [''],
     //   meta_title: ['', [Validators.required]],
     //   slug: ['', [Validators.required]],
     //   meta_description: [''],
     //   meta_keyword: ['', [Validators.required]],
-      status: [0, [Validators.required]],
+    //   status: [0, [Validators.required]],
       // number_of_products: ['', [Validators.required]]
     });
     // this.getParentCategrory()
