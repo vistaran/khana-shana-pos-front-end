@@ -8,7 +8,7 @@
         <!-- search button -->
         <div class="d-flex justify-content-between mb-4 flex-flow">
 
-            <div class="input-group rounded w-25">
+            <div class="input-group rounded w-25 w-full">
                 <input class="form-control rounded-ss-2xl amber-border" class="form-control" type="text" aria-label="Search"
                     (keyup)="search($event)" placeholder="Search" [(ngModel)]="searchValue">
                 <div class="input-group-append">
@@ -18,7 +18,7 @@
                 </div>
             </div>
 
-            <div class="col">
+            <div class=" col-sm col-lg px-lg-1 p-0">
                 <select class="inline-block align-middle text-center select-none border 
                                font-normal whitespace-no-wrap rounded py-1.5 px-3 leading-normal no-underline
                                text-dark border-slate-400" [(ngModel)]="pageSize"
@@ -30,8 +30,8 @@
                 </select>
             </div>
 
-            <button (click)="onClick()" class="btn btn-primary float-right">
-                Add Item Group
+            <button (click)="onClick()" class="btn btn-primary float-right font-weight-bold ">
+                <i class="fa-solid fa-plus mr-1"></i>Add Item Group
             </button>
 
         </div>
