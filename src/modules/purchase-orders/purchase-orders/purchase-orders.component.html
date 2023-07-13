@@ -1,5 +1,5 @@
 <sb-layout-dashboard>
-    <div class="col">
+    <!-- <div class="col"> -->
         <!-- <ul ngbNav #nav="ngbNav" class="nav-tabs mt-5 font-weight-bold">
                 <li ngbNavItem>
                     <a ngbNavLink>Orders</a> -->
@@ -8,7 +8,7 @@
         <!-- search button -->
         <div class="d-flex justify-content-between mb-4 flex-flow">
 
-            <div class="input-group rounded w-25">
+            <div class="input-group rounded w-25 w-full">
                 <input class="form-control amber-border" class="form-control" type="text" aria-label="Search"
                     (keyup)="search()" placeholder="Search" [(ngModel)]="searchValue">
                 <div class="input-group-append">
@@ -17,13 +17,13 @@
                 </div>
             </div>
 
-            <button (click)="onClick()" class="btn btn-primary float-right">
-                Add Purchase Order
+            <button (click)="onClick()" class="btn btn-primary float-right font-weight-bold">
+                <i class="fa-solid fa-plus mr-1"></i>Add Purchase Order
             </button>
 
         </div>
 
-        <table class="table table-responsive-sm     shadow">
+        <table class="table table-responsive-sm shadow">
             <thead class="head bg-gradient text-white">
                 <th>Order Id</th>
                 <th>Vendor</th>
@@ -71,7 +71,7 @@
         <div class="justify-content-between row">
             <div class="col">
                 <ngb-pagination (pageChange)="onPageChange($event)" [(page)]="page" [pageSize]="pageSize"
-                    [collectionSize]="total" [boundaryLinks]="true" [maxSize]="3">
+                    [collectionSize]="total" [boundaryLinks]="true" [maxSize]="3" [ellipses]="true">
                 </ngb-pagination>
             </div>
         </div>
@@ -79,7 +79,7 @@
         <!-- </li>
             </ul>
             <div [ngbNavOutlet]="nav"></div> -->
-    </div>
+    <!-- </div> -->
 
     <ng-template #content let-modal>
         <div class="modal-header bg-primary">

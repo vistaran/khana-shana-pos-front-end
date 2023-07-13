@@ -10,6 +10,7 @@ import {
 import { sideNavItems, sideNavSections } from '@modules/navigation/data';
 import { NavigationService } from '@modules/navigation/services';
 import { Subscription } from 'rxjs';
+// declare var $ : any;
 
 @Component({
     selector: 'sb-layout-dashboard',
@@ -40,6 +41,11 @@ export class LayoutDashboardComponent implements OnInit, OnDestroy {
                 this.changeDetectorRef.markForCheck();
             })
         );
+
+        // $("#layoutSidenav_content").click(function () {
+        //     debugger;
+        //     // this.navigationService.toggleSideNav();
+        //   });
     }
     ngOnDestroy() {
         this.subscription.unsubscribe();

@@ -5,6 +5,7 @@ import { filter } from 'rxjs/operators';
 
 import { SBRouteData } from '../models';
 
+
 @Injectable()
 export class NavigationService {
     _sideNavVisible$ = new BehaviorSubject(true);
@@ -23,15 +24,21 @@ export class NavigationService {
                 this._currentURL$.next(router.url);
             });
     }
+ 
+
+    
 
     sideNavVisible$(): Observable<boolean> {
         return this._sideNavVisible$;
     }
 
     toggleSideNav(visibility?: boolean) {
+       // debugger;
         if (typeof visibility !== 'undefined') {
+          //  debugger;
             this._sideNavVisible$.next(visibility);
         } else {
+           // debugger;
             this._sideNavVisible$.next(!this._sideNavVisible$.value);
         }
     }
@@ -43,4 +50,6 @@ export class NavigationService {
     currentURL$(): Observable<string> {
         return this._currentURL$;
     }
+
+   
 }
