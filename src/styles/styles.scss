@@ -125,8 +125,11 @@ ngb-accordion .card .card-header .btn-link {
         flex-flow: row wrap;
     }
 
-    .w-25 {
-        width: 35% !important;
+    .w-full {
+        width: 100% !important;
+    }
+    .page-link{
+        padding: 0.3rem 0.55rem !important;
     }
 }
 
