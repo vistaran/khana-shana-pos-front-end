@@ -15,6 +15,8 @@ export class ProductsComponent implements OnInit {
     public productData: any = [];
     public length = 0;
     public total = 5;
+    menuData: any = [];
+    activeIds: any = [];
 
 
     page = 1;
@@ -38,27 +40,48 @@ export class ProductsComponent implements OnInit {
 
     ngOnInit() {
 
-        this.getProductData();
+        // this.getProductData();
         // this.generateQrCode();
+        this.getMenuData();
     }
 
     // To get products data for table listing
-    getProductData() {
-        this.showloader = true
-        this.productService.getProducts(this.page).subscribe({
-            next: result => {
-                this.productData = result.products.data;
-                this.length = this.productData.length;
-                this.total = result.products.total;
-                this.showloader = false
-                console.log(this.length)
-            }, error: err => {
-                this.showloader = false
-                this.toast.error('Error', 'Server error.')
+    // getProductData() {
+    //     this.showloader = true
+    //     this.productService.getProducts(this.page).subscribe({
+    //         next: result => {
+    //             this.productData = result.products.data;
+    //             this.length = this.productData.length;
+    //             this.total = result.products.total;
+    //             this.showloader = false
+    //             console.log(this.length)
+    //         }, error: err => {
+    //             this.showloader = false
+    //             this.toast.error('Error', 'Server error.')
+    //         }
+    //     })
+    // }
+    // getMenuData() {
+    //     this.productService.getProducts(this.page).subscribe((data: any) => {
+    //         console.log(data, 'menudata');
+    //         this.menuData = data.data;
+
+    //         for (let i = 0; i < this.menuData.length; i++) {
+    //             this.activeIds.push("ngb-panel-" + i);
+    //         }
+    //     })
+    // }
+
+    getMenuData() {
+        this.qrCodeService.getMenuData().subscribe((data: any) => {
+            console.log(data, 'menudata');
+            this.menuData = data.qrcode_data;
+
+            for (let i = 0; i < this.menuData.length; i++) {
+                this.activeIds.push("ngb-panel-" + i);
             }
         })
     }
-
     // For navigating to add product form on click
     onClick() {
         this.router.navigate(['/catalog/addproduct']);
@@ -67,7 +90,7 @@ export class ProductsComponent implements OnInit {
     // For updating data on page change
     onPageChange(event: any) {
         this.page = event;
-        this.getProductData();
+        this.getMenuData();
         console.log('Here >>>', this.page, this.productData);
     }
 
@@ -76,7 +99,7 @@ export class ProductsComponent implements OnInit {
         if (confirm('Are you sure you want to delete?')) {
             this.productService.deleteProducts(id).subscribe({
                 next: data => {
-                    this.getProductData();
+                    this.getMenuData();
                     this.toast.success('Success', 'Product Deleted Successfully.')
                 }, error: err => {
                     this.toast.error('Error', 'Server error.')

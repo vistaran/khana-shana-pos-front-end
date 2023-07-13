@@ -66,9 +66,12 @@ export class TableManagementComponent implements OnInit {
         }
     }
 
-    goToOrder(is_occupied: any, table_number: any) {
+    goToOrder(is_occupied: any, table_number: any, order_id: any) {
         if (is_occupied) {
             // this.router.navigate(['/sales/add_sale']);
+            if (order_id) {
+                this.router.navigate(['/sales/edit_sale/' + order_id, { queryParams: { table_number: table_number } }])
+            }
         } else {
             this.router.navigate(['/sales/add_sale', { queryParams: { table_number: table_number } }]);
         }
