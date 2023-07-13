@@ -33,12 +33,13 @@ export class NavigationService {
     }
 
     toggleSideNav(visibility?: boolean) {
-       // debugger;
-        if (typeof visibility !== 'undefined') {
-          //  debugger;
+        if(visibility == false){
+            this._sideNavVisible$.next(true);
+        }
+        else if (typeof visibility !== 'undefined') {
             this._sideNavVisible$.next(visibility);
-        } else {
-           // debugger;
+        }        
+        else {
             this._sideNavVisible$.next(!this._sideNavVisible$.value);
         }
     }

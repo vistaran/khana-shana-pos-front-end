@@ -13,7 +13,6 @@ export class TopNavComponent implements OnInit {
 
     ) {}
     toggleSideNav() {
-        // debugger;
         this.navigationService.toggleSideNav();
     }
 }
