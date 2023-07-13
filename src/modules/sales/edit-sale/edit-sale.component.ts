@@ -417,12 +417,22 @@ export class EditSaleComponent implements OnInit {
         this.addedProduct = [];
 
         data.forEach((element: any) => {
-            if (element.product_count > 0) {
-                element.subtotal = element.price * element.product_count;
-                element.quantity = element.product_count;
-                this.addedProduct.push(element);
-            }
+            element.products.forEach((prod: any) => {
+                if (prod.product_count > 0) {
+                    prod.subtotal = prod.price * prod.product_count;
+                    prod.quantity = prod.product_count;
+                    this.addedProduct.push(prod);
+                }
+            });
         });
+
+        // data.forEach((element: any) => {
+        //     if (element.product_count > 0) {
+        //         element.subtotal = element.price * element.product_count;
+        //         element.quantity = element.product_count;
+        //         this.addedProduct.push(element);
+        //     }
+        // });
         // this.addedProduct.forEach((g: any) => {
         //     if (data.product_name == g.product_name) {
         //         invalid = true
@@ -654,7 +664,7 @@ export class EditSaleComponent implements OnInit {
                 total += ele.subtotal;
             })
             if (total <= charges) {
-                alert('Shipping Charges cannot be greater than or equal to the total amount!');
+                // alert('Shipping Charges cannot be greater than or equal to the total amount!');
                 this.shipping_charge = 0;
                 this.total = total;
                 showShipping = false;
@@ -664,7 +674,7 @@ export class EditSaleComponent implements OnInit {
             }
         }
         else {
-            alert('Please add atleast one item to input shipping charges!');
+            // alert('Please add atleast one item to input shipping charges!');
             this.shipping_charge = 0;
             return;
         }
