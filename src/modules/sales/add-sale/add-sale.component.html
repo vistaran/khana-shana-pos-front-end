@@ -36,7 +36,7 @@
                             (click)="modal.dismiss('Cross click')" (click)="selectCustomerClose()">
                         </i> -->
                         <button type="button" class="btn-close" aria-label="Close" (click)="selectCustomerClose()">
-                            <i  class="fas fa-xmark fa-xl" ></i>
+                            <i class="fas fa-xmark fa-xl"></i>
                         </button>
                     </div>
 
@@ -81,8 +81,8 @@
                         <!-- <i type="button" class="fas fa-xmark fa-xl" aria-label="Close"
                             (click)="modal.dismiss('Cross click')" (click)="addCustomerClose()">
                         </i> -->
-                        <button type="button" class="btn-close" aria-label="Close" (click)="addCustomerClose()" >
-                            <i  class="fas fa-xmark fa-xl" ></i>
+                        <button type="button" class="btn-close" aria-label="Close" (click)="addCustomerClose()">
+                            <i class="fas fa-xmark fa-xl"></i>
                         </button>
                     </div>
 
@@ -150,6 +150,22 @@
 
                         <div class=" " *ngIf="showProducts">
                             <!-- <div class="col-md-12 mb-3 col-12" *ngFor="let data of categoryData"> -->
+                            <form>
+                                <div class="mb-4">
+                                    <div class="input-group rounded w-full">
+                                        <input class="form-control amber-border" class="form-control" type="text"
+                                            aria-label="Search" (keyup)="search($event)" placeholder="Search"
+                                            [(ngModel)]="searchValue">
+                                        <div class="input-group-append">
+                                            <button
+                                                class="btn input-group-text bg-white text-dark amber lighten-3 form-control"
+                                                id="basic-text1">
+                                                <i class="fa fa-search" aria-hidden="true" (click)="search($event)"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                             <div ngbAccordion *ngIf="showProducts">
                                 <div ngbAccordionItem [collapsed]="false"
                                     *ngFor="let category of categoryData; let i= index" id="ngb-panel-{{i}}">

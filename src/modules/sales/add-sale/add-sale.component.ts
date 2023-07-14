@@ -262,6 +262,30 @@ export class AddSaleComponent implements OnInit {
         });
     }
 
+    search(event: any) {
+        this.showloader = true
+
+        // this.filteredData = this.rowData.filter((item: templogRecord) => {
+        //     return item.sensor.toLowerCase().includes(searchValue.toLowerCase());
+        //   });
+        console.log(this.searchValue);
+
+        this.productService.searchProducts(this.searchValue).subscribe({
+            next: (res: any) => {
+                this.categoryData = res.data;
+
+                for (let i = 0; i < this.categoryData.length; i++) {
+                    this.activeIds.push("ngb-panel-" + i);
+                }
+
+                this.showloader = false
+            }, error: err => {
+                this.toast.error('Error', 'Server error.')
+                this.showloader = false
+            }
+        });
+    }
+
     getTableData() {
         this.TableManagementService.getTableManagementData().subscribe((data: any) => {
             console.log('table0', data);
@@ -366,7 +390,7 @@ export class AddSaleComponent implements OnInit {
     }
 
     selectCustomerClose() {
-              
+
         this.customerForm = this.fb.group({
             customer_id: [null, [Validators.required]]
         });
@@ -380,7 +404,7 @@ export class AddSaleComponent implements OnInit {
     }
 
     addCustomerClose() {
-        
+
         this.addCustomerForm = this.fb.group({
             first_name: ['', [Validators.required]],
             last_name: ['', [Validators.required]],
