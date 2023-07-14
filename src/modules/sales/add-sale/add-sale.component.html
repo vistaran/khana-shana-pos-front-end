@@ -32,9 +32,12 @@
 
                     <div class="modal-header bg-primary align-items-center text-light">
                         <h4 class="text-light modal-title">Select Customer</h4>
-                        <i type="button" class="fas fa-xmark fa-xl" aria-label="Close"
+                        <!-- <i type="button" class="fas fa-xmark fa-xl" aria-label="Close"
                             (click)="modal.dismiss('Cross click')" (click)="selectCustomerClose()">
-                        </i>
+                        </i> -->
+                        <button type="button" class="btn-close" aria-label="Close" (click)="selectCustomerClose()">
+                            <i  class="fas fa-xmark fa-xl" ></i>
+                        </button>
                     </div>
 
                     <div class="modal-body">
@@ -75,9 +78,12 @@
 
                     <div class="modal-header bg-primary align-items-center text-light">
                         <h4 class=" modal-title">Add Customer</h4>
-                        <i type="button" class="fas fa-xmark fa-xl" aria-label="Close"
+                        <!-- <i type="button" class="fas fa-xmark fa-xl" aria-label="Close"
                             (click)="modal.dismiss('Cross click')" (click)="addCustomerClose()">
-                        </i>
+                        </i> -->
+                        <button type="button" class="btn-close" aria-label="Close" (click)="addCustomerClose()" >
+                            <i  class="fas fa-xmark fa-xl" ></i>
+                        </button>
                     </div>
 
                     <form [formGroup]="addCustomerForm" (ngSubmit)="onSubmitCustomer(addCustomerForm.value)">
