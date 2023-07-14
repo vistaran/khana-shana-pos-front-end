@@ -9,7 +9,8 @@ import {
 } from '@angular/core';
 import { sideNavItems, sideNavSections } from '@modules/navigation/data';
 import { NavigationService } from '@modules/navigation/services';
-import { Subscription } from 'rxjs';
+import { Subscription, BehaviorSubject } from 'rxjs';
+declare var $ : any;
 
 @Component({
     selector: 'sb-layout-dashboard',
@@ -25,6 +26,7 @@ export class LayoutDashboardComponent implements OnInit, OnDestroy {
     sideNavItems = sideNavItems;
     sideNavSections = sideNavSections;
     sidenavStyle = 'sb-sidenav-dark';
+    _sideNavVisible$ = new BehaviorSubject(false);
 
     constructor(
         public navigationService: NavigationService,
@@ -40,6 +42,22 @@ export class LayoutDashboardComponent implements OnInit, OnDestroy {
                 this.changeDetectorRef.markForCheck();
             })
         );
+        
+        
+
+        const component = this;
+        $("#layoutSidenav_content").click(function () {
+            var ww = document.body.clientWidth;
+        if (ww < 600) {
+          $('#layoutSidenav_content').addClass('blue');
+        } else if (ww >= 601) {
+          $('#layoutSidenav_content').removeClass('blue');
+        };
+            if(component._sideNavVisible$.value == false && $("#layoutSidenav_content").hasClass("blue") == true){
+                component.navigationService.toggleSideNav(component._sideNavVisible$.value);
+            }
+            
+        });
     }
     ngOnDestroy() {
         this.subscription.unsubscribe();
