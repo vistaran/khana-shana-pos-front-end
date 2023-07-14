@@ -13,6 +13,7 @@ export class AddTableComponent implements OnInit {
 
     addTableForm!: FormGroup
     showValidations = false;
+    
 
     get table_name() {
         return this.addTableForm.get('table_name');
@@ -39,12 +40,13 @@ export class AddTableComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
+        
         this.addTableForm = this.fb.group({
             table_number: ['', [Validators.required]],
             seats_available: [0],
             table_name: ['', [Validators.required]],
-            table_occupied: [null, [Validators.required]],
-            table_active: [null, [Validators.required]]
+            table_occupied: ['0', [Validators.required]],
+            table_active: ['1', [Validators.required]]
         });
 
     }

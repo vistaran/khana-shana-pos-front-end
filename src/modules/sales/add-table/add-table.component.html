@@ -42,12 +42,14 @@
                             <div class="form-group required">
                                 <label class="required">Is table Occupied</label>
                                 <div class="align-items-center">
-                                    <input type="radio" formControlName="table_occupied" class="mr-1" id="occ_yes"
+                                    <input type="radio" formControlName="table_occupied" class="mr-1" id="1"
                                         name="table_occupied" value="1" />
-                                    <label for="occ_yes" class="mr-3 mb-0">Yes</label>
-                                    <input type="radio" formControlName="table_occupied" class="mr-1" id="occ_no"
+                                    <label for="1" class="mr-3 mb-0">Yes</label>
+                                    <input type="radio" formControlName="table_occupied" class="mr-1" id="0"
                                         name="table_occupied" value="0" />
-                                    <label for="occ_no" class="mb-0">No</label>
+                                    <label for="0" class="mb-0">No</label>
+
+                                   
                                     <div
                                         *ngIf="is_table_occupied?.touched && is_table_occupied?.invalid || showValidations">
                                         <div class="alert alert-danger mt-1 py-1 px-3" *ngIf="is_table_occupied?.errors?.required">This
@@ -62,12 +64,12 @@
                             <div class="form-group required ">
                                 <label class="required">Is table active</label>
                                 <div class="align-items-center">
-                                    <input type="radio" formControlName="table_active" class="mr-1" id="act_yes"
+                                    <input type="radio" formControlName="table_active" class="mr-1" id="1"
                                         name="table_active" value="1" />
-                                    <label for="act_yes" class="mr-3 mb-0">Yes</label>
-                                    <input type="radio" formControlName="table_active" class="mr-1" id="act_no"
+                                    <label for="1" class="mr-3 mb-0">Yes</label>
+                                    <input type="radio" formControlName="table_active" class="mr-1" id="0"
                                         name="table_active" value="0" />
-                                    <label for="act_no" class="mb-0">No</label>
+                                    <label for="0" class="mb-0">No</label>
                                     <div
                                         *ngIf="is_table_active?.touched && is_table_active?.invalid || showValidations">
                                         <div class="alert alert-danger mt-1 py-1 px-3" *ngIf="is_table_active?.errors?.required">This

@@ -366,9 +366,11 @@ export class AddSaleComponent implements OnInit {
     }
 
     selectCustomerClose() {
+              
         this.customerForm = this.fb.group({
             customer_id: [null, [Validators.required]]
-        })
+        });
+        this.modalService.dismissAll();
     }
 
     qtyClose() {
@@ -378,11 +380,13 @@ export class AddSaleComponent implements OnInit {
     }
 
     addCustomerClose() {
+        
         this.addCustomerForm = this.fb.group({
             first_name: ['', [Validators.required]],
             last_name: ['', [Validators.required]],
             phone_number: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]]
-        })
+        });
+        this.modalService.dismissAll();
     }
 
     onSelectDate(date: any) {

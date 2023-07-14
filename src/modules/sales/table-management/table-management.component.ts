@@ -29,6 +29,7 @@ export class TableManagementComponent implements OnInit {
     }
 
     onClick() {
+        
         this.router.navigate(['sales/add_table']);
     }
 
