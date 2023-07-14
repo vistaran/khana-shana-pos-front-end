@@ -20,7 +20,7 @@
                         </div>
 
                         <div class="col-sm-12 col-md-6">
-                            <div class="form-group required">
+                            <div class="form-group">
                                 <label class="">Seats available</label>
                                 <input type="number" formControlName="seats_availables_ava"
                                     placeholder="Seats available" maxlength="35" class="form-control" />
@@ -28,14 +28,14 @@
                         </div>
 
                         <div class="col-sm-12 col-md-6">
-                            <div class="form-group required">
-                                <label class="required">Table name</label>
+                            <div class="form-group">
+                                <label class="">Table name</label>
                                 <input type="text" formControlName="table_name" placeholder="Table name" maxlength="35"
                                     class="form-control" />
-                                <div *ngIf="table_name?.touched && table_name?.invalid || showValidations">
+                                <!-- <div *ngIf="table_name?.touched && table_name?.invalid || showValidations">
                                     <div class="alert alert-danger mt-1 py-1 px-3" *ngIf="table_name?.errors?.required">Table Name is
                                         required.</div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-6">
