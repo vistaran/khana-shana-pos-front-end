@@ -46,4 +46,9 @@ export class UserDataService {
   editUserForm<FetchUser>(id: number) {
     return this.http.get<FetchUser>(this.url + 'show/' + id)
   }
+
+  // For getting Shop Details
+  getshopDetails()  {
+   return this.http.get (this.url + 'shopDetails');
+  }
 }
