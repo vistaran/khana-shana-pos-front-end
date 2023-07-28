@@ -43,8 +43,8 @@
             </thead>
             <tbody *ngIf="!showloader">
 
-                <tr *ngFor="let data of itemGroupsData">
-                    <td>{{ data.id }}</td>
+                <tr *ngFor="let data of itemGroupsData; let i = index">
+                    <td>{{ (i+1) }}</td>
                     <td>{{ data.group_name }}</td>
                     <td class="d-flex">
                         <button ngbTooltip="Edit" class="btn btn-info rounded-circle shadow mr-2 btn-sm"

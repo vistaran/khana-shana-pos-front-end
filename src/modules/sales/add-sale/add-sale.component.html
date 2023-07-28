@@ -10,9 +10,6 @@
                         (click)="openVerticallyCentered(content3)" autofocus>Select
                         Customer</button>
                     <div [hidden]="!showCustomerDetail">
-                        <h4>Customer Details: </h4>
-                        <p>Name: {{ customerName}}</p>
-                        <p>Phone number: {{ customerNumber}}</p>
                         <div class="d-flex">
                             <button class="btn btn-info mb-2 btn-sm" type="button"
                                 (click)="openVerticallyCentered(content3)">Select
@@ -21,6 +18,9 @@
                             <button class="btn btn-info mb-2 btn-sm" type="button" (click)="openModal(content4)">Add
                                 Customer</button>
                         </div>
+                        <h4>Customer Details: </h4>
+                        <p>Name: {{ customerName}}</p>
+                        <p>Phone Number: {{ customerNumber}}</p>
                     </div>
                     <p [hidden]="showCustomerDetail" class="mb-0 mx-2 mt-1">or</p>
                     <button [hidden]="showCustomerDetail" class="btn btn-info mb-2 btn-sm" type="button"

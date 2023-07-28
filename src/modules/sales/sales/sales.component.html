@@ -5,9 +5,13 @@
                             <ng-template ngbNavContent> -->
         <!-- <h2 class="mt-3 mb-4">Sales</h2> -->
         <h2 class="mt-3 mb-4">Sales</h2>
-        <div class="d-flex justify-content-between my-4">
+        <button (click)="onClick()" class="btn btn-primary float-right w-full mb-2">
+            Add Sales Order
+        </button>
 
-            <div class="input-group rounded w-25">
+        <div class="">
+
+            <div class="input-group rounded mb-2">
                 <input class="form-control amber-border" class="form-control" type="text" aria-label="Search"
                     (keyup)="search()" placeholder="Search" [(ngModel)]="searchValue">
                 <div class="input-group-append">
@@ -15,14 +19,47 @@
                         id="basic-text1"><i class="fa fa-search" aria-hidden="true" (click)="search()"></i></button>
                 </div>
             </div>
-
-            <button (click)="onClick()" class="btn btn-primary float-right btn-sm">
-                Add Sales Order
-            </button>
-
         </div>
+          <div>
+            <!-- <img class="w-full" src="/img/card-top.jpg" alt="Sunset in the mountains"> -->
+            <div class="px-6 py-4 display ">
+                    <p *ngFor="let data of orderData; let i = index" class="max-w-xs rounded-lg overflow-hidden shadow-xl margin bg-slate-100 pl-1.5 pb-2">
+                            <span>{{ (i + 1) }}.</span>
+                            <span> {{ data.payment_mode }}</span>
+                            <span> {{ data.order_date | date: 'dd/MM/yyyy' }}</span><br>
+                            <span> {{ data.first_name }} {{data.last_name}}</span>
+                            <span> Table:-{{ data.table_number ? data.table_number : '0' }}</span>
+                            <span> ₹{{ data.total_amount?.toFixed(2) }}</span><br>
+                            <button id="chefCopy" ngbTooltip="Print Chef Copy" (click)="printChefCopy(data.id)" class="btn btn-white rounded-circle shadow btn-sm mr-2 my-2 "><img class="h-5 w-5" src="/assets/img/chef3.svg"></button>
 
-        <table class="table  table-responsive-sm    shadow">
+                            <button class="btn btn-white rounded-circle  shadow mr-2 btn-sm my-2" ngbTooltip="Print"
+                                (click)="getOrderDetail(data.id, true)"><i class="fa fa-print fa-lg"></i></button>
+
+                            <button class="btn btn-dark rounded-circle shadow mr-2 btn-sm my-2" ngbTooltip="View Details"
+                                (click)="openXl(content)" (click)="getOrderDetail(data.id, false)"><i
+                                    class="fa fa-eye fa-lg"></i></button>
+
+                            <button class="btn btn-info rounded-circle shadow mr-2 btn-sm my-2" ngbTooltip="Edit"
+                                [routerLink]="['/sales/edit_sale/' + data.id]"><i
+                                    class="fa-solid fa-square-pen fa-lg"></i></button>
+
+                            <button id="remove" ngbTooltip="Delete" (click)="deleteRow(data.id)"
+                                class="btn btn-danger rounded-circle shadow btn-sm mr-2 my-2"><i
+                                    class="fa-solid fa-trash-can fa-lg mx-auto"></i></button>
+                            <button id="remove" ngbTooltip="Unoccupy this table" (click)="unOccupyTable(data)"
+                                *ngIf="data.table_number" class="btn btn-danger rounded shadow btn-sm mb-2">Unoccupy
+                                Table</button>
+                    </p>
+                
+              <!-- <div class="font-bold text-xl mb-2">The Coldest Sunset</div> -->
+            </div>
+            <!-- <div class="px-6 pt-4 pb-2">
+              <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
+              <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
+              <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
+            </div> -->
+          </div>
+        <!-- <table class="table  table-responsive-sm shadow">
             <thead class="head bg-gradient text-white">
                 <th>Order ID</th>
                 <th>Customer Name</th>
@@ -68,7 +105,7 @@
                     </td>
                 </tr>
             </tbody>
-        </table>
+        </table> -->
 
         <div *ngIf="showloader" class="d-flex justify-content-center pt-5">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
