@@ -48,14 +48,14 @@ export class SalesComponent implements OnInit {
     getshopDetails() {
 
 
-      this.userService.getshopDetails().subscribe({
-          next: (result: any) => {
-              this.shopName = result.shop_name
+        this.userService.getshopDetails().subscribe({
+            next: (result: any) => {
+                this.shopName = result.shop_name
 
-                  console.log(result.shop_name);
-              },
-          })
-  }
+                console.log(result.shop_name);
+            },
+        })
+    }
     getOrderData() {
         this.showloader = true
         this.saleService.getOrderData(this.page).subscribe({
@@ -146,6 +146,11 @@ export class SalesComponent implements OnInit {
             }
 
         })
+    }
+
+    editSale(orderId: any) {
+        // [routerLink]="['/sales/edit_sale/' + data.id]"
+        this.router.navigate(['/sales/edit_sale/' + orderId]);
     }
 
     printChefCopy(id: any) {

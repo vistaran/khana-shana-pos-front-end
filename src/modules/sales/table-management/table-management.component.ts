@@ -81,7 +81,6 @@ export class TableManagementComponent implements OnInit {
 
     unOccupyTable(data: any) {
         console.log(data);
-
         let submitData = {
             res_table_name: '',
             is_table_occupied: 0
