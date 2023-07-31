@@ -47,11 +47,11 @@ export class SalesComponent implements OnInit {
 
     getshopDetails() {
 
-    
+
       this.userService.getshopDetails().subscribe({
           next: (result: any) => {
               this.shopName = result.shop_name
-              
+
                   console.log(result.shop_name);
               },
           })
@@ -440,6 +440,8 @@ export class SalesComponent implements OnInit {
     }
 
     unOccupyTable(data: any) {
+        console.log(data, 'data');
+
         let submitData = {
             res_table_name: '',
             is_table_occupied: 0

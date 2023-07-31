@@ -13,7 +13,8 @@
                                 <input type="text" formControlName="table_number" (keypress)="validateNumber($event)"
                                     placeholder="Table number" maxlength="35" class="form-control" autofocus />
                                 <div *ngIf="table_number?.touched && table_number?.invalid || showValidations">
-                                    <div class="alert alert-danger mt-1 py-1 px-3" *ngIf="table_number?.errors?.required">Table Number
+                                    <div class="alert alert-danger mt-1 py-1 px-3"
+                                        *ngIf="table_number?.errors?.required">Table Number
                                         is required.</div>
                                 </div>
                             </div>
@@ -22,7 +23,7 @@
                         <div class="col-sm-12 col-md-6">
                             <div class="form-group">
                                 <label class="">Seats available</label>
-                                <input type="number" formControlName="seats_availables_ava"
+                                <input type="number" formControlName="seats_availables"
                                     placeholder="Seats available" maxlength="35" class="form-control" />
                             </div>
                         </div>
@@ -49,10 +50,11 @@
                                         name="table_occupied" value="0" />
                                     <label for="0" class="mb-0">No</label>
 
-                                   
+
                                     <div
                                         *ngIf="is_table_occupied?.touched && is_table_occupied?.invalid || showValidations">
-                                        <div class="alert alert-danger mt-1 py-1 px-3" *ngIf="is_table_occupied?.errors?.required">This
+                                        <div class="alert alert-danger mt-1 py-1 px-3"
+                                            *ngIf="is_table_occupied?.errors?.required">This
                                             field is
                                             required.</div>
                                     </div>
@@ -72,7 +74,8 @@
                                     <label for="0" class="mb-0">No</label>
                                     <div
                                         *ngIf="is_table_active?.touched && is_table_active?.invalid || showValidations">
-                                        <div class="alert alert-danger mt-1 py-1 px-3" *ngIf="is_table_active?.errors?.required">This
+                                        <div class="alert alert-danger mt-1 py-1 px-3"
+                                            *ngIf="is_table_active?.errors?.required">This
                                             field
                                             is
                                             required.</div>
