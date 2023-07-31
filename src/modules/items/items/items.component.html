@@ -44,7 +44,7 @@
         </thead>
         <tbody *ngIf="!showloader">
             <tr *ngFor="let data of itemsData; let i = index">
-                <th scope="row">{{ (i+1) }}</th>
+                <th scope="row">{{ i+1 }}</th>
                 <td>{{ data.item_name }}</td>
                 <td>{{ data.unit_name }}</td>
                 <td>{{ data.group_name }}</td>

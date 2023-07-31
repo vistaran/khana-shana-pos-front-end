@@ -45,7 +45,7 @@
             </thead>
             <tbody *ngIf="!showloader">
                 <tr *ngFor="let data of customerData; let i = index">
-                    <td>{{ (i+1) }}</td>
+                    <td>{{ i+1 }}</td>
                     <td>{{ data.first_name }} {{ data.last_name}}</td>
                     <td>{{ data.phone_number }}</td>
                     <td class="d-flex">

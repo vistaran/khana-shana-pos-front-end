@@ -34,7 +34,7 @@
             </thead>
             <tbody *ngIf="!showloader">
                 <tr *ngFor="let data of purchaseOrdersData; let i = index">
-                    <td>{{ (i+1) }}</td>
+                    <td>{{ i+1 }}</td>
                     <td>{{ data.name }}</td>
                     <td>{{ data.outlet_name }}</td>
                     <td>{{ data.purchase_date | date: 'dd/MM/yyyy' }}</td>

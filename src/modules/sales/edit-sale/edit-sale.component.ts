@@ -147,9 +147,9 @@ export class EditSaleComponent implements OnInit {
         })
 
         this.addCustomerForm = this.fb.group({
-            first_name: ['', [Validators.required]],
-            last_name: [''],
-            phone_number: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]]
+            first_name: ['', [Validators.required]]
+            // last_name: [''],
+            // phone_number: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]]
         })
 
         this.getProductsData()

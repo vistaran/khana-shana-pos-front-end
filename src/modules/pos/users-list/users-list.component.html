@@ -38,8 +38,8 @@
                                     <th>Actions</th>
                                 </thead>
                                 <tbody *ngIf="!showloader">
-                                    <tr *ngFor="let data of userData">
-                                        <td>{{ data.user_id }}</td>
+                                    <tr *ngFor="let data of userData; let i = index">
+                                        <td>{{ i+1 }}</td>
                                         <td class="justify-content-center"><img class="img-xs rounded-circle"
                                                 src="https://cdn.icon-icons.com/icons2/1378/PNG/128/avatardefault_92824.png">
                                         </td>

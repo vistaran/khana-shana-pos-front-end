@@ -31,8 +31,8 @@
                 <th>Actions</th>
             </thead>
             <tbody *ngIf="!showloader">
-                <tr *ngFor="let data of vendorData">
-                    <td>{{ data.id }}</td>
+                <tr *ngFor="let data of vendorData; let i = index">
+                    <td>{{ i+1 }}</td>
                     <td>{{ data.name }}</td>
 
                     <td *ngIf="data.phone_numbers == null">-</td>
