@@ -11,33 +11,38 @@ import { UserDataService } from '@modules/pos/user-data.service';
 })
 export class TopNavComponent implements OnInit {
 
-    showloader : any
+    showloader: any
     public userData: any = [];
     public length = 0;
     public total = 0;
-    shopName:any;
+    shopName: any;
+    shopLogo: any;
 
     constructor(private navigationService: NavigationService,
         private userService: UserDataService,
         private sanitizer: DomSanitizer,
-        private toast: AppToastService,) {}
+        private toast: AppToastService,) { }
     ngOnInit() {
-        this.getshopDetails();
+        // this.getshopDetails();
+        let shopDetails: any = JSON.parse(localStorage.getItem('ShopDetails') || '{}');
+        this.shopName = shopDetails?.shop_name;
+        this.shopLogo = shopDetails?.logo;
     }
 
-    getshopDetails() {
+    // getshopDetails() {
 
-    
-        this.userService.getshopDetails().subscribe({
-            next: (result: any) => {
-                this.shopName = result.shop_name
-                    console.log(result.shop_name);
-                }, error: err => {
-                   
-                    this.toast.error('Error', 'Server error.')
-                }
-            })
-    }
+
+    //     this.userService.getshopDetails().subscribe({
+    //         next: (result: any) => {
+    //             this.shopName = result.shop_name
+    //             this.shopLogo = result.logo
+    //                 console.log(result.shop_name);
+    //             }, error: err => {
+
+    //                 this.toast.error('Error', 'Server error.')
+    //             }
+    //         })
+    // }
     toggleSideNav() {
         this.navigationService.toggleSideNav();
     }

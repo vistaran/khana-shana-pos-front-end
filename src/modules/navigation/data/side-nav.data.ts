@@ -12,14 +12,14 @@ export const sideNavSections: SideNavSection[] = [
     {
         text: 'Sales',
         items: ['sales', 'table_management'],
-    },  
+    },
     {
         text: 'Catalog',
         items: ['products', 'categories'],
     },
     {
         text: 'System',
-        items: ['users', 'vendors', 'uom', 'customer'],
+        items: ['users', 'vendors', 'uom', 'customer', 'settings'],
     },
     {
         text: 'Reports',
@@ -64,7 +64,7 @@ export const sideNavItems: SideNavItems = {
         text: 'Sales',
         link: '/sales'
     },
-    
+
     table_management: {
         icon: 'table',
         text: 'Table Management',
@@ -95,7 +95,11 @@ export const sideNavItems: SideNavItems = {
         text: 'Customers',
         link: '/customer_management'
     },
-
+    settings: {
+        icon: 'cog',
+        text: 'Settings',
+        link: '/settings'
+    },
     // Reports
     expense_by_group: {
         icon: 'wallet',

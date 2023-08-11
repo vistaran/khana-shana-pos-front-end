@@ -166,7 +166,7 @@
                                     </div>
                                 </div>
                             </form>
-                            <div ngbAccordion *ngIf="showProducts">
+                            <div ngbAccordion *ngIf="showProducts" class="bg-white p-2">
                                 <div ngbAccordionItem [collapsed]="false"
                                     *ngFor="let category of categoryData; let i= index" id="ngb-panel-{{i}}">
                                     <p ngbAccordionHeader class="bg-slate-100 text-white m-0 px-2" ngbAccordionButton>
@@ -178,9 +178,16 @@
                                         <div ngbAccordionBody>
                                             <ng-template>
                                                 <div *ngFor="let products of category.products" class="">
-                                                    <div class="px-2">
-                                                        <div class="flex justify-between items-center">
-                                                            <p class="text-md m-0">{{ products.product_name }}</p>
+                                                    <div class="px-2"
+                                                        [ngClass]="category.products.length > 1 ? 'border-b border-gray-100 mb-1': ''">
+                                                        <div class="flex justify-between items-center pb-1">
+                                                            <div class="grid">
+                                                                <p class="text-md m-0 font-semibold">{{
+                                                                    products.product_name }}</p>
+                                                                <p class="text-md m-0">₹{{ products.price ?? 0.00|
+                                                                    number: '.2' }}
+                                                                </p>
+                                                            </div>
                                                             <div class="w-1/4 ml-auto">
                                                                 <div
                                                                     class="flex flex-row h-8 w-full rounded-lg relative bg-transparent mt-2 pb-2">
@@ -309,13 +316,17 @@
 
                         <div class="p-2 mb-2">
                             <div *ngFor="let data of addedProduct" class="">
-                                <div class="text-lg flex justify-between">
+                                <div class="flex justify-between">
                                     <span>{{ data.product_name }} x{{ data.product_count }}
                                         <span class="text-sm text-red-500"
                                             (click)="removeProduct(data.id, data.category_id)">(remove)</span>
                                     </span>
-                                    <span>₹{{ data.subtotal }}</span>
+                                    <span>₹{{ data.subtotal| number: '.2' }}</span>
                                 </div>
+                            </div>
+                            <div *ngIf="addedProduct.length != 0" class="flex justify-between">
+                                <span></span>
+                                <span class="border-t border-gray-500 pt-1 mt-1 pl-2">₹{{ total | number: '.2' }}</span>
                             </div>
                             <div *ngIf="addedProduct.length == 0">
                                 Cart is empty.
