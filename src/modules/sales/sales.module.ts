@@ -21,7 +21,6 @@ import { TableManagementComponent } from './table-management/table-management.co
 import { AddTableComponent } from './add-table/add-table.component';
 import { EditTableComponent } from './edit-table/edit-table.component';
 
-
 @NgModule({
   declarations: [OrdersComponent, ShipmentComponent, InvoicesComponent, RefundsComponent, SalesComponent, AddSaleComponent, EditSaleComponent, TableManagementComponent, AddTableComponent, EditTableComponent],
   imports: [
