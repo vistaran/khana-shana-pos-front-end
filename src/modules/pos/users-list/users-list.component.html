@@ -2,11 +2,11 @@
 
     <div class="row">
         <div class="col">
-            <ul ngbNav [(activeId)]="activeId" #nav="ngbNav" class="nav-tabs mt-5 font-weight-bold">
+            <ul ngbNav [(activeId)]="activeId" #nav="ngbNav" class="nav-tabs md:mt-5 font-weight-bold">
                 <li [ngbNavItem]="1">
                     <a ngbNavLink>Users</a>
                     <ng-template ngbNavContent>
-                        <h2 class="mt-3 mb-4">POS User List</h2>
+                        <h2 class="mt-3 mb-4 text-2xl">POS User List</h2>
                         <!-- search button -->
                         <div class="d-flex justify-content-between mb-4">
 
@@ -38,8 +38,8 @@
                                     <th>Actions</th>
                                 </thead>
                                 <tbody *ngIf="!showloader">
-                                    <tr *ngFor="let data of userData">
-                                        <td>{{ data.user_id }}</td>
+                                    <tr *ngFor="let data of userData; let i = index">
+                                        <td>{{ i+1 }}</td>
                                         <td class="justify-content-center"><img class="img-xs rounded-circle"
                                                 src="https://cdn.icon-icons.com/icons2/1378/PNG/128/avatardefault_92824.png">
                                         </td>

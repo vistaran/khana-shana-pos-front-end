@@ -10,9 +10,6 @@
                         (click)="openVerticallyCentered(content3)" autofocus>Select
                         Customer</button>
                     <div [hidden]="!showCustomerDetail">
-                        <h4>Customer Details: </h4>
-                        <p>Name: {{ customerName}}</p>
-                        <p>Phone number: {{ customerNumber}}</p>
                         <div class="d-flex">
                             <button class="btn btn-info mb-2 btn-sm" type="button"
                                 (click)="openVerticallyCentered(content3)">Select
@@ -21,6 +18,9 @@
                             <button class="btn btn-info mb-2 btn-sm" type="button" (click)="openModal(content4)">Add
                                 Customer</button>
                         </div>
+                        <h4>Customer Details: </h4>
+                        <p>Name: {{ customerName}}</p>
+                        <p>Phone Number: {{ customerNumber}}</p>
                     </div>
                     <p [hidden]="showCustomerDetail" class="mb-0 mx-2 mt-1">or</p>
                     <button [hidden]="showCustomerDetail" class="btn btn-info mb-2 btn-sm" type="button"
@@ -32,9 +32,12 @@
 
                     <div class="modal-header bg-primary align-items-center text-light">
                         <h4 class="text-light modal-title">Select Customer</h4>
-                        <i type="button" class="fas fa-xmark fa-xl" aria-label="Close"
+                        <!-- <i type="button" class="fas fa-xmark fa-xl" aria-label="Close"
                             (click)="modal.dismiss('Cross click')" (click)="selectCustomerClose()">
-                        </i>
+                        </i> -->
+                        <button type="button" class="btn-close" aria-label="Close" (click)="selectCustomerClose()">
+                            <i class="fas fa-xmark fa-xl"></i>
+                        </button>
                     </div>
 
                     <div class="modal-body">
@@ -75,9 +78,12 @@
 
                     <div class="modal-header bg-primary align-items-center text-light">
                         <h4 class=" modal-title">Add Customer</h4>
-                        <i type="button" class="fas fa-xmark fa-xl" aria-label="Close"
+                        <!-- <i type="button" class="fas fa-xmark fa-xl" aria-label="Close"
                             (click)="modal.dismiss('Cross click')" (click)="addCustomerClose()">
-                        </i>
+                        </i> -->
+                        <button type="button" class="btn-close" aria-label="Close" (click)="addCustomerClose()">
+                            <i class="fas fa-xmark fa-xl"></i>
+                        </button>
                     </div>
 
                     <form [formGroup]="addCustomerForm" (ngSubmit)="onSubmitCustomer(addCustomerForm.value)">
@@ -98,8 +104,8 @@
                                 </div>
 
                                 <div class="col-6 col-sm-4">
-                                    <div class="form-group required">
-                                        <label class="required">Last Name</label>
+                                    <div class="form-group">
+                                        <label class="">Last Name</label>
                                         <input type="text" placeholder="Last Name" formControlName="last_name"
                                             class="form-control" />
                                         <!-- <div *ngIf="lastname?.touched && lastname?.invalid" class="alert alert-danger mt-1 py-1 px-3">
@@ -109,11 +115,11 @@
                                 </div>
 
                                 <div class="col-6 col-sm-4">
-                                    <div class="form-group required">
-                                        <label class="required">Phone Number</label>
+                                    <div class="form-group ">
+                                        <label class="">Phone Number</label>
                                         <input type="tel" placeholder="Phone Number" formControlName="phone_number"
                                             class="form-control" (keypress)="validateNumber($event)" maxlength="10" />
-                                        <div *ngIf="phone?.touched && phone?.invalid"
+                                        <!-- <div *ngIf="phone?.touched && phone?.invalid"
                                             class="alert alert-danger mt-1 py-1 px-3" maxlength="10">
                                             <div *ngIf="phone?.errors?.required">Phone Number is required.</div>
                                             <div *ngIf="phone?.errors?.maxlength">Phone number must not exceed 10 digits
@@ -122,7 +128,7 @@
                                                 number must contain 10 digits
                                             </div>
                                             <div *ngIf="phone?.errors?.pattern">Only Numbers are allowed</div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -199,9 +205,16 @@
                                         <div ngbAccordionBody>
                                             <ng-template>
                                                 <div *ngFor="let products of category.products" class="">
-                                                    <div class="px-2">
-                                                        <div class="flex justify-between items-center">
-                                                            <p class="text-md m-0">{{ products.product_name }}</p>
+                                                    <div class="px-2"
+                                                        [ngClass]="category.products.length > 1 ? 'border-b border-gray-100 mb-1': ''">
+                                                        <div class="flex justify-between items-center pb-1">
+                                                            <div class="grid">
+                                                                <p class="text-md m-0 font-semibold">{{
+                                                                    products.product_name }}</p>
+                                                                <p class="text-md m-0">₹{{ products.price ?? 0.00|
+                                                                    number: '.2' }}
+                                                                </p>
+                                                            </div>
                                                             <div class="w-1/4 ml-auto">
                                                                 <div
                                                                     class="flex flex-row h-8 w-full rounded-lg relative bg-transparent mt-2 pb-2">
@@ -330,13 +343,17 @@
 
                         <div class="p-2 mb-2">
                             <div *ngFor="let data of addedProduct" class="">
-                                <div class="text-lg flex justify-between">
+                                <div class="flex justify-between">
                                     <span>{{ data.product_name }} x{{ data.product_count }}
                                         <span class="text-sm text-red-500"
                                             (click)="removeProduct(data.id, data.category_id)">(remove)</span>
                                     </span>
-                                    <span>₹{{ data.subtotal }}</span>
+                                    <span>₹{{ data.subtotal| number: '.2' }}</span>
                                 </div>
+                            </div>
+                            <div *ngIf="addedProduct.length != 0" class="flex justify-between">
+                                <span></span>
+                                <span class="border-t border-gray-500 pt-1 mt-1 pl-2">₹{{ total | number: '.2' }}</span>
                             </div>
                             <div *ngIf="addedProduct.length == 0">
                                 Cart is empty.

@@ -43,7 +43,8 @@ export class EditTableComponent implements OnInit {
         this.id = this.route.snapshot.params.id;
         this.editTableForm = this.fb.group({
             table_number: ['', [Validators.required]],
-            table_name: ['', [Validators.required]],
+            seats_available: [0],
+            table_name: [''],
             table_occupied: ['', [Validators.required]],
             table_active: ['', [Validators.required]]
         })
