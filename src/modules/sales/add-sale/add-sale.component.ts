@@ -92,7 +92,7 @@ export class AddSaleComponent implements OnInit {
     default_table_number: any;
     showCartSummary = false;
 
-
+    active = 'ngb-panel-0';
 
     get customer() {
         return this.customerForm.get('customer_id');

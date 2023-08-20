@@ -21,7 +21,7 @@ export const ROUTES: Routes = [
         canActivate: [],
         component: authContainers.LoginComponent,
         data: {
-            title: 'Login - Khana Shana',
+            title: 'Login - Laabh POS',
         } as SBRouteData,
     },
     {
@@ -29,7 +29,7 @@ export const ROUTES: Routes = [
         canActivate: [],
         component: authContainers.ForgotPasswordComponent,
         data: {
-            title: 'Pages Forgot Password - Khana Shana',
+            title: 'Pages Forgot Password - Laabh POS',
         } as SBRouteData,
     },
 ];

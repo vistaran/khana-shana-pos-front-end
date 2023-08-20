@@ -38,7 +38,8 @@
                         "extractLicenses": false,
                         "sourceMap": true,
                         "optimization": false,
-                        "namedChunks": true
+                        "namedChunks": true,
+                        "allowedCommonJsDependencies": ["chart.js"]
                     },
                     "configurations": {
                         "production": {
