@@ -32,7 +32,7 @@ export class EditSaleComponent implements OnInit {
     itemDetail: any = [];
     newDate: any;
     showCartSummary = false;
-
+    selectedCategory = 0;
 
     payment_mode: any
 
@@ -253,6 +253,7 @@ export class EditSaleComponent implements OnInit {
             });
 
             this.categoryData = data.data;
+            this.selectedCategory = this.categoryData[0].id
             this.showProducts = true;
             // if (data.products.last_page > 1) {
             // for (let i = 2; i <= data.products.last_page; i++) {

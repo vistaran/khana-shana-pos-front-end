@@ -139,12 +139,55 @@
                 </ng-template>
 
                 <div class="row">
-                    <div class="col" [hidden]="showCartSummary">
+                    <div class="" [hidden]="showCartSummary">
                         <h5 class="p-2">Menu Items</h5>
 
                         <div class=" " *ngIf="showProducts">
+
+                            <div class="grid grid-cols-3 bg-white h-[55vh]">
+                                <div class="border-r border-gray-200">
+                                    <div *ngFor="let category of categoryData; let i= index"
+                                        (click)="selectedCategory = category.id; productData = category.products">
+                                        <div [ngClass]="selectedCategory == category.id? 'bg-gray-200': ''"
+                                            class="py-1 border-b border-gray-300 px-2 font-semibold">
+                                            {{ category.name }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-span-2 px-2 h-[55vh] overflow-auto">
+                                    <div *ngFor="let category of categoryData; let i= index">
+                                        <div *ngIf="selectedCategory == category.id">
+                                            <div *ngFor="let products of category.products"
+                                                class="flex justify-between items-center border-b border-gray-300">
+                                                <div>
+                                                    <p class="text-lg m-0 font-semibold">{{ products.product_name }}</p>
+                                                    <p class="text-lg m-0">₹{{ products.price | number : '.2-2' }}</p>
+                                                </div>
+                                                <div class="w-2/4 ml-auto">
+                                                    <div
+                                                        class="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-2 pb-2">
+                                                        <button data-action="decrement"
+                                                            (click)="decreaseCount(category.id,products.id, products.product_count)"
+                                                            class="bg-gradient rounded-l rounded- w-12 rounded cursor-pointer outline-none flex justify-center items-center text-white text-2xl">
+                                                            −
+                                                        </button>
+                                                        <input type="number" disabled
+                                                            class="bg-white product_quantity border-b border-t  text-center w-full px-0 py-2  font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700 "
+                                                            name="custom-input-number" min='0'
+                                                            value="{{ products.product_count ?? 0 }}" />
+                                                        <button data-action="increment"
+                                                            (click)="increaseCount(category.id,products.id, products.product_count)"
+                                                            class="bg-gradient  w-12 rounded-r cursor-pointer outline-none flex justify-center items-center text-white text-2xl">+
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <!-- <div class="col-md-12 mb-3 col-12" *ngFor="let data of categoryData"> -->
-                            <div ngbAccordion *ngIf="showProducts">
+                            <!-- <div ngbAccordion *ngIf="showProducts">
                                 <div ngbAccordionItem [collapsed]="false"
                                     *ngFor="let category of categoryData; let i= index" id="ngb-panel-{{i}}">
                                     <p ngbAccordionHeader class="bg-slate-100 text-white m-0 px-2" ngbAccordionButton>
@@ -184,7 +227,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <!-- <div class="h-100">
                                     <div class="card">
