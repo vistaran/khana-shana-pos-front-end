@@ -20,7 +20,9 @@
             </div>
 
             <div class="col">
-                <select class="btn btn-outline-success" [(ngModel)]="pageSize"
+                <select class="inline-block align-middle text-center select-none border 
+                               font-normal whitespace-no-wrap rounded py-1.5 px-3 leading-normal no-underline
+                               text-dark border-slate-400" [(ngModel)]="pageSize"
                     (ngModelChange)="refreshItemsData($event)">
                     <option default value="{{100}}">100 items per page</option>
                     <option value="{{15}}">15 items per page</option>
@@ -42,18 +44,18 @@
                 <th>Actions</th>
             </thead>
             <tbody *ngIf="!showloader">
-                <tr *ngFor="let data of customerData">
-                    <td>{{ data.id }}</td>
+                <tr *ngFor="let data of customerData; let i = index">
+                    <td>{{ i+1 }}</td>
                     <td>{{ data.first_name }} {{ data.last_name}}</td>
                     <td>{{ data.phone_number }}</td>
                     <td class="d-flex">
                         <button ngbTooltip="Edit" class="btn btn-info mr-2 rounded-circle shadow btn-sm"
                             [routerLink]="['/customer_management/editcustomer/' + data.id]"><i
-                                class="fa fa-pencil-square-o fa-lg"></i></button>
+                                class="fa-solid fa-square-pen fa-lg"></i></button>
 
                         <button ngbTooltip="Delete" id="remove" (click)="deleteRow(data.id)"
                             class="btn btn-danger rounded-circle shadow btn-sm"><i
-                                class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                                class="fa-solid fa-trash-can fa-lg mx-auto"></i></button>
                     </td>
                 </tr>
                 <tr *ngIf="!length && !showloader">

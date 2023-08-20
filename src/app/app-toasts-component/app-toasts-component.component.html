@@ -1,9 +1,9 @@
 <div class="mt-5">
-  
+
 
     <ngb-toast
       *ngFor="let toast of toastService.toasts; index as index"
       [class]="toast.className"
-      [header]="toast.header" [autohide]="true" [delay]="toast.delay || 5000" (hidden)="toastService.remove(toast)"
+      [header]="toast.header" [autohide]="true" [delay]="toast.delay || 3200" (hidden)="toastService.remove(toast)"
     >{{toast.body}}</ngb-toast>
 </div>

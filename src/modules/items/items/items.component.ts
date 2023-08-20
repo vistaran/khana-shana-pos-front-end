@@ -40,15 +40,17 @@ export class ItemsComponent implements OnInit {
   // For getting Item data for listing
   getItemsData() {
     this.showloader = true
-    this.itemService.getItemsData(this.page, this.pageSize).subscribe((data: any) => {
-      this.showloader = false
-      this.itemsData = data.data;
-      this.length = this.itemsData.length
-      this.total = data.total
+    this.itemService.getItemsData(this.page, this.pageSize).subscribe({
+      next: (data: any) => {
+        this.showloader = false
+        this.itemsData = data.data;
+        this.length = this.itemsData.length
+        this.total = data.total
 
-    }, err => {
-      this.showloader = false
-      this.toast.error('Error', 'Server error.')
+      }, error: err => {
+        this.showloader = false
+        this.toast.error('Error', 'Server error.')
+      }
     });
   }
 
@@ -72,11 +74,13 @@ export class ItemsComponent implements OnInit {
   // For deleting Item data
   deleteRow(id: number) {
     if (confirm('Are you sure you want to delete?')) {
-      this.itemService.deleteItem(id).subscribe(data => {
-        this.getItemsData();
-        this.toast.success('Success', 'Item Deleted Successfully.')
-      }, err => {
-        this.toast.error('Error', 'Server error.')
+      this.itemService.deleteItem(id).subscribe({
+        next: data => {
+          this.getItemsData();
+          this.toast.success('Success', 'Item Deleted Successfully.')
+        }, error: err => {
+          this.toast.error('Error', 'Server error.')
+        }
       });
     }
   }
@@ -84,14 +88,16 @@ export class ItemsComponent implements OnInit {
   // For searching items table data
   search(event: any) {
     this.showloader = true
-    this.itemService.searchItems(this.searchValue).subscribe((data: any) => {
-      this.itemsData = data.data;
-      this.length = this.itemsData.length
-      this.total = data.total
-      this.showloader = false
-    }, err => {
-      this.toast.error('Error', 'Server error.')
-      this.showloader = false
+    this.itemService.searchItems(this.searchValue).subscribe({
+      next: (data: any) => {
+        this.itemsData = data.data;
+        this.length = this.itemsData.length
+        this.total = data.total
+        this.showloader = false
+      }, error: err => {
+        this.toast.error('Error', 'Server error.')
+        this.showloader = false
+      }
     });
   }
 

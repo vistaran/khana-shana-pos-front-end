@@ -71,12 +71,14 @@ export class EditAttributeComponent implements OnInit {
 
   // For submitting edit attribute form data
   updateData(data: any) {
-    this.attributeService.editAttribute(this.id, data).subscribe(data => {
-      console.log('Data updated successfully! ', data)
-      this.router.navigate(['/catalog/products']);
-      this.toast.success('Success', 'Edited successfully.')
-    }, err => {
-      this.toast.error('Error', 'Server error.')
+    this.attributeService.editAttribute(this.id, data).subscribe({
+      next: data => {
+        console.log('Data updated successfully! ', data)
+        this.router.navigate(['/catalog/products']);
+        this.toast.success('Success', 'Edited successfully.')
+      }, error: err => {
+        this.toast.error('Error', 'Server error.')
+      }
     })
 
   }

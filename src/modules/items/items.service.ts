@@ -9,6 +9,12 @@ import { Data, Items } from './items';
   providedIn: 'root'
 })
 export class ItemsService {
+  getItemsService() {
+      throw new Error('Method not implemented.');
+  }
+  getItems() {
+      throw new Error('Method not implemented.');
+  }
 
   private url = environment.apiUrl + 'purchase_items';
   // private searchUrl = environment.apiUrl + 'search/purchase_items?query='

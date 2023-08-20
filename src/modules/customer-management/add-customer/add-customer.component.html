@@ -12,7 +12,7 @@
                         <div class="form-group required">
                             <label class="required">First Name</label>
                             <input type="text" placeholder="Enter First Name" formControlName="first_name" class="form-control" autofocus/>
-                            <div *ngIf="firstname?.touched && firstname?.invalid" class="alert alert-danger">
+                            <div *ngIf="firstname?.touched && firstname?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                 <div *ngIf="firstname?.errors?.required">First Name is required.</div>
                             </div>
                         </div>
@@ -22,7 +22,7 @@
                         <div class="form-group ">
                             <label class="required">Last Name</label>
                             <input type="text" placeholder="Enter Last Name" formControlName="last_name" class="form-control" />
-                            <!-- <div *ngIf="lastname?.touched && lastname?.invalid" class="alert alert-danger">
+                            <!-- <div *ngIf="lastname?.touched && lastname?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                 <div *ngIf="lastname?.errors?.required">Last Name is required.</div>
                             </div> -->
                         </div>
@@ -32,7 +32,7 @@
                         <div class="form-group required">
                             <label class="required">Phone Number</label>
                             <input type="tel" placeholder="Enter Phone Number" formControlName="phone_number" class="form-control" (keypress)="validateNumber($event)"/>
-                            <div *ngIf="phone?.touched && phone?.invalid" class="alert alert-danger" maxlength="10">
+                            <div *ngIf="phone?.touched && phone?.invalid" class="alert alert-danger mt-1 py-1 px-3" maxlength="10">
                                 <div *ngIf="phone?.errors?.required">Phone Number is required.</div>
                                 <div *ngIf="phone?.errors?.maxlength">Phone number must not exceed 10 digits
                                 </div>

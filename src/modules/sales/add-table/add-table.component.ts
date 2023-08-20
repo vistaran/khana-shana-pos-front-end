@@ -1,5 +1,5 @@
 import { TableManagementService } from './../table-management.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AppToastService } from './../../shared-module/services/app-toast.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -13,6 +13,7 @@ export class AddTableComponent implements OnInit {
 
     addTableForm!: FormGroup
     showValidations = false;
+
 
     get table_name() {
         return this.addTableForm.get('table_name');
@@ -39,12 +40,15 @@ export class AddTableComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
+
         this.addTableForm = this.fb.group({
             table_number: ['', [Validators.required]],
-            table_name: ['', [Validators.required]],
-            table_occupied: [null, [Validators.required]],
-            table_active: [null, [Validators.required]]
-        })
+            seats_available: [0],
+            table_name: [''],
+            table_occupied: ['0', [Validators.required]],
+            table_active: ['1', [Validators.required]]
+        });
+
     }
 
     validateNumber(event: any) {
@@ -68,12 +72,14 @@ export class AddTableComponent implements OnInit {
         }
         // console.log(data);
 
-        this.TableManagementService.addTableData(data).subscribe((result: any) => {
-            this.toast.success('Success', 'Table added successfully!');
-            this.router.navigate(['/sales/table_management']);
+        this.TableManagementService.addTableData(data).subscribe({
+            next: (result: any) => {
+                this.toast.success('Success', 'Table added successfully!');
+                this.router.navigate(['/sales/table_management']);
 
-        }, err => {
-            this.toast.error('Error', 'Something went wrong. Please try again!');
+            }, error: err => {
+                this.toast.error('Error', 'Something went wrong. Please try again!');
+            }
         })
 
     }

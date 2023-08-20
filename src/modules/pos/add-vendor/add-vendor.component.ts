@@ -44,7 +44,7 @@ export class AddVendorComponent implements OnInit {
     this.addVendorForm = this.fb.group(
       {
         name: ['', [Validators.required]],
-        phone_numbers: ['',[Validators.maxLength(10), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
+        phone_numbers: ['', [Validators.maxLength(10), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
         address: [''],
         status: [0, [Validators.required]]
       }
@@ -70,25 +70,27 @@ export class AddVendorComponent implements OnInit {
       event.preventDefault();
       return false;
     }
-}
+  }
 
   // For submitting add vendor form data
   onSubmit(data: any) {
 
-    if(this.addVendorForm.invalid) {
+    if (this.addVendorForm.invalid) {
       alert('Please fill all the required fileds');
       return;
     }
 
     this.vendorService
       .postVendorData(data)
-      .subscribe((result: any) => {
-        console.log(result)
-        this.toast.success('Success', 'Added Successfully.')
-        this.router.navigate(['/pos/vendors']);
+      .subscribe({
+        next: (result: any) => {
+          console.log(result)
+          this.toast.success('Success', 'Added Successfully.')
+          this.router.navigate(['/pos/vendors']);
 
-      }, err => {
-        this.toast.error('Error', 'Server error.')
+        }, error: err => {
+          this.toast.error('Error', 'Server error.')
+        }
       });
     console.log('Form Submitted', (data));
   }

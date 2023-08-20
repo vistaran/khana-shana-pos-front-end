@@ -49,12 +49,14 @@ export class AddAttributeFamilyComponent implements OnInit {
   onSubmit(data: any) {
     this.family
       .postFamily(data)
-      .subscribe((result: any) => {
-        console.log(result)
-        this.toast.success('Success', 'Added successfully.')
-        this.router.navigate(['catalog/attributeFamily'], { queryParams: { attributeFamily: true } })
-      }, err => {
-        this.toast.error('Error', 'Server error.')
+      .subscribe({
+        next: (result: any) => {
+          console.log(result)
+          this.toast.success('Success', 'Added successfully.')
+          this.router.navigate(['catalog/attributeFamily'], { queryParams: { attributeFamily: true } })
+        }, error: err => {
+          this.toast.error('Error', 'Server error.')
+        }
       });
   }
 }

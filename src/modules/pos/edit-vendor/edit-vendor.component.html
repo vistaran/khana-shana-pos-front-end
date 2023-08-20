@@ -11,7 +11,7 @@
                                 <label class="required">Name</label>
                                 <input type="text" formControlName="name" placeholder="Enter Name" class="form-control" autofocus />
                                 <div *ngIf="name?.touched && name?.invalid || showValidations" >
-                                    <div class="alert alert-danger" *ngIf="name?.errors?.required">Name is required.</div>
+                                    <div class="alert alert-danger mt-1 py-1 px-3" *ngIf="name?.errors?.required">Name is required.</div>
                                 </div>
                             </div>
                         </div>
@@ -21,10 +21,10 @@
                                 <label class="required">Phone Number</label>
                                 <input type="tel" formControlName="phone_numbers" placeholder="Enter Phone Number" class="form-control" />
                                 <div *ngIf="phone?.touched && phone?.invalid || showValidations" (keypress)="validateNumber($event)" maxlength="10">
-                                    <!-- <div *ngIf="phone?.errors?.required" class="alert alert-danger">Phone number is required.</div> -->
-                                    <div *ngIf="phone?.errors?.maxlength" class="alert alert-danger">Phone number must not exceed 10 digits
+                                    <!-- <div *ngIf="phone?.errors?.required" class="">Phone number is required.</div> -->
+                                    <div *ngIf="phone?.errors?.maxlength" class="alert alert-danger mt-1 py-1 px-3">Phone number must not exceed 10 digits
                                     </div>
-                                    <div *ngIf="phone?.errors?.pattern" class="alert alert-danger">Only Numbers are allowed</div>
+                                    <div *ngIf="phone?.errors?.pattern" class="alert alert-danger mt-1 py-1 px-3">Only Numbers are allowed</div>
                                 </div>
                             </div>
                         </div>
@@ -33,7 +33,7 @@
                                 <label class="required">Address</label>
                                 <input type="text" formControlName="address" placeholder="Enter Address" class="form-control" />
                                 <div *ngIf="address?.touched && address?.invalid || showValidations">
-                                    <div class="alert alert-danger" *ngIf="address?.errors?.required">Address is required.</div>
+                                    <div class="alert alert-danger mt-1 py-1 px-3" *ngIf="address?.errors?.required">Address is required.</div>
                                 </div>
                             </div>
                         </div>
@@ -46,7 +46,7 @@
                                     <option value=1>inactive</option>
                                 </select>
                                 <div *ngIf="stat?.touched && stat?.invalid || showValidations">
-                                    <div class="alert alert-danger" *ngIf="stat?.errors?.required">Status is required.</div>
+                                    <div class="alert alert-danger mt-1 py-1 px-3" *ngIf="stat?.errors?.required">Status is required.</div>
                                 </div>
                             </div>
                         </div>

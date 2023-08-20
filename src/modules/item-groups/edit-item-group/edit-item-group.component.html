@@ -12,7 +12,7 @@
                             <label class="required">Item Group Name</label>
                             <input type="text" formControlName="group_name" placeholder="Item Group Name" maxlength="35" class="form-control" autofocus/>
                             <div *ngIf="group_name?.touched && group_name?.invalid || showValidations" >
-                                <div class="alert alert-danger" *ngIf="group_name?.errors?.required">Item Group Name is required.</div>
+                                <div class="alert alert-danger mt-1 py-1 px-3" *ngIf="group_name?.errors?.required">Item Group Name is required.</div>
                             </div>
                         </div>
                     </div>

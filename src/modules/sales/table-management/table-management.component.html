@@ -1,67 +1,98 @@
 <sb-layout-dashboard>
-
     <div class="col">
-        <h2 class="mt-3 mb-4">Table Management</h2>
+        <h2 class="mt-3 mb-4 text-2xl sm:text-2xl md:text-">Table Management</h2>
 
-        <div class="d-flex justify-content-between my-4">
+        <button (click)="onClick()" class="btn btn-primary float-right w-full mb-2">
+            Add Table
+        </button>
 
-            <div class="input-group rounded w-25">
+        <div class="mb-2">
+            <div class="input-group rounded">
                 <input class="form-control amber-border" class="form-control" type="text" aria-label="Search"
-                    placeholder="Search" [(ngModel)]="searchValue">
+                    placeholder="Search" [(ngModel)]="searchValue" />
                 <div class="input-group-append">
                     <button class="btn input-group-text bg-white text-dark amber lighten-3 form-control form-control"
-                        id="basic-text1"><i class="fa fa-search" aria-hidden="true"></i></button>
+                        id="basic-text1">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </button>
                 </div>
             </div>
-
-            <button (click)="onClick()" class="btn btn-primary float-right btn-sm">
-                Add Table
-            </button>
-
         </div>
 
-        <table class="table table-responsive-sm  shadow">
-            <thead class="head bg-gradient text-white">
+        <div
+            class="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-9 gap-3 mb-2 text-sm text-xs text-lg text-md text-xl text-2xl">
+            <div class="shadow cursor-pointer border border-gray-100" *ngFor="let data of tableData; let i = index"
+                [ngClass]="data.is_table_occupied == 1 ? 'bg-yellow-300' : 'bg-green-400'"
+                (click)="goToOrder(data.is_table_occupied, data.res_table_number, data.order_id)">
+                <div class="text-center rounded">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ i+1}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted text-sm">
+                            Seats: {{ data.seats_available ? data.seats_available : '0' }}
+                        </h6>
+                        <div class="flex justify-content-center">
+                            <button class="btn btn-info rounded-circle shadow mr-2 btn-sm" ngbTooltip="Edit"
+                                [routerLink]="['/sales/edit_table/' + data.id]">
+                                <i class="fa-solid fa-square-pen fa-lg"></i>
+                            </button>
+                            <button id="remove" ngbTooltip="Delete" class="btn btn-danger rounded-circle shadow btn-sm"
+                                (click)="deleteTableData(data.id, data.res_table_number)">
+                                <i class="fa-solid fa-trash-can fa-lg mx-auto"></i>
+                            </button>
+                        </div>
+                        <div class="mt-2" *ngIf="data.is_table_occupied == 1">
+                            <button id="unlock" ngbTooltip="Unoccupy Table" ngbTooltip="unlock"
+                                class="btn btn-success rounded-circle shadow btn-sm"
+                                (click)="$event.preventDefault(); unOccupyTable(data)">
+                                <i class="fa-solid fa-unlock fa-lg mx-auto"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="head bg-gradient text-white">
                 <th>Table Number</th>
                 <th>Table Name</th>
                 <th>Table Occupied</th>
                 <th>Table Active</th>
                 <th>Actions</th>
-            </thead>
-            <tbody>
-                <tr *ngFor="let data of tableData" [class.tableOccupied]="data.is_table_occupied == 'Yes'">
-                    <td>
+            </div>
+            <div>
+                <div *ngFor="let data of tableData" [class.tableOccupied]="data.is_table_occupied == 'Yes'">
+                    <div>
                         {{ data.res_table_number }}
-                    </td>
-                    <td>
+                    </div>
+                    <div>
                         {{ data.res_table_name }}
-                    </td>
-                    <td>
+                    </div>
+                    <div>
                         {{ data.is_table_occupied }}
-                    </td>
-                    <td>
+                    </div>
+                    <div>
                         {{ data.is_table_active }}
-                    </td>
-                    <td class="d-flex">
+                    </div>
+                    <div class="d-flex">
                         <button class="btn btn-info rounded-circle shadow mr-2 btn-sm" ngbTooltip="Edit"
                             [routerLink]="['/sales/edit_table/' + data.id]"><i
-                                class="fa fa-pencil-square-o fa-lg"></i></button>
+                                class="fa-solid fa-square-pen fa-lg"></i></button>
 
                         <button id="remove" ngbTooltip="Delete" class="btn btn-danger rounded-circle shadow btn-sm"
                             (click)="deleteTableData(data.id, data.res_table_number)"><i
-                                class="fa fa-trash-o fa-lg mx-auto"></i></button>
-                    </td>
-                </tr>
-                <tr *ngIf="!tableData.length && !showloader">
-                    <td colspan="5" class="text-center">
+                                class="fa-solid fa-trash-can fa-lg mx-auto"></i></button>
+                    </div>
+                </div>
+                <div *ngIf="!tableData.length && !showloader">
+                    <div colspan="5" class="text-center">
                         No records found.
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                    </div>
+                </div>
+            </div> -->
+        <!-- </div> -->
 
         <div *ngIf="showloader" class="d-flex justify-content-center pt-5">
-            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
         </div>
@@ -78,5 +109,4 @@
                     </ul>
                     <div [ngbNavOutlet]="nav"></div> -->
     </div>
-
 </sb-layout-dashboard>

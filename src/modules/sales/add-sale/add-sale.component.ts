@@ -1,7 +1,7 @@
 import { TableManagementService } from './../table-management.service';
 import { Component, HostListener, OnInit, Renderer2 } from '@angular/core';
 import { Form, FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '@modules/catalog/product.service';
 import { CustomerManagementService } from '@modules/customer-management/customer-management.service';
 import { AppToastService } from '@modules/shared-module/services/app-toast.service';
@@ -9,6 +9,7 @@ import { NgbDate, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 
 import { SalesService } from '../sales.service';
+import { UserDataService } from '@modules/pos/user-data.service';
 
 @Component({
     selector: 'sb-add-sale',
@@ -18,11 +19,12 @@ import { SalesService } from '../sales.service';
 export class AddSaleComponent implements OnInit {
 
     @HostListener('document:keydown.shift.s')
-    productData: any = [];
+    categoryData: any = [];
     addedProduct: any = [];
     customerData: any = [];
     orderDetail: any = [];
     itemDetail: any = [];
+    activeIds: any = [];
     addSaleForm!: FormGroup
     qtyForm!: FormGroup
     customerForm!: FormGroup
@@ -30,6 +32,7 @@ export class AddSaleComponent implements OnInit {
     selectedCity: any
     pageSize = 100
     showProducts = false;
+    shopDetails: any
 
     payment_mode: any
 
@@ -40,6 +43,7 @@ export class AddSaleComponent implements OnInit {
 
     curr_date: NgbDate = new NgbDate(this.yyyy, this.mm, this.dd);
     date = ''
+    panels = ['First', 'Second', 'Third'];
 
     payment_mode_copy = [
         {
@@ -85,6 +89,8 @@ export class AddSaleComponent implements OnInit {
     showDiscountOption = false;
     discount_type: any;
     table_number: any;
+    default_table_number: any;
+    showCartSummary = false;
 
 
 
@@ -123,8 +129,10 @@ export class AddSaleComponent implements OnInit {
         private saleService: SalesService,
         private toast: AppToastService,
         private router: Router,
+        private activeRoute: ActivatedRoute,
         private renderer: Renderer2,
-        private TableManagementService: TableManagementService
+        private TableManagementService: TableManagementService,
+        private userService: UserDataService,
     ) { }
 
     ngOnInit(): void {
@@ -156,15 +164,26 @@ export class AddSaleComponent implements OnInit {
         this.addCustomerForm = this.fb.group({
             first_name: ['', [Validators.required]],
             last_name: [''],
-            phone_number: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]]
+            phone_number: ['']
         })
+
+        this.activeRoute.queryParams.subscribe((params: any) => {
+            if (params['table_number']) {
+                this.default_table_number = params['table_number'];
+            }
+        });
 
         this.getProductsData()
         this.getCustomerData()
         this.getTableData()
+        this.getshopDetails()
         // this.renderer.listen(document, 'keydown.shift.s', handler)
     }
 
+    getshopDetails() {
+        this.shopDetails = JSON.parse(localStorage.getItem('ShopDetails') || '{}');
+
+    }
     validateNumber(event: any) {
 
         var inp = String.fromCharCode(event.keyCode);
@@ -178,27 +197,45 @@ export class AddSaleComponent implements OnInit {
     }
 
     getProductsData() {
-        this.productData = [];
+        this.categoryData = [];
         this.productService.getProducts(this.page).subscribe((data: any) => {
-            this.productData = data.products.data;
-            console.log(data);
-            if (data.products.last_page > 1) {
-                console.log('greater');
-                for (let i = 2; i <= data.products.last_page; i++) {
-                    console.log();
-                    this.productService.getProducts(i).subscribe((ele: any) => {
-                        this.productData = this.productData.concat(ele.products.data);
-                        console.log(ele.products.data);
-                    })
-                }
-                this.showProducts = true;
-                console.log(this.productData, 'pro data');
+            data.data.forEach((element: any, index: any) => {
+                console.log(element.products.length, 'len');
 
-            } else {
-                this.showProducts = true;
+                if (element.products.length == 0) data.data.splice(index, 1);
+            });
+
+            data.data.forEach((element: any) => {
+                element.products.forEach((pro: any) => {
+                    pro.product_count = 0;
+                });
+            });
+            this.categoryData = data.data;
+            console.log(this.categoryData, 'pro');
+
+            for (let i = 0; i < this.categoryData.length; i++) {
+                this.activeIds.push("ngb-panel-" + i);
             }
-            // this.productData = data.products.data
-            // console.log(this.productData);
+            this.showProducts = true;
+            // if (data.products.last_page > 1) {
+            //     console.log('greater');
+            //     for (let i = 2; i <= data.products.last_page; i++) {
+            //         this.productService.getProducts(i).subscribe((ele: any) => {
+            //             ele.forEach((element: any) => {
+            //                 element.product_count = 0;
+            //             });
+            //             this.categoryData = this.categoryData.concat(ele.products.data);
+            //             console.log(ele.products.data);
+            //         })
+            //     }
+            //     console.log(this.categoryData, 'pro data');
+            //     this.showProducts = true;
+
+            // } else {
+            //     this.showProducts = true;
+            // }
+            // this.categoryData = data.products.data
+            // console.log(this.categoryData);
         })
     }
 
@@ -222,12 +259,38 @@ export class AddSaleComponent implements OnInit {
 
     searchCustomer(event: any) {
         console.log(event.term);
-        this.customerService.searchCustomer(event.term).subscribe((res: any) => {
-            this.customerData = res.customers.data
-            console.log(this.customerData);
-        }, err => {
-            this.toast.error('Error', 'Server error.')
-            this.showloader = false
+        this.customerService.searchCustomer(event.term).subscribe({
+            next: (res: any) => {
+                this.customerData = res.customers.data
+                console.log(this.customerData);
+            }, error: err => {
+                this.toast.error('Error', 'Server error.')
+                this.showloader = false
+            }
+        });
+    }
+
+    search(event: any) {
+        this.showloader = true
+
+        // this.filteredData = this.rowData.filter((item: templogRecord) => {
+        //     return item.sensor.toLowerCase().includes(searchValue.toLowerCase());
+        //   });
+        console.log(this.searchValue);
+
+        this.productService.searchProducts(this.searchValue).subscribe({
+            next: (res: any) => {
+                this.categoryData = res.data;
+
+                for (let i = 0; i < this.categoryData.length; i++) {
+                    this.activeIds.push("ngb-panel-" + i);
+                }
+
+                this.showloader = false
+            }, error: err => {
+                this.toast.error('Error', 'Server error.')
+                this.showloader = false
+            }
         });
     }
 
@@ -244,11 +307,51 @@ export class AddSaleComponent implements OnInit {
             console.log(this.tableList, 'tableList');
 
             // this.tableList = data.data;
-            if (this.tableList.length > 0) {
-                this.addSaleForm.get('table_number')?.setValue(this.tableList[0].res_table_number);
+            if (this.default_table_number) {
+                this.addSaleForm.get('table_number')?.setValue(this.default_table_number);
             } else {
+
+                if (this.tableList.length > 0) {
+                    this.addSaleForm.get('table_number')?.setValue(this.tableList[0].res_table_number);
+                }
             }
         })
+    }
+
+    decreaseCount(catID: any, prodId: any, count: any) {
+        this.categoryData.forEach((element: any, key: any) => {
+            if (element.id == catID) {
+                element.products.forEach((prod: any, key2: any) => {
+                    if (prodId == prod.id) {
+                        console.log(prod);
+                        if (prod.product_count > 0) {
+                            console.log(element, 'key');
+                            prod.product_count = count - 1;
+                        } else {
+                            prod.product_count = 0;
+                        }
+
+                    }
+                });
+            }
+        });
+        this.onSelectProduct(this.categoryData);
+    }
+
+    increaseCount(catID: any, prodId: any, count: any) {
+
+        this.categoryData.forEach((element: any, key: any) => {
+            console.log(element, 'key');
+            if (element.id == catID) {
+                element.products.forEach((prod: any, key2: any) => {
+                    if (prodId == prod.id) {
+                        console.log(this.categoryData[key].products[key2]);
+                        this.categoryData[key].products[key2].product_count = count + 1;
+                    }
+                });
+            }
+        });
+        this.onSelectProduct(this.categoryData);
     }
 
     onTableChange(event: any) {
@@ -272,13 +375,15 @@ export class AddSaleComponent implements OnInit {
         this.modalService.dismissAll();
 
         this.customerService.postCustomerData(data)
-            .subscribe((result: any) => {
-                console.log(result.customers)
-                this.toast.success('Success', 'Customer Added Successfully.')
-                this.getCustomerData();
-                this.getCustomerDetail(result.customers);
-            }, err => {
-                this.toast.error('Error', 'Server error.')
+            .subscribe({
+                next: (result: any) => {
+                    console.log(result.customers)
+                    this.toast.success('Success', 'Customer Added Successfully.')
+                    this.getCustomerData();
+                    this.getCustomerDetail(result.customers);
+                }, error: err => {
+                    this.toast.error('Error', 'Server error.')
+                }
             });
         console.log('Form Submitted', (data));
     }
@@ -293,9 +398,11 @@ export class AddSaleComponent implements OnInit {
     }
 
     selectCustomerClose() {
+
         this.customerForm = this.fb.group({
             customer_id: [null, [Validators.required]]
-        })
+        });
+        this.modalService.dismissAll();
     }
 
     qtyClose() {
@@ -305,11 +412,13 @@ export class AddSaleComponent implements OnInit {
     }
 
     addCustomerClose() {
+
         this.addCustomerForm = this.fb.group({
             first_name: ['', [Validators.required]],
             last_name: ['', [Validators.required]],
             phone_number: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]]
-        })
+        });
+        this.modalService.dismissAll();
     }
 
     onSelectDate(date: any) {
@@ -320,46 +429,70 @@ export class AddSaleComponent implements OnInit {
 
     onSelectProduct(data: any) {
 
+
+        this.modalService.dismissAll();
+
+        this.addedProduct = [];
+
+        data.forEach((element: any) => {
+            element.products.forEach((prod: any) => {
+                if (prod.product_count > 0) {
+                    prod.subtotal = prod.price * prod.product_count;
+                    prod.quantity = prod.product_count;
+                    this.addedProduct.push(prod);
+                }
+            });
+        });
+
+        console.log(this.addedProduct, 'added');
+
+        // this.addedProduct.forEach((g: any) => {
+        //     if (g.id == data.id) {
+        //         g.quantity = 1;
+        //         g.subtotal = data.price
+        //         this.addedProduct.push(g)
+        //         // this.ngOnInit()
+        //     }
+        //     // console.log(this.addedProduct);
+        // });
+
         // if (this.qtyForm.invalid) {
         //     this.showValidations = true;
         //     alert('Please enter quantity');
         //     return;
         // }
 
-        let invalid;
+        // let invalid;
 
-        this.modalService.dismissAll();
-
-        this.addedProduct.forEach((g: any) => {
-            if (data.product_name == g.product_name) {
-                invalid = true
-            }
-        })
-        if (invalid) {
-            this.toast.warning('Warning', data.product_name + ' is already added.')
-            return;
-        }
+        // this.addedProduct.forEach((g: any) => {
+        //     if (data.product_name == g.product_name) {
+        //         invalid = true
+        //     }
+        // })
+        // if (invalid) {
+        //     this.toast.warning('Warning', data.product_name + ' is already added.')
+        //     return;
+        // }
         // console.log('Quantity', data.qty);
 
-        this.productData.forEach((g: any) => {
-            // g.quantity = 0;
-            // g.subtotal = 0;
-            // console.log(g)
-            if (g.id == data.id) {
-                g.quantity = 1;
-                g.subtotal = data.price
-                this.addedProduct.push(g)
-                // this.ngOnInit()
-            }
-            // console.log(this.addedProduct);
-
-        });
+        // this.categoryData.forEach((g: any) => {
+        //     // g.quantity = 0;
+        //     // g.subtotal = 0;
+        //     // console.log(g)
+        //     if (g.id == data.id) {
+        //         g.quantity = 1;
+        //         g.subtotal = data.price
+        //         this.addedProduct.push(g)
+        //         // this.ngOnInit()
+        //     }
+        //     // console.log(this.addedProduct);
+        // });
 
         this.semitotal = this.addedProduct.map((a: any) => (a.subtotal)).reduce(function (a: any, b: any) {
             return a + b;
         })
 
-        this.toast.success('Success', 'Product added successfully.');
+        // this.toast.success('Success', 'Product added successfully.');
 
         this.productQuantity[this.addedProduct.length - 1] = 1;
         // this.qtyForm = this.fb.group({
@@ -369,7 +502,7 @@ export class AddSaleComponent implements OnInit {
         console.log(this.productQuantity, 'quantity');
 
 
-        this.total += (data.quantity * data.price)
+        this.total += (data.quantity * data.price);
         this.calculateTotal();
         // console.log('Added Product', this.addedProduct);
     }
@@ -520,7 +653,7 @@ export class AddSaleComponent implements OnInit {
             }
         }
         else {
-            alert('Please add atleast one item to input shipping charges!');
+            // alert('Please add atleast one item to input shipping charges!');
             this.shipping_charge = 0;
             return;
         }
@@ -531,7 +664,7 @@ export class AddSaleComponent implements OnInit {
         }
     }
 
-    RemoveProduct(id: any) {
+    removeProduct(id: any, catId: any) {
         if (confirm('Are you sure you want to delete?')) {
             this.addedProduct = this.addedProduct.filter((item: any) => item.id !== id);
             // console.log('afterdelete', this.addedProduct);
@@ -542,6 +675,9 @@ export class AddSaleComponent implements OnInit {
                     return a + b;
                 })
             }
+
+            console.log(this.addedProduct);
+            this.decreaseCount(catId, id, 1);
             setTimeout(() => { this.onKey(this.shipping_charge) }, 500);
             setTimeout(() => { this.calculateTotal() }, 500);
             this.toast.success('Success', 'Product deleted successfully.');
@@ -672,8 +808,8 @@ export class AddSaleComponent implements OnInit {
 
   </style>
     <body>
-      <p class="text-align"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABIQAAAYbCAYAAABufWGJAAAACXBIWXMAAAsTAAALEwEAmpwYAABBH2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMwNjcgNzkuMTU3NzQ3LCAyMDE1LzAzLzMwLTIzOjQwOjQyICAgICAgICAiPgogICA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPgogICAgICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIgogICAgICAgICAgICB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIKICAgICAgICAgICAgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIKICAgICAgICAgICAgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiCiAgICAgICAgICAgIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIKICAgICAgICAgICAgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIgogICAgICAgICAgICB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iCiAgICAgICAgICAgIHhtbG5zOnRpZmY9Imh0dHA6Ly9ucy5hZG9iZS5jb20vdGlmZi8xLjAvIgogICAgICAgICAgICB4bWxuczpleGlmPSJodHRwOi8vbnMuYWRvYmUuY29tL2V4aWYvMS4wLyI+CiAgICAgICAgIDx4bXBNTTpEb2N1bWVudElEPmFkb2JlOmRvY2lkOnBob3Rvc2hvcDphMTM5MTQ4Mi0zZTI5LTExZWQtODI1OS1mYjBkM2UzZjdlMTc8L3htcE1NOkRvY3VtZW50SUQ+CiAgICAgICAgIDx4bXBNTTpJbnN0YW5jZUlEPnhtcC5paWQ6NWRkOGI3MzEtNDNiNS0xZjQ4LWIzODEtZjA5ZmQyYWUxZGNlPC94bXBNTTpJbnN0YW5jZUlEPgogICAgICAgICA8eG1wTU06T3JpZ2luYWxEb2N1bWVudElEPjVDMDFFODIyMENCMzg3OTIzREQwNUYyM0EwNURGQ0RGPC94bXBNTTpPcmlnaW5hbERvY3VtZW50SUQ+CiAgICAgICAgIDx4bXBNTTpIaXN0b3J5PgogICAgICAgICAgICA8cmRmOlNlcT4KICAgICAgICAgICAgICAgPHJkZjpsaSByZGY6cGFyc2VUeXBlPSJSZXNvdXJjZSI+CiAgICAgICAgICAgICAgICAgIDxzdEV2dDphY3Rpb24+c2F2ZWQ8L3N0RXZ0OmFjdGlvbj4KICAgICAgICAgICAgICAgICAgPHN0RXZ0Omluc3RhbmNlSUQ+eG1wLmlpZDoyYTlhNjIzYS1jYzdhLTJiNGQtODVmMi01MWNmZjdlYmM1ZWM8L3N0RXZ0Omluc3RhbmNlSUQ+CiAgICAgICAgICAgICAgICAgIDxzdEV2dDp3aGVuPjIwMjItMDQtMTNUMTA6NDc6MjcrMDU6MzA8L3N0RXZ0OndoZW4+CiAgICAgICAgICAgICAgICAgIDxzdEV2dDpzb2Z0d2FyZUFnZW50PkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE1IChXaW5kb3dzKTwvc3RFdnQ6c29mdHdhcmVBZ2VudD4KICAgICAgICAgICAgICAgICAgPHN0RXZ0OmNoYW5nZWQ+Lzwvc3RFdnQ6Y2hhbmdlZD4KICAgICAgICAgICAgICAgPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGkgcmRmOnBhcnNlVHlwZT0iUmVzb3VyY2UiPgogICAgICAgICAgICAgICAgICA8c3RFdnQ6YWN0aW9uPmNvbnZlcnRlZDwvc3RFdnQ6YWN0aW9uPgogICAgICAgICAgICAgICAgICA8c3RFdnQ6cGFyYW1ldGVycz5mcm9tIGltYWdlL2pwZWcgdG8gaW1hZ2UvcG5nPC9zdEV2dDpwYXJhbWV0ZXJzPgogICAgICAgICAgICAgICA8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaSByZGY6cGFyc2VUeXBlPSJSZXNvdXJjZSI+CiAgICAgICAgICAgICAgICAgIDxzdEV2dDphY3Rpb24+ZGVyaXZlZDwvc3RFdnQ6YWN0aW9uPgogICAgICAgICAgICAgICAgICA8c3RFdnQ6cGFyYW1ldGVycz5jb252ZXJ0ZWQgZnJvbSBpbWFnZS9qcGVnIHRvIGltYWdlL3BuZzwvc3RFdnQ6cGFyYW1ldGVycz4KICAgICAgICAgICAgICAgPC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGkgcmRmOnBhcnNlVHlwZT0iUmVzb3VyY2UiPgogICAgICAgICAgICAgICAgICA8c3RFdnQ6YWN0aW9uPnNhdmVkPC9zdEV2dDphY3Rpb24+CiAgICAgICAgICAgICAgICAgIDxzdEV2dDppbnN0YW5jZUlEPnhtcC5paWQ6MjhhN2RhZjQtNDNhZC01NDQ4LTllOTAtZWFhZWJlZDRhNTcyPC9zdEV2dDppbnN0YW5jZUlEPgogICAgICAgICAgICAgICAgICA8c3RFdnQ6d2hlbj4yMDIyLTA0LTEzVDEwOjQ3OjI3KzA1OjMwPC9zdEV2dDp3aGVuPgogICAgICAgICAgICAgICAgICA8c3RFdnQ6c29mdHdhcmVBZ2VudD5BZG9iZSBQaG90b3Nob3AgQ0MgMjAxNSAoV2luZG93cyk8L3N0RXZ0OnNvZnR3YXJlQWdlbnQ+CiAgICAgICAgICAgICAgICAgIDxzdEV2dDpjaGFuZ2VkPi88L3N0RXZ0OmNoYW5nZWQ+CiAgICAgICAgICAgICAgIDwvcmRmOmxpPgogICAgICAgICAgICAgICA8cmRmOmxpIHJkZjpwYXJzZVR5cGU9IlJlc291cmNlIj4KICAgICAgICAgICAgICAgICAgPHN0RXZ0OmFjdGlvbj5zYXZlZDwvc3RFdnQ6YWN0aW9uPgogICAgICAgICAgICAgICAgICA8c3RFdnQ6aW5zdGFuY2VJRD54bXAuaWlkOjVkZDhiNzMxLTQzYjUtMWY0OC1iMzgxLWYwOWZkMmFlMWRjZTwvc3RFdnQ6aW5zdGFuY2VJRD4KICAgICAgICAgICAgICAgICAgPHN0RXZ0OndoZW4+MjAyMi0wOS0yN1QxMTozMDoxOCswNTozMDwvc3RFdnQ6d2hlbj4KICAgICAgICAgICAgICAgICAgPHN0RXZ0OnNvZnR3YXJlQWdlbnQ+QWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKFdpbmRvd3MpPC9zdEV2dDpzb2Z0d2FyZUFnZW50PgogICAgICAgICAgICAgICAgICA8c3RFdnQ6Y2hhbmdlZD4vPC9zdEV2dDpjaGFuZ2VkPgogICAgICAgICAgICAgICA8L3JkZjpsaT4KICAgICAgICAgICAgPC9yZGY6U2VxPgogICAgICAgICA8L3htcE1NOkhpc3Rvcnk+CiAgICAgICAgIDx4bXBNTTpEZXJpdmVkRnJvbSByZGY6cGFyc2VUeXBlPSJSZXNvdXJjZSI+CiAgICAgICAgICAgIDxzdFJlZjppbnN0YW5jZUlEPnhtcC5paWQ6MmE5YTYyM2EtY2M3YS0yYjRkLTg1ZjItNTFjZmY3ZWJjNWVjPC9zdFJlZjppbnN0YW5jZUlEPgogICAgICAgICAgICA8c3RSZWY6ZG9jdW1lbnRJRD41QzAxRTgyMjBDQjM4NzkyM0REMDVGMjNBMDVERkNERjwvc3RSZWY6ZG9jdW1lbnRJRD4KICAgICAgICAgICAgPHN0UmVmOm9yaWdpbmFsRG9jdW1lbnRJRD41QzAxRTgyMjBDQjM4NzkyM0REMDVGMjNBMDVERkNERjwvc3RSZWY6b3JpZ2luYWxEb2N1bWVudElEPgogICAgICAgICA8L3htcE1NOkRlcml2ZWRGcm9tPgogICAgICAgICA8ZGM6Zm9ybWF0PmltYWdlL3BuZzwvZGM6Zm9ybWF0PgogICAgICAgICA8cGhvdG9zaG9wOkNvbG9yTW9kZT4zPC9waG90b3Nob3A6Q29sb3JNb2RlPgogICAgICAgICA8eG1wOkNyZWF0ZURhdGU+MjAyMi0wNC0wNlQxODo0OTowMyswNTozMDwveG1wOkNyZWF0ZURhdGU+CiAgICAgICAgIDx4bXA6TW9kaWZ5RGF0ZT4yMDIyLTA5LTI3VDExOjMwOjE4KzA1OjMwPC94bXA6TW9kaWZ5RGF0ZT4KICAgICAgICAgPHhtcDpNZXRhZGF0YURhdGU+MjAyMi0wOS0yN1QxMTozMDoxOCswNTozMDwveG1wOk1ldGFkYXRhRGF0ZT4KICAgICAgICAgPHhtcDpDcmVhdG9yVG9vbD5BZG9iZSBQaG90b3Nob3AgQ0MgMjAxNSAoV2luZG93cyk8L3htcDpDcmVhdG9yVG9vbD4KICAgICAgICAgPHRpZmY6SW1hZ2VXaWR0aD4zMTQwPC90aWZmOkltYWdlV2lkdGg+CiAgICAgICAgIDx0aWZmOkltYWdlTGVuZ3RoPjIzNDY8L3RpZmY6SW1hZ2VMZW5ndGg+CiAgICAgICAgIDx0aWZmOkJpdHNQZXJTYW1wbGU+CiAgICAgICAgICAgIDxyZGY6U2VxPgogICAgICAgICAgICAgICA8cmRmOmxpPjg8L3JkZjpsaT4KICAgICAgICAgICAgICAgPHJkZjpsaT44PC9yZGY6bGk+CiAgICAgICAgICAgICAgIDxyZGY6bGk+ODwvcmRmOmxpPgogICAgICAgICAgICA8L3JkZjpTZXE+CiAgICAgICAgIDwvdGlmZjpCaXRzUGVyU2FtcGxlPgogICAgICAgICA8dGlmZjpQaG90b21ldHJpY0ludGVycHJldGF0aW9uPjI8L3RpZmY6UGhvdG9tZXRyaWNJbnRlcnByZXRhdGlvbj4KICAgICAgICAgPHRpZmY6T3JpZW50YXRpb24+MTwvdGlmZjpPcmllbnRhdGlvbj4KICAgICAgICAgPHRpZmY6U2FtcGxlc1BlclBpeGVsPjM8L3RpZmY6U2FtcGxlc1BlclBpeGVsPgogICAgICAgICA8dGlmZjpYUmVzb2x1dGlvbj43MjAwMDAvMTAwMDA8L3RpZmY6WFJlc29sdXRpb24+CiAgICAgICAgIDx0aWZmOllSZXNvbHV0aW9uPjcyMDAwMC8xMDAwMDwvdGlmZjpZUmVzb2x1dGlvbj4KICAgICAgICAgPHRpZmY6UmVzb2x1dGlvblVuaXQ+MjwvdGlmZjpSZXNvbHV0aW9uVW5pdD4KICAgICAgICAgPGV4aWY6RXhpZlZlcnNpb24+MDIyMTwvZXhpZjpFeGlmVmVyc2lvbj4KICAgICAgICAgPGV4aWY6Q29sb3JTcGFjZT42NTUzNTwvZXhpZjpDb2xvclNwYWNlPgogICAgICAgICA8ZXhpZjpQaXhlbFhEaW1lbnNpb24+MTE1NjwvZXhpZjpQaXhlbFhEaW1lbnNpb24+CiAgICAgICAgIDxleGlmOlBpeGVsWURpbWVuc2lvbj4xNTYzPC9leGlmOlBpeGVsWURpbWVuc2lvbj4KICAgICAgPC9yZGY6RGVzY3JpcHRpb24+CiAgIDwvcmRmOlJERj4KPC94OnhtcG1ldGE+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgCjw/eHBhY2tldCBlbmQ9InciPz7JxDEAAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAD9eSURBVHja7N3dciO5dq3R5A69/xM7gr7ormqVihLzB0hgYY5xdewTsW1TTGDhI8h6PJ/PDQAAAIAc//MSAAAAAGQRhAAAAADCCEIAAAAAYQQhAAAAgDCCEAAAAEAYQQgAAAAgjCAEAAAAEEYQAgAAAAgjCAEAAACEEYQAAAAAwghCAAAAAGEEIQAAAIAwghAAAABAGEEIAAAAIIwgBAAAABBGEAIAAAAIIwgBAAAAhBGEAAAAAMIIQgAAAABhBCEAAACAMIIQAAAAQBhBCAAAACCMIAQAAAAQRhACAAAACCMIAQAAAIQRhAAAAADCCEIAAAAAYQQhAAAAgDCCEAAAAEAYQQgAAAAgjCAEAAAAEEYQAgAAAAgjCAEAAACEEYQAAAAAwghCAAAAAGEEIQAAAIAwghAAAABAGEEI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AAAAgDCCEAAAAEAYQQgAAAAgjCAEAAAAEEYQAgAAAAgjCAEAAACEEYQAAAAAwghCAAAAAGEEIQAAAIAwghAAAABAGEEIAAAAIIwgBAAAABBGEAIAAAAIIwgBAAAAhBGEAAAAAMIIQgAAAABhBCEAAACAMIIQAAAAQBhBCAAAACCMIAQAAAAQRhACAAAACCMIAQAAAIQRhAAAAADCCEIAAAAAYQQhAAAAgDCCEAAAAEAYQQgAAAAgjCAEAAAAEEYQAgAAAAgjCAEAAACEEYQAAAAAwghCAAAAAGEEIQAAAIAwghAAAABAGEEIAAAAIIwgBAAAABBGEAIAAAAIIwgBAAAAhBGEAAAAAMIIQgAAAABhBCEAAACAMIIQAAAAQBhBCAAAACCMIAQAAAAQRhACAAAACCMIAQAAAIQRhAAAAADCCEIAAAAAYQQhAAAAgDCCEAAAAEAYQQgAAAAgjCAEAAAAEEYQAgAAAAgjCAEAAACEEYQAAAAAwghCAAAAAGEEIQAAAIAwghAAAABAGEEIAAAAIIwgBAAAABBGEAIAAAAIIwgBAAAAhBGEAAAAAMIIQgAAAABhBCEAAACAMIIQAAAAQBhBCAAAACCMIAQAAAAQRhACAAAACCMIAQAAAIQRhAAAAADCCEIAAAAAYQQhAAAAgDCCEAAAAEAYQQgAAAAgjCAEAAAAEEYQAgAAAAgjCAEAAACEEYQAAAAAwghCAAAAAGEEIQAAAIAwghAAAABAGEEIAAAAIIwgBAAAABBGEAIAAAAIIwgBAAAAhBGEAAAAAMIIQgAAAABhBCEAAACAMIIQAAAAQBhBCAAAACCMIAQAAAAQRhACAAAACCMIAQAAAIQRhAAAAADCCEIAAAAAYQQhAAAAgDCCEAAAAEAYQQgAAAAgjCAEAAAAEEYQAgAAAAgjCAEAAACEEYQAAAAAwghCAAAAAGEEIQAAAIAwghAAAABAGEEIAAAAIIwgBAAAABBGEAIAAAAIIwgBAAAAhBGEAAAAAMIIQgAAAABhBCEAAACAMIIQAAAAQBhBCAAAACCMIAQAAAAQRhACAAAACCMIAQAAAIQRhAAAAADCCEIAAAAAYQQhAAAAgDCCEAAAAEAYQQgAAAAgjCAEAAAAEEYQAgAAAAgjCAEAAACEEYQAAAAAwghCAAAAAGEEIQAAAIAwghAAAABAGEEIAAAAIIwgBAAAABBGEAIAAAAIIwgBAAAAhBGEAAAAAMIIQgAAAABhBCEAAACAMIIQAAAAQBhBCAAAACCMIAQAAAAQRhACAAAACCMIAQAAAIQRhAAAAADCCEIAAAAAYQQhAAAAgDCCEAAAAEAYQQgAAAAgjCAEAAAAEEYQAgAAAAgjCAEAAACEEYQAAAAAwghCAAAAAGEEIQAAAIAwghAAAABAGEEIAAAAIIwgBAAAABBGEAIAAAAIIwgBAAAAhBGEAAAAAMIIQgAAAABhBCEAAACAMIIQAAAAQBhBCAAAACCMIAQAAAAQRhACAAAACCMIAQAAAIQRhAAAAADCCEIAAAAAYQQhAAAAgDCCEAAAAEAYQQgAAAAgjCAEAAAAEEYQAgAAAAgjCAEAAACEEYQAAAAAwghCAAAAAGEEIQAAAIAwghAAAABAGEEIAAAAIIwgBAAAABBGEAIAAAAIIwgBAAAAhBGEAAAAAMIIQgAAAABhBCEAAACAMIIQAAAAQBhBCAAAACCMIAQAAAAQRhACAAAACCMIAQAAAIQRhAAAAADCCEIAAAAAYQQhAAAAgDCCEAAAAEAYQQgAAAAgjCAEAAAAEEYQAgAAAAgjCAEAAACEEYQAAAAAwghCAAAAAGEEIQAAAIAwghAAAABAGEEIAAAAIIwgBAAAABBGEAIAAAAIIwgBAAAAhBGEAAAAAMIIQgAAAABhBCEAAACAMIIQAAAAQBhBCAAAACCMIAQAAAAQRhACAAAACCMIAQAAAIQRhAAAAADCCEIAAAAAYQQhAAAAgDCCEAAAAEAYQQgAAAAgzP8PAA499T8Ed6t4AAAAAElFTkSuQmCC" alt="" width="25" /></p>
-      <h3 class="text-align">Jamanvaar Kitchen</h3>
+      <p class="text-align"><img src="${this.shopDetails.logo}" alt="" width="25" /></p>
+      <h3 class="text-align">${this.shopDetails.shop_name}</h3>
       <p class="text-align m-0">High quality meals</p>
       <p class="text-align m-0">(Takeaway, Delievery, Dining)</p>
       <p class="text-align">FF-122, Infocity Supermall 2, Infocity Gandhinagar-382007 </p>
@@ -796,33 +932,37 @@ export class AddSaleComponent implements OnInit {
 
         console.log(obj);
 
-        this.saleService.postOrder(obj).subscribe((result: any) => {
-            console.log(result, 'result data')
-            this.toast.success('Success', 'Sales Order Added Successfully.');
-            this.getOrderDetail(result.order.id, true);
-            this.router.navigate(['/sales']);
+        this.saleService.postOrder(obj).subscribe({
+            next: (result: any) => {
+                console.log(result, 'result data')
+                this.toast.success('Success', 'Sales Order Added Successfully.');
+                this.getOrderDetail(result.order.id, true);
+                this.router.navigate(['/sales']);
 
-            let table_name;
-            if (this.customerName) {
-                table_name = this.customerName
-            } else {
-                table_name = '-';
+                let table_name;
+                if (this.customerName) {
+                    table_name = this.customerName
+                } else {
+                    table_name = '-';
+                }
+
+                let tableData = {
+                    table_number: data.table_number,
+                    table_name: table_name,
+                    table_occupied: 1,
+                    table_active: 1
+                }
+                this.TableManagementService.editTableData(this.selectedTableId, tableData).subscribe({
+                    next: data => {
+
+                    }, error: err => {
+                        this.toast.error('Error', 'Table could not be marked as occupied');
+                    }
+                })
+            }, error: err => {
+                this.toast.error('Error', 'Server Error')
+                // this.router.navigate(['/auth/login'])
             }
-
-            let tableData = {
-                table_number: data.table_number,
-                table_name: table_name,
-                table_occupied: 1,
-                table_active: 1
-            }
-            this.TableManagementService.editTableData(this.selectedTableId, tableData).subscribe(data => {
-
-            }, err => {
-                this.toast.error('Error', 'Table could not be marked as occupied');
-            })
-        }, err => {
-            this.toast.error('Error', 'Server Error')
-            // this.router.navigate(['/auth/login'])
         });
     }
 

@@ -91,70 +91,82 @@ export class EditAttributeFamilyComponent implements OnInit {
   // For attribute table listing in group
   getAttributesGroupData() {
     this.showloader = true
-    this.family.showAttribute().subscribe(result => {
-      this.attributeGroupData = result.attribute_group_show;
-      this.length = this.attributeGroupData.length
-      console.log(this.attributeGroupData, this.length)
-      this.showloader = false
-    }, err => {
-      this.toast.error('Error', 'Server error.')
+    this.family.showAttribute().subscribe({
+      next: result => {
+        this.attributeGroupData = result.attribute_group_show;
+        this.length = this.attributeGroupData.length
+        console.log(this.attributeGroupData, this.length)
+        this.showloader = false
+      }, error: err => {
+        this.toast.error('Error', 'Server error.')
+      }
     })
   }
 
   // For add attributes dropdown in add attribute modal
   getAttributesData() {
     this.showloader = true
-    this.attribute.getAttributesData(this.page).subscribe(result => {
-      this.attributeDataList = result.Attributes.data;
-      this.length = result.Attributes.per_page;
-      this.total = result.Attributes.total;
-      this.showloader = false
-      console.log(this.attributeDataList.id);
-    }, err => {
-      this.toast.error('Error', 'Server error.')
+    this.attribute.getAttributesData(this.page).subscribe({
+      next: result => {
+        this.attributeDataList = result.Attributes.data;
+        this.length = result.Attributes.per_page;
+        this.total = result.Attributes.total;
+        this.showloader = false
+        console.log(this.attributeDataList.id);
+      }, error: err => {
+        this.toast.error('Error', 'Server error.')
+      }
     })
   }
 
   // Group listing in edit attribute family form
   getGroup() {
-    this.family.getGroup().subscribe(result => {
-      this.groupData = result.groups.data
-      console.log(this.groupData)
-    }, err => {
-      this.toast.error('Error', 'Server error.')
+    this.family.getGroup().subscribe({
+      next: result => {
+        this.groupData = result.groups.data
+        console.log(this.groupData)
+      }, error: err => {
+        this.toast.error('Error', 'Server error.')
+      }
     })
   }
 
   // To submit edit attribute family form data
   updateData(data: any) {
-    this.family.editFamily(this.familyId, data).subscribe(data => {
-      console.log('Data updated successfully! ', data)
-      this.router.navigate(['/catalog/products']);
-      this.toast.success('Success', 'Attribute Family Edited successfully.')
-    }, err => {
-      this.toast.error('Error', 'Server error.')
+    this.family.editFamily(this.familyId, data).subscribe({
+      next: data => {
+        console.log('Data updated successfully! ', data)
+        this.router.navigate(['/catalog/products']);
+        this.toast.success('Success', 'Attribute Family Edited successfully.')
+      }, error: err => {
+        this.toast.error('Error', 'Server error.')
+      }
     })
 
   }
 
   // For adding group
   updateData2(data: any) {
-    this.family.addGroup(data).subscribe(data => {
-      console.log('Data added successfully! ', data)
-      this.toast.success('Success', 'Group Added successfully.')
-    }, err => {
-      this.toast.error('Error', 'Server error.')
+    this.family.addGroup(data).subscribe({
+      next: data => {
+        console.log('Data added successfully! ', data)
+        this.toast.success('Success', 'Group Added successfully.')
+      }, error: err => {
+        this.toast.error('Error', 'Server error.')
+      }
     })
   }
 
   // For deleting attribute from group
   deleteRow(id: number) {
     if (confirm('Are you sure you want to delete?')) {
-      this.attribute.deleteAttribute(id).subscribe(data => {
-        this.getAttributesGroupData();
-        this.toast.success('Success', 'Attribute Deleted successfully.')
-      }, err => {
-        this.toast.error('Error', 'Server error.')
+      this.attribute.deleteAttribute(id).subscribe({
+        next: data => {
+          this.getAttributesGroupData();
+          this.toast.success('Success', 'Attribute Deleted successfully.')
+        }, error: err => {
+          this.toast.error('Error', 'Server error.')
+        }
       })
       console.log('Deleted!');
     }
@@ -162,11 +174,13 @@ export class EditAttributeFamilyComponent implements OnInit {
 
   // For deleting group
   deleteGroup(id: number) {
-    this.family.deleteGroup(id).subscribe(data => {
-      this.toast.success('Success', 'Group Deleted successfully.')
-      this.getGroup();
-    }, err => {
-      this.toast.error('Error', 'Server error.')
+    this.family.deleteGroup(id).subscribe({
+      next: data => {
+        this.toast.success('Success', 'Group Deleted successfully.')
+        this.getGroup();
+      }, error: err => {
+        this.toast.error('Error', 'Server error.')
+      }
     })
     console.log('Group deleted')
   }
@@ -187,13 +201,15 @@ export class EditAttributeFamilyComponent implements OnInit {
     const group_id = groupid
     const attribute_family_id = this.familyId
     const data = { group_id, attribute_family_id }
-    this.family.addAttribute(data, this.attributeId).subscribe(result => {
-      this.toast.success('Success', 'Attribute Added successfully.')
-      this.getAttributesGroupData();
-      console.log(result);
+    this.family.addAttribute(data, this.attributeId).subscribe({
+      next: result => {
+        this.toast.success('Success', 'Attribute Added successfully.')
+        this.getAttributesGroupData();
+        console.log(result);
 
-    }, err => {
-      this.toast.error('Error', 'Server error.')
+      }, error: err => {
+        this.toast.error('Error', 'Server error.')
+      }
     })
     // console.log('Attribute family id: ', this.familyId);
     // console.log('Atttribute id: ', this.attributeId);

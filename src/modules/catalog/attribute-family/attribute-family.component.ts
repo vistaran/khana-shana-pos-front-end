@@ -33,14 +33,16 @@ export class AttributeFamilyComponent implements OnInit {
   // To get attribute family data for table listing
   getFamily() {
     this.showloader = true
-    this.attributeFamilyService.getFamily(this.page).subscribe(result => {
-      this.attributeFamilyData = result.attributefamily.data;
-      this.length = this.attributeFamilyData.length;
-      this.total = result.attributefamily.total;
-      this.showloader = false
-    }, err => {
-      this.toast.error('Error', 'Server error.')
-      this.showloader = false
+    this.attributeFamilyService.getFamily(this.page).subscribe({
+      next: result => {
+        this.attributeFamilyData = result.attributefamily.data;
+        this.length = this.attributeFamilyData.length;
+        this.total = result.attributefamily.total;
+        this.showloader = false
+      }, error: err => {
+        this.toast.error('Error', 'Server error.')
+        this.showloader = false
+      }
     });
   }
 
@@ -59,11 +61,13 @@ export class AttributeFamilyComponent implements OnInit {
   // For deleting attribute family
   deleteRow(id: number) {
     if (confirm('Are you sure you want to delete?')) {
-      this.attributeFamilyService.deleteFamily(id).subscribe(data => {
-        this.getFamily();
-        this.toast.success('Success', 'Deleted Successfully.')
-      }, err => {
-        this.toast.error('Error', 'Server error.')
+      this.attributeFamilyService.deleteFamily(id).subscribe({
+        next: data => {
+          this.getFamily();
+          this.toast.success('Success', 'Deleted Successfully.')
+        }, error: err => {
+          this.toast.error('Error', 'Server error.')
+        }
       });
     }
   }
@@ -71,15 +75,17 @@ export class AttributeFamilyComponent implements OnInit {
   // For searching data from table
   search(event: any) {
     this.showloader = true
-    this.attributeFamilyService.searchFamily(this.searchValue).subscribe(res => {
-      this.attributeFamilyData = res.attributes_family.data
-      this.length = this.attributeFamilyData.length;
-      this.total = res.attributes_family.total;
-      this.showloader = false
-      console.log(this.attributeFamilyData)
-    }, err => {
-      this.toast.error('Error', 'Server error.')
-      this.showloader = false
+    this.attributeFamilyService.searchFamily(this.searchValue).subscribe({
+      next: res => {
+        this.attributeFamilyData = res.attributes_family.data
+        this.length = this.attributeFamilyData.length;
+        this.total = res.attributes_family.total;
+        this.showloader = false
+        console.log(this.attributeFamilyData)
+      }, error: err => {
+        this.toast.error('Error', 'Server error.')
+        this.showloader = false
+      }
     });
   }
 }

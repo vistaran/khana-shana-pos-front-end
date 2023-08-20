@@ -35,14 +35,16 @@ export class OutletComponent implements OnInit {
   // To get outlet data for table listing
   getOutletData() {
     this.showloader = true
-    this.outletService.getOutletData(this.page).subscribe(result => {
-      this.outletData = result.outlets.data
-      this.length = this.outletData.length;
-      this.total = result.outlets.total;
-      this.showloader = false
-    }, err => {
-      this.toast.error('Error', 'Server error.')
-      this.showloader = false
+    this.outletService.getOutletData(this.page).subscribe({
+      next: result => {
+        this.outletData = result.outlets.data
+        this.length = this.outletData.length;
+        this.total = result.outlets.total;
+        this.showloader = false
+      }, error: err => {
+        this.toast.error('Error', 'Server error.')
+        this.showloader = false
+      }
     });
   }
 
@@ -56,11 +58,13 @@ export class OutletComponent implements OnInit {
   // For deleting outlet
   deleteRow(id: number) {
     if (confirm('Are you sure you want to delete?')) {
-      this.outletService.deleteOutlet(id).subscribe(data => {
-        this.getOutletData();
-        this.toast.success('Success', 'Outlet Deleted successfully.');
-      }, err => {
-        this.toast.error('Error', 'Server error.');
+      this.outletService.deleteOutlet(id).subscribe({
+        next: data => {
+          this.getOutletData();
+          this.toast.success('Success', 'Outlet Deleted successfully.');
+        }, error: err => {
+          this.toast.error('Error', 'Server error.');
+        }
       });
     }
   }
@@ -68,15 +72,17 @@ export class OutletComponent implements OnInit {
   // For searching outlets table data
   search(event: any) {
     this.showloader = true
-    this.outletService.searchOutlet(this.searchValue).subscribe((res: any) => {
-      this.outletData = res.outlets.data
-      this.length = this.outletData.length;
-      this.total = res.outlets.total;
-      this.showloader = false
-      console.log(this.outletData.length)
-    }, err => {
-      this.toast.error('Error', 'Server error.')
-      this.showloader = false
+    this.outletService.searchOutlet(this.searchValue).subscribe({
+      next: (res: any) => {
+        this.outletData = res.outlets.data
+        this.length = this.outletData.length;
+        this.total = res.outlets.total;
+        this.showloader = false
+        console.log(this.outletData.length)
+      }, error: err => {
+        this.toast.error('Error', 'Server error.')
+        this.showloader = false
+      }
     });
   }
 

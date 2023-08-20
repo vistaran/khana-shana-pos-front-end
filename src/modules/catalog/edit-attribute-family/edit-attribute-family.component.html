@@ -1,4 +1,4 @@
-<sb-layout-dashboard>
+<!-- <sb-layout-dashboard>
 
     <div class="card mt-4">
         <h1 class="card-header">Edit Family</h1>
@@ -9,20 +9,20 @@
                 <div class="card-body row">
 
                     <div class="col">
-                        <div class="form-group">
+                        <div class="form-group required">
                             <label class="required mt-4">Code</label>
                             <input type="text" formControlName="attribute_family_code" class="form-control" autofocus/>
-                            <div *ngIf="code?.touched && code?.invalid" class="alert alert-danger">
+                            <div *ngIf="code?.touched && code?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                 <div *ngIf="code?.errors?.required">Code is required.</div>
                             </div>
                         </div>
                     </div>
 
                     <div class="col">
-                        <div class="form-group">
+                        <div class="form-group required">
                             <label class="required mt-4">Name</label>
                             <input type="text" formControlName="attribute_family_name" class="form-control" />
-                            <div *ngIf="name?.touched && name?.invalid" class="alert alert-danger">
+                            <div *ngIf="name?.touched && name?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                 <div *ngIf="name?.errors?.required">Name is required.</div>
                             </div>
                         </div>
@@ -48,7 +48,7 @@
                                 <div class="form-group">
                                     <label class="required mt-4">Name</label>
                                     <input type="text" formControlName="group_name" class="form-control" autofocus/>
-                                    <div *ngIf="group_name?.touched && group_name?.invalid" class="alert alert-danger">
+                                    <div *ngIf="group_name?.touched && group_name?.invalid" class="alert alert-danger mt-1 py-1 px-3">
                                         <div *ngIf="group_name?.errors?.required">Group Name is required.</div>
                                     </div>
                                 </div>
@@ -68,9 +68,9 @@
 
                 <div class="card-body">
 
-                    <div *ngFor="let group of groupData">
+                    <div *ngFor="let group of groupData" class="mb-1"> -->
                         <!-- <div *ngFor="let attributeData of attributeGroupData"> -->
-                        <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+                        <!-- <ngb-accordion #acc="ngbAccordion"class="mb-1" activeIds="ngb-panel-0">
                             <ngb-panel type="light">
                                 <ng-template ngbPanelTitle>
                                     <div class="d-flex justify-content-between">
@@ -82,8 +82,8 @@
                                         </div>
                                         <div class="">
                                             <button id=" remove" *ngIf="group.group_based == 'User'"
-                                                class="btn btn-light float-right" (click)=" deleteGroup(group.id)">
-                                                <i class="fa fa-trash-o fa-lg float-right"></i>
+                                                class="btn btn-light float-right pt-0" (click)=" deleteGroup(group.id)">
+                                                <i class="fa-solid fa-trash-can fa-lg float-right"></i>
                                             </button>
                                         </div>
                                     </div>
@@ -107,7 +107,7 @@
                                                     <td>
                                                         <button *ngIf="data.attribute_based == 'User'" id="remove"
                                                             (click)="deleteRow(data.id)" class="btn btn-light btn-sm"><i
-                                                                class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                                                                class="fa-solid fa-trash-can fa-lg mx-auto"></i></button>
                                                     </td>
                                                 </tr>
                                                 <tr *ngIf="!length && !showloader">
@@ -166,9 +166,9 @@
                                     </div>
                                 </ng-template>
                             </ngb-panel>
-                        </ngb-accordion>
+                        </ngb-accordion> -->
                         <!-- </div> -->
-                    </div>
+                    <!-- </div>
                 </div>
 
 
@@ -185,4 +185,4 @@
             </div>
         </form>
     </div>
-</sb-layout-dashboard>
+</sb-layout-dashboard> -->

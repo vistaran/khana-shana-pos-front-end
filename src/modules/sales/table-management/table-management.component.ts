@@ -29,33 +29,23 @@ export class TableManagementComponent implements OnInit {
     }
 
     onClick() {
+
         this.router.navigate(['sales/add_table']);
     }
 
     getTableData() {
         this.showloader = true
-        this.TableManagementService.getTableManagementData(this.page).subscribe((result: any) => {
-            this.showloader = false;
-            console.log(result);
-            this.tableData = result.data;
-            this.total = result.total;
-            this.tableData.forEach((element: any) => {
-                if(element.is_table_active == 1) {
-                    element.is_table_active = 'Yes';
-                } else {
-                    element.is_table_active = 'No';
-                }
+        this.TableManagementService.getTableManagementData(this.page).subscribe({
+            next: (result: any) => {
+                this.showloader = false;
+                console.log(result);
+                this.tableData = result.data;
+                this.total = result.total;
 
-                if(element.is_table_occupied == 1) {
-                    element.is_table_occupied = 'Yes';
-                } else {
-                    element.is_table_occupied = 'No';
-                }
-            });
-
-        }, err => {
-            this.toast.error('Error', 'Something went wrong.');
-            this.showloader = false;
+            }, error: err => {
+                this.toast.error('Error', 'Something went wrong.');
+                this.showloader = false;
+            }
         });
     }
 
@@ -66,14 +56,60 @@ export class TableManagementComponent implements OnInit {
 
     deleteTableData(id: number, table_number: any) {
         if (confirm('Are you sure you want to delete table number ' + table_number + '?')) {
-          this.TableManagementService.deleteTableData(id).subscribe(data => {
-            this.getTableData();
-            this.toast.success('Success', 'Table Deleted Successfully.')
-          }, err => {
-            this.toast.error('Error', 'Server error.')
-          });
+            this.TableManagementService.deleteTableData(id).subscribe({
+                next: data => {
+                    this.getTableData();
+                    this.toast.success('Success', 'Table Deleted Successfully.')
+                }, error: err => {
+                    this.toast.error('Error', 'Server error.')
+                }
+            });
         }
-      }
+    }
+
+    goToOrder(is_occupied: any, table_number: any, order_id: any) {
+        if (is_occupied) {
+            // this.router.navigate(['/sales/add_sale']);
+            if (order_id) {
+                this.router.navigate(['/sales/edit_sale/' + order_id, { queryParams: { table_number: table_number } }])
+            }
+        } else {
+            this.router.navigate(['/sales/add_sale', { queryParams: { table_number: table_number } }]);
+        }
+    }
 
 
+    unOccupyTable(data: any) {
+        console.log(data);
+        let submitData = {
+            res_table_name: '',
+            is_table_occupied: 0
+        };
+
+        let salesData = {
+            table_number: null
+        }
+
+        this.TableManagementService.unOccupyTable(data.res_table_number, submitData).subscribe({
+            next: (result: any) => {
+                console.log(result);
+                this.getTableData();
+
+                if (data.order_id) {
+                    this.TableManagementService.unOccupyTableFromSales(data.order_id, salesData).subscribe({
+                        next: (res2: any) => {
+                            this.getTableData();
+                        }, error: err => {
+                            this.toast.error('Error', 'Something went wrong. Please try again!');
+                        }
+                    })
+                }
+                // this.toast.success('Success', 'Table data updated successfully!');
+                this.toast.success('Success', 'Table Marked as unoccupied!');
+                // this.router.navigate(['/sales/table_management']);
+            }, error: err => {
+                this.toast.error('Error', 'Something went wrong. Please try again!');
+            }
+        })
+    }
 }

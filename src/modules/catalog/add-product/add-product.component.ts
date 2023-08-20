@@ -118,12 +118,14 @@ export class AddProductComponent implements OnInit {
     }
     this.products
       .postProducts(obj)
-      .subscribe((result: any) => {
-        console.log(result)
-        this.toast.success('Success', 'Product Added successfully.')
-        this.router.navigate(['catalog/products'])
-      }, err => {
-        this.toast.error('Error', 'Server error.')
+      .subscribe({
+        next: (result: any) => {
+          console.log(result)
+          this.toast.success('Success', 'Product Added successfully.')
+          this.router.navigate(['catalog/products'])
+        }, error: err => {
+          this.toast.error('Error', 'Server error.')
+        }
       });
     console.log(data);
 

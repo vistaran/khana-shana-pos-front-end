@@ -1,9 +1,10 @@
 <nav class="sb-topnav navbar navbar-expand bg-primary">
-    <a class="navbar-brand" routerLink="/dashboard"><img class="w-100" src="/assets/img/logo.PNG" height="50"></a><button
-        class="btn btn-link btn-sm order-1 order-lg-0 text-white" id="sidebarToggle" data-cy="topNavToggleSideNav"
-        (click)="toggleSideNav()">
-        <fa-icon [icon]='["fas", "bars"]'></fa-icon>
-    </button><!-- Navbar Search-->
+    <a class="navbar-brand" routerLink="/dashboard" style="display:flex !important"><img class="h-12 "
+            src="{{ shopLogo }}" onerror="this.onerror=null; this.src='/assets/img/logo.PNG'" />
+        <div *ngIf="shopName" class=" text-white capitalize pt-2.5 pl-1.5">{{ shopName }}</div>
+    </a><button class="btn btn-link btn-sm order-1 order-lg-0 text-slate-50" id="sidebarToggle"
+        data-cy="topNavToggleSideNav" (click)="toggleSideNav()">
+        <i class="fa-solid fa-bars text-slate-50"></i></button><!-- Navbar Search-->
     <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
         <div class="input-group">
             <!-- <input class="form-control" type="text" placeholder="Search for..." aria-label="Search"

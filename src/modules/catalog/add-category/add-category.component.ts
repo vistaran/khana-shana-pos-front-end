@@ -93,29 +93,29 @@ export class AddCategoryComponent implements OnInit {
   ngOnInit(): void {
     this.addCategoryForm = this.fb.group({
       name: ['', [Validators.required]],
-      visible_in_menu: [0, [Validators.required]],
-      position: ['', [Validators.required]],
-      display_mode: [0, [Validators.required]],
-      decription: [''],
-      attri: [0, [Validators.required]],
-      image: ['', [Validators.required]],
-      category_logo: ['', [Validators.required]],
+    //   visible_in_menu: [0, [Validators.required]],
+    //   position: ['', [Validators.required]],
+    //   display_mode: [0, [Validators.required]],
+    //   decription: [''],
+    //   attri: [0, [Validators.required]],
+    //   image: ['', [Validators.required]],
+    //   category_logo: ['', [Validators.required]],
       // parent_category: [''],
-      meta_title: ['', [Validators.required]],
-      slug: ['', [Validators.required]],
-      meta_description: [''],
-      meta_keyword: ['', [Validators.required]],
-      status: [0, [Validators.required]],
+    //   meta_title: ['', [Validators.required]],
+    //   slug: ['', [Validators.required]],
+    //   meta_description: [''],
+    //   meta_keyword: ['', [Validators.required]],
+    //   status: [0, [Validators.required]],
       // number_of_products: ['', [Validators.required]]
     });
-    this.getParentCategrory()
-    this.getAttributesData()
+    // this.getParentCategrory()
+    // this.getAttributesData()
   }
 
   // For submitting Add category form data
   onSubmit(data: any) {
 
-    if(this.addCategoryForm.invalid) {
+    if (this.addCategoryForm.invalid) {
       alert('Please fill all the required fields');
       this.addCategoryForm.markAllAsTouched();
       return;
@@ -123,22 +123,26 @@ export class AddCategoryComponent implements OnInit {
 
     this.categoryService
       .postCategory(data)
-      .subscribe((result: any) => {
-        // console.log(result)
-        this.toast.success('Success', 'Category Added successfully.')
-        this.router.navigate(['catalog/categories'])
-      }, err => {
-        this.toast.error('Error', 'Server error.')
+      .subscribe({
+        next: (result: any) => {
+          // console.log(result)
+          this.toast.success('Success', 'Category Added successfully.')
+          this.router.navigate(['catalog/categories'])
+        }, error: err => {
+          this.toast.error('Error', 'Server error.')
+        }
       });
   }
 
   // For parent category listing
   getParentCategrory() {
-    this.categoryService.getCategoriesData(this.page).subscribe(data => {
-      this.parentCategroryData = data.category.data
-      // console.log(this.parentCategroryData)
-    }, err => {
-      this.toast.error('Error', 'Server error.')
+    this.categoryService.getCategoriesData(this.page).subscribe({
+      next: data => {
+        this.parentCategroryData = data.category.data
+        // console.log(this.parentCategroryData)
+      }, error: err => {
+        this.toast.error('Error', 'Server error.')
+      }
     });
   }
 

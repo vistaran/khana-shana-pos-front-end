@@ -2,7 +2,7 @@
 // The default positioning for the sidenav is a static position
 
 #layoutSidenav {
-  display: flex;
+  // display: flex;
   // Wraps the .sb-sidenav element and sets the size
   #layoutSidenav_nav {
     flex-basis: $sidenav-base-width;

@@ -4,25 +4,50 @@
                         <li ngbNavItem>
                             <ng-template ngbNavContent> -->
         <!-- <h2 class="mt-3 mb-4">Sales</h2> -->
-        <h2 class="mt-3 mb-4">Sales</h2>
-        <div class="d-flex justify-content-between my-4">
+        <h2 class="mt-3 mb-4 text-2xl">Sales</h2>
+        <button (click)="onClick()" class="btn btn-primary float-right w-full mb-2">
+            Add Sales Order
+        </button>
 
-            <div class="input-group rounded w-25">
+        <div class="">
+            <div class="input-group rounded mb-2">
                 <input class="form-control amber-border" class="form-control" type="text" aria-label="Search"
-                    (keyup)="search()" placeholder="Search" [(ngModel)]="searchValue">
+                    (keyup)="search()" placeholder="Search" [(ngModel)]="searchValue" />
                 <div class="input-group-append">
                     <button class="btn input-group-text bg-white text-dark amber lighten-3 form-control form-control"
-                        id="basic-text1"><i class="fa fa-search" aria-hidden="true" (click)="search()"></i></button>
+                        id="basic-text1">
+                        <i class="fa fa-search" aria-hidden="true" (click)="search()"></i>
+                    </button>
                 </div>
             </div>
-
-            <button (click)="onClick()" class="btn btn-primary float-right btn-sm">
-                Add Sales Order
-            </button>
-
         </div>
-
-        <table class="table  table-responsive-sm    shadow">
+        <!-- <div> -->
+        <!-- <img class="w-full" src="/img/card-top.jpg" alt="Sunset in the mountains"> -->
+        <!-- <div class="px-6 py-4 display">
+                <p
+                    *ngFor="let data of orderData; let i = index"
+                    class="max-w-xs rounded-lg overflow-hidden shadow-xl margin bg-slate-100 pl-1.5 pb-2"
+                >
+                    <span>{{ i + 1 }}.</span>
+                    <span> {{ data.payment_mode }}</span>
+                    <span> {{ data.order_date | date: 'dd/MM/yyyy' }}</span
+                    ><br />
+                    <span> {{ data.first_name }} {{ data.last_name }}</span>
+                    <span> Table:-{{ data.table_number ? data.table_number : '0' }}</span>
+                    <span> ₹{{ data.total_amount?.toFixed(2) }}</span
+                    ><br />
+                    <button
+                        id="chefCopy"
+                        ngbTooltip="Print Chef Copy"
+                        (click)="printChefCopy(data.id)"
+                        class="btn btn-white rounded-circle shadow btn-sm mr-2 my-2"
+                    >
+                        <img class="h-5 w-5" src="/assets/img/chef3.svg" />
+                    </button>
+                </p>
+            </div> -->
+        <!-- </div> -->
+        <!-- <table class="table  table-responsive-sm    shadow">
             <thead class="head bg-gradient text-white">
                 <th>Order ID</th>
                 <th>Customer Name</th>
@@ -41,6 +66,9 @@
                     <td>{{ data.order_date | date: 'dd/MM/yyyy' }}</td>
                     <td>₹{{ data.total_amount?.toFixed(2) }}</td>
                     <td class="d-flex align-items-center">
+                        <button id="chefCopy" ngbTooltip="Print Chef Copy" (click)="printChefCopy(data.id)"
+                            class="btn btn-primary rounded shadow btn-sm mr-2 ">Chef copy</button>
+
                         <button class="btn btn-white rounded-circle  shadow mr-2 btn-sm" ngbTooltip="Print"
                             (click)="getOrderDetail(data.id, true)"><i class="fa fa-print fa-lg"></i></button>
 
@@ -50,11 +78,11 @@
 
                         <button class="btn btn-info rounded-circle shadow mr-2 btn-sm" ngbTooltip="Edit"
                             [routerLink]="['/sales/edit_sale/' + data.id]"><i
-                                class="fa fa-pencil-square-o fa-lg"></i></button>
+                                class="fa-solid fa-square-pen fa-lg"></i></button>
 
                         <button id="remove" ngbTooltip="Delete" (click)="deleteRow(data.id)"
                             class="btn btn-danger rounded-circle shadow btn-sm mr-2"><i
-                                class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                                class="fa-solid fa-trash-can fa-lg mx-auto"></i></button>
                         <button id="remove" ngbTooltip="Unoccupy this table" (click)="unOccupyTable(data)"
                             *ngIf="data.table_number" class="btn btn-danger rounded shadow btn-sm">Unoccupy
                             Table</button>
@@ -66,10 +94,161 @@
                     </td>
                 </tr>
             </tbody>
-        </table>
+        </table> -->
+
+        <div *ngIf="isMobile">
+            <ul class="max-w-sm flex flex-col">
+                <li *ngFor="let data of orderData; index as i"
+                    class=" justify-between inline-flex width items-center gap-x-2 py-2 px-3 text-md font-medium bg-white border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg text- dark:bg-gray-800 dark:border-gray-700 dark:text-blue-600/100 text-sm">
+                    <div class="grid" (click)="editSale(data.id)">
+                        <div class="flex">
+                            #{{ i + 1 }}&nbsp;|&nbsp;
+                            <span *ngIf="data.first_name" class="truncate"> {{ data.first_name }} | &nbsp;</span>
+                            <span class="truncate">₹{{ data.total_amount?.toFixed(2) }}</span>
+                        </div>
+                        <div>
+                            {{ data.created_at | date: 'd MMM yy h:mm a' }}
+                        </div>
+                    </div>
+
+                    <div class="flex gap-1 grid grid-cols-4">
+                        <button id="chefCopy" ngbTooltip="Print Chef Copy" (click)="printChefCopy(data.id)"
+                            class="btn btn-primary rounded shadow btn-sm">
+                            <svg fill="#ffffff" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                                xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px"
+                                viewBox="0 0 357.623 357.623" xml:space="preserve">
+                                <g>
+                                    <g>
+                                        <path d="M357.597,299.635c-0.499-30.43-29.639-47.567-61.3-47.567c-31.928,0.012-54.712,19.218-59.767,35.938
+                                   c-12.85,9.178-43.227,3.148-60.73-3.324c-8.377,0.012-136.711,0.012-136.711,0.012l-0.012,0.035
+                                   c-0.087-0.012-0.192-0.023-0.291-0.023c-7.848,0-14.215,6.367-14.227,14.21c0,0.407,0.012,1.929,0,2.323
+                                   c0.012,7.867,6.378,14.222,14.227,14.222c0.099,0,0.192-0.022,0.291-0.022l-0.012,0.022c0,0,128.375,0,136.734-0.011
+                                   c17.526-6.484,47.881-12.549,60.73-3.37c5.066,16.743,27.851,35.937,59.778,35.925c31.649,0,60.789-17.16,61.276-47.578h0.012
+                                   c0.012-0.14,0-0.662,0.023-0.779C357.632,299.635,357.608,299.635,357.597,299.635z M320.255,271.843
+                                   c-2.242-0.094-5.484-0.209-9.365-0.325c-7.621-0.093-17.985-0.697-27.188,0.731c-2.161,0.256-4.601,1.012-6.809,1.755
+                                   c-2.277,0.708-4.543,1.545-6.715,2.44c-4.369,1.695-8.412,3.543-11.921,5.135c-3.463,1.627-6.367,3.056-8.319,4.183
+                                   c-1.998,1.046-2.858,2.033-2.766,2.103c-0.104,0.023,0.209-1.429,1.72-3.287c1.487-1.883,3.812-4.299,6.901-6.855
+                                   c3.067-2.591,6.879-5.252,11.294-7.762c2.207-1.219,4.531-2.369,7.041-3.45c2.579-1.034,5.101-1.87,8.063-2.429
+                                   c5.682-1.068,11.142-0.895,16.149-0.29c5.02,0.558,9.574,1.626,13.361,2.8c3.846,1.139,6.925,2.475,9.017,3.578
+                                   c2.149,1.081,3.172,1.953,3.172,1.953S322.509,271.924,320.255,271.843z" />
+                                        <path
+                                            d="M56.993,164.283v80.953c0,6.6,5.356,11.944,11.955,11.944h158.078c6.611,0,11.944-5.345,11.944-11.944v-87.104
+                                   c14.431-7.233,26.56-17.202,33.81-30.825c14.907-28.042,16.069-55.206,3.301-76.48c-12.758-21.198-37.645-33.357-68.318-33.357
+                                   c-21.941,0-41.589,9.62-57.669,21.808c-14.361-15.894-42.083-30.4-71.711-29.627c-19.13,0.5-46.254,7.581-66.912,38.551
+                                   C0.834,64.153-2.425,81,1.775,98.3C9.723,130.995,42.998,155.313,56.993,164.283z M31.368,61.463
+                                   C43.382,43.437,59.41,34.049,78.993,33.549c21.332-0.5,42.867,10.126,53.19,21.535c-16.295,16.493-26.136,32.445-26.973,33.839
+                                   c-3.421,5.629-1.626,12.967,4.014,16.406c5.635,3.428,12.979,1.644,16.417-4.008c0.354-0.593,37.069-59.929,82.098-59.929
+                                   c22.076,0,39.504,7.936,47.822,21.75c8.296,13.792,6.902,32.584-3.915,52.917c-19.81,37.267-104.33,38.766-135.235,36.209
+                                   c-6.559-0.587-12.362,4.351-12.897,10.921c-0.552,6.588,4.328,12.374,10.91,12.92c1.331,0.104,10.347,0.807,23.545,0.807
+                                   c20.118,0,49.955-1.667,77.09-9.591v65.93H80.893V157.55c0-4.345-2.353-8.342-6.146-10.457
+                                   c-0.418-0.238-42.344-23.905-49.745-54.503C22.428,81.953,24.513,71.769,31.368,61.463z" />
+                                    </g>
+                                </g>
+                            </svg>
+                        </button>
+
+                        <button class="btn btn-white rounded-circle shadow btn-sm" ngbTooltip="Print"
+                            (click)="getOrderDetail(data.id, true)">
+                            <i class="fa fa-print fa-lg"></i>
+                        </button>
+
+                        <button class="btn btn-dark rounded-circle shadow btn-sm" ngbTooltip="View Details"
+                            (click)="openXl(content)" (click)="getOrderDetail(data.id, false)">
+                            <i class="fa fa-eye fa-lg"></i>
+                        </button>
+
+                        <button id="remove" ngbTooltip="Delete" (click)="deleteRow(data.id)"
+                            class="btn btn-danger rounded-circle shadow btn-sm">
+                            <i class="fa-solid fa-trash-can fa-lg mx-auto"></i>
+                        </button>
+
+                        <button id="remove" ngbTooltip="Unoccupy this order table" (click)="unOccupyTable(data)"
+                            *ngIf="data.table_number" class="btn btn-danger rounded shadow btn-sm"><i
+                                class="fa-solid fa-unlock fa-lg mx-auto"></i></button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div *ngIf="!isMobile">
+            <div
+                class="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 gap-3 mb-2 text-sm text-xs text-lg text-md text-xl text-2xl">
+                <div class="shadow cursor-pointer border border-gray-100 bg-white"
+                    *ngFor="let data of orderData; let i = index" (click)="editSale(data.id)">
+                    <div class="rounded">
+                        <div class="card-body">
+                            <h6 class="card-title">#{{ i+1 }}<span *ngIf="data.first_name" class="truncate"> | {{
+                                    data.first_name }}</span></h6>
+                            <h6 class="card-subtitle mb-2 text-muted text-sm">
+                                <span>
+                                    {{ data.created_at | date: 'd MMM yy h:mm a' }}
+                                </span>
+                                <span class="truncate"> | ₹{{ data.total_amount?.toFixed(2) }}</span>
+                            </h6>
+
+                            <div class="flex gap-1.5">
+                                <button id="chefCopy" ngbTooltip="Print Chef Copy" (click)="printChefCopy(data.id)"
+                                    class="btn btn-primary rounded shadow btn-sm">
+                                    <svg fill="#ffffff" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px"
+                                        viewBox="0 0 357.623 357.623" xml:space="preserve">
+                                        <g>
+                                            <g>
+                                                <path d="M357.597,299.635c-0.499-30.43-29.639-47.567-61.3-47.567c-31.928,0.012-54.712,19.218-59.767,35.938
+                                       c-12.85,9.178-43.227,3.148-60.73-3.324c-8.377,0.012-136.711,0.012-136.711,0.012l-0.012,0.035
+                                       c-0.087-0.012-0.192-0.023-0.291-0.023c-7.848,0-14.215,6.367-14.227,14.21c0,0.407,0.012,1.929,0,2.323
+                                       c0.012,7.867,6.378,14.222,14.227,14.222c0.099,0,0.192-0.022,0.291-0.022l-0.012,0.022c0,0,128.375,0,136.734-0.011
+                                       c17.526-6.484,47.881-12.549,60.73-3.37c5.066,16.743,27.851,35.937,59.778,35.925c31.649,0,60.789-17.16,61.276-47.578h0.012
+                                       c0.012-0.14,0-0.662,0.023-0.779C357.632,299.635,357.608,299.635,357.597,299.635z M320.255,271.843
+                                       c-2.242-0.094-5.484-0.209-9.365-0.325c-7.621-0.093-17.985-0.697-27.188,0.731c-2.161,0.256-4.601,1.012-6.809,1.755
+                                       c-2.277,0.708-4.543,1.545-6.715,2.44c-4.369,1.695-8.412,3.543-11.921,5.135c-3.463,1.627-6.367,3.056-8.319,4.183
+                                       c-1.998,1.046-2.858,2.033-2.766,2.103c-0.104,0.023,0.209-1.429,1.72-3.287c1.487-1.883,3.812-4.299,6.901-6.855
+                                       c3.067-2.591,6.879-5.252,11.294-7.762c2.207-1.219,4.531-2.369,7.041-3.45c2.579-1.034,5.101-1.87,8.063-2.429
+                                       c5.682-1.068,11.142-0.895,16.149-0.29c5.02,0.558,9.574,1.626,13.361,2.8c3.846,1.139,6.925,2.475,9.017,3.578
+                                       c2.149,1.081,3.172,1.953,3.172,1.953S322.509,271.924,320.255,271.843z" />
+                                                <path
+                                                    d="M56.993,164.283v80.953c0,6.6,5.356,11.944,11.955,11.944h158.078c6.611,0,11.944-5.345,11.944-11.944v-87.104
+                                       c14.431-7.233,26.56-17.202,33.81-30.825c14.907-28.042,16.069-55.206,3.301-76.48c-12.758-21.198-37.645-33.357-68.318-33.357
+                                       c-21.941,0-41.589,9.62-57.669,21.808c-14.361-15.894-42.083-30.4-71.711-29.627c-19.13,0.5-46.254,7.581-66.912,38.551
+                                       C0.834,64.153-2.425,81,1.775,98.3C9.723,130.995,42.998,155.313,56.993,164.283z M31.368,61.463
+                                       C43.382,43.437,59.41,34.049,78.993,33.549c21.332-0.5,42.867,10.126,53.19,21.535c-16.295,16.493-26.136,32.445-26.973,33.839
+                                       c-3.421,5.629-1.626,12.967,4.014,16.406c5.635,3.428,12.979,1.644,16.417-4.008c0.354-0.593,37.069-59.929,82.098-59.929
+                                       c22.076,0,39.504,7.936,47.822,21.75c8.296,13.792,6.902,32.584-3.915,52.917c-19.81,37.267-104.33,38.766-135.235,36.209
+                                       c-6.559-0.587-12.362,4.351-12.897,10.921c-0.552,6.588,4.328,12.374,10.91,12.92c1.331,0.104,10.347,0.807,23.545,0.807
+                                       c20.118,0,49.955-1.667,77.09-9.591v65.93H80.893V157.55c0-4.345-2.353-8.342-6.146-10.457
+                                       c-0.418-0.238-42.344-23.905-49.745-54.503C22.428,81.953,24.513,71.769,31.368,61.463z" />
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </button>
+
+                                <button class="btn btn-white rounded-circle shadow btn-sm" ngbTooltip="Print"
+                                    (click)="getOrderDetail(data.id, true)">
+                                    <i class="fa fa-print fa-lg"></i>
+                                </button>
+
+                                <button class="btn btn-dark rounded-circle shadow btn-sm" ngbTooltip="View Details"
+                                    (click)="openXl(content)" (click)="getOrderDetail(data.id, false)">
+                                    <i class="fa fa-eye fa-lg"></i>
+                                </button>
+
+                                <button id="remove" ngbTooltip="Delete" (click)="deleteRow(data.id)"
+                                    class="btn btn-danger rounded-circle shadow btn-sm">
+                                    <i class="fa-solid fa-trash-can fa-lg mx-auto"></i>
+                                </button>
+
+                                <button id="remove" ngbTooltip="Unoccupy this order table" (click)="unOccupyTable(data)"
+                                    *ngIf="data.table_number" class="btn btn-danger rounded shadow btn-sm"><i
+                                        class="fa-solid fa-unlock fa-lg mx-auto"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div *ngIf="showloader" class="d-flex justify-content-center pt-5">
-            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem" role="status">
                 <!-- <img src="src\image\Infinity-1s-200px.svg"> -->
                 <span class="sr-only">Loading...</span>
             </div>
@@ -83,8 +262,9 @@
             </div>
         </div>
 
-
-        <div class="alert alert-danger" id="no-rows-alert" style="display: none">No records found</div>
+        <div class="alert alert-danger mt-1 py-1 px-3" id="no-rows-alert" style="display: none">
+            No records found
+        </div>
         <!-- </ng-template>
                         </li>
                     </ul>
@@ -95,18 +275,20 @@
         <div class="modal-header bg-primary">
             <h4 class="modal-title text-white">Order Details</h4>
             <button type="button" class="btn btn-light btn-xs" aria-label="Close"
-                (click)="modal.dismiss('Cross click')">X</button>
+                (click)="modal.dismiss('Cross click')">
+                X
+            </button>
         </div>
         <div class="modal-body">
-            <p><b>Order Id:</b> {{orderDetail.id}}</p>
+            <p><b>Order Id:</b> {{ orderDetail.id }}</p>
             <p>
-                <b>Customer name: </b> {{ orderDetail.first_name}} {{ orderDetail.last_name }}
-                <br>
+                <b>Customer name: </b> {{ orderDetail.first_name }} {{ orderDetail.last_name }}
+                <br />
                 <b>Phone Number: </b> {{ orderDetail.phone_number }}
             </p>
 
             <p class="mb-2"><b>Product Details:</b></p>
-            <table class="table  table-striped shadow table-sm     table-success">
+            <table class="table table-striped shadow table-sm table-success">
                 <thead class="head">
                     <th>Product</th>
                     <th>Category</th>
@@ -140,7 +322,9 @@
             <p><b>Payment Mode: </b> {{ orderDetail.payment_mode }}</p>
         </div>
         <div class="modal-footer bg-dark">
-            <button type="button" class="btn btn-info" (click)="modal.close('Close click')">Close</button>
+            <button type="button" class="btn btn-info" (click)="modal.close('Close click')">
+                Close
+            </button>
         </div>
     </ng-template>
 
@@ -148,12 +332,16 @@
         <div class="modal-header bg-primary">
             <h4 class="modal-title text-white">Order Details</h4>
             <button type="button" class="btn btn-light btn-xs" aria-label="Close"
-                (click)="modal.dismiss('Cross click')">X</button>
+                (click)="modal.dismiss('Cross click')">
+                X
+            </button>
         </div>
         <div class="modal-body">
             <div class="text-center">
                 <h4 class="mb-0 font-weight-bold">Jamanvar Kitchen</h4>
-                <p class="font-weight-bold text-center mb-0">{{ orderDetail.first_name}} {{ orderDetail.last_name }}</p>
+                <p class="font-weight-bold text-center mb-0">
+                    {{ orderDetail.first_name }} {{ orderDetail.last_name }}
+                </p>
                 <p class="text-center mb-0">
                     <span>302,</span>
                     <span>Shagun 11, Sector 11</span>
@@ -170,15 +358,15 @@
                 </p>
             </div>
 
-            <p><b>Order Id:</b> {{orderDetail.id}}</p>
+            <p><b>Order Id:</b> {{ orderDetail.id }}</p>
             <p>
-                <b>Customer name: </b> {{ orderDetail.first_name}} {{ orderDetail.last_name }}
-                <br>
+                <b>Customer name: </b> {{ orderDetail.first_name }} {{ orderDetail.last_name }}
+                <br />
                 <b>Phone Number: </b> {{ orderDetail.phone_number }}
             </p>
 
             <p class="mb-2"><b>Product Details:</b></p>
-            <table class="table   table-sm">
+            <table class="table table-sm">
                 <thead class="head">
                     <th>Product</th>
                     <th>Category</th>
@@ -208,9 +396,9 @@
             <p><b>Payment Mode: </b> {{ orderDetail.payment_mode }}</p>
         </div>
         <div class="modal-footer bg-dark">
-            <button type="button" class="btn btn-info" (click)="modal.close('Close click')">Close</button>
+            <button type="button" class="btn btn-info" (click)="modal.close('Close click')">
+                Close
+            </button>
         </div>
     </ng-template>
-
-
 </sb-layout-dashboard>

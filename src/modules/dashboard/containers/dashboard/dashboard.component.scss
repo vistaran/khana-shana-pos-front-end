@@ -1,1 +1,7 @@
 @import 'styles/variables.scss';
+
+.btn-outline-dark:hover {
+    color: #030303;
+    background-color: #fafdff;
+    border-color: #343a40;
+}

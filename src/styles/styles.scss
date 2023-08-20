@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 // Import Custom Variables
 @import 'variables.scss';
 // Import Bootstrap
@@ -18,7 +22,12 @@
 
 @import '~@ng-select/ng-select/themes/default.theme.css';
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: 'Poppins', sans-serif;
 }
 
@@ -31,7 +40,7 @@ ngb-datepicker {
 }
 
 .bg-primary {
-    background-color: #44b276 !important;
+    background-color:rgb(15 23 42) !important;
 }
 
 .img-xs {
@@ -67,7 +76,7 @@ ngb-datepicker {
 }
 
 .bg-gradient {
-    background-image: linear-gradient(#44b276, #28a7459e);
+    background-image: linear-gradient(rgb(15 23 42),rgb(36, 36, 41));
 }
 
 table {
@@ -101,7 +110,7 @@ card {
 }
 
 ngb-accordion .card .card-header {
-    background-image: linear-gradient(#44b276, #28a7459e);
+    background-image: linear-gradient(rgb(15 23 42),rgb(36, 36, 41));
     color: white;
 }
 
@@ -116,84 +125,80 @@ ngb-accordion .card .card-header .btn-link {
         flex-flow: row wrap;
     }
 
-    .w-25 {
-        width: 35% !important;
+    .w-full {
+        width: 100% !important;
+    }
+    .page-link{
+        padding: 0.3rem 0.55rem !important;
     }
 }
 
-.circle{
+.circle {
     position: absolute;
     border-radius: 50%;
     background: white;
     animation: ripple 15s infinite;
     box-shadow: 0px 0px 1px 0px #508fb9;
-  }
-  
-  .small{
-    width: 200px;
-    height: 200px;
-    left: -100px;
-    bottom: -100px;
-  }
-  
-  .medium{
+}
+
+.medium {
     width: 400px;
     height: 400px;
     left: -200px;
     bottom: -200px;
-  }
-  
-  .large{
+}
+
+.large {
     width: 600px;
     height: 600px;
     left: -300px;
     bottom: -300px;
-  }
-  
-  .xlarge{
+}
+
+.xlarge {
     width: 800px;
     height: 800px;
     left: -400px;
     bottom: -400px;
-  }
-  
-  .xxlarge{
+}
+
+.xxlarge {
     width: 1000px;
     height: 1000px;
     left: -500px;
     bottom: -500px;
-  }
-  
-  .shade1{
+}
+
+.shade1 {
     opacity: 0.2;
-  }
-  .shade2{
+}
+
+.shade2 {
     opacity: 0.5;
-  }
-  
-  .shade3{
+}
+
+.shade3 {
     opacity: 0.7;
-  }
-  
-  .shade4{
+}
+
+.shade4 {
     opacity: 0.8;
-  }
-  
-  .shade5{
+}
+
+.shade5 {
     opacity: 0.9;
-  }
-  
-  @keyframes ripple{
-    0%{
-      transform: scale(0.8);
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0.8);
     }
-    
-    50%{
-      transform: scale(1.2);
+
+    50% {
+        transform: scale(1.2);
     }
-    
-    100%{
-      transform: scale(0.8);
+
+    100% {
+        transform: scale(0.8);
     }
-  }
-  
+}

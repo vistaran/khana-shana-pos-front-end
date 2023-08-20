@@ -1,8 +1,8 @@
 <li class="nav-item dropdown dropdown-user no-caret" *ngIf="userService.user$ | async as user" ngbDropdown
     placement="bottom-right" display="dynamic">
-    <a class="nav-link dropdown-toggle text-dark" id="userDropdown" ngbDropdownToggle data-cy="userMenu" role="button"
+    <a class="nav-link dropdown-toggle text-white" id="userDropdown" ngbDropdownToggle data-cy="userMenu" role="button"
         aria-haspopup="true" aria-expanded="false">
-        <fa-icon [icon]='["fas", "user"]'></fa-icon>
+        <i class="fa-solid fa-user"></i>
     </a>
     <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu aria-labelledby="dropdownUser">
         <h6 class="dropdown-header">

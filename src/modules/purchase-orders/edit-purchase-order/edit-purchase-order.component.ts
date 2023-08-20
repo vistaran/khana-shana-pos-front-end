@@ -325,24 +325,26 @@ export class EditPurchaseOrderComponent implements OnInit {
 
   searchItem(event: any) {
     // console.log(event.term);
-    this.purchaseOrderService.searchItems(event.term).subscribe((res: any) => {
-      this.itemsData = res.data.sort(function (a: any, b: any) {
-        const nameA = a.item_name.toUpperCase(); // ignore upper and lowercase
-        const nameB = b.item_name.toUpperCase(); // ignore upper and lowercase
-        if (nameA < nameB) {
-          return -1;
-        }
-        if (nameA > nameB) {
-          return 1;
-        }
+    this.purchaseOrderService.searchItems(event.term).subscribe({
+      next: (res: any) => {
+        this.itemsData = res.data.sort(function (a: any, b: any) {
+          const nameA = a.item_name.toUpperCase(); // ignore upper and lowercase
+          const nameB = b.item_name.toUpperCase(); // ignore upper and lowercase
+          if (nameA < nameB) {
+            return -1;
+          }
+          if (nameA > nameB) {
+            return 1;
+          }
 
-        // names must be equal
-        return 0;
-      });
-      // console.log(this.customerData);
-    }, err => {
-      this.toast.error('Error', 'Server error.')
-      // this.showloader = false
+          // names must be equal
+          return 0;
+        });
+        // console.log(this.customerData);
+      }, error: err => {
+        this.toast.error('Error', 'Server error.')
+        // this.showloader = false
+      }
     });
   }
 
@@ -396,7 +398,7 @@ export class EditPurchaseOrderComponent implements OnInit {
         showShipping = true;
       }
     }
-    else if(this.shippingCharge != 0){
+    else if (this.shippingCharge != 0) {
       alert('Please add atleast one item to input shipping charges!');
       this.shippingCharge = 0;
       return;
@@ -600,12 +602,14 @@ export class EditPurchaseOrderComponent implements OnInit {
       items: finalItems
     }
     this.purchaseOrderService.editPurchaseOrderData(this.curr_id, obj)
-      .subscribe((result: any) => {
-        console.log(result)
-        this.toast.success('Success', 'Purchase Order Edited Successfully.')
-        this.router.navigate(['/purchase_orders']);
-      }, err => {
-        this.toast.error('Error', 'Server error.')
+      .subscribe({
+        next: (result: any) => {
+          console.log(result)
+          this.toast.success('Success', 'Purchase Order Edited Successfully.')
+          this.router.navigate(['/purchase_orders']);
+        }, error: err => {
+          this.toast.error('Error', 'Server error.')
+        }
       });
     console.log('Form Submitted', (data));
   }

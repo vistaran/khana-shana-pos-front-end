@@ -125,7 +125,7 @@ export class EditCategoryComponent implements OnInit {
       })
 
       this.visibleInMenu.forEach(element => {
-        if(element == data.show_data.visible_in_menu) {
+        if (element == data.show_data.visible_in_menu) {
           this.editCategoryForm.patchValue({
             visible_in_menu: element
           })
@@ -133,7 +133,7 @@ export class EditCategoryComponent implements OnInit {
       })
 
       this.displayMode.forEach(element => {
-        if(element == data.show_data.display_mode) {
+        if (element == data.show_data.display_mode) {
           this.editCategoryForm.patchValue({
             display_mode: element
           })
@@ -141,7 +141,7 @@ export class EditCategoryComponent implements OnInit {
       })
 
       this.status.forEach(element => {
-        if(element == data.show_data.status) {
+        if (element == data.show_data.status) {
           this.editCategoryForm.patchValue({
             status: element
           })
@@ -160,11 +160,13 @@ export class EditCategoryComponent implements OnInit {
 
   // For parent category listing
   getParentCategrory() {
-    this.categoryService.getCategoriesData(this.page).subscribe(data => {
-      this.parentCategroryData = data.category.data
-      console.log(this.parentCategroryData)
-    }, err => {
-      this.toast.error('Error', 'Server error.')
+    this.categoryService.getCategoriesData(this.page).subscribe({
+      next: data => {
+        this.parentCategroryData = data.category.data
+        console.log(this.parentCategroryData)
+      }, error: err => {
+        this.toast.error('Error', 'Server error.')
+      }
     })
   }
 
@@ -178,18 +180,20 @@ export class EditCategoryComponent implements OnInit {
   // For submitting edit category form data
   updateData(data: any) {
 
-    if(this.editCategoryForm.invalid) {
+    if (this.editCategoryForm.invalid) {
       this.editCategoryForm.markAllAsTouched();
       alert('Please fill all the required fields');
       return;
     }
 
-    this.categoryService.editCategory(this.id, data).subscribe(data => {
-      console.log('Data updated successfully! ', data)
-      this.router.navigate(['/catalog/categories']);
-      this.toast.success('Success', 'Category Edited successfully.')
-    }, err => {
-      this.toast.error('Error', 'Server error.')
+    this.categoryService.editCategory(this.id, data).subscribe({
+      next: data => {
+        console.log('Data updated successfully! ', data)
+        this.router.navigate(['/catalog/categories']);
+        this.toast.success('Success', 'Category Edited successfully.')
+      }, error: err => {
+        this.toast.error('Error', 'Server error.')
+      }
     })
   }
 

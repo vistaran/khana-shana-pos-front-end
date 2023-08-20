@@ -1,63 +1,62 @@
 <sb-layout-dashboard>
-        <div class="col">
-            <h2>Expense By Item Group</h2>
+    <div class="col">
+        <h2 class="text-2xl">Expense By Item Group</h2>
 
-            <!-- <div class=""> -->
-            <div class="row  mb-5">
-                <div class="col d-flex">
+        <!-- <div class=""> -->
+        <div class="row  mb-5">
+            <div class="col d-flex">
 
-                    <div class="card mt-2 ">
-                        <div class="card-header text-center bg-dark text-white">Fliter By Date</div>
-                        <div class="card-body">
-                            <div class="dp-hidden position-absolute">
+                <div class="card mt-2 ">
+                    <div class="card-header text-center bg-dark text-white">Filter By Date</div>
+                    <div class="card-body">
+                        <div class="dp-hidden position-absolute">
+                            <div class="input-group">
+                                <input name="datepicker" class="form-control" ngbDatepicker #datepicker="ngbDatepicker"
+                                    [autoClose]="'outside'" (dateSelect)="onDateSelection($event)" [displayMonths]="2"
+                                    [dayTemplate]="t" outsideDays="hidden" [startDate]="fromDate!" tabindex="-1">
+                                <ng-template #t let-date let-focused="focused">
+                                    <span class="custom-day" [class.focused]="focused" [class.range]="isRange(date)"
+                                        [class.faded]="isHovered(date) || isInside(date)"
+                                        (mouseenter)="hoveredDate = date" (mouseleave)="hoveredDate = null">
+                                        {{ date.day }}
+                                    </span>
+                                </ng-template>
+                            </div>
+                        </div>
+                        <div class="row row-cols-sm-auto">
+                            <div class="col">
                                 <div class="input-group">
-                                    <input name="datepicker" class="form-control" ngbDatepicker
-                                        #datepicker="ngbDatepicker" [autoClose]="'outside'"
-                                        (dateSelect)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t"
-                                        outsideDays="hidden" [startDate]="fromDate!" tabindex="-1">
-                                    <ng-template #t let-date let-focused="focused">
-                                        <span class="custom-day" [class.focused]="focused" [class.range]="isRange(date)"
-                                            [class.faded]="isHovered(date) || isInside(date)"
-                                            (mouseenter)="hoveredDate = date" (mouseleave)="hoveredDate = null">
-                                            {{ date.day }}
-                                        </span>
-                                    </ng-template>
-                                </div>
-                            </div>
-                            <div class="row row-cols-sm-auto">
-                                <div class="col">
-                                    <div class="input-group">
-                                        <input #dpFromDate class="form-control amber-border" placeholder="yyyy-mm-dd"
-                                            name="dpFromDate" [value]="formatter.format(fromDate)"
-                                            (input)="fromDate = validateInput(fromDate, dpFromDate.value)">
-                                        <div class="input-group-append">
-                                            <button
-                                                class="btn input-group-text bg-white text-dark amber lighten-3 form-control"
-                                                (click)="datepicker.toggle()" type="button">
-                                                <i class="fa fa-calendar fa-lg mx-auto bg-info"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col">
-                                    <div class="input-group">
-                                        <input #dpToDate class="form-control amber-border" placeholder="yyyy-mm-dd"
-                                            name="dpToDate" [value]="formatter.format(toDate)"
-                                            (input)="toDate = validateInput(toDate, dpToDate.value)">
-                                        <div class="input-group-append">
-                                            <button
-                                                class="btn input-group-text bg-white text-dark amber lighten-3 form-control"
-                                                (click)="datepicker.toggle()" type="button">
-                                                <i class="fa fa-calendar fa-lg mx-auto"></i>
-                                            </button>
-                                        </div>
+                                    <input #dpFromDate class="form-control amber-border" placeholder="yyyy-mm-dd"
+                                        name="dpFromDate" [value]="formatter.format(fromDate)"
+                                        (input)="fromDate = validateInput(fromDate, dpFromDate.value)">
+                                    <div class="input-group-append">
+                                        <button
+                                            class="btn input-group-text bg-white text-dark amber lighten-3 form-control"
+                                            (click)="datepicker.toggle()" type="button">
+                                            <i class="fa fa-calendar fa-lg mx-auto bg-info"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
-                            <hr />
 
-                            <!-- <div class="row row-cols-sm-auto mt-2">
+                            <div class="col">
+                                <div class="input-group">
+                                    <input #dpToDate class="form-control amber-border" placeholder="yyyy-mm-dd"
+                                        name="dpToDate" [value]="formatter.format(toDate)"
+                                        (input)="toDate = validateInput(toDate, dpToDate.value)">
+                                    <div class="input-group-append">
+                                        <button
+                                            class="btn input-group-text bg-white text-dark amber lighten-3 form-control"
+                                            (click)="datepicker.toggle()" type="button">
+                                            <i class="fa fa-calendar fa-lg mx-auto"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+
+                        <!-- <div class="row row-cols-sm-auto mt-2">
 
                                     <div class="col">
                                         <button type="button" class="btn btn-secondary" (click)="showDate=true">
@@ -82,49 +81,49 @@
                                     </div>
 
                                 </div> -->
-                        </div>
                     </div>
                 </div>
             </div>
-
-
-
-            <table class="table  shadow table-sm  ">
-                <thead class="head bg-dark text-white">
-                    <th>No.</th>
-                    <th>Item Group Name</th>
-                    <th>Subtotal</th>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let data of expenseGroupData; index as i">
-                        <td>{{ i+1 }}</td>
-                        <td>{{ data.item_group_name }}</td>
-                        <td>₹{{ data.subtotal?.toFixed(2) }}</td>
-                    </tr>
-                    <tr *ngIf="!length && !showloader">
-                        <td colspan="3" class="text-center">
-                            No records found.
-                        </td>
-                    </tr>
-                    <tr *ngIf="length">
-                        <td colspan="2" class="">
-                            <b>Total Expense in selected Range</b>
-                        </td>
-                        <td><b>₹{{ totalExpense?.toFixed(2) }}</b></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <div *ngIf="showloader" class="d-flex justify-content-center pt-5">
-                <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                    <!-- <img src="src\image\Infinity-1s-200px.svg"> -->
-                    <span class="sr-only">Loading...</span>
-                </div>
-            </div>
-
-            <!-- </div> -->
-
-
-
         </div>
+
+
+
+        <table class="table  shadow table-sm  ">
+            <thead class="head bg-gradient text-white">
+                <th>No.</th>
+                <th>Item Group Name</th>
+                <th>Subtotal</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of expenseGroupData; index as i">
+                    <td>{{ i+1 }}</td>
+                    <td>{{ data.item_group_name }}</td>
+                    <td>₹{{ data.subtotal?.toFixed(2) }}</td>
+                </tr>
+                <tr *ngIf="!length && !showloader">
+                    <td colspan="3" class="text-center">
+                        No records found.
+                    </td>
+                </tr>
+                <tr *ngIf="length">
+                    <td colspan="2" class="">
+                        <b>Total Expense in selected Range</b>
+                    </td>
+                    <td><b>₹{{ totalExpense?.toFixed(2) }}</b></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div *ngIf="showloader" class="d-flex justify-content-center pt-5">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <!-- <img src="src\image\Infinity-1s-200px.svg"> -->
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+
+        <!-- </div> -->
+
+
+
+    </div>
 </sb-layout-dashboard>

@@ -1,39 +1,34 @@
 <sb-layout-dashboard>
     <!-- <div class="container"> -->
 
-    <div class="col">
-        <!-- <ul ngbNav [(activeId)]="activeId" #nav="ngbNav" class="nav-tabs mt-5"> -->
-        <!-- <li [ngbNavItem]="1"> -->
-        <!-- <a ngbNavLink>Products</a> -->
-        <!-- <ng-template ngbNavContent> -->
-        <h2 class="mt-3 mb-4">Menu Items</h2>
+    <!-- <ul ngbNav [(activeId)]="activeId" #nav="ngbNav" class="nav-tabs mt-5"> -->
+    <!-- <li [ngbNavItem]="1"> -->
+    <!-- <a ngbNavLink>Products</a> -->
+    <!-- <ng-template ngbNavContent> -->
+    <h2 class="text-2xl">Menu Items</h2>
 
-        <div class="d-flex justify-content-between mb-4 flex-flow">
+    <div class="mb-4">
+        <button (click)="generateQrCode()" class="btn btn-primary btn-block">
+            Generate QR Code
+            <br>
+            <small>(Show your menu online for customers)</small>
+        </button>
+        <button (click)="onClick()" class="btn btn-primary btn-block">Add Product</button>
+    </div>
 
-            <div class="input-group rounded w-25">
-                <input class="form-control amber-border" class="form-control" type="text" aria-label="Search"
-                    (keyup)="search($event)" placeholder="Search" [(ngModel)]="searchValue">
-                <div class="input-group-append">
-                    <button class="btn input-group-text bg-white text-dark amber lighten-3 form-control"
-                        id="basic-text1"><i class="fa fa-search" aria-hidden="true"
-                            (click)="search($event)"></i></button>
-                </div>
-            </div>
-
-            <div class="float-right">
-                <button (click)="generateQrCode()" class="btn btn-primary mr-5">
-                    Generate QR Code
-                </button>
-                <button (click)="onClick()" class="btn btn-primary ">
-                    Add Product
+    <div class="mb-4">
+        <div class="input-group rounded w-full">
+            <input class="form-control amber-border" class="form-control" type="text" aria-label="Search"
+                (keyup)="search($event)" placeholder="Search" [(ngModel)]="searchValue">
+            <div class="input-group-append">
+                <button class="btn input-group-text bg-white text-dark amber lighten-3 form-control" id="basic-text1">
+                    <i class="fa fa-search" aria-hidden="true" (click)="search($event)"></i>
                 </button>
             </div>
-
         </div>
+    </div>
 
-
-
-        <table class="table  table-responsive-sm   shadow">
+    <!-- <table class="table  table-responsive-sm   shadow">
             <thead class="head bg-gradient text-white">
                 <th>ID</th>
                 <th>Name</th>
@@ -52,16 +47,13 @@
                     <td class="d-flex">
                         <button ngbTooltip="Edit" class="btn btn-info rounded-circle shadow mr-1 btn-sm"
                             [routerLink]="['/catalog/editproduct/' + data.id]"><i
-                                class="fa fa-pencil-square-o fa-lg"></i></button>
+                                class="fa-solid fa-square-pen fa-lg"></i></button>
 
                         <button ngbTooltip="Delete" id="remove" (click)="deleteRow(data.id)"
                             class="btn btn-danger rounded-circle shadow btn-sm"><i
-                                class="fa fa-trash-o fa-lg mx-auto"></i></button>
+                                class="fa-solid fa-trash-can fa-lg mx-auto"></i></button>
                     </td>
                 </tr>
-
-
-
                 <tr *ngIf="!length && !showloader">
                     <td colspan="9" class="text-center">
                         No records found.
@@ -70,11 +62,21 @@
 
             </tbody>
         </table>
+
+        <ul class="max-w-xs flex flex-col">
+            <li  *ngFor="let data of productData" class="inline-flex items-center gap-x-2 py-2 px-3 text-md font-medium bg-white border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg text- dark:bg-gray-800 dark:border-gray-700 dark:text-blue-600/100">
+
+            </li>
+        </ul>
+
         <div *ngIf="showloader" class="d-flex justify-content-center pt-5">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                <!-- <img src="src\image\Infinity-1s-200px.svg"> -->
-                <span class="sr-only">Loading...</span>
-            </div>
+        </table> -->
+    <!-- <div *ngIf="showloader" class="d-flex justify-content-center pt-5">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status"> -->
+    <!-- <img src="src\image\Infinity-1s-200px.svg"> -->
+    <!-- <span class="sr-only">Loading...</span> -->
+    <!-- </div>
         </div>
         <div class="justify-content-between row">
             <div class="col">
@@ -82,10 +84,10 @@
                     [collectionSize]="total" [boundaryLinks]="true" [maxSize]="3">
                 </ngb-pagination>
             </div>
-        </div>
-        <!-- </ng-template> -->
-        <!-- </li> -->
-        <!-- <li [ngbNavItem]="2">
+        </div> -->
+    <!-- </ng-template> -->
+    <!-- </li> -->
+    <!-- <li [ngbNavItem]="2">
                         <a ngbNavLink>Categories</a>
                         <ng-template ngbNavContent>
                             <sb-categories></sb-categories>
@@ -103,9 +105,45 @@
                             <sb-attribute-family></sb-attribute-family>
                         </ng-template>
                     </li> -->
-        <!-- </ul> -->
-        <!-- <div [ngbNavOutlet]="nav"></div> -->
+    <!-- </ul> -->
+    <!-- <div [ngbNavOutlet]="nav"></div> -->
+    <div class="max-w-sm flex flex-col bg-white rounded-lg shadow-lg px-4 py-2 grid-rows-2">
+        <h2 class="text-xl mb-0">Category List</h2>
+        <div ngbAccordion class="font-semibold  divide-y">
+            <div ngbAccordionItem [collapsed]="false" *ngFor="let category of menuData; let i= index"
+                id="ngb-panel-{{i}}">
+                <p ngbAccordionHeader class="m-0" ngbAccordionButton>
+                    <button ngbAccordionButton
+                        class="w-full text-gray-500 capitalize font-bold text-left text-lg">{{
+                        category.name }}</button>
+                </p>
+                <div ngbAccordionCollapse>
+                    <div ngbAccordionBody>
+                        <ng-template>
+                            <div *ngFor="let products of category.products" class="row border p-3 rounded gap-3 mb-2 align-items-center bg-slate-200 visible">
+                                <div class="col d-flex px-0">
+                                    <div class="col pl-0 flex items-center justify-between">
+                                        <div>
+                                            <p class="text-md capitalize visible w-100 text-break m-0">{{ products.product_name }}</p>
+                                            <p class="text-md visible m-0">₹{{ products.price?.toFixed(2) }}</p>
+                                        </div>
+                                        <div class=" flex">
+                                            <button ngbTooltip="Edit" class="btn btn-info rounded-circle shadow mr-1 btn-sm"
+                                                [routerLink]="['/catalog/editproduct/' + products.id]">
+                                                <i class="fa-solid fa-square-pen fa-lg"></i>
+                                            </button>
+                                            <button ngbTooltip="Delete" id="remove" (click)="deleteRow(products.id)"
+                                                class="btn btn-danger rounded-circle shadow btn-sm">
+                                                <i class="fa-solid fa-trash-can fa-lg mx-auto"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <!-- </div> -->
 </sb-layout-dashboard>

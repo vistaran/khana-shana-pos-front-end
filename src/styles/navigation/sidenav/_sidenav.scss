@@ -14,8 +14,8 @@
       flex-wrap: nowrap;
 
       .sb-sidenav-menu-heading {
-        padding: 1.75rem 1rem 0.75rem;
-        font-size: 0.75rem;
+        padding: 0.5rem  1rem;
+        font-size: 0.80rem;
         font-weight: bold;
         text-transform: uppercase;
       }
@@ -43,13 +43,13 @@
           }
         }
 
-        &.active {
-          color: $sidenav-light-link-active-color;
+        // &.active {
+        //   color: $sidenav-light-link-active-color;
 
-          .sb-nav-link-icon {
-            color: $sidenav-light-link-active-color;
-          }
-        }
+        //   .sb-nav-link-icon {
+        //     color: $sidenav-light-link-active-color;
+        //   }
+        // }
       }
 
       .sb-sidenav-menu-nested {

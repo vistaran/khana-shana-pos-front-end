@@ -52,16 +52,18 @@ const routes: Routes = [
         loadChildren: () =>
             import('modules/reports/reports-routing.module').then(m => m.ReportsRoutingModule),
     },
-    // {
-    //     path: 'charts',
-    //     loadChildren: () =>
-    //         import('modules/charts/charts-routing.module').then(m => m.ChartsRoutingModule),
-    // },
     {
         path: 'dashboard',
         loadChildren: () =>
             import('modules/dashboard/dashboard-routing.module').then(
                 m => m.DashboardRoutingModule
+            ),
+    },
+    {
+        path: 'settings',
+        loadChildren: () =>
+            import('modules/settings/settings-routing.module').then(
+                m => m.SettingsRoutingModule
             ),
     },
     {
@@ -93,7 +95,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
+    imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
