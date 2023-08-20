@@ -1,6 +1,6 @@
 <sb-layout-dashboard>
     <div class="">
-        <h1 class=" mb-3 py-1 px-2">Edit Order</h1>
+        <h3 class=" mb-3 py-1 px-2">Edit Order</h3>
         <form [formGroup]="editSaleForm">
             <div class="">
 
@@ -35,8 +35,8 @@
 
                     <div class="modal-header bg-primary">
                         <h4 class="modal-title text-light">Select Customer</h4>
-                        <button type="button" class="btn-light btn-xs" aria-label="Close"
-                            (click)="modal.dismiss('Cross click')">X
+                        <button type="button" class="btn btn-xs text-white" aria-label="Close"
+                            (click)="modal.dismiss('Cross click')"><i class="fas fa-xmark fa-xl"></i>
                         </button>
                     </div>
 
@@ -74,9 +74,9 @@
 
                     <div class="modal-header bg-primary align-items-center text-light">
                         <h4 class=" modal-title">Add Customer</h4>
-                        <i type="button" class="fas fa-xmark fa-xl" aria-label="Close"
-                            (click)="modal.dismiss('Cross click')" (click)="addCustomerClose()">
-                        </i>
+                        <button type="button" class="btn btn-xs text-white" aria-label="Close"
+                            (click)="modal.dismiss('Cross click')"><i class="fas fa-xmark fa-xl"></i>
+                        </button>
                     </div>
 
                     <form [formGroup]="addCustomerForm" (ngSubmit)="onSubmitCustomer(addCustomerForm.value)">
@@ -139,7 +139,7 @@
 
                 <div class="row">
                     <div class="col" [hidden]="showCartSummary">
-                        <h5 class="p-2">Menu Items</h5>
+                        <h5 class="p-2 text-xl">Menu Items</h5>
 
                         <div class="grid grid-cols-3 bg-white h-[55vh]">
                             <div class="border-r border-gray-200">
