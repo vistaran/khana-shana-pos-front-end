@@ -60,6 +60,13 @@ const routes: Routes = [
             ),
     },
     {
+        path: 'settings',
+        loadChildren: () =>
+            import('modules/settings/settings-routing.module').then(
+                m => m.SettingsRoutingModule
+            ),
+    },
+    {
         path: 'auth',
         loadChildren: () =>
             import('modules/auth/auth-routing.module').then(m => m.AuthRoutingModule),
@@ -91,4 +98,4 @@ const routes: Routes = [
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

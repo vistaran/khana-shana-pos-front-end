@@ -61,27 +61,27 @@ export class ProductsComponent implements OnInit {
     //         }
     //     })
     // }
-    // getMenuData() {
-    //     this.productService.getProducts(this.page).subscribe((data: any) => {
-    //         console.log(data, 'menudata');
-    //         this.menuData = data.data;
-
-    //         for (let i = 0; i < this.menuData.length; i++) {
-    //             this.activeIds.push("ngb-panel-" + i);
-    //         }
-    //     })
-    // }
-
     getMenuData() {
-        this.qrCodeService.getMenuData().subscribe((data: any) => {
+        this.productService.getProducts(this.page).subscribe((data: any) => {
             console.log(data, 'menudata');
-            this.menuData = data.qrcode_data;
+            this.menuData = data.data;
 
             for (let i = 0; i < this.menuData.length; i++) {
                 this.activeIds.push("ngb-panel-" + i);
             }
         })
     }
+
+    // getMenuData() {
+    //     this.qrCodeService.getMenuData().subscribe((data: any) => {
+    //         console.log(data, 'menudata');
+    //         this.menuData = data.qrcode_data;
+
+    //         for (let i = 0; i < this.menuData.length; i++) {
+    //             this.activeIds.push("ngb-panel-" + i);
+    //         }
+    //     })
+    // }
     // For navigating to add product form on click
     onClick() {
         this.router.navigate(['/catalog/addproduct']);
@@ -112,13 +112,20 @@ export class ProductsComponent implements OnInit {
     // For searching products from table data
     search(event: any) {
         this.showloader = true
+
+        // this.filteredData = this.rowData.filter((item: templogRecord) => {
+        //     return item.sensor.toLowerCase().includes(searchValue.toLowerCase());
+        //   });
+
         this.productService.searchProducts(this.searchValue).subscribe({
-            next: res => {
-                this.productData = res.products.data
-                this.length = this.productData.length;
-                this.total = res.products.total;
+            next: (res: any) => {
+                this.menuData = res.data;
+
+                for (let i = 0; i < this.menuData.length; i++) {
+                    this.activeIds.push("ngb-panel-" + i);
+                }
+
                 this.showloader = false
-                console.log(this.productData, this.length)
             }, error: err => {
                 this.toast.error('Error', 'Server error.')
                 this.showloader = false

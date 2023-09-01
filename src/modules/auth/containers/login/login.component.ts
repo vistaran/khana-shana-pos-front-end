@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
         private fb: FormBuilder,
         private router: Router,
         public toast: AppToastService
-    ) {}
+    ) { }
 
     // get f() {
     //     return this.loginForm.controls;
@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
 
     onSubmit(data: any) {
 
-        if(this.loginForm.invalid) {
+        if (this.loginForm.invalid) {
             alert('Please fill all the required fields!');
             this.loginForm.markAllAsTouched();
             return;
@@ -62,11 +62,14 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('token', result.access_token)
                 localStorage.setItem('Firstname', result.user.first_name)
                 localStorage.setItem('Lastname', result.user.lastname)
-                localStorage.setItem('Email',result.user.email)
+                localStorage.setItem('Email', result.user.email)
+                localStorage.setItem('ShopDetails', JSON.stringify(result.shopDetails))
                 this.router.navigate(['/sales']);
                 this.userData = result.user
             }, error: error => {
-                this.toast.show('Error', 'Email id or password is incorrect', { className: 'bg-danger text-light'});
+                console.log('error', error);
+
+                this.toast.show('Error', 'Email id or password is incorrect', { className: 'bg-danger text-light' });
             }
         });
 

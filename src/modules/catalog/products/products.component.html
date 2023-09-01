@@ -13,10 +13,7 @@
             <br>
             <small>(Show your menu online for customers)</small>
         </button>
-        <button (click)="onClick()" class="btn btn-primary btn-block">
-            Add Product
-        </button>
-
+        <button (click)="onClick()" class="btn btn-primary btn-block">Add Product</button>
     </div>
 
     <div class="mb-4">
@@ -24,13 +21,12 @@
             <input class="form-control amber-border" class="form-control" type="text" aria-label="Search"
                 (keyup)="search($event)" placeholder="Search" [(ngModel)]="searchValue">
             <div class="input-group-append">
-                <button class="btn input-group-text bg-white text-dark amber lighten-3 form-control" id="basic-text1"><i
-                        class="fa fa-search" aria-hidden="true" (click)="search($event)"></i></button>
+                <button class="btn input-group-text bg-white text-dark amber lighten-3 form-control" id="basic-text1">
+                    <i class="fa fa-search" aria-hidden="true" (click)="search($event)"></i>
+                </button>
             </div>
         </div>
     </div>
-
-
 
     <!-- <table class="table  table-responsive-sm   shadow">
             <thead class="head bg-gradient text-white">
@@ -112,26 +108,42 @@
     <!-- </ul> -->
     <!-- <div [ngbNavOutlet]="nav"></div> -->
     <div class="max-w-sm flex flex-col bg-white rounded-lg shadow-lg px-4 py-2 grid-rows-2">
-        <h2 class="text-lg mb-0">Category List</h2>
-        <ngb-accordion #acc="ngbAccordion" [activeIds]="activeIds" class="font-weight-bold divide-y ">
-            <ngb-panel class="bg-gradient capitalize" title="{{ category.name }}"
-                *ngFor="let category of menuData; let i= index" id="ngb-panel-{{i}}">
-                <ng-template ngbPanelContent>
-                    <div *ngFor="let products of category.products"
-                        class="row border p-3 rounded gap-3 mb-2 align-items-center visible">
-
-                        <div class="col d-flex px-0">
-                            <div class="col font-weight-bold flex items-center justify-between">
-                                <p class="h4 capitalize ">{{ products.product_name }}</p>
-                                <p class="h5">₹{{ products.price?.toFixed(2) }}</p>
+        <h2 class="text-xl mb-0">Category List</h2>
+        <div ngbAccordion class="font-semibold  divide-y">
+            <div ngbAccordionItem [collapsed]="false" *ngFor="let category of menuData; let i= index"
+                id="ngb-panel-{{i}}">
+                <p ngbAccordionHeader class="m-0" ngbAccordionButton>
+                    <button ngbAccordionButton
+                        class="w-full text-gray-500 capitalize font-bold text-left text-lg">{{
+                        category.name }}</button>
+                </p>
+                <div ngbAccordionCollapse>
+                    <div ngbAccordionBody>
+                        <ng-template>
+                            <div *ngFor="let products of category.products" class="row border p-3 rounded gap-3 mb-2 align-items-center bg-slate-200 visible">
+                                <div class="col d-flex px-0">
+                                    <div class="col pl-0 flex items-center justify-between">
+                                        <div>
+                                            <p class="text-md capitalize visible w-100 text-break m-0">{{ products.product_name }}</p>
+                                            <p class="text-md visible m-0">₹{{ products.price?.toFixed(2) }}</p>
+                                        </div>
+                                        <div class=" flex">
+                                            <button ngbTooltip="Edit" class="btn btn-info rounded-circle shadow mr-1 btn-sm"
+                                                [routerLink]="['/catalog/editproduct/' + products.id]">
+                                                <i class="fa-solid fa-square-pen fa-lg"></i>
+                                            </button>
+                                            <button ngbTooltip="Delete" id="remove" (click)="deleteRow(products.id)"
+                                                class="btn btn-danger rounded-circle shadow btn-sm">
+                                                <i class="fa-solid fa-trash-can fa-lg mx-auto"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        </ng-template>
                     </div>
-                    <div *ngIf="category.products.length == 0">
-                        No products in this category
-                    </div>
-                </ng-template>
-            </ngb-panel>
-        </ngb-accordion>
+                </div>
+            </div>
+        </div>
     </div>
 </sb-layout-dashboard>

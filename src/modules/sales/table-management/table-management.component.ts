@@ -29,6 +29,7 @@ export class TableManagementComponent implements OnInit {
     }
 
     onClick() {
+
         this.router.navigate(['sales/add_table']);
     }
 
@@ -78,4 +79,37 @@ export class TableManagementComponent implements OnInit {
     }
 
 
+    unOccupyTable(data: any) {
+        console.log(data);
+        let submitData = {
+            res_table_name: '',
+            is_table_occupied: 0
+        };
+
+        let salesData = {
+            table_number: null
+        }
+
+        this.TableManagementService.unOccupyTable(data.res_table_number, submitData).subscribe({
+            next: (result: any) => {
+                console.log(result);
+                this.getTableData();
+
+                if (data.order_id) {
+                    this.TableManagementService.unOccupyTableFromSales(data.order_id, salesData).subscribe({
+                        next: (res2: any) => {
+                            this.getTableData();
+                        }, error: err => {
+                            this.toast.error('Error', 'Something went wrong. Please try again!');
+                        }
+                    })
+                }
+                // this.toast.success('Success', 'Table data updated successfully!');
+                this.toast.success('Success', 'Table Marked as unoccupied!');
+                // this.router.navigate(['/sales/table_management']);
+            }, error: err => {
+                this.toast.error('Error', 'Something went wrong. Please try again!');
+            }
+        })
+    }
 }
