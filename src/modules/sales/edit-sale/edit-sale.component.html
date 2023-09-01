@@ -1,6 +1,6 @@
 <sb-layout-dashboard>
     <div class="">
-        <h1 class=" mb-3 py-1 px-2">Edit Order</h1>
+        <h3 class=" mb-3 py-1 px-2">Edit Order</h3>
         <form [formGroup]="editSaleForm">
             <div class="">
 
@@ -35,8 +35,8 @@
 
                     <div class="modal-header bg-primary">
                         <h4 class="modal-title text-light">Select Customer</h4>
-                        <button type="button" class="btn-light btn-xs" aria-label="Close"
-                            (click)="modal.dismiss('Cross click')">X
+                        <button type="button" class="btn btn-xs text-white" aria-label="Close"
+                            (click)="modal.dismiss('Cross click')"><i class="fas fa-xmark fa-xl"></i>
                         </button>
                     </div>
 
@@ -74,9 +74,9 @@
 
                     <div class="modal-header bg-primary align-items-center text-light">
                         <h4 class=" modal-title">Add Customer</h4>
-                        <i type="button" class="fas fa-xmark fa-xl" aria-label="Close"
-                            (click)="modal.dismiss('Cross click')" (click)="addCustomerClose()">
-                        </i>
+                        <button type="button" class="btn btn-xs text-white" aria-label="Close"
+                            (click)="modal.dismiss('Cross click')"><i class="fas fa-xmark fa-xl"></i>
+                        </button>
                     </div>
 
                     <form [formGroup]="addCustomerForm" (ngSubmit)="onSubmitCustomer(addCustomerForm.value)">
@@ -139,26 +139,53 @@
 
                 <div class="row">
                     <div class="col" [hidden]="showCartSummary">
-                        <h5 class="p-2">Menu Items</h5>
+                        <h5 class="p-2 text-xl">Menu Items</h5>
 
-                        <div class="" *ngIf="showProducts">
-                            <form>
-                                <div class="mb-4">
-                                    <div class="input-group rounded w-full">
-                                        <input class="form-control amber-border" class="form-control" type="text"
-                                            aria-label="Search" (keyup)="search($event)" placeholder="Search"
-                                            [(ngModel)]="searchValue">
-                                        <div class="input-group-append">
-                                            <button
-                                                class="btn input-group-text bg-white text-dark amber lighten-3 form-control"
-                                                id="basic-text1">
-                                                <i class="fa fa-search" aria-hidden="true" (click)="search($event)"></i>
-                                            </button>
+                        <div class="grid grid-cols-3 bg-white h-[55vh]">
+                            <div class="border-r border-gray-200">
+                                <div *ngFor="let category of categoryData; let i= index"
+                                    (click)="selectedCategory = category.id">
+                                    <div [ngClass]="selectedCategory == category.id? 'bg-gray-200': ''"
+                                        class="py-1 border-b border-gray-300 px-2 font-semibold">
+                                        {{ category.name }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-span-2 px-2 h-[55vh] overflow-auto">
+                                <div *ngFor="let category of categoryData; let i= index">
+                                    <div *ngIf="selectedCategory == category.id">
+                                        <div *ngFor="let products of category.products"
+                                            class="flex justify-between items-center border-b border-gray-300">
+                                            <div>
+                                                <p class="text-lg m-0 font-semibold">{{ products.product_name }}</p>
+                                                <p class="text-lg m-0">₹{{ products.price | number : '.2-2' }}</p>
+                                            </div>
+                                            <div class="w-2/4 ml-auto">
+                                                <div
+                                                    class="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-2 pb-2">
+                                                    <button data-action="decrement"
+                                                        (click)="decreaseCount(category.id,products.id, products.product_count)"
+                                                        class="bg-gradient rounded-l rounded- w-12 rounded cursor-pointer outline-none flex justify-center items-center text-white text-2xl">
+                                                        −
+                                                    </button>
+                                                    <input type="number" disabled
+                                                        class="bg-white product_quantity border-b border-t  text-center w-full px-0 py-2  font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700 "
+                                                        name="custom-input-number" min='0'
+                                                        value="{{ products.product_count ?? 0 }}" />
+                                                    <button data-action="increment"
+                                                        (click)="increaseCount(category.id,products.id, products.product_count)"
+                                                        class="bg-gradient  w-12 rounded-r cursor-pointer outline-none flex justify-center items-center text-white text-2xl">+
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </form>
-                            <div ngbAccordion *ngIf="showProducts" class="bg-white p-2">
+                            </div>
+                        </div>
+
+                        <!-- <div class="" *ngIf="showProducts">
+                            <div ngbAccordion *ngIf="showProducts">
                                 <div ngbAccordionItem [collapsed]="false"
                                     *ngFor="let category of categoryData; let i= index" id="ngb-panel-{{i}}">
                                     <p ngbAccordionHeader class="bg-slate-100 text-white m-0 px-2" ngbAccordionButton>
@@ -206,44 +233,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- <div class="col-md-12 mb-3 col-12" *ngFor="let data of productData">
-
-
-                                <div class="h-100">
-                                    <div class="card">
-                                        <div class="card-body p-3">
-                                            <p class="d-flex justify-content-between m-0">
-                                                <span class="font-semibold text-xl">{{ data.product_name }}</span> <span
-                                                    class="text-right text-xl">₹{{ data.price }}</span>
-                                            </p>
-                                            <div class="w-1/2 ml-auto">
-                                                <div
-                                                    class="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-2 pb-2">
-                                                    <button data-action="decrement"
-                                                        (click)="decreaseCount(data.id, data.product_count)"
-                                                        class="bg-gradient rounded-l rounded- w-20 rounded cursor-pointer outline-none flex justify-center items-center text-white text-2xl">
-                                                        −
-                                                    </button>
-                                                    <input type="number" disabled
-                                                        class="product_quantity border-b border-t  text-center w-full px-0   font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700 "
-                                                        name="custom-input-number" min='0'
-                                                        value="{{ data.product_count ?? 0 }}" />
-                                                    <button data-action="increment"
-                                                        (click)="increaseCount(data.id, data.product_count)"
-                                                        class="bg-gradient  w-20 rounded-r cursor-pointer outline-none flex justify-center items-center text-white text-2xl">+
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-
-
-                            </div> -->
-
-                        </div>
+                        </div> -->
                         <div class="flex justify-center py-2 mt-4">
                             <button class=" bg-gradient py-2 px-3 text-white rounded-md" ngbTooltip="Go to cart"
                                 (click)="showCartSummary =true">

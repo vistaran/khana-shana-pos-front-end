@@ -20,6 +20,7 @@ export class AddSaleComponent implements OnInit {
 
     @HostListener('document:keydown.shift.s')
     categoryData: any = [];
+    productData: any = [];
     addedProduct: any = [];
     customerData: any = [];
     orderDetail: any = [];
@@ -32,6 +33,7 @@ export class AddSaleComponent implements OnInit {
     selectedCity: any
     pageSize = 100
     showProducts = false;
+    selectedCategory = 0;
     shopDetails: any
 
     payment_mode: any
@@ -212,30 +214,13 @@ export class AddSaleComponent implements OnInit {
             });
             this.categoryData = data.data;
             console.log(this.categoryData, 'pro');
+            this.selectedCategory = this.categoryData[0].id;
 
+            this.productData = this.categoryData[0].products;
             for (let i = 0; i < this.categoryData.length; i++) {
                 this.activeIds.push("ngb-panel-" + i);
             }
             this.showProducts = true;
-            // if (data.products.last_page > 1) {
-            //     console.log('greater');
-            //     for (let i = 2; i <= data.products.last_page; i++) {
-            //         this.productService.getProducts(i).subscribe((ele: any) => {
-            //             ele.forEach((element: any) => {
-            //                 element.product_count = 0;
-            //             });
-            //             this.categoryData = this.categoryData.concat(ele.products.data);
-            //             console.log(ele.products.data);
-            //         })
-            //     }
-            //     console.log(this.categoryData, 'pro data');
-            //     this.showProducts = true;
-
-            // } else {
-            //     this.showProducts = true;
-            // }
-            // this.categoryData = data.products.data
-            // console.log(this.categoryData);
         })
     }
 
