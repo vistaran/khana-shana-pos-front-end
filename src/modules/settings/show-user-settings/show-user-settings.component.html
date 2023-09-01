@@ -1,0 +1,25 @@
+<sb-layout-dashboard>
+
+    <div class="row">
+        <div class="col">
+            <ul ngbNav [(activeId)]="activeId" #nav="ngbNav"
+                class="border-gray-500 nav-tabs md:mt-5 font-weight-bold border-b ">
+                <li [ngbNavItem]="1">
+                    <a ngbNavLink>Shop Details</a>
+                    <ng-template ngbNavContent>
+                        <sb-shop-details></sb-shop-details>
+                    </ng-template>
+                </li>
+
+                <li [ngbNavItem]="2">
+                    <a ngbNavLink>Taxes</a>
+                    <ng-template ngbNavContent>
+                        <sb-taxes></sb-taxes>
+                    </ng-template>
+                </li>
+            </ul>
+            <div [ngbNavOutlet]="nav"></div>
+        </div>
+    </div>
+
+</sb-layout-dashboard>

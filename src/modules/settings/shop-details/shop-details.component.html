@@ -1,0 +1,27 @@
+<table class="table table-responsive-sm shadow mt-3">
+    <thead class="head bg-gradient text-white w-100">
+        <th scope="col" class="w-25 md:w-auto">Logo</th>
+        <th scope="col" class="w-100 md:w-auto">Shop Name</th>
+        <th scope="col" class="w-100 md:w-auto">Actions</th>
+    </thead>
+    <tbody *ngIf="!showloader">
+        <tr *ngIf="shopDetails">
+            <td>
+                <img class="h-12 " src="{{ shopDetails.logo }}"
+                    onerror="this.onerror=null; this.src='/assets/img/logo.PNG'" />
+            </td>
+            <td>{{ shopDetails.shop_name }}</td>
+            <td class="d-flex">
+                <button ngbTooltip="Edit" class="btn btn-info rounded-circle shadow mr-2 btn-sm"
+                    [routerLink]="['/settings/edit']"><i class="fa-solid fa-square-pen fa-lg"></i></button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div *ngIf="showloader" class="d-flex justify-content-center pt-5">
+    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+        <!-- <img src="src\image\Infinity-1s-200px.svg"> -->
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
