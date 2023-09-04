@@ -1,42 +1,25 @@
 <sb-layout-dashboard>
 
+    <div class="row">
+        <div class="col">
+            <ul ngbNav [(activeId)]="activeId" #nav="ngbNav"
+                class="border-gray-500 nav-tabs md:mt-5 font-weight-bold border-b ">
+                <li [ngbNavItem]="1">
+                    <a ngbNavLink>Shop Details</a>
+                    <ng-template ngbNavContent>
+                        <sb-shop-details></sb-shop-details>
+                    </ng-template>
+                </li>
 
-    <!-- <ul ngbNav #nav="ngbNav" class="nav-tabs mt-5 font-weight-bold">
-                <li ngbNavItem> -->
-    <!-- <a ngbNavLink>Items</a>
-                    <ng-template ngbNavContent> -->
-    <h2 class="mt-3 mb-4 text-2xl">Shop Details</h2>
-    <table class="table table-responsive-sm shadow">
-        <thead class="head bg-gradient text-white w-100">
-            <th scope="col" class="w-25 md:w-auto">Logo</th>
-            <th scope="col" class="w-100 md:w-auto">Shop Name</th>
-            <th scope="col" class="w-100 md:w-auto">Actions</th>
-        </thead>
-        <tbody *ngIf="!showloader">
-            <tr *ngIf="shopDetails">
-                <td>
-                    <img class="h-12 " src="{{ shopDetails.logo }}"
-                        onerror="this.onerror=null; this.src='/assets/img/logo.PNG'" />
-                </td>
-                <td>{{ shopDetails.shop_name }}</td>
-                <td class="d-flex">
-                    <button ngbTooltip="Edit" class="btn btn-info rounded-circle shadow mr-2 btn-sm"
-                        [routerLink]="['/settings/edit']"><i class="fa-solid fa-square-pen fa-lg"></i></button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
-    <div *ngIf="showloader" class="d-flex justify-content-center pt-5">
-        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-            <!-- <img src="src\image\Infinity-1s-200px.svg"> -->
-            <span class="sr-only">Loading...</span>
+                <li [ngbNavItem]="2">
+                    <a ngbNavLink>Taxes</a>
+                    <ng-template ngbNavContent>
+                        <sb-taxes></sb-taxes>
+                    </ng-template>
+                </li>
+            </ul>
+            <div [ngbNavOutlet]="nav"></div>
         </div>
     </div>
-    <!-- </ng-template> -->
-    <!-- </li>
-            </ul> -->
-    <!-- <div [ngbNavOutlet]="nav"></div> -->
-
 
 </sb-layout-dashboard>

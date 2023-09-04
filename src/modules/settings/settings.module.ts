@@ -9,12 +9,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ShowUserSettingsComponent } from './show-user-settings/show-user-settings.component';
+import { TaxesComponent } from './taxes/taxes.component';
+import { ShopDetailsComponent } from './shop-details/shop-details.component';
 
 
 @NgModule({
     declarations: [
         UserSettingsComponent,
-        ShowUserSettingsComponent
+        ShowUserSettingsComponent,
+        TaxesComponent,
+        ShopDetailsComponent
     ],
     imports: [
         CommonModule,

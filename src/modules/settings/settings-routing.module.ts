@@ -23,6 +23,15 @@ const routes: Routes = [
             title: 'User Settings',
             activeTopNav: 'Settings'
         } as SBRouteData,
+    },
+    {
+        path: 'taxes',
+        canActivate: [],
+        component: UserSettingsComponent,
+        data: {
+            title: 'User Settings',
+            activeTopNav: 'Settings'
+        } as SBRouteData,
     }
 ];
 

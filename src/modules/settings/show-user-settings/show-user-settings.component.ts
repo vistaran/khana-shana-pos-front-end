@@ -8,23 +8,12 @@ import { AppToastService } from '@modules/shared-module/services/app-toast.servi
     styleUrls: ['./show-user-settings.component.scss']
 })
 export class ShowUserSettingsComponent implements OnInit {
-    showloader: any
-    shopDetails: any
-    constructor(
-        private toast: AppToastService,
-        private userService: UserDataService,
 
+    activeId = 1
+
+    constructor(
     ) { }
 
     ngOnInit(): void {
-        this.getshopDetails();
-    }
-
-    getshopDetails() {
-        this.userService.getshopDetails().subscribe({
-            next: (result: any) => {
-                this.shopDetails = result;
-            },
-        })
     }
 }
