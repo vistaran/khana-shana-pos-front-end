@@ -4,6 +4,7 @@ import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { SBRouteData } from '@modules/navigation/models';
 import { SettingsModule } from './settings.module';
 import { ShowUserSettingsComponent } from './show-user-settings/show-user-settings.component';
+import { AddTaxComponent } from './add-tax/add-tax.component';
 
 const routes: Routes = [
     {
@@ -30,6 +31,15 @@ const routes: Routes = [
         component: UserSettingsComponent,
         data: {
             title: 'User Settings',
+            activeTopNav: 'Settings'
+        } as SBRouteData,
+    },
+    {
+        path: 'add-tax',
+        canActivate: [],
+        component: AddTaxComponent,
+        data: {
+            title: 'Add New Tax',
             activeTopNav: 'Settings'
         } as SBRouteData,
     }

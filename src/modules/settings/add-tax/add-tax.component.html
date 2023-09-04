@@ -1,0 +1,73 @@
+<sb-layout-dashboard>
+    <div class="d-flex justify-content-center">
+
+        <div class="card shadow w-100 mt-3">
+            <h3 class="card-header bg-gradient text-white text-center text-xl">Add New Tax</h3>
+            <form [formGroup]="taxForm" (ngSubmit)="addTax(taxForm.value)">
+                <div class="container">
+                    <!-- <h2 class="card-header mt-4 pb-2">General</h2> -->
+                    <div class="row card-body text-sm">
+
+                        <div class="col-md-4 col-sm-4">
+                            <div class="form-group required">
+                                <label class="required">Tax Name</label>
+                                <input type="text" formControlName="name" placeholder="Enter Tax Name"
+                                    class="form-control" maxlength="35" autofocus />
+                                <!-- <div *ngIf="item_name?.touched && item_name?.invalid"
+                                    class="alert alert-danger mt-1 py-1 px-3">
+                                    <div *ngIf="item_name?.errors?.required">Item Name is required.</div>
+                                </div> -->
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-sm-4">
+                            <div class="form-group required">
+                                <label class="required">Percentage</label>
+                                <input type="number" formControlName="percentage" placeholder="Enter Percentage" class="form-control" />
+                                <!-- <div *ngIf="item_name?.touched && item_name?.invalid"
+                                    class="alert alert-danger mt-1 py-1 px-3">
+                                    <div *ngIf="item_name?.errors?.required">Item Name is required.</div>
+                                </div> -->
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-sm-4">
+                            <div class="form-group">
+                                <label class="required">Position</label>
+                                <input type="number" formControlName="position" placeholder="Enter Position" class="form-control" />
+                                <!-- <div *ngIf="item_name?.touched && item_name?.invalid"
+                                    class="alert alert-danger mt-1 py-1 px-3">
+                                    <div *ngIf="item_name?.errors?.required">Item Name is required.</div>
+                                </div> -->
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-sm-4">
+                            <div class="form-group">
+                                <label class="required">Status</label>
+                                <select name="status" formControlName="status" class="form-control">
+                                    <option value="1">Active</option>
+                                    <option value="0">Deactive</option>
+                                </select>
+                                <!-- <div *ngIf="item_name?.touched && item_name?.invalid"
+                                    class="alert alert-danger mt-1 py-1 px-3">
+                                    <div *ngIf="item_name?.errors?.required">Item Name is required.</div>
+                                </div> -->
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <button type="button" [routerLink]="['/settings']"
+                        class="btn btn-outline-primary mb-4 float-right ml-2">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary mb-4 float-right">
+                        Submit
+                    </button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</sb-layout-dashboard>

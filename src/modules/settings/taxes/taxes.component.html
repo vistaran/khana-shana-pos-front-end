@@ -1,35 +1,41 @@
-<table class="table table-responsive-sm shadow mt-3 text-sm">
-    <thead class="head bg-gradient text-white w-100">
-        <th scope="col" class="w-25 md:w-auto">Name</th>
-        <th scope="col" class="w-100 md:w-auto">Percentage</th>
-        <th scope="col" class="w-100 md:w-auto">Status</th>
-        <th scope="col" class="w-100 md:w-auto">Actions</th>
-    </thead>
-    <tbody *ngIf="!showloader">
-        <tr *ngFor="let data of taxesList; let i = index">
-            <td>
-                {{ data.name }}
-            </td>
-            <td>{{ data.percentage }}%</td>
-            <td>{{ data.status ?? 'Deactive' }}</td>
-            <td class="d-flex">
-                <button ngbTooltip="Edit" class="btn btn-info rounded-circle shadow mr-2 btn-sm"
-                    [routerLink]="['/settings/edit']"><i class="fa-solid fa-square-pen fa-lg"></i></button>
-                <button id="remove" ngbTooltip="Delete" class="btn rounded-circle shadow btn-danger btn-sm"><i
-                        class="fa-solid fa-trash-can fa-lg mx-auto"></i></button>
-            </td>
-        </tr>
-        <tr *ngIf="taxesList.length == 0 && !showloader">
-            <td colspan="8" class="text-center">
-                No records found.
-            </td>
-        </tr>
-    </tbody>
-</table>
+<div class="mt-2">
+    <button class="btn btn-primary float-right w-full md:w-40 mb-2" [routerLink]="['/settings/add-tax']">
+        Add New Tax
+    </button>
 
-<div *ngIf="showloader" class="d-flex justify-content-center pt-5">
-    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-        <!-- <img src="src\image\Infinity-1s-200px.svg"> -->
-        <span class="sr-only">Loading...</span>
+    <table class="table table-responsive-sm shadow mt-3 text-sm">
+        <thead class="head bg-gradient text-white w-100">
+            <th scope="col" class="w-25 md:w-auto">Name</th>
+            <th scope="col" class="w-100 md:w-auto">Percentage</th>
+            <th scope="col" class="w-100 md:w-auto">Status</th>
+            <th scope="col" class="w-100 md:w-auto">Actions</th>
+        </thead>
+        <tbody *ngIf="!showloader">
+            <tr *ngFor="let data of taxesList; let i = index">
+                <td>
+                    {{ data.name }}
+                </td>
+                <td>{{ data.percentage }}%</td>
+                <td>{{ data.status ?? 'Deactive' }}</td>
+                <td class="d-flex">
+                    <button ngbTooltip="Edit" class="btn btn-info rounded-circle shadow mr-2 btn-sm"
+                        [routerLink]="['/settings/edit']"><i class="fa-solid fa-square-pen fa-lg"></i></button>
+                    <button id="remove" ngbTooltip="Delete" class="btn rounded-circle shadow btn-danger btn-sm"><i
+                            class="fa-solid fa-trash-can fa-lg mx-auto"></i></button>
+                </td>
+            </tr>
+            <tr *ngIf="taxesList.length == 0 && !showloader">
+                <td colspan="8" class="text-center">
+                    No records found.
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div *ngIf="showloader" class="d-flex justify-content-center pt-5">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <!-- <img src="src\image\Infinity-1s-200px.svg"> -->
+            <span class="sr-only">Loading...</span>
+        </div>
     </div>
 </div>

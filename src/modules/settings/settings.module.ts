@@ -11,6 +11,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { ShowUserSettingsComponent } from './show-user-settings/show-user-settings.component';
 import { TaxesComponent } from './taxes/taxes.component';
 import { ShopDetailsComponent } from './shop-details/shop-details.component';
+import { AddTaxComponent } from './add-tax/add-tax.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { ShopDetailsComponent } from './shop-details/shop-details.component';
         UserSettingsComponent,
         ShowUserSettingsComponent,
         TaxesComponent,
-        ShopDetailsComponent
+        ShopDetailsComponent,
+        AddTaxComponent
     ],
     imports: [
         CommonModule,
