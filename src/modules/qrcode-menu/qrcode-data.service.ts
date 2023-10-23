@@ -17,7 +17,7 @@ export class QrcodeDataService {
         return this.http.get<any>(this.url + 'category/qrcode');
     }
 
-    getQrCode() {
-        return this.http.get(this.url + 'qrcode');
+    getQrCode(data: any) {
+        return this.http.get(this.url + 'qrcode', { params: data });
     }
 }

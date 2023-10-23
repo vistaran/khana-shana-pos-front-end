@@ -134,7 +134,8 @@ export class ProductsComponent implements OnInit {
     }
 
     generateQrCode() {
-        this.qrCodeService.getQrCode().subscribe({
+        let url = location.protocol + '//' + location.hostname.split('.')[0] + '.pos.vistaran.com/menu';
+        this.qrCodeService.getQrCode({ url: url }).subscribe({
             next: data => {
                 console.log(data);
                 // let htmlContent = `<div>`+ data.toString() + `</div>`;
@@ -150,7 +151,7 @@ export class ProductsComponent implements OnInit {
                 console.log(err.error.text);
                 let htmlContent = `<div style="text-align: center;">` + err.error.text + `</div>
             <br>
-            <p style="text-align: center;">Scan this QR code or <a href="https://posdemo.vistaran.com/menu">click here</a> to view menu.</p>`;
+            <p style="text-align: center;">Scan this QR code or <a href="` + url + `">click here</a> to view menu.</p>`;
                 let invoice = window.open("", "", "width=500,height=300,left=200,top=200");
                 invoice?.document.write(htmlContent);
                 setTimeout(() => {
